@@ -46,13 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alkatresz.cs" />
+    <Compile Include="Osztalyok\AlkatreszAbst.cs" />
+    <Compile Include="Osztalyok\FelveztetoAlkatreszAbst.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Osztalyok\IntegraltAbst.cs" />
+    <Compile Include="Osztalyok\PasszivAlkatreszAbst.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -79,6 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Osztalyok\FelvezetoAlkatreszek\" />
+    <Folder Include="Osztalyok\IntegraltAlkatreszek\" />
+    <Folder Include="Osztalyok\PasszivAlkatreszek\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
