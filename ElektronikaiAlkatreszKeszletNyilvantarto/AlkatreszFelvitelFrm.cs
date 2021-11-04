@@ -12,29 +12,71 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     public partial class AlkatreszFelvitelFrm : Form
     {
-        List<string> alKategoria;
-        List<string> foKategoria;
+        #region Fieldek
+        private List<string> alKategoria;
+        private List<string> foKategoria;
+        #endregion
+
+        #region Property
+        public List<string> AlKategoria { get => alKategoria; set => alKategoria = value; }
+        public List<string> FoKategoria { get => foKategoria; set => foKategoria = value; }
+
+        #endregion
+
+        #region Konstruktorok
         public AlkatreszFelvitelFrm()
         {
             InitializeComponent();
-            alKategoria=Fajlkezelo.StringFajlbolBeolvasas("alkategoria.txt");
-            foKategoria=Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
-            comboBox3.DataSource = alKategoria;
-            comboBox1.DataSource = foKategoria;
+            AlKategoria = Fajlkezelo.StringFajlbolBeolvasas("alkategoria.txt");
+            FoKategoria = Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
+            comboBox3.DataSource = AlKategoria;
+            comboBox1.DataSource = FoKategoria;
         }
-        void CBFrissít() 
+
+        #endregion
+
+        #region Metódusok
+
+        void CBFrissit(string kategoria)
         {
-            comboBox1.DataSource = null;
-            comboBox3.DataSource = null;
-            comboBox1.DataSource = alKategoria;
-            comboBox3.DataSource = foKategoria;
+            switch (kategoria)
+            {
+                case "alKategoria":
+                    comboBox3.DataSource = null;
+                    comboBox3.DataSource = AlKategoria;
+                    break;
+                case "foKategoria":
+                    comboBox1.DataSource = null;
+                    comboBox1.DataSource = FoKategoria;
+                    break;
+                default:
+                    comboBox1.DataSource = null;
+                    comboBox3.DataSource = null;
+                    comboBox1.DataSource = AlKategoria;
+                    comboBox3.DataSource = FoKategoria;
+                    break;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             HozzaadKategoriaFrm frm = new HozzaadKategoriaFrm();
+            frm.Text = "Új alkategória hozzáadása";
             if (frm.ShowDialog() == DialogResult.OK)
             {
+                AlKategoria.Add(frm.Kategoria);
+                CBFrissit("alKategoria");
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            HozzaadKategoriaFrm frm = new HozzaadKategoriaFrm();
+            frm.Text = "Új főkategória hozzáadása";
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                FoKategoria.Add(frm.Kategoria);
+                CBFrissit("foKategoria");
 
             }
         }
@@ -43,7 +85,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
 
         }
-
+       
+        #region Fokategoria szelekcio
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBox1.SelectedIndex)
@@ -62,7 +105,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         groupBox2.Visible = true;
                     }
                     break;
-            } 
+            }
         }
+
+        #endregion
+
+        #endregion
+
+        
     }
 }

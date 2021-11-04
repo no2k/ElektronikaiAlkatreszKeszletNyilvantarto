@@ -13,13 +13,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     public partial class HozzaadKategoriaFrm : Form
     {
         private string kategoria;
-        public string Kategoria { get => kategoria; private set => kategoria = value; }
+        public string Kategoria { get => kategoria; /*private set => kategoria = value;*/ }
         public HozzaadKategoriaFrm()
         {
             InitializeComponent();
         }
-
-
 
         private void button1_Click(object sender, EventArgs e)
         {
