@@ -1,0 +1,4 @@
+﻿Ellenállás
+Kondenzátor
+Induktivitás
+Transzformátor

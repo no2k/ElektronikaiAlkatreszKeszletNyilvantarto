@@ -10,22 +10,24 @@ using System.Windows.Forms;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-    public partial class AlkatreszKeszletFrm : Form
+    public partial class AlkatreszFelvitelFrm : Form
     {
-        public AlkatreszKeszletFrm()
+        public AlkatreszFelvitelFrm()
         {
             InitializeComponent();
+            comboBox3.DataSource = Fajlkezelo.StringFajlbolBeolvasas("alkategoria.txt");
+            comboBox1.DataSource = Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AlkatreszFelvitelFrm frm = new AlkatreszFelvitelFrm();
-            frm.Show();
+            HozzaadKategoriaFrm frm = new HozzaadKategoriaFrm();
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
 
-        private void AlkatreszKeszletFrm_Load(object sender, EventArgs e)
-        {
-            //InicializaciosOsztaly.AdatokBetoltese();
-        }
+
     }
 }

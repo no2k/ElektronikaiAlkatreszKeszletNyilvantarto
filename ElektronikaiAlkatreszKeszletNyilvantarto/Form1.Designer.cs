@@ -1,7 +1,7 @@
 ﻿
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-    partial class Form1
+    partial class AlkatreszKeszletFrm
     {
         /// <summary>
         /// Required designer variable.
@@ -33,6 +33,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.fájlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.beállításokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,17 +68,29 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // Form1
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(22, 61);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // AlkatreszKeszletFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "AlkatreszKeszletFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Elektro Készlet";
+            this.Load += new System.EventHandler(this.AlkatreszKeszletFrm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -91,6 +104,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.ToolStripMenuItem fájlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem beállításokToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

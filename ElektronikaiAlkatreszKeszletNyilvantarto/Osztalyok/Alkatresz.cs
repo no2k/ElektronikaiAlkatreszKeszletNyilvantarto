@@ -8,15 +8,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     abstract class Alkatresz
     {
-        string alkatreszAzonosito;
-        string alkatreszMegnevezes;
-        uint darabszam;
-        int darabAr;
+        #region Field-ek
+        string alkatreszAzonosito; //auto generalt
+        string alkatreszMegnevezes; //alkatresz neve
+        uint darabszam;             //alkatresz raktari darabszam
+        int darabAr;                //alkatreszenkenti ar
+        #endregion
 
+        #region Property-k
         public string AlkatreszAzonosito
         {
             get => alkatreszAzonosito; //az alkatrészek generálják
-            /* set
+            private set
              {
                  if (!string.IsNullOrWhiteSpace(value))
                  {
@@ -27,9 +30,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                      throw new ArgumentNullException("Az azonosítót meg kell adni!");
                      // elvileg nem feltétlen kell mivel majd a leszármazottak generálják!
                  }
-             }*/
+             }
         }
-        public string AlkatreszMegnevezes
+        public string AlkatreszMegnevezes 
         {
             get => alkatreszMegnevezes;
             private set
@@ -43,7 +46,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     throw new ArgumentNullException("A megnevezés kitöltése kötelező!");
                 }
             }
-        }
+        } 
         public uint Darabszam
         {
             get => darabszam;
@@ -74,21 +77,25 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
+        #endregion
 
-        protected Alkatresz(string alkatreszAzonosito, string alkatreszMegnevezes, uint darabszam, int darabAr)
+        #region Konstruktor
+        protected Alkatresz(string AlkatreszAzonosito, string AlkatreszMegnevezes, uint Darabszam, int DarabAr)
         {
-            this.alkatreszAzonosito = alkatreszAzonosito;
-            this.AlkatreszMegnevezes = alkatreszMegnevezes;
+            AlkatreszAzonosito = alkatreszAzonosito;
+            AlkatreszMegnevezes = alkatreszMegnevezes;
             Darabszam = darabszam;
             DarabAr = darabAr;
         }
+        #endregion
 
+        #region Metodusok
         public abstract override string ToString();
 
         // public abstract ICSVExport();
 
         //public abstract CSVImport();
-
+        #endregion
 
     }
 }
