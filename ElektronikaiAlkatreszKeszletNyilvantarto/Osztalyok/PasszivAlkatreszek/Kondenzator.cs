@@ -29,10 +29,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
     {
 
         #region Fieldek
-        List<string> kondenzatorTipus;
+        
         float kapacitas;
         float uzemiFeszultseg;
-        bool bipolaris; //*  polaritas uni/bi bool
         AnyagTipus kondenzatorAnyagTipus;  //bipoláris csak elektrolit!
         Mertekegyseg mertekEgyseg;
 
@@ -70,7 +69,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
 
             }
         }
-        public bool Bipolaris { get => bipolaris; set => bipolaris = value; }
         internal AnyagTipus KondenzatorAnyagTipus
         {
             get => kondenzatorAnyagTipus;
@@ -94,13 +92,51 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         #endregion
 
         #region Konstruktorok
-        public Kondenzator(float kapacitas, float uzemiFeszultseg, bool bipolaris, AnyagTipus kondenzatorAnyagTipus, Mertekegyseg mertekEgyseg, string AlkatreszTipus, float AlkatreszParameter, float Tolerancia, float RaszterMeret, string Gyarto, string GyartoMegnevezes, float XMeret, float YMeret, float ZMeret, float Radiusz, Szereles SzerelesTipusa, Tokozas TokozasTipusa, UzemiHomerseklet UzemiHomerseklet, string AlkatreszAzonosito, string AlkatreszMegnevezes, uint Darabszam, int DarabAr) : base(AlkatreszTipus, AlkatreszParameter, Tolerancia, RaszterMeret, Gyarto, GyartoMegnevezes, XMeret, YMeret, ZMeret, Radiusz, SzerelesTipusa, TokozasTipusa, UzemiHomerseklet, AlkatreszAzonosito, AlkatreszMegnevezes, Darabszam, DarabAr)
+        public Kondenzator(float kapacitas,
+                           float uzemiFeszultseg,
+                           AnyagTipus kondenzatorAnyagTipus,
+                           Mertekegyseg mertekEgyseg,
+                           string AlkatreszTipus,
+                           float AlkatreszParameter,
+                           float Tolerancia,
+                           float RaszterMeret,
+                           string Gyarto,
+                           string GyartoMegnevezes,
+                           float XMeret,
+                           float YMeret,
+                           float ZMeret,
+                           float Radiusz,
+                           Szereles SzerelesTipusa,
+                           Tokozas TokozasTipusa,
+                           UzemiHomerseklet UzemiHomerseklet,
+                           string AlkatreszAlTipus,
+                           string AlkatreszAzonosito,
+                           //string AlkatreszMegnevezes,
+                           uint Darabszam,
+                           int DarabAr) : base(
+                               AlkatreszAlTipus,
+                               AlkatreszTipus,
+                               AlkatreszParameter,
+                               Tolerancia,
+                               RaszterMeret,
+                               Gyarto,
+                               GyartoMegnevezes,
+                               XMeret,
+                               YMeret,
+                               ZMeret,
+                               Radiusz,
+                               SzerelesTipusa,
+                               TokozasTipusa,
+                               UzemiHomerseklet,
+                               AlkatreszAzonosito,
+                               Darabszam,
+                               DarabAr)
         {
             Kapacitas = kapacitas;
             UzemiFeszultseg = uzemiFeszultseg;
-            Bipolaris = bipolaris;
             KondenzatorAnyagTipus = kondenzatorAnyagTipus;
             MertekEgyseg = mertekEgyseg;
+           // AlkatreszAzonosito = 
         }
         #endregion
 
@@ -109,7 +145,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         {
             throw new NotImplementedException();
         }
-
+        public override string AzonositoGenerator()
+        {
+            return $"{base.AzonositoGenerator()}";
+        }
         #endregion
     }
 }

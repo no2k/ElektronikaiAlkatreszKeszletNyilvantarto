@@ -59,6 +59,7 @@
     <Compile Include="HozzaadKategoriaFrm.Designer.cs">
       <DependentUpon>HozzaadKategoriaFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IAzonositoGenerator.cs" />
     <Compile Include="InicializaciosOsztaly.cs" />
     <Compile Include="Osztalyok\Alkatresz.cs" />
     <Compile Include="Osztalyok\Fajlkezelo.cs" />
@@ -70,6 +71,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Osztalyok\IntegraltAbst.cs" />
+    <Compile Include="IKoltsegSzamito.cs" />
     <Compile Include="Osztalyok\PasszivAlkatresz.cs" />
     <Compile Include="IFajlFormatum.cs" />
     <Compile Include="Osztalyok\PasszivAlkatreszek\Kondenzator.cs" />

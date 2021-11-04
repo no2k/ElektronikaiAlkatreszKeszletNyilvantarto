@@ -8,10 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
+
     public partial class AlkatreszFelvitelFrm : Form
     {
+        Alkatresz alkatresz;
         #region Fieldek
         private List<string> alKategoria;
         private List<string> foKategoria;
@@ -31,6 +34,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             FoKategoria = Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
             comboBox3.DataSource = AlKategoria;
             comboBox1.DataSource = FoKategoria;
+            szerelCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.Tokozas));
+            alkatreszTipusCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.AnyagTipus));
+            mertekEgysegCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.Mertekegyseg));
         }
 
         #endregion
@@ -85,7 +91,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
 
         }
-       
+
         #region Fokategoria szelekcio
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -93,7 +99,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 case 0:
                     {
-                        groupBox2.Visible = false;
+                        //groupBox2.Visible = false;
                         groupBox1.BringToFront();
                         groupBox1.Visible = true;
                     }
@@ -101,8 +107,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 case 1:
                     {
                         groupBox1.Visible = false;
-                        groupBox2.BringToFront();
-                        groupBox2.Visible = true;
+                        // groupBox2.BringToFront();
+                        // groupBox2.Visible = true;
                     }
                     break;
             }
@@ -112,6 +118,31 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         #endregion
 
-        
+        private void szerelRBtn1_CheckedChanged(object sender, EventArgs e)
+        {
+            szerelCbx.Enabled = false;
+            numericUpDown4.Enabled = true;
+        }
+        //smd
+        private void szerelRBtn2_CheckedChanged(object sender, EventArgs e)
+        {
+            szerelCbx.Enabled = true;
+            numericUpDown4.Enabled = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
+
 }

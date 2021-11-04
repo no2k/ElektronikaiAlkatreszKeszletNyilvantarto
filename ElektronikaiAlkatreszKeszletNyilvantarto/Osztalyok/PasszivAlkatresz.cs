@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
 {
     enum Szereles
-    {
-        Furatszerelt = 0,
-        SMD = 1
+    { 
+        SMD = 0,
+        Furatszerelt = 1
+       
     }
-    enum Tokozas
+     enum Tokozas
     {
         SMD1201,
         SMD1206,
@@ -61,27 +62,40 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
         }
     }
 
-    internal class PasszivAlkatresz :Alkatresz//,IFajlFormatum
+    internal class PasszivAlkatresz : Alkatresz//,IFajlFormatum
     {
         #region Field-ek
         //általános adatok
-        Szereles szerelesTipusa;   //nem lehet üres
-        Tokozas tokozasTipusa;      //lehet amennyiben az alkatresz tht
-        string alkatreszTipus;      //nem lehet üres
-        float alkatreszParameter;       //nem lehet üres
-        float tolerancia;           //nem lehet üres
-        float raszterMeret;       //lehet üres
+        string alkatreszAlTipus;
+        Szereles szerelesTipusa;   
+        Tokozas tokozasTipusa;     
+        float alkatreszParameterErtek;       
+        float tolerancia;         
+        float raszterMeret;       
         UzemiHomerseklet uzemiHomerseklet;
-        string gyarto, gyartoMegnevezes;  //lehet üres
+        string gyarto, gyartoMegnevezes;  
         float xMeret, yMeret, zMeret, radiusz;
-
-
-
 
         #endregion
 
         #region Poperty-k
-        public string AlkatreszTipus
+        public string AlkatreszAlTipus
+        {
+            get => alkatreszAlTipus;
+            private set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    alkatreszAlTipus = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException("Nincs megadva az alkatrész altípusa!");
+                }
+            }
+
+        }
+       /* public string AlkatreszTipus
         {
             get => alkatreszTipus;
             set
@@ -95,15 +109,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
                     throw new ArgumentNullException("Az alkatrész típusát meg kell adni!");
                 }
             }
-        }
-        public float AlkatreszParameter
+        }*/
+        public float AlkatreszParameterErtek
         {
-            get => alkatreszParameter;
+            get => alkatreszParameterErtek;
             set
             {
                 if (value != 0)
                 {
-                    alkatreszParameter = value;
+                    alkatreszParameterErtek = value;
                 }
                 else
                 {
@@ -195,19 +209,19 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
                 }
             }
         }
-        internal UzemiHomerseklet UzemiHomerseklet 
+        internal UzemiHomerseklet UzemiHomerseklet
         {
-            get => uzemiHomerseklet; 
-            set => uzemiHomerseklet = value; 
+            get => uzemiHomerseklet;
+            set => uzemiHomerseklet = value;
         }
 
 
         #endregion
 
-
         #region Konstruktorok
 
         public PasszivAlkatresz(
+            string AlkatreszAlTipus,
             string AlkatreszTipus,
             float AlkatreszParameter,
             float Tolerancia,
@@ -222,12 +236,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
             Tokozas TokozasTipusa,
             UzemiHomerseklet UzemiHomerseklet,
             string AlkatreszAzonosito,
-            string AlkatreszMegnevezes,
             uint Darabszam,
-            int DarabAr) :base(AlkatreszAzonosito, AlkatreszMegnevezes,Darabszam,DarabAr)
-            {
-            AlkatreszTipus = alkatreszTipus;
-            AlkatreszParameter = alkatreszParameter;
+            int DarabAr) : base(AlkatreszAlTipus, AlkatreszTipus, Darabszam, DarabAr)
+        {
+            AlkatreszAlTipus = alkatreszAlTipus; //
+           
+            AlkatreszParameter = alkatreszParameterErtek;
             Tolerancia = tolerancia;
             RaszterMeret = raszterMeret;
             Gyarto = gyarto;
@@ -239,12 +253,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
             SzerelesTipusa = szerelesTipusa;
             TokozasTipusa = tokozasTipusa;
             UzemiHomerseklet = uzemiHomerseklet;
-
-            
         }
-
-
-
         #endregion
 
         #region Metodusok
@@ -253,15 +262,27 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
             throw new NotImplementedException();
         }
 
-    /*    List<T> IFajlFormatum.CSVFormatum<T>(string elvalaszoKarakter)
+        public override string AzonositoGenerator()
         {
-            throw new NotImplementedException();
+            return $"{alkatreszAlTipus.Substring(0, 3)}{alkatreszParameterErtek}";
         }
 
-        List<T> IFajlFormatum.AdatFormatum<T>(List<string> stringLista, char elvalaszto)
+        public override double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam)
         {
-            throw new NotImplementedException();
-        }*/
+            {
+                return alkatreszAr * alkatreszDarabszam;
+            }
+        }
+
+        /*    List<T> IFajlFormatum.CSVFormatum<T>(string elvalaszoKarakter)
+            {
+                throw new NotImplementedException();
+            }
+
+            List<T> IFajlFormatum.AdatFormatum<T>(List<string> stringLista, char elvalaszto)
+            {
+                throw new NotImplementedException();
+            }*/
 
 
         #endregion

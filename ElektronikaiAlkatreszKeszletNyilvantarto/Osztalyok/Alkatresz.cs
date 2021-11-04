@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-    abstract class Alkatresz
+
+    abstract class Alkatresz : IAzonositoGenerator//, IKoltsegSzamito
     {
         #region Field-ek
         string alkatreszAzonosito; //auto generalt
-        string alkatreszMegnevezes; //alkatresz neve
+        string alkatreszTipus; //alkatresz neve
         uint darabszam;             //alkatresz raktari darabszam
         int darabAr;                //alkatreszenkenti ar
         #endregion
@@ -34,12 +35,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         public string AlkatreszMegnevezes 
         {
-            get => alkatreszMegnevezes;
+            get => alkatreszTipus;
             private set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    alkatreszMegnevezes = value;
+                    alkatreszTipus = value;
                 }
                 else
                 {
@@ -80,10 +81,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         #endregion
 
         #region Konstruktor
-        protected Alkatresz(string AlkatreszAzonosito, string AlkatreszMegnevezes, uint Darabszam, int DarabAr)
+        protected Alkatresz(string AlkatreszAzonosito, string AlkatreszTipus, uint Darabszam, int DarabAr)
         {
             AlkatreszAzonosito = alkatreszAzonosito;
-            AlkatreszMegnevezes = alkatreszMegnevezes;
+            AlkatreszTipus = alkatreszTipus;
             Darabszam = darabszam;
             DarabAr = darabAr;
         }
@@ -91,6 +92,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         #region Metodusok
         public abstract override string ToString();
+        public abstract string AzonositoGenerator();
+        
+
+        public abstract double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam);
+       
+
+        double TeljesAr( List<Alkatresz> alkatreszekSzama)
+        {
+            //  return alkatreszekSzama.Where(i=>i.)
+            return 0;        
+        }
+
 
         // public abstract ICSVExport();
 
