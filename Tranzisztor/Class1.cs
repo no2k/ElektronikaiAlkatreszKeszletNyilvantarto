@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace Tranzisztor
 {
-    class FelveztetoAlkatresz
+    public class Class1
     {
     }
 }

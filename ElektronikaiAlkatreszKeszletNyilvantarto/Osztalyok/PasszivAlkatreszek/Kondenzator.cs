@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
 {
-    enum AnyagTipus
+    #region Enum listák
+
+
+    enum KondenzatorTipus
     {
         Elektrolit,
         Tantál,
@@ -16,43 +19,28 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         Polipropilén,
         X2
     }
-
-    enum Mertekegyseg
+    enum KondMertEgyseg
     {
         F,
-        uF,
+        μF,
         nF,
         pF
     }
-
-    internal class Kondenzator : PasszivAlkatresz
+    #endregion
+   
+    internal class Kondenzator : PrimitivAlkatreszCsoport
     {
 
         #region Fieldek
-        
-        float kapacitas;
+        KondenzatorTipus kondenzatorTipus;
+        KondMertEgyseg mertekEgyseg;
         float uzemiFeszultseg;
-        AnyagTipus kondenzatorAnyagTipus;  //bipoláris csak elektrolit!
-        Mertekegyseg mertekEgyseg;
+
 
         #endregion
 
         #region Property-k
-        public float Kapacitas
-        {
-            get => kapacitas;
-            set
-            {
-                if (value != 0)
-                {
-                    kapacitas = value;
-                }
-                else
-                {
-                    throw new ArgumentNullException("A kapacitás nem lehet 0");
-                }
-            }
-        }
+
         public float UzemiFeszultseg
         {
             get => uzemiFeszultseg;
@@ -69,10 +57,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
 
             }
         }
-        internal AnyagTipus KondenzatorAnyagTipus
+        internal KondenzatorTipus KondenzatorTipus
         {
-            get => kondenzatorAnyagTipus;
-            set => kondenzatorAnyagTipus = value;
+            get => kondenzatorTipus;
+            set => kondenzatorTipus = value;
             /*  {
                   if (Enum.IsDefined(typeof(AnyagTipus),value))
                   {
@@ -84,71 +72,56 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
                   }
               }*/
         }
-        internal Mertekegyseg MertekEgyseg
+        internal KondMertEgyseg MertekEgyseg
         {
             get => mertekEgyseg;
             set => mertekEgyseg = value;
         }
+
         #endregion
 
         #region Konstruktorok
-        public Kondenzator(float kapacitas,
+        public Kondenzator(KondenzatorTipus kondenzatorTipus,
+                           float alkatreszErtek,
+                           KondMertEgyseg mertEgyseg,
                            float uzemiFeszultseg,
-                           AnyagTipus kondenzatorAnyagTipus,
-                           Mertekegyseg mertekEgyseg,
-                           string AlkatreszTipus,
-                           float AlkatreszParameter,
-                           float Tolerancia,
-                           float RaszterMeret,
-                           string Gyarto,
-                           string GyartoMegnevezes,
-                           float XMeret,
-                           float YMeret,
-                           float ZMeret,
-                           float Radiusz,
-                           Szereles SzerelesTipusa,
-                           Tokozas TokozasTipusa,
-                           UzemiHomerseklet UzemiHomerseklet,
-                           string AlkatreszAlTipus,
-                           string AlkatreszAzonosito,
-                           //string AlkatreszMegnevezes,
-                           uint Darabszam,
-                           int DarabAr) : base(
-                               AlkatreszAlTipus,
-                               AlkatreszTipus,
-                               AlkatreszParameter,
-                               Tolerancia,
-                               RaszterMeret,
-                               Gyarto,
-                               GyartoMegnevezes,
-                               XMeret,
-                               YMeret,
-                               ZMeret,
-                               Radiusz,
-                               SzerelesTipusa,
-                               TokozasTipusa,
-                               UzemiHomerseklet,
-                               AlkatreszAzonosito,
-                               Darabszam,
-                               DarabAr)
+                           Tokozas tokozas,
+                           float tolerancia,
+                           float raszterMeret,
+                           string megjegyzes,
+                           string alkatreszTipus,
+                           int darabszam,
+                           int darabAr) : base(alkatreszErtek,
+                                               tokozas,
+                                               tolerancia,
+                                               raszterMeret,
+                                               megjegyzes,
+                                               alkatreszTipus,
+                                               darabszam,
+                                               darabAr)
         {
-            Kapacitas = kapacitas;
-            UzemiFeszultseg = uzemiFeszultseg;
-            KondenzatorAnyagTipus = kondenzatorAnyagTipus;
-            MertekEgyseg = mertekEgyseg;
-           // AlkatreszAzonosito = 
+            if (this.Tokozas==0)
+            {
+                raszterMeret = 0;
+            }
         }
         #endregion
 
         #region Metodusok
         public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"[{AlkatreszTipus}]\r\n  -{KondenzatorTipus}; {base.AlkatreszErtek} {mertekEgyseg}\r\n  -{uzemiFeszultseg}V; {Tokozas}.";
         }
         public override string AzonositoGenerator()
         {
-            return $"{base.AzonositoGenerator()}";
+            return base.AzonositoGenerator() + $"{int.Parse(AlkatreszTipus)}_{AlkatreszErtek}{mertekEgyseg}_{base.Tokozas.ToString().Substring(0,3)}";
         }
+
+        public override double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam)
+        {
+            return base.AlkatreszenkentiOsszAr(alkatreszAr, alkatreszDarabszam);
+        }
+
         #endregion
     }
 }

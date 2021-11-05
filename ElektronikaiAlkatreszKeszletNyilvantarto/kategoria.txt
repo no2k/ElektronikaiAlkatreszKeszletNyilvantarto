@@ -1,4 +1,3 @@
 ﻿Ellenállás
 Kondenzátor
 Induktivitás
-Transzformátor

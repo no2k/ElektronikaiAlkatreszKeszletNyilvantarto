@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
+    enum Kategoria
+    {
+        Ellenállás,
+    }
 
     abstract class Alkatresz : IAzonositoGenerator//, IKoltsegSzamito
     {
         #region Field-ek
         string alkatreszAzonosito; //auto generalt
         string alkatreszTipus; //alkatresz neve
-        uint darabszam;             //alkatresz raktari darabszam
+        int darabszam;             //alkatresz raktari darabszam
         int darabAr;                //alkatreszenkenti ar
         #endregion
 
@@ -33,7 +37,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                  }
              }
         }
-        public string AlkatreszMegnevezes 
+        public string AlkatreszTipus 
         {
             get => alkatreszTipus;
             private set
@@ -48,7 +52,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         } 
-        public uint Darabszam
+        public int Darabszam
         {
             get => darabszam;
             private set
@@ -68,31 +72,37 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             get => darabAr;
             set
             {
-                if (value <= 0)
+                if (value >= 0)
                 {
                     darabAr = value;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("Az allkatrész darabára nem lehet kissebb mint 0"); //hibás érték msgbox
+                    throw new ArgumentOutOfRangeException("Az alkatrész darab ára nem lehet kissebb mint 0"); //hibás érték msgbox
                 }
             }
         }
         #endregion
 
         #region Konstruktor
-        protected Alkatresz(string AlkatreszAzonosito, string AlkatreszTipus, uint Darabszam, int DarabAr)
+        protected Alkatresz(string alkatreszTipus, 
+                            int darabszam,
+                            int darabAr)
         {
-            AlkatreszAzonosito = alkatreszAzonosito;
+           
             AlkatreszTipus = alkatreszTipus;
             Darabszam = darabszam;
-            DarabAr = darabAr;
+            DarabAr = darabAr; 
+            AlkatreszAzonosito = AzonositoGenerator();
         }
         #endregion
 
         #region Metodusok
         public abstract override string ToString();
-        public abstract string AzonositoGenerator();
+        public virtual string AzonositoGenerator()
+       {
+            return $"{alkatreszTipus.Substring(0, 3)}";
+        }
         
 
         public abstract double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam);

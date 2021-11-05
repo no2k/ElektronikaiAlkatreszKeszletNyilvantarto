@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek;
+using ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok;
+
 
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
@@ -14,15 +17,20 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
     public partial class AlkatreszFelvitelFrm : Form
     {
-        Alkatresz alkatresz;
+
         #region Fieldek
-        private List<string> alKategoria;
-        private List<string> foKategoria;
+        List<Alkatresz> alkatreszLista = new List<Alkatresz>();
+        Alkatresz alkatresz;
+        List<string> kategoria;
+        // private List<string> foKategoria;
         #endregion
 
         #region Property
-        public List<string> AlKategoria { get => alKategoria; set => alKategoria = value; }
-        public List<string> FoKategoria { get => foKategoria; set => foKategoria = value; }
+        internal List<string> Kategoria { get => kategoria; set => kategoria = value; }
+        internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
+        internal Alkatresz Alkatresz { get => alkatresz; set => alkatresz = value; }
+
+        //  public List<string> FoKategoria { get => foKategoria; set => foKategoria = value; }
 
         #endregion
 
@@ -30,60 +38,25 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         public AlkatreszFelvitelFrm()
         {
             InitializeComponent();
-            AlKategoria = Fajlkezelo.StringFajlbolBeolvasas("alkategoria.txt");
-            FoKategoria = Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
-            comboBox3.DataSource = AlKategoria;
-            comboBox1.DataSource = FoKategoria;
-            szerelCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.Tokozas));
-            alkatreszTipusCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.AnyagTipus));
-            mertekEgysegCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.Mertekegyseg));
+            Kategoria = Fajlkezelo.StringFajlbolBeolvasas("kategoria.txt");
+            // FoKategoria = Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
+            kategoriaCbx.DataSource = Kategoria;
+            kategoriaCbx.SelectedIndex = 1;
+            // comboBox1.DataSource = FoKategoria;
+            //  szerelCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.Tokozas));
+            tokozasCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.Tokozas));
         }
 
         #endregion
 
         #region Metódusok
 
-        void CBFrissit(string kategoria)
+        void LBFrissit()
         {
-            switch (kategoria)
+            listBox1.DataSource = null;
+            if (AlkatreszLista != null)
             {
-                case "alKategoria":
-                    comboBox3.DataSource = null;
-                    comboBox3.DataSource = AlKategoria;
-                    break;
-                case "foKategoria":
-                    comboBox1.DataSource = null;
-                    comboBox1.DataSource = FoKategoria;
-                    break;
-                default:
-                    comboBox1.DataSource = null;
-                    comboBox3.DataSource = null;
-                    comboBox1.DataSource = AlKategoria;
-                    comboBox3.DataSource = FoKategoria;
-                    break;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            HozzaadKategoriaFrm frm = new HozzaadKategoriaFrm();
-            frm.Text = "Új alkategória hozzáadása";
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                AlKategoria.Add(frm.Kategoria);
-                CBFrissit("alKategoria");
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            HozzaadKategoriaFrm frm = new HozzaadKategoriaFrm();
-            frm.Text = "Új főkategória hozzáadása";
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                FoKategoria.Add(frm.Kategoria);
-                CBFrissit("foKategoria");
-
+                listBox1.DataSource = AlkatreszLista;
             }
         }
 
@@ -95,20 +68,30 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         #region Fokategoria szelekcio
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox1.SelectedIndex)
+            switch (kategoriaCbx.SelectedIndex)
             {
-                case 0:
+                case 0: //ellenallas
                     {
-                        //groupBox2.Visible = false;
-                        groupBox1.BringToFront();
-                        groupBox1.Visible = true;
+                        ellenallasGbx.Visible = true;
+                        kondenzatorGbx.Visible = false;
+                        induktivitasGbx.Visible = false;
+
                     }
                     break;
-                case 1:
+                case 1:  //kondi
                     {
-                        groupBox1.Visible = false;
-                        // groupBox2.BringToFront();
-                        // groupBox2.Visible = true;
+
+                        kondenzatorGbx.Visible = true;
+                        ellenallasGbx.Visible = false;
+                        induktivitasGbx.Visible = false;
+                    }
+                    break;
+                case 2:  //induktivitas
+                    {
+
+                        induktivitasGbx.Visible = true;
+                        kondenzatorGbx.Visible = false;
+                        ellenallasGbx.Visible = false;
                     }
                     break;
             }
@@ -120,14 +103,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void szerelRBtn1_CheckedChanged(object sender, EventArgs e)
         {
-            szerelCbx.Enabled = false;
-            numericUpDown4.Enabled = true;
+            tokozasCbx.Enabled = false;
+            raszterMeretNUD.Enabled = true;
         }
         //smd
         private void szerelRBtn2_CheckedChanged(object sender, EventArgs e)
         {
-            szerelCbx.Enabled = true;
-            numericUpDown4.Enabled = false;
+            tokozasCbx.Enabled = true;
+            raszterMeretNUD.Enabled = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -143,6 +126,115 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw;
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            switch (kategoriaCbx.SelectedIndex)
+            {
+                case 0:  //ellen
+                    {
+                        try
+                        {
+                            AlkatreszLista.Add(new Ellenallas(
+
+                                kategoriaCbx.SelectedItem.ToString(),
+                                (float)ellenallasErtekNUD.Value, 
+                                (IndEllMertEgyseg)ellenallasMECbx.SelectedItem,
+                                (float)ellTeljesNUD.Value,
+                                (int)ellToleranciaNUD.Value, 
+                                (Tokozas)tokozasCbx.SelectedItem, 
+                                (int)raszterMeretNUD.Value,
+                                megjegyzesTXB.Text,
+                                (int)darabSzamNUD.Value, 
+                                (int)darabArNUD.Value));
+                            LBFrissit();
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.Message,"Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                            
+                        }
+                    }
+                    break;
+                case 1:   //kondi
+                    {
+                        try
+                        {
+                            AlkatreszLista.Add(new Kondenzator(
+                                (KondenzatorTipus)kondiTipusCbx.SelectedItem,
+                                (float)kondiErtekNUD.Value,
+                                (KondMertEgyseg)kondiMECbx.SelectedItem,
+                                (float)kondiUzemFeszNUD.Value,
+                                (Tokozas)tokozasCbx.SelectedItem,
+                                (float)kondiTolearnciaNUD.Value,
+                                (float)raszterMeretNUD.Value,
+                                megjegyzesTXB.Text,
+                                kategoriaCbx.SelectedItem.ToString(),
+                                (int)darabSzamNUD.Value,
+                                (int)darabArNUD.Value));
+                            LBFrissit();
+
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        }
+                    }
+                    break;
+                case 2:  //induk
+                    {
+
+                    }
+                    break;
+
+            }
+        }
+        #region CBXFeltoltes
+        private void kondenzatorGbx_VisibleChanged(object sender, EventArgs e)
+        {
+            if (kondenzatorGbx.Visible)
+            {
+                kondiTipusCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.KondenzatorTipus));
+                kondiTipusCbx.SelectedIndex = 1;
+                kondiMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.KondMertEgyseg));
+                kondiMECbx.SelectedIndex = 1;
+            }
+        }
+
+        private void ellenallasGbx_VisibleChanged(object sender, EventArgs e)
+        {
+            if (ellenallasGbx.Visible)
+            {
+                ellenallasMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndEllMertEgyseg));
+                ellenallasMECbx.SelectedIndex = 1;
+            }
+        }
+
+        private void induktivitasGbx_VisibleChanged(object sender, EventArgs e)
+        {
+            induktivMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndukciosMertekEgyseg));
+            induktivMECbx.SelectedIndex = 1;
+            induktivEllMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndEllMertEgyseg));
+            induktivEllMECbx.SelectedIndex = 1;
+        }
+
+        #endregion
+
+        private void tokozasCbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tokozasCbx.SelectedIndex==0)
+            {
+                raszterMeretNUD.Enabled = true;
+            }
+            else
+            {
+                raszterMeretNUD.Enabled = false;
+            }
+        }
     }
+
 
 }
