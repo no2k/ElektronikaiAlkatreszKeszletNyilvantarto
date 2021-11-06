@@ -7,266 +7,194 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek;
-using ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok;
+using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
-
+/*
+ * TODO: A listához adásnál az értékeket ellenőrizni kel! Dobj egy hibát!
+ * 
+ * */
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-
     public partial class AlkatreszFelvitelFrm : Form
     {
-
-        #region Fieldek
-        List<Alkatresz> alkatreszLista = new List<Alkatresz>();
         Alkatresz alkatresz;
-        List<string> kategoria;
-        // private List<string> foKategoria;
-        #endregion
+        List<Alkatresz> alkatreszLista=new List<Alkatresz>();
 
-        #region Property
-        internal List<string> Kategoria { get => kategoria; set => kategoria = value; }
         internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
-        internal Alkatresz Alkatresz { get => alkatresz; set => alkatresz = value; }
 
-        //  public List<string> FoKategoria { get => foKategoria; set => foKategoria = value; }
-
-        #endregion
-
-        #region Konstruktorok
         public AlkatreszFelvitelFrm()
         {
             InitializeComponent();
-            Kategoria = Fajlkezelo.StringFajlbolBeolvasas("kategoria.txt");
-            // FoKategoria = Fajlkezelo.StringFajlbolBeolvasas("fokategoria.txt");
-            kategoriaCbx.DataSource = Kategoria;
-            kategoriaCbx.SelectedIndex = 1;
-            // comboBox1.DataSource = FoKategoria;
-            //  szerelCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.Tokozas));
-            tokozasCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.Tokozas));
+            SzelektorokFeltoltese();
         }
 
-        #endregion
-
-        #region Metódusok
-
-        void LBFrissit()
+        private void SzelektorokFeltoltese()
         {
-            listBox1.DataSource = null;
-            if (AlkatreszLista != null)
+            kategoriaCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.Kategoria));
+            kategoriaCbx.SelectedIndex = 0;
+            tokozasCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.PasszivTokozas));
+
+            induktivitasMertekCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.InduktivMertekEgyseg));
+            induktivEllenallasMertekCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.InduktivEllenallasMertekegyseg));
+            induktivAramMertekCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.InduktivUzemiAramMertekEgyseg));
+
+            kondiTipusCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.KondenzatorTipus));
+            kondiMertekEgysegCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.KapacitasMertekEgyseg));
+
+            ellenallasMertekEgysegCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.EllenallasMertekEgyseg));
+            ellenallasBox.Visible = true;
+            kondenzatorBox.Visible = false;
+            induktivBox.Visible = false;
+
+        }
+
+        private void ListaFrissit()
+        {
+            if (alkatreszLista != null)
             {
-                listBox1.DataSource = AlkatreszLista;
+                listBox1.DataSource = null;
+                listBox1.DataSource = alkatreszLista;
             }
-        }
 
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        }
+        private void KategoriaCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
+            switch (kategoriaCbx.SelectedIndex)
+            {
+                case 0:
+                    {
+                        megnevezesTbx.Enabled = false;
+                        megnevezesTbx.Text = kategoriaCbx.SelectedItem.ToString();
+                        ellenallasBox.Visible = true;
+                        kondenzatorBox.Visible = false;
+                        induktivBox.Visible = false;
+                    }
+                    break;
 
+                case 1:
+                    {
+                        megnevezesTbx.Enabled = false;
+                        megnevezesTbx.Text = kategoriaCbx.SelectedItem.ToString();
+                        ellenallasBox.Visible = false;
+                        kondenzatorBox.Visible = true;
+                        induktivBox.Visible = false;
+                    }
+                    break;
+
+                case 2:
+                    {
+                        megnevezesTbx.Enabled = false;
+                        megnevezesTbx.Text = kategoriaCbx.SelectedItem.ToString();
+                        ellenallasBox.Visible = false;
+                        kondenzatorBox.Visible = false;
+                        induktivBox.Visible = true;
+                    }
+                    break;
+            }
+            megjegyzesTbx.Clear();
         }
 
-        #region Fokategoria szelekcio
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             switch (kategoriaCbx.SelectedIndex)
             {
                 case 0: //ellenallas
                     {
-                        ellenallasGbx.Visible = true;
-                        kondenzatorGbx.Visible = false;
-                        induktivitasGbx.Visible = false;
+                        try
+                        { 
+                                alkatreszLista.Add(new Ellenalas((float)ellenallasErtekNUD.Value,
+                                                                 (EllenallasMertekEgyseg)ellenallasMertekEgysegCbx.SelectedItem,
+                                                                 (float)ellenallasTeljesitmenyNUD.Value,
+                                                                 megnevezesTbx.Text,
+                                                                 (int)keszletNud.Value,
+                                                                 (int)darabArNud.Value,
+                                                                 (Kategoria)kategoriaCbx.SelectedItem,
+                                                                 (PasszivTokozas)tokozasCbx.SelectedItem,
+                                                                 (float)toleranciaNud.Value,
+                                                                 (float)raszterNUD.Value,
+                                                                 megjegyzesTbx.Text));
+                        }
+                        catch (Exception ex)
+                        {
 
+                            MessageBox.Show(ex.Message);
+                            DialogResult = DialogResult.None;
+                        }
                     }
                     break;
+
                 case 1:  //kondi
                     {
-
-                        kondenzatorGbx.Visible = true;
-                        ellenallasGbx.Visible = false;
-                        induktivitasGbx.Visible = false;
-                    }
-                    break;
-                case 2:  //induktivitas
-                    {
-
-                        induktivitasGbx.Visible = true;
-                        kondenzatorGbx.Visible = false;
-                        ellenallasGbx.Visible = false;
-                    }
-                    break;
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-        private void szerelRBtn1_CheckedChanged(object sender, EventArgs e)
-        {
-            tokozasCbx.Enabled = false;
-            raszterMeretNUD.Enabled = true;
-        }
-        //smd
-        private void szerelRBtn2_CheckedChanged(object sender, EventArgs e)
-        {
-            tokozasCbx.Enabled = true;
-            raszterMeretNUD.Enabled = false;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-            try
-            {
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            switch (kategoriaCbx.SelectedIndex)
-            {
-                case 0:  //ellen
-                    {
                         try
                         {
-                            AlkatreszLista.Add(new Ellenallas(
-
-                                kategoriaCbx.SelectedItem.ToString(),
-                                (float)ellenallasErtekNUD.Value, 
-                                (EllMertekEgyseg)ellenallasMECbx.SelectedItem,
-                                (float)ellTeljesNUD.Value,
-                                (float)ellToleranciaNUD.Value, 
-                                (Tokozas)tokozasCbx.SelectedItem, 
-                                (float)raszterMeretNUD.Value,
-                                megjegyzesTXB.Text,
-                                (int)darabSzamNUD.Value, 
-                                (int)darabArNUD.Value));
-                            LBFrissit();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"{ex.Message} - {ex}","Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                        }
-                    }
-                    break;
-                case 1:   //kondi
-                    {
-                        try
-                        {
-                            AlkatreszLista.Add(new Kondenzator(
-                                (KondenzatorTipus)kondiTipusCbx.SelectedItem,
-                                (float)kondiErtekNUD.Value,
-                                (KondMertEgyseg)kondiMECbx.SelectedItem,
-                                (float)kondiUzemFeszNUD.Value,
-                                (Tokozas)tokozasCbx.SelectedItem,
-                                (float)kondiTolearnciaNUD.Value,
-                                (float)raszterMeretNUD.Value,
-                                megjegyzesTXB.Text,
-                                kategoriaCbx.SelectedItem.ToString(),
-                                (int)darabSzamNUD.Value,
-                                (int)darabArNUD.Value));
-                            LBFrissit();
-
+                            alkatreszLista.Add(new Kondenzator((float)kapacitasErtekNUD.Value,
+                                                                (KapacitasMertekEgyseg)kondiMertekEgysegCbx.SelectedItem,
+                                                                (float)kondiFeszultsegNUD.Value,
+                                                                (KondenzatorTipus)kondiTipusCbx.SelectedItem,
+                                                                megnevezesTbx.Text, (int)keszletNud.Value,
+                                                                (int)darabArNud.Value,
+                                                                (Kategoria)kategoriaCbx.SelectedItem,
+                                                                (PasszivTokozas)tokozasCbx.SelectedItem,
+                                                                (float)toleranciaNud.Value,
+                                                                (float)raszterNUD.Value,
+                                                                megjegyzesTbx.Text));
                         }
                         catch (Exception ex)
                         {
 
-                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                            MessageBox.Show(ex.Message);
+                            DialogResult = DialogResult.None;
                         }
+
                     }
                     break;
-                case 2:  //induk
+
+                case 2:   //induktiv
                     {
                         try
                         {
-                            AlkatreszLista.Add(new Induktivitas(
-                                kategoriaCbx.SelectedItem.ToString(),
-                                (float)indEllNUD.Value,
-                                (float)indUzemiAramNUD.Value,
-                                (AramMertekEgyseg)uzemiAMertEgysegCbx.SelectedItem,
-                                (IndukciosMertekEgyseg)induktivMECbx.SelectedItem,
-                                (EllMertekEgyseg)ellenallasMECbx.SelectedItem,
-                                (float)induktivitasNUD.Value,
-                                (Tokozas)tokozasCbx.SelectedItem,
-                                (float) ellToleranciaNUD.Value,
-                                (float) raszterMeretNUD.Value,
-                                megjegyzesTXB.Text,
-                                (int)darabSzamNUD.Value,
-                                (int)darabArNUD.Value));
-                            LBFrissit();
+                          
 
+                                alkatreszLista.Add(new Induktivitas((float)induktivErtekNUD.Value,
+                                                                     (float)induktivEllenallasNUD.Value,
+                                                                     (float)induktivUzemiAramNUD.Value,
+                                                                     (InduktivEllenallasMertekegyseg)induktivEllenallasMertekCbx.SelectedItem,
+                                                                     (InduktivMertekEgyseg)induktivitasMertekCbx.SelectedItem,
+                                                                     (InduktivUzemiAramMertekEgyseg)induktivAramMertekCbx.SelectedItem,
+                                                                     megnevezesTbx.Text,
+                                                                     (int)keszletNud.Value,
+                                                                     (int)darabArNud.Value,
+                                                                     (Kategoria)kategoriaCbx.SelectedItem,
+                                                                     (PasszivTokozas)tokozasCbx.SelectedItem,
+                                                                     (float)toleranciaNud.Value,
+                                                                     (float)raszterNUD.Value,
+                                                                     megjegyzesTbx.Text));
+                            
                         }
                         catch (Exception ex)
                         {
 
-                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
+                            MessageBox.Show(ex.Message);
+                            DialogResult = DialogResult.None;
                         }
                     }
                     break;
-                    
             }
+            ListaFrissit();
         }
-        #region CBXFeltoltes
-        private void kondenzatorGbx_VisibleChanged(object sender, EventArgs e)
+
+        private void TokozasCbx1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (kondenzatorGbx.Visible)
+            if (kategoriaCbx.SelectedIndex < 3 && tokozasCbx.SelectedIndex != 0)
             {
-                kondiTipusCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.KondenzatorTipus));
-                kondiTipusCbx.SelectedIndex = 1;
-                kondiMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.KondMertEgyseg));
-                kondiMECbx.SelectedIndex = 1;
-            }
-        }
-
-        private void ellenallasGbx_VisibleChanged(object sender, EventArgs e)
-        {
-            if (ellenallasGbx.Visible)
-            {
-                ellenallasMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.EllMertekEgyseg));
-                ellenallasMECbx.SelectedIndex = 1;
-            }
-        }
-
-        private void induktivitasGbx_VisibleChanged(object sender, EventArgs e)
-        {
-            induktivMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndukciosMertekEgyseg));
-            induktivMECbx.SelectedIndex = 1;
-            induktivEllMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.EllMertekEgyseg));
-            induktivEllMECbx.SelectedIndex = 1;
-            uzemiAMertEgysegCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.AramMertekEgyseg));
-            uzemiAMertEgysegCbx.SelectedIndex = 1;
-        }
-
-        #endregion
-
-        private void tokozasCbx_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tokozasCbx.SelectedIndex==0)
-            {
-                raszterMeretNUD.Enabled = true;
+                raszterNUD.Enabled = false;
+                raszterNUD.Value = 0;
             }
             else
             {
-                raszterMeretNUD.Enabled = false;
-            }
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ((listBox1.SelectedItem is Alkatresz alkatresz))
-            {
-                toolStripStatusLabel1.Text = $"ID:{alkatresz.AlkatreszAzonosito};  {alkatresz}; Össz:{alkatresz.AlkatreszenkentiOsszAr()} Ft;";
+                raszterNUD.Enabled = true;
             }
         }
     }
-
-
 }

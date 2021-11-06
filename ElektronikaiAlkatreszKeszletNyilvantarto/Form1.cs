@@ -7,19 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
+      //  Alkatresz alkatresz;
         List<Alkatresz> alkatreszLista;
-       
+
+        internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
+
         public AlkatreszKeszletFrm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             AlkatreszFelvitelFrm frm = new AlkatreszFelvitelFrm();
             frm.Show();
@@ -30,12 +34,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             //InicializaciosOsztaly.AdatokBetoltese();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void alkatreszTSMI_Click(object sender, EventArgs e)
+        private void AlkatreszTSMI_Click(object sender, EventArgs e)
         {
             try
             {

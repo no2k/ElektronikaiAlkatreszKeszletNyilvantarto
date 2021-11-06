@@ -53,22 +53,19 @@
       <DependentUpon>AlkatreszFelvitelFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Fajlkezelo.cs" />
-    <Compile Include="IAzonositoGenerator.cs" />
     <Compile Include="InicializaciosOsztaly.cs" />
-    <Compile Include="Osztalyok\Alkatresz.cs" />
-    <Compile Include="Osztalyok\Fajlkezelo.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IKoltsegSzamito.cs" />
-    <Compile Include="Osztalyok\PrimitivAlkatreszCsoport.cs" />
     <Compile Include="IFajlFormatum.cs" />
-    <Compile Include="Osztalyok\PasszivAlkatreszek\Ellenallas.cs" />
-    <Compile Include="Osztalyok\PasszivAlkatreszek\Induktivitas.cs" />
-    <Compile Include="Osztalyok\PasszivAlkatreszek\Kondenzator.cs" />
+    <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
+    <Compile Include="AlkatreszOsztalyok\Ellenalas.cs" />
+    <Compile Include="AlkatreszOsztalyok\Induktivitas.cs" />
+    <Compile Include="AlkatreszOsztalyok\Kondenzator.cs" />
+    <Compile Include="AlkatreszOsztalyok\PasszivAlkatresz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AlkatreszFelvitelFrm.resx">
@@ -86,7 +83,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,10 +96,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Osztalyok\FelvezetoAlkatreszek\" />
-    <Folder Include="Osztalyok\IntegraltAlkatreszek\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="kategoria.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
