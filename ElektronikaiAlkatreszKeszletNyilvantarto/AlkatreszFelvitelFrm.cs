@@ -139,11 +139,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
                                 kategoriaCbx.SelectedItem.ToString(),
                                 (float)ellenallasErtekNUD.Value, 
-                                (IndEllMertEgyseg)ellenallasMECbx.SelectedItem,
+                                (EllMertekEgyseg)ellenallasMECbx.SelectedItem,
                                 (float)ellTeljesNUD.Value,
-                                (int)ellToleranciaNUD.Value, 
+                                (float)ellToleranciaNUD.Value, 
                                 (Tokozas)tokozasCbx.SelectedItem, 
-                                (int)raszterMeretNUD.Value,
+                                (float)raszterMeretNUD.Value,
                                 megjegyzesTXB.Text,
                                 (int)darabSzamNUD.Value, 
                                 (int)darabArNUD.Value));
@@ -151,9 +151,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         }
                         catch (Exception ex)
                         {
-
-                            MessageBox.Show(ex.Message,"Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                            
+                            MessageBox.Show($"{ex.Message} - {ex}","Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                         }
                     }
                     break;
@@ -186,10 +184,34 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     break;
                 case 2:  //induk
                     {
+                        try
+                        {
+                            AlkatreszLista.Add(new Induktivitas(
+                                kategoriaCbx.SelectedItem.ToString(),
+                                (float)indEllNUD.Value,
+                                (float)indUzemiAramNUD.Value,
+                                (AramMertekEgyseg)uzemiAMertEgysegCbx.SelectedItem,
+                                (IndukciosMertekEgyseg)induktivMECbx.SelectedItem,
+                                (EllMertekEgyseg)ellenallasMECbx.SelectedItem,
+                                (float)induktivitasNUD.Value,
+                                (Tokozas)tokozasCbx.SelectedItem,
+                                (float) ellToleranciaNUD.Value,
+                                (float) raszterMeretNUD.Value,
+                                megjegyzesTXB.Text,
+                                (int)darabSzamNUD.Value,
+                                (int)darabArNUD.Value));
+                            LBFrissit();
 
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        }
                     }
                     break;
-
+                    
             }
         }
         #region CBXFeltoltes
@@ -208,7 +230,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             if (ellenallasGbx.Visible)
             {
-                ellenallasMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndEllMertEgyseg));
+                ellenallasMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.EllMertekEgyseg));
                 ellenallasMECbx.SelectedIndex = 1;
             }
         }
@@ -217,8 +239,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             induktivMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndukciosMertekEgyseg));
             induktivMECbx.SelectedIndex = 1;
-            induktivEllMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.IndEllMertEgyseg));
+            induktivEllMECbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.EllMertekEgyseg));
             induktivEllMECbx.SelectedIndex = 1;
+            uzemiAMertEgysegCbx.DataSource = Enum.GetValues(typeof(ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek.AramMertekEgyseg));
+            uzemiAMertEgysegCbx.SelectedIndex = 1;
         }
 
         #endregion
@@ -232,6 +256,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             else
             {
                 raszterMeretNUD.Enabled = false;
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((listBox1.SelectedItem is Alkatresz alkatresz))
+            {
+                toolStripStatusLabel1.Text = $"ID:{alkatresz.AlkatreszAzonosito};  {alkatresz}; Össz:{alkatresz.AlkatreszenkentiOsszAr()} Ft;";
             }
         }
     }

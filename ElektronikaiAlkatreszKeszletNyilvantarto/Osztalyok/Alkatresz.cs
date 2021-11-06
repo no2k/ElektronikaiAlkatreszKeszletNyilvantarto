@@ -101,23 +101,19 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         public abstract override string ToString();
         public virtual string AzonositoGenerator()
        {
-            return $"{alkatreszTipus.Substring(0, 3)}";
+            return $"{AlkatreszTipus.Substring(0, 3)}";
         }
         
 
-        public abstract double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam);
+        public double AlkatreszenkentiOsszAr()
+        {
+            return Darabszam * DarabAr;
+        }
        
 
-        double TeljesAr( List<Alkatresz> alkatreszekSzama)
-        {
-            //  return alkatreszekSzama.Where(i=>i.)
-            return 0;        
-        }
-
-
         // public abstract ICSVExport();
-
-        //public abstract CSVImport();
+       
+        // public abstract CSVImport();
         #endregion
 
     }

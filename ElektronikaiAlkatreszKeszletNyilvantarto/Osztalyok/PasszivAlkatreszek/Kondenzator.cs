@@ -110,18 +110,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         #region Metodusok
         public override string ToString()
         {
-            return $"[{AlkatreszTipus}]\r\n  -{KondenzatorTipus}; {base.AlkatreszErtek} {mertekEgyseg}\r\n  -{uzemiFeszultseg}V; {Tokozas}.";
+            return $"[{AlkatreszTipus}]\r\n  -{KondenzatorTipus}; {base.AlkatreszErtek} {MertekEgyseg}\r\n  -{UzemiFeszultseg}V\r\n   -{Tokozas}.";
         }
         public override string AzonositoGenerator()
         {
-            return base.AzonositoGenerator() + $"{int.Parse(AlkatreszTipus)}_{AlkatreszErtek}{mertekEgyseg}_{base.Tokozas.ToString().Substring(0,3)}";
+            return base.AzonositoGenerator()+
+                $"{(int)KondenzatorTipus}_{(float)AlkatreszErtek}{MertekEgyseg}_{UzemiFeszultseg}V{base.Tokozas.ToString().Substring(0,3)}";
         }
 
-        public override double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam)
-        {
-            return base.AlkatreszenkentiOsszAr(alkatreszAr, alkatreszDarabszam);
-        }
-
+      
         #endregion
     }
 }

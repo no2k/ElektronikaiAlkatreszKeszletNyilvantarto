@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
 {
-    enum IndEllMertEgyseg
+    enum EllMertekEgyseg
     {
         mΩ,
         Ω,
@@ -17,17 +17,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
     internal class Ellenallas : PrimitivAlkatreszCsoport
     {
         #region Fieldek
-        IndEllMertEgyseg mertekEgyseg;
+        EllMertekEgyseg mertekEgyseg;
         float teljesitmeny;
-
-
         #endregion
         #region Propertyk
         float Teljesitmeny { get => teljesitmeny; set => teljesitmeny = value; }
-        IndEllMertEgyseg MertekEgyseg { get => mertekEgyseg; set => mertekEgyseg = value; }
+        EllMertekEgyseg MertekEgyseg { get => mertekEgyseg; set => mertekEgyseg = value; }
         public Ellenallas(string alkatreszTipus,
                           float alkatreszErtek,
-                          IndEllMertEgyseg mertekEgyseg,
+                          EllMertekEgyseg mertekEgyseg,
                           float teljesitmeny,
                           float tolerancia,
                           Tokozas tokozas,
@@ -58,21 +56,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         #endregion
 
         #region Metódusok
-        public override double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam)
+        public override string ToString()
         {
-            return base.AlkatreszenkentiOsszAr(alkatreszAr, alkatreszDarabszam);
+            return $"[{AlkatreszTipus}]\r\n  -{AlkatreszErtek}{MertekEgyseg} {Tolerancia}% {Teljesitmeny}W\r\n  -{Tokozas}.";
         }
+
 
         public override string AzonositoGenerator()
         {
-            return base.AzonositoGenerator() + $"{mertekEgyseg}{base.Tokozas}";
+            return base.AzonositoGenerator() + $"_{AlkatreszErtek}{MertekEgyseg}_{Teljesitmeny}W_{base.Tokozas.ToString().Substring(0, 3)}";
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
+        
         #endregion
 
 

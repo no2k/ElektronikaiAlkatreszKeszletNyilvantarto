@@ -110,13 +110,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok
             return base.AzonositoGenerator();
         }
 
-        public override double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam)
-        {
-            {
-                return alkatreszAr * alkatreszDarabszam;
-            }
-        }
-
+        
         /*    List<T> IFajlFormatum.CSVFormatum<T>(string elvalaszoKarakter)
             {
                 throw new NotImplementedException();

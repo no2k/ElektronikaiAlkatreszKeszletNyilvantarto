@@ -81,6 +81,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.uzemiAMertEgysegCbx = new System.Windows.Forms.ComboBox();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.raszterMeretNUD)).BeginInit();
             this.kondenzatorGbx.SuspendLayout();
@@ -102,6 +105,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             ((System.ComponentModel.ISupportInitialize)(this.indToleranciaNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.induktivitasNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.indUzemiAramNUD)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // kategoriaCbx
@@ -314,9 +318,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.dinamikusGbx.BackColor = System.Drawing.Color.LightGray;
             this.dinamikusGbx.Controls.Add(this.groupBox5);
-            this.dinamikusGbx.Controls.Add(this.kondenzatorGbx);
             this.dinamikusGbx.Controls.Add(this.induktivitasGbx);
             this.dinamikusGbx.Controls.Add(this.ellenallasGbx);
+            this.dinamikusGbx.Controls.Add(this.kondenzatorGbx);
             this.dinamikusGbx.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dinamikusGbx.Location = new System.Drawing.Point(263, 6);
             this.dinamikusGbx.Name = "dinamikusGbx";
@@ -400,7 +404,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.megjegyzesTXB.Multiline = true;
             this.megjegyzesTXB.Name = "megjegyzesTXB";
             this.megjegyzesTXB.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.megjegyzesTXB.Size = new System.Drawing.Size(232, 151);
+            this.megjegyzesTXB.Size = new System.Drawing.Size(232, 150);
             this.megjegyzesTXB.TabIndex = 0;
             // 
             // groupBox6
@@ -423,6 +427,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(226, 238);
             this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // ellenallasGbx
             // 
@@ -517,6 +522,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // induktivitasGbx
             // 
             this.induktivitasGbx.BackColor = System.Drawing.Color.Silver;
+            this.induktivitasGbx.Controls.Add(this.uzemiAMertEgysegCbx);
             this.induktivitasGbx.Controls.Add(this.indUzemiAramNUD);
             this.induktivitasGbx.Controls.Add(this.label14);
             this.induktivitasGbx.Controls.Add(this.induktivEllMECbx);
@@ -663,12 +669,39 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button5.Text = "Töröl";
             this.button5.UseVisualStyleBackColor = true;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 358);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(943, 22);
+            this.statusStrip1.TabIndex = 29;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.LinkColor = System.Drawing.Color.Blue;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // uzemiAMertEgysegCbx
+            // 
+            this.uzemiAMertEgysegCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.uzemiAMertEgysegCbx.FormattingEnabled = true;
+            this.uzemiAMertEgysegCbx.Location = new System.Drawing.Point(184, 111);
+            this.uzemiAMertEgysegCbx.Name = "uzemiAMertEgysegCbx";
+            this.uzemiAMertEgysegCbx.Size = new System.Drawing.Size(50, 24);
+            this.uzemiAMertEgysegCbx.TabIndex = 30;
+            // 
             // AlkatreszFelvitelFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(943, 360);
+            this.ClientSize = new System.Drawing.Size(943, 380);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button4);
@@ -709,6 +742,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             ((System.ComponentModel.ISupportInitialize)(this.indToleranciaNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.induktivitasNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.indUzemiAramNUD)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -768,5 +803,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ComboBox uzemiAMertEgysegCbx;
     }
 }

@@ -23,7 +23,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
     {
         #region Fieldek
         IndukciosMertekEgyseg mertekEgyseg;
-        IndEllMertEgyseg indEllMertEgyseg;
+        EllMertekEgyseg indEllMertEgyseg;
         float indukciosEllenallasErtek;
         float uzemiAram;
         AramMertekEgyseg uzemiAMertEgyseg;
@@ -65,7 +65,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
             get => mertekEgyseg;
             set => mertekEgyseg = value;
         }
-        internal IndEllMertEgyseg IndEllMertEgyseg
+        internal EllMertekEgyseg IndEllMertEgyseg
         {
             get => indEllMertEgyseg;
             set => indEllMertEgyseg = value;
@@ -83,15 +83,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         public Induktivitas(string alkatreszTipus,
                              float ellenallasErtek,
                              float uzemiAram,
-                             AramMertekEgyseg aramMertekEgyseg,
+                             AramMertekEgyseg uzemiAMertEgyseg,
                              IndukciosMertekEgyseg mertekEgyseg,
-                             IndEllMertEgyseg elenallasMertekegyseg,
+                             EllMertekEgyseg elenallasMertekegyseg,
                              float alkatreszErtek,
                              Tokozas tokozas,
                              float tolerancia,
                              float raszterMeret,
                              string megjegyzes,
-                             
                              int darabszam,
                              int darabAr) : base(alkatreszErtek,
                                                  tokozas,
@@ -104,6 +103,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
         {
             IndEllErtek = ellenallasErtek;
             UzemiAram = uzemiAram;
+            UzemiAMertEgyseg = uzemiAMertEgyseg;
             MertekEgyseg = mertekEgyseg;
             IndEllMertEgyseg = elenallasMertekegyseg;
         }
@@ -113,19 +113,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Osztalyok.PasszivAlkatreszek
 
         public override string ToString()
         {
-            return $"[{AlkatreszTipus}]\r\n  -{AlkatreszErtek}{MertekEgyseg}; {IndEllErtek}{IndEllMertEgyseg}; \r\n  -{UzemiAram}{Tokozas}.";
+            return $"[{AlkatreszTipus}]\r\n  -{AlkatreszErtek}{MertekEgyseg}; {IndEllErtek}{IndEllMertEgyseg}\r\n  -{UzemiAram}{UzemiAMertEgyseg}\r\n  -{Tokozas}.";
         }
 
         public override string AzonositoGenerator()
         {
-            return $"{AlkatreszTipus.Substring(0, 3)}-{AlkatreszErtek}{MertekEgyseg}_{base.Tokozas.ToString().Substring(0,3)}";
+            return $"-{(float)AlkatreszErtek}{(IndukciosMertekEgyseg)MertekEgyseg}_{Tokozas.ToString().Substring(0,3)}";
         }
 
-        public override double AlkatreszenkentiOsszAr(double alkatreszAr, int alkatreszDarabszam)
-        {
-            return base.AlkatreszenkentiOsszAr(alkatreszAr, alkatreszDarabszam);
-        }
-
+       
         #endregion
 
 
