@@ -68,6 +68,12 @@
     <Compile Include="AlkatreszOsztalyok\PasszivAlkatresz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Elemek\ProjektFul.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Elemek\ProjektFul.Designer.cs">
+      <DependentUpon>ProjektFul.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AlkatreszFelvitelFrm.resx">
       <DependentUpon>AlkatreszFelvitelFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,6 +89,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Elemek\ProjektFul.resx">
+      <DependentUpon>ProjektFul.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -118,8 +118,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         catch (Exception ex)
                         {
 
-                            MessageBox.Show(ex.Message);
-                            DialogResult = DialogResult.None;
+                            MessageBox.Show(ex.Message,"Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                            
                         }
                     }
                     break;
@@ -143,8 +143,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         catch (Exception ex)
                         {
 
-                            MessageBox.Show(ex.Message);
-                            DialogResult = DialogResult.None;
+                           
+                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
 
                     }
@@ -175,8 +175,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         catch (Exception ex)
                         {
 
-                            MessageBox.Show(ex.Message);
-                            DialogResult = DialogResult.None;
+                           
+                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                     break;
