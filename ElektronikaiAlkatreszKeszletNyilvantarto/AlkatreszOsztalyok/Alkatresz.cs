@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         Digitális*/
     }
 
-    abstract class Alkatresz
+    abstract class Alkatresz:IEquatable<Alkatresz>,IComparable
     {
         Kategoria kategoria;
         string megnevezes;
@@ -48,13 +49,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => darabSzam;
             set
             {
-                if (value >= 0)
+                if (value > 0)
                 {
                     darabSzam = value;
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("A darabszám nem lehet kevesebb mint 0 !");
+                    throw new ArgumentNullException("A darabszám nem lehet 0  !");
                 }
             }
         }
@@ -69,7 +70,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException("A darab ár nem lehet kevesebb mint 0 !");
+                    throw new ArgumentNullException("A darab ár nem lehet kevesebb mint 0 !");
                 }
             }
         }
@@ -89,7 +90,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         {
             return darabAr * darabSzam;
         }
+      
         public override string ToString() => $"{Megnevezes}-{Kategoria}";
-       
+        public abstract bool Equals(Alkatresz other);
+        public abstract int CompareTo(object obj);
+
+
+        /*  public int CompareTo(Alkatresz masikAlkatresz)
+          {
+              return ToString().CompareTo(masikAlkatresz.ToString());
+          }*/
+
+
     }
+       
 }

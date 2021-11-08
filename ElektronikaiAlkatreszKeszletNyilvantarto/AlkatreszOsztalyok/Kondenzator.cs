@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         F,
         µF,
         nF,
-        Pf
+        pf
     }
 
     class Kondenzator : PasszivAlkatresz
@@ -78,6 +79,39 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         {
             return $"{Kategoria}:{Tipus} {KapacitasErtek}{KapacitasMertekEgyseg} {UzemiFeszultseg}V Készleten:{DarabSzam} ({DarabAr}Ft)";
         }
-        
+
+        /*public int CompareTo(Kondenzator other)
+        {
+            throw new NotImplementedException();
+        }*/
+
+        public override bool Equals(Alkatresz osszeHasonlitandoAlkatresz)
+        {
+            if (osszeHasonlitandoAlkatresz is Kondenzator kondi)
+            {
+                if (this.tipus == kondi.Tipus &&
+                    this.kapacitasErtek == kondi.KapacitasErtek &&
+                    this.kapacitasMertekEgyseg == kondi.KapacitasMertekEgyseg &&
+                    this.uzemiFeszultseg == kondi.UzemiFeszultseg &&
+                    this.Tokozas == kondi.Tokozas &&
+                    this.RaszterMeret == kondi.RaszterMeret &&
+                    this.Tolerancia == kondi.Tolerancia
+                   )
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj is Kondenzator ellen)
+            {
+                return ToString().CompareTo(ellen.ToString());
+
+            }
+            return 0;
+        }
     }
 }

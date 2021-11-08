@@ -24,7 +24,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             InitializeComponent();
             kategoriaTSCBX.ComboBox.DataSource = Enum.GetValues(typeof(Kategoria));
         }
-               
+               void ListaFrissit()
+        {
+            keszletLbx.DataSource = null;
+            keszletLbx.DataSource = alkatreszLista;
+        }
         private void AlkatreszKeszletFrm_Load(object sender, EventArgs e)
         {
             
@@ -45,8 +49,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     {
                         MessageBox.Show("Az alkatrészeket nem lehetett betölteni, a felvitel után!", "Betöltési hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    keszletLbx.DataSource=alkatreszLista;
 
                 }
+               
 
             }
             catch (Exception ex)
@@ -66,33 +72,55 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     {
                         keszletLbx.Items.Clear();
 
-                        foreach (AlkatreszOsztalyok.Ellenalas item in alkatreszLista)
+                        foreach (Alkatresz item in alkatreszLista)
                         {
-                            keszletLbx.Items.Add(item);
+                                if (item is Ellenalas)
+                                {
+                                    keszletLbx.Items.Add(item);
+                                }
                         }
                     }
                     break;
                 case 1:
                     {
-                        keszletLbx.Items.Clear();
-
-                        foreach (AlkatreszOsztalyok.Kondenzator item in alkatreszLista)
-                        {
-                            keszletLbx.Items.Add(item);
+                            foreach (Alkatresz item in alkatreszLista)
+                            {
+                                if (item is Kondenzator)
+                                {
+                                    keszletLbx.Items.Add(item);
+                                }
+                            }
                         }
-                    }
                     break;
                 case 2:
                     {
-                        keszletLbx.Items.Clear();
-
-                        foreach (AlkatreszOsztalyok.Induktivitas item in alkatreszLista)
-                        {
-                            keszletLbx.Items.Add(item);
+                            foreach (Alkatresz item in alkatreszLista)
+                            {
+                                if (item is Induktivitas)
+                                {
+                                    keszletLbx.Items.Add(item);
+                                }
+                            }
                         }
-                    }
                     break;
             }
+
+            }
+        }
+
+        private void keszletLbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (keszletLbx.SelectedItem!=null)
+            {
+                infoTSMI.Text = keszletLbx.SelectedItem.ToString();
+            }
+        }
+
+        private void projektTSMI_Click(object sender, EventArgs e)
+        {
+            UjProjektFrm frm = new UjProjektFrm();
+            if (frm.ShowDialog()==DialogResult.OK)
+            {
 
             }
         }

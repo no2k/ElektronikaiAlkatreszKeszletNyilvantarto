@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -72,6 +73,34 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         public override string ToString()
         {
             return $"{Kategoria}:{EllenallasErtek}{EllenallasMertekEgyseg} {Teljesitmeny}W  Készleten:{DarabSzam} ({DarabAr}Ft)";
+        }
+
+        public override bool Equals(Alkatresz osszeHasonlitandoAlkatresz)
+        {
+            if (osszeHasonlitandoAlkatresz is Ellenalas ellen)
+            {
+                if (this.ellenallasErtek == ellen.EllenallasErtek &&
+                    this.ellenallasMertekEgyseg == ellen.EllenallasMertekEgyseg &&
+                    this.teljesitmeny == ellen.Teljesitmeny &&
+                    this.Tokozas == ellen.Tokozas &&
+                    this.RaszterMeret == ellen.RaszterMeret &&
+                    this.Tolerancia == ellen.Tolerancia
+                   )
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public override int CompareTo(object obj)
+        {
+            if (obj is Ellenalas ellen)
+            {
+             return ToString().CompareTo(ellen.ToString());
+
+            }
+            return 0;
         }
     }
 }

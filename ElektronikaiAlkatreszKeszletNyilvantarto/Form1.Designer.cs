@@ -39,13 +39,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.megnyitasTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.mentesTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.infoTSMI = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.kategoriaTSCBX = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.projektFul1 = new ElektronikaiAlkatreszKeszletNyilvantarto.ProjektFul();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.keszletLbx = new System.Windows.Forms.ListBox();
@@ -53,7 +52,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -89,7 +87,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.alkatreszTSMI,
             this.projektTSMI});
             this.ujTSMI.Name = "ujTSMI";
-            this.ujTSMI.Size = new System.Drawing.Size(129, 22);
+            this.ujTSMI.Size = new System.Drawing.Size(180, 22);
             this.ujTSMI.Text = "Új...";
             // 
             // alkatreszTSMI
@@ -102,8 +100,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // projektTSMI
             // 
             this.projektTSMI.Name = "projektTSMI";
-            this.projektTSMI.Size = new System.Drawing.Size(121, 22);
+            this.projektTSMI.Size = new System.Drawing.Size(180, 22);
             this.projektTSMI.Text = "Projekt";
+            this.projektTSMI.Click += new System.EventHandler(this.projektTSMI_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -125,18 +124,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.infoTSMI});
             this.statusStrip1.Location = new System.Drawing.Point(0, 521);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1101, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // infoTSMI
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.infoTSMI.Name = "infoTSMI";
+            this.infoTSMI.Size = new System.Drawing.Size(0, 17);
             // 
             // toolStrip1
             // 
@@ -183,7 +181,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.Color.DarkGray;
-            this.splitContainer2.Panel1.Controls.Add(this.projektFul1);
             // 
             // splitContainer2.Panel2
             // 
@@ -191,19 +188,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.splitContainer2.Size = new System.Drawing.Size(1101, 472);
             this.splitContainer2.SplitterDistance = 261;
             this.splitContainer2.TabIndex = 5;
-            // 
-            // projektFul1
-            // 
-            this.projektFul1.AllowDrop = true;
-            this.projektFul1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.projektFul1.Ikon = null;
-            this.projektFul1.Leiras = "Egyedi projekt";
-            this.projektFul1.Location = new System.Drawing.Point(3, 3);
-            this.projektFul1.Megnevezes = "Első Projekt";
-            this.projektFul1.Name = "projektFul1";
-            this.projektFul1.Size = new System.Drawing.Size(256, 38);
-            this.projektFul1.TabIndex = 0;
             // 
             // splitContainer1
             // 
@@ -230,9 +214,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.listBox2.AllowDrop = true;
             this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(231, 4);
+            this.listBox2.Location = new System.Drawing.Point(317, 4);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(491, 212);
+            this.listBox2.Size = new System.Drawing.Size(405, 212);
             this.listBox2.TabIndex = 1;
             // 
             // keszletLbx
@@ -243,8 +227,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.keszletLbx.FormattingEnabled = true;
             this.keszletLbx.Location = new System.Drawing.Point(3, 3);
             this.keszletLbx.Name = "keszletLbx";
-            this.keszletLbx.Size = new System.Drawing.Size(222, 212);
+            this.keszletLbx.Size = new System.Drawing.Size(308, 212);
             this.keszletLbx.TabIndex = 0;
+            this.keszletLbx.SelectedIndexChanged += new System.EventHandler(this.keszletLbx_SelectedIndexChanged);
             // 
             // AlkatreszKeszletFrm
             // 
@@ -267,7 +252,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
@@ -290,14 +274,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.ToolStripMenuItem megnyitasTSMI;
         private System.Windows.Forms.ToolStripMenuItem mentesTSMI;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel infoTSMI;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripComboBox kategoriaTSCBX;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private ProjektFul projektFul1;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox keszletLbx;
     }
