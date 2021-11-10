@@ -182,7 +182,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
             // bool van = alkatreszLista.Contains(alkatresz) ;
 
-            //infoTSMI.Text = (van) ? "Van ilyen elem a listában" : "noncs még egy ilyen elem a listában";
+            //infoTSMI.Text = (van) ? "Van ilyen elem a listában" : "nincs még egy ilyen elem a listában";
             /* if (AlkatreszLista.Count() != 0)
              {
 

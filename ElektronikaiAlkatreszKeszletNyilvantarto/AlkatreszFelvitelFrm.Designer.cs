@@ -52,6 +52,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.raszterNUD = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
+            this.kondenzatorBox = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.kondiFeszultsegNUD = new System.Windows.Forms.NumericUpDown();
+            this.kondiMertekEgysegCbx = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.kondiTipusCbx = new System.Windows.Forms.ComboBox();
+            this.kapacitasErtekNUD = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             this.ellenallasBox = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.ellenallasMertekEgysegCbx = new System.Windows.Forms.ComboBox();
@@ -68,14 +76,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.induktivEllenallasNUD = new System.Windows.Forms.NumericUpDown();
             this.induktivErtekNUD = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
-            this.kondenzatorBox = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.kondiFeszultsegNUD = new System.Windows.Forms.NumericUpDown();
-            this.kondiMertekEgysegCbx = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.kondiTipusCbx = new System.Windows.Forms.ComboBox();
-            this.kapacitasErtekNUD = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
@@ -86,6 +86,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             ((System.ComponentModel.ISupportInitialize)(this.toleranciaNud)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.raszterNUD)).BeginInit();
+            this.kondenzatorBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kondiFeszultsegNUD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kapacitasErtekNUD)).BeginInit();
             this.ellenallasBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ellenallasTeljesitmenyNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ellenallasErtekNUD)).BeginInit();
@@ -93,9 +96,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             ((System.ComponentModel.ISupportInitialize)(this.induktivUzemiAramNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.induktivEllenallasNUD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.induktivErtekNUD)).BeginInit();
-            this.kondenzatorBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kondiFeszultsegNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kapacitasErtekNUD)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -316,9 +316,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox2.Controls.Add(this.toleranciaNud);
             this.groupBox2.Controls.Add(this.tokozasCbx);
             this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.induktivBox);
             this.groupBox2.Controls.Add(this.kondenzatorBox);
             this.groupBox2.Controls.Add(this.ellenallasBox);
-            this.groupBox2.Controls.Add(this.induktivBox);
             this.groupBox2.Location = new System.Drawing.Point(356, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(365, 260);
@@ -352,6 +352,103 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label16.Size = new System.Drawing.Size(133, 17);
             this.label16.TabIndex = 9;
             this.label16.Text = "Raszterméret (mm):";
+            // 
+            // kondenzatorBox
+            // 
+            this.kondenzatorBox.Controls.Add(this.label13);
+            this.kondenzatorBox.Controls.Add(this.kondiFeszultsegNUD);
+            this.kondenzatorBox.Controls.Add(this.kondiMertekEgysegCbx);
+            this.kondenzatorBox.Controls.Add(this.label14);
+            this.kondenzatorBox.Controls.Add(this.kondiTipusCbx);
+            this.kondenzatorBox.Controls.Add(this.kapacitasErtekNUD);
+            this.kondenzatorBox.Controls.Add(this.label15);
+            this.kondenzatorBox.Location = new System.Drawing.Point(6, 81);
+            this.kondenzatorBox.Name = "kondenzatorBox";
+            this.kondenzatorBox.Size = new System.Drawing.Size(341, 119);
+            this.kondenzatorBox.TabIndex = 8;
+            this.kondenzatorBox.TabStop = false;
+            this.kondenzatorBox.Text = "Kondenzátor adatai";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(6, 84);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(192, 17);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "Kondenzátor feszültsége (V):";
+            // 
+            // kondiFeszultsegNUD
+            // 
+            this.kondiFeszultsegNUD.DecimalPlaces = 1;
+            this.kondiFeszultsegNUD.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.kondiFeszultsegNUD.Location = new System.Drawing.Point(203, 82);
+            this.kondiFeszultsegNUD.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.kondiFeszultsegNUD.Name = "kondiFeszultsegNUD";
+            this.kondiFeszultsegNUD.Size = new System.Drawing.Size(59, 23);
+            this.kondiFeszultsegNUD.TabIndex = 6;
+            // 
+            // kondiMertekEgysegCbx
+            // 
+            this.kondiMertekEgysegCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.kondiMertekEgysegCbx.FormattingEnabled = true;
+            this.kondiMertekEgysegCbx.Location = new System.Drawing.Point(268, 51);
+            this.kondiMertekEgysegCbx.Name = "kondiMertekEgysegCbx";
+            this.kondiMertekEgysegCbx.Size = new System.Drawing.Size(67, 24);
+            this.kondiMertekEgysegCbx.TabIndex = 5;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 54);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(165, 17);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "Kondenzátor kapacitása:";
+            // 
+            // kondiTipusCbx
+            // 
+            this.kondiTipusCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.kondiTipusCbx.FormattingEnabled = true;
+            this.kondiTipusCbx.Location = new System.Drawing.Point(203, 20);
+            this.kondiTipusCbx.Name = "kondiTipusCbx";
+            this.kondiTipusCbx.Size = new System.Drawing.Size(132, 24);
+            this.kondiTipusCbx.TabIndex = 3;
+            // 
+            // kapacitasErtekNUD
+            // 
+            this.kapacitasErtekNUD.DecimalPlaces = 1;
+            this.kapacitasErtekNUD.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.kapacitasErtekNUD.Location = new System.Drawing.Point(203, 52);
+            this.kapacitasErtekNUD.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.kapacitasErtekNUD.Name = "kapacitasErtekNUD";
+            this.kapacitasErtekNUD.Size = new System.Drawing.Size(59, 23);
+            this.kapacitasErtekNUD.TabIndex = 2;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(6, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(135, 17);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "Kondenzátor típusa:";
             // 
             // ellenallasBox
             // 
@@ -551,103 +648,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label11.TabIndex = 0;
             this.label11.Text = "Induktivitás értéke:";
             // 
-            // kondenzatorBox
-            // 
-            this.kondenzatorBox.Controls.Add(this.label13);
-            this.kondenzatorBox.Controls.Add(this.kondiFeszultsegNUD);
-            this.kondenzatorBox.Controls.Add(this.kondiMertekEgysegCbx);
-            this.kondenzatorBox.Controls.Add(this.label14);
-            this.kondenzatorBox.Controls.Add(this.kondiTipusCbx);
-            this.kondenzatorBox.Controls.Add(this.kapacitasErtekNUD);
-            this.kondenzatorBox.Controls.Add(this.label15);
-            this.kondenzatorBox.Location = new System.Drawing.Point(6, 81);
-            this.kondenzatorBox.Name = "kondenzatorBox";
-            this.kondenzatorBox.Size = new System.Drawing.Size(341, 119);
-            this.kondenzatorBox.TabIndex = 8;
-            this.kondenzatorBox.TabStop = false;
-            this.kondenzatorBox.Text = "Kondenzátor adatai";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 84);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(192, 17);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "Kondenzátor feszültsége (V):";
-            // 
-            // kondiFeszultsegNUD
-            // 
-            this.kondiFeszultsegNUD.DecimalPlaces = 1;
-            this.kondiFeszultsegNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.kondiFeszultsegNUD.Location = new System.Drawing.Point(203, 82);
-            this.kondiFeszultsegNUD.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.kondiFeszultsegNUD.Name = "kondiFeszultsegNUD";
-            this.kondiFeszultsegNUD.Size = new System.Drawing.Size(59, 23);
-            this.kondiFeszultsegNUD.TabIndex = 6;
-            // 
-            // kondiMertekEgysegCbx
-            // 
-            this.kondiMertekEgysegCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.kondiMertekEgysegCbx.FormattingEnabled = true;
-            this.kondiMertekEgysegCbx.Location = new System.Drawing.Point(268, 51);
-            this.kondiMertekEgysegCbx.Name = "kondiMertekEgysegCbx";
-            this.kondiMertekEgysegCbx.Size = new System.Drawing.Size(67, 24);
-            this.kondiMertekEgysegCbx.TabIndex = 5;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 54);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(165, 17);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "Kondenzátor kapacitása:";
-            // 
-            // kondiTipusCbx
-            // 
-            this.kondiTipusCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.kondiTipusCbx.FormattingEnabled = true;
-            this.kondiTipusCbx.Location = new System.Drawing.Point(203, 20);
-            this.kondiTipusCbx.Name = "kondiTipusCbx";
-            this.kondiTipusCbx.Size = new System.Drawing.Size(132, 24);
-            this.kondiTipusCbx.TabIndex = 3;
-            // 
-            // kapacitasErtekNUD
-            // 
-            this.kapacitasErtekNUD.DecimalPlaces = 1;
-            this.kapacitasErtekNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.kapacitasErtekNUD.Location = new System.Drawing.Point(203, 52);
-            this.kapacitasErtekNUD.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.kapacitasErtekNUD.Name = "kapacitasErtekNUD";
-            this.kapacitasErtekNUD.Size = new System.Drawing.Size(59, 23);
-            this.kapacitasErtekNUD.TabIndex = 2;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 24);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(135, 17);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Kondenzátor típusa:";
-            // 
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -703,6 +703,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.raszterNUD)).EndInit();
+            this.kondenzatorBox.ResumeLayout(false);
+            this.kondenzatorBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kondiFeszultsegNUD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kapacitasErtekNUD)).EndInit();
             this.ellenallasBox.ResumeLayout(false);
             this.ellenallasBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ellenallasTeljesitmenyNUD)).EndInit();
@@ -712,10 +716,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             ((System.ComponentModel.ISupportInitialize)(this.induktivUzemiAramNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.induktivEllenallasNUD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.induktivErtekNUD)).EndInit();
-            this.kondenzatorBox.ResumeLayout(false);
-            this.kondenzatorBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kondiFeszultsegNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kapacitasErtekNUD)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -43,7 +43,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.ikonBox.Location = new System.Drawing.Point(0, 0);
             this.ikonBox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.ikonBox.Name = "ikonBox";
-            this.ikonBox.Size = new System.Drawing.Size(55, 38);
+            this.ikonBox.Size = new System.Drawing.Size(55, 36);
             this.ikonBox.TabIndex = 0;
             this.ikonBox.TabStop = false;
             // 
@@ -70,22 +70,25 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(55, 36);
+            this.panel1.Location = new System.Drawing.Point(55, 34);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(189, 2);
+            this.panel1.Size = new System.Drawing.Size(187, 2);
             this.panel1.TabIndex = 3;
             // 
             // ProjektFul
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.prjLeiras);
             this.Controls.Add(this.prjNev);
             this.Controls.Add(this.ikonBox);
             this.Name = "ProjektFul";
-            this.Size = new System.Drawing.Size(244, 38);
+            this.Size = new System.Drawing.Size(242, 36);
+            this.MouseLeave += new System.EventHandler(this.ProjektFul_MouseLeave);
+            this.MouseHover += new System.EventHandler(this.ProjektFul_MouseHover);
             ((System.ComponentModel.ISupportInitialize)(this.ikonBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

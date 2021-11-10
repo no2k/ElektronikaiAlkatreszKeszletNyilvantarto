@@ -45,15 +45,19 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.projektPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.keszletLbx = new System.Windows.Forms.ListBox();
+            this.projektFul1 = new ElektronikaiAlkatreszKeszletNyilvantarto.ProjektFul();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.projektPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -87,7 +91,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.alkatreszTSMI,
             this.projektTSMI});
             this.ujTSMI.Name = "ujTSMI";
-            this.ujTSMI.Size = new System.Drawing.Size(180, 22);
+            this.ujTSMI.Size = new System.Drawing.Size(129, 22);
             this.ujTSMI.Text = "Új...";
             // 
             // alkatreszTSMI
@@ -100,7 +104,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // projektTSMI
             // 
             this.projektTSMI.Name = "projektTSMI";
-            this.projektTSMI.Size = new System.Drawing.Size(180, 22);
+            this.projektTSMI.Size = new System.Drawing.Size(121, 22);
             this.projektTSMI.Text = "Projekt";
             this.projektTSMI.Click += new System.EventHandler(this.projektTSMI_Click);
             // 
@@ -181,6 +185,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.BackColor = System.Drawing.Color.DarkGray;
+            this.splitContainer2.Panel1.Controls.Add(this.projektPanel);
             // 
             // splitContainer2.Panel2
             // 
@@ -188,6 +193,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.splitContainer2.Size = new System.Drawing.Size(1101, 472);
             this.splitContainer2.SplitterDistance = 261;
             this.splitContainer2.TabIndex = 5;
+            // 
+            // projektPanel
+            // 
+            this.projektPanel.Controls.Add(this.projektFul1);
+            this.projektPanel.Location = new System.Drawing.Point(3, 3);
+            this.projektPanel.Name = "projektPanel";
+            this.projektPanel.Size = new System.Drawing.Size(255, 466);
+            this.projektPanel.TabIndex = 0;
             // 
             // splitContainer1
             // 
@@ -231,6 +244,25 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.keszletLbx.TabIndex = 0;
             this.keszletLbx.SelectedIndexChanged += new System.EventHandler(this.keszletLbx_SelectedIndexChanged);
             // 
+            // projektFul1
+            // 
+            this.projektFul1.AllowDrop = true;
+            this.projektFul1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.projektFul1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.projektFul1.HatterSzinMH = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.projektFul1.HatterSzinMO = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.projektFul1.Ikon = null;
+            this.projektFul1.Leiras = "gdsfgf";
+            this.projektFul1.Location = new System.Drawing.Point(3, 3);
+            this.projektFul1.Megnevezes = "sdfsdf";
+            this.projektFul1.Name = "projektFul1";
+            this.projektFul1.Size = new System.Drawing.Size(252, 38);
+            this.projektFul1.TabIndex = 0;
+            this.projektFul1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.projektFul1_MouseClick);
+            this.projektFul1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.projektFul1_MouseDown);
+            this.projektFul1.MouseLeave += new System.EventHandler(this.projektFul1_MouseLeave);
+            this.projektFul1.MouseHover += new System.EventHandler(this.projektFul1_MouseHover);
+            // 
             // AlkatreszKeszletFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,9 +284,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.statusStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.projektPanel.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -283,6 +317,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox keszletLbx;
+        private System.Windows.Forms.FlowLayoutPanel projektPanel;
+        private ProjektFul projektFul1;
     }
 }
 

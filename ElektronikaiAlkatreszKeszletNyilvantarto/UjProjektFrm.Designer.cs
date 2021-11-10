@@ -31,7 +31,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.megnevetTxb = new System.Windows.Forms.TextBox();
+            this.megnevezTxb = new System.Windows.Forms.TextBox();
             this.leirasTxb = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -55,12 +55,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label2.TabIndex = 1;
             this.label2.Text = "A projekt rövid leírása:";
             // 
-            // megnevetTxb
+            // megnevezTxb
             // 
-            this.megnevetTxb.Location = new System.Drawing.Point(17, 36);
-            this.megnevetTxb.Name = "megnevetTxb";
-            this.megnevetTxb.Size = new System.Drawing.Size(217, 26);
-            this.megnevetTxb.TabIndex = 2;
+            this.megnevezTxb.Location = new System.Drawing.Point(17, 36);
+            this.megnevezTxb.Name = "megnevezTxb";
+            this.megnevezTxb.Size = new System.Drawing.Size(217, 26);
+            this.megnevezTxb.TabIndex = 2;
             // 
             // leirasTxb
             // 
@@ -99,7 +99,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.leirasTxb);
-            this.Controls.Add(this.megnevetTxb);
+            this.Controls.Add(this.megnevezTxb);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -117,7 +117,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox megnevetTxb;
+        private System.Windows.Forms.TextBox megnevezTxb;
         private System.Windows.Forms.TextBox leirasTxb;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
