@@ -9,10 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
+/* 
+ * CONNECTION STRING
+ Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\pejoc\source\repos\ElektronikaiAlkatreszKeszletNyilvantarto\ElektronikaiAlkatreszKeszletNyilvantarto\AlkatreszDB.mdf;Integrated Security=True
+ */
+
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
+        private string DBConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\pejoc\source\repos\ElektronikaiAlkatreszKeszletNyilvantarto\ElektronikaiAlkatreszKeszletNyilvantarto\AlkatreszDB.mdf;Integrated Security=True";
         //  Alkatresz alkatresz;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
         List<Alkatresz> projektAlkatreszLista = new List<Alkatresz>();
