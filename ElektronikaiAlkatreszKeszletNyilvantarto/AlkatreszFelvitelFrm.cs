@@ -17,16 +17,21 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     {
         ParameterLista lista;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
+       // List<Kategoria> kategoriaForrasLista = new List<Kategoria>();
         Kategoria katerogia;
         internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
         public AlkatreszFelvitelFrm()
         {
             InitializeComponent();
-
+            // kategoriaForrasLista = ABKezelo.KategoriaLekerdezes();
+            KategoriaFrissit();
         }
 
-
+        private void KategoriaFrissit()
+        {
+            kategoriaCbx.DataSource = ABKezelo.KategoriaLekerdezes();
+        }
 
         private void ListaFrissit()
         {
@@ -159,11 +164,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             if (kategoriaCbx.SelectedItem != null )
             {
 
-                UjParameterFrm frm = new UjParameterFrm(katerogia);
+                UjParameterFrm frm = new UjParameterFrm((Kategoria)kategoriaCbx.SelectedItem);
+                
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
 
                 }
+                KategoriaFrissit();
             }
         }
 
@@ -194,7 +201,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
                     }
                 }
+                KategoriaFrissit();
             }
+           
         }
     }
 }

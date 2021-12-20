@@ -42,5 +42,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             KategoriaId = kategoriaId;
             KategoriaMegnevezes = kategoriaMegnevezes;
         }
+        public override string ToString()
+        {
+            return kategoriaMegnevezes;
+        }
     }
 }

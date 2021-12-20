@@ -18,10 +18,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             try
             {
                 kapcsolat = new SqlConnection();
+                //Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\pejoc\source\repos\ElektronikaiAlkatreszKeszletNyilvantarto\ElektronikaiAlkatreszKeszletNyilvantarto\KeszletAB.mdf;Integrated Security=True
                 kapcsolat.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\KeszletAB.mdf;Integrated Security=True";
                 kapcsolat.Open();
                 parancs = new SqlCommand();
                 parancs.Connection = kapcsolat;
+                parancs.Parameters.Clear();
             }
             catch (Exception ex)
             {
@@ -45,31 +47,47 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText = "INSERT INTO [Kategoria] ([KATEGORIA]) OUTPUT INSERTED.KATEGORIA_ID VALUES(@kattegoria)";
+                parancs.CommandText = "INSERT INTO [Kategoria] ([KATEGORIA]) OUTPUT INSERTED.KATEGORIA_ID VALUES(@kategoria)";
                 parancs.Parameters.AddWithValue("@kategoria", kategoria.KategoriaMegnevezes);
                 kategoria.KategoriaId = (int)parancs.ExecuteScalar();
             }
             catch (Exception ex)
             {
 
-                throw new ABKivetel("Sikertelen kategória felvitel az adatbázisba!");
+                throw new ABKivetel($"Sikertelen kategória felvitel az adatbázisba! \r\n\t {ex.Message}");
             }
 
         }
         public static List<Kategoria> KategoriaLekerdezes()
         {
-            parancs.Parameters.Clear();
-            parancs.CommandText = "SELECT [KATEGORIA] FROM [Kategoria]";
-            List<Kategoria> kategoriaLista = new List<Kategoria>();
-            using (SqlDataReader reader = parancs.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT * FROM [Kategoria]";
+
+
+                List<Kategoria> kategoriaLista = new List<Kategoria>();
+                using (SqlDataReader reader = parancs.ExecuteReader())
                 {
-                    kategoriaLista.Add(new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()));
+                    while (reader.Read())
+                    {
+                        kategoriaLista.Add(
+                            new Kategoria(
+                                (int)reader["KATEGORIA_ID"],
+                                reader["KATEGORIA"].ToString()
+                                )
+                            );
+                    }
+                    reader.Close();
+                    return kategoriaLista;
                 }
-                reader.Close();
             }
-            return kategoriaLista;
+            catch (Exception ex)
+            {
+
+                throw new ABKivetel("Adatbázis (Kategória) lekérdezési hiba! " + ex.Message);
+            }
+
         }
         public static void KategoriaTorles(Kategoria torles)
         {

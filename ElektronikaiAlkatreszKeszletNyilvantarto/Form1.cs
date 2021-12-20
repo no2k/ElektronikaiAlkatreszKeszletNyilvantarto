@@ -42,10 +42,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+          /*  finally
             {
                 ABKezelo.KapcsolatBontas();
-            }
+            }*/
         }
 
         private void AlkatreszTSMI_Click(object sender, EventArgs e)
