@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
+    /*
+     * alkatrész osztály adatai:
+     * -kategória / a meglévő kategória adatbázis kategória oszlopának beolvasása majd enumba konvertálás.(amennyiben van egyszerübb és gyorsabb módja akkor azt kell felkutatni és használni!!!
+     * 
+     * -paraméterek[] /egyedi saját lista dictionary alapokon + a felviteli adat típusát rögzítő integer vagy bináris szám
+     * 
+     * -készleten lévő (int v. uint)
+     * .beszer.ár (float vagy double szám)
+     * -megjegyzés (srting)*
+     * 
+     * /
+
     enum Kategoria
     {
         Ellenállás,
@@ -19,15 +31,16 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         IGBT,
         Intergrált,
         Digitális*/
-    }
 
-    abstract class Alkatresz:IEquatable<Alkatresz>,IComparable
+
+    class Alkatresz//:IEquatable<Alkatresz>,IComparable
     {
-        Kategoria kategoria;
+        ParameterLista parameterek;
         string megnevezes;
         int darabSzam;
         int darabAr;
         string megjegyzes;
+
 
         public string Megnevezes
         {
@@ -74,26 +87,41 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-        internal Kategoria Kategoria { get => kategoria; /* set => kategoria = value;*/ }
-        public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
 
-        public Alkatresz(string megnevezes, int darabSzam, int darabAr, Kategoria kategoria, string megjegyzes)
+        public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
+        public ParameterLista Parameterek
+        {
+            get => parameterek;
+            set
+            {
+                if (value != null)
+                {
+                    parameterek = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException("Az alkatrész paraméter listája nem lehet üres!");
+                }
+            }
+        }
+
+        public Alkatresz(string megnevezes, int darabSzam, int darabAr, string megjegyzes, ParameterLista parameterek)
         {
             Megnevezes = megnevezes;
             DarabSzam = darabSzam;
             DarabAr = darabAr;
-            this.kategoria = kategoria;
             Megjegyzes = megjegyzes;
+            Parameterek = parameterek;
         }
 
         public int AlkatreszOsszAR()
         {
             return darabAr * darabSzam;
         }
-      
-        public override string ToString() => $"{Megnevezes}-{Kategoria}";
-        public abstract bool Equals(Alkatresz other);
-        public abstract int CompareTo(object obj);
+
+
+        //   public  bool Equals(Alkatresz other);
+        // public int CompareTo(object obj);
 
 
         /*  public int CompareTo(Alkatresz masikAlkatresz)
@@ -103,5 +131,5 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
 
     }
-       
+
 }

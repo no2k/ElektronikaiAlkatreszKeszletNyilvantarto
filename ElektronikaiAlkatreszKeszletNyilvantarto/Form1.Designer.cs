@@ -46,10 +46,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.projektPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.keszletLbx = new System.Windows.Forms.ListBox();
             this.projektFul1 = new ElektronikaiAlkatreszKeszletNyilvantarto.ProjektFul();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView2 = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -60,6 +60,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.projektPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -191,7 +192,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
             this.splitContainer2.Size = new System.Drawing.Size(1101, 472);
-            this.splitContainer2.SplitterDistance = 261;
+            this.splitContainer2.SplitterDistance = 253;
             this.splitContainer2.TabIndex = 5;
             // 
             // projektPanel
@@ -199,50 +200,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.projektPanel.Controls.Add(this.projektFul1);
             this.projektPanel.Location = new System.Drawing.Point(3, 3);
             this.projektPanel.Name = "projektPanel";
-            this.projektPanel.Size = new System.Drawing.Size(255, 466);
+            this.projektPanel.Size = new System.Drawing.Size(248, 466);
             this.projektPanel.TabIndex = 0;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.splitContainer1.Panel1.Controls.Add(this.listBox2);
-            this.splitContainer1.Panel1.Controls.Add(this.keszletLbx);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.splitContainer1.Size = new System.Drawing.Size(836, 472);
-            this.splitContainer1.SplitterDistance = 220;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // listBox2
-            // 
-            this.listBox2.AllowDrop = true;
-            this.listBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(317, 4);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(405, 212);
-            this.listBox2.TabIndex = 1;
-            // 
-            // keszletLbx
-            // 
-            this.keszletLbx.AllowDrop = true;
-            this.keszletLbx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.keszletLbx.FormattingEnabled = true;
-            this.keszletLbx.Location = new System.Drawing.Point(3, 3);
-            this.keszletLbx.Name = "keszletLbx";
-            this.keszletLbx.Size = new System.Drawing.Size(308, 212);
-            this.keszletLbx.TabIndex = 0;
-            this.keszletLbx.SelectedIndexChanged += new System.EventHandler(this.keszletLbx_SelectedIndexChanged);
             // 
             // projektFul1
             // 
@@ -263,6 +222,46 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.projektFul1.MouseLeave += new System.EventHandler(this.projektFul1_MouseLeave);
             this.projektFul1.MouseHover += new System.EventHandler(this.projektFul1_MouseHover);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.splitContainer1.Panel1.Controls.Add(this.listView1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.splitContainer1.Panel2.Controls.Add(this.listView2);
+            this.splitContainer1.Size = new System.Drawing.Size(844, 472);
+            this.splitContainer1.SplitterDistance = 220;
+            this.splitContainer1.TabIndex = 0;
+            // 
+            // listView1
+            // 
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(1, 1);
+            this.listView1.Margin = new System.Windows.Forms.Padding(1);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(842, 218);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // listView2
+            // 
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(1, 1);
+            this.listView2.Margin = new System.Windows.Forms.Padding(1);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(842, 246);
+            this.listView2.TabIndex = 1;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            // 
             // AlkatreszKeszletFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,6 +276,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Name = "AlkatreszKeszletFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Elektro Készlet";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AlkatreszKeszletFrm_FormClosing);
             this.Load += new System.EventHandler(this.AlkatreszKeszletFrm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -290,6 +290,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.splitContainer2.ResumeLayout(false);
             this.projektPanel.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -315,10 +316,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.ListBox keszletLbx;
         private System.Windows.Forms.FlowLayoutPanel projektPanel;
         private ProjektFul projektFul1;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView2;
     }
 }
 

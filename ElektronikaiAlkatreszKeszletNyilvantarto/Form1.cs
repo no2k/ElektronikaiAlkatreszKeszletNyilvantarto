@@ -9,16 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
-/* 
- * CONNECTION STRING
- Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\pejoc\source\repos\ElektronikaiAlkatreszKeszletNyilvantarto\ElektronikaiAlkatreszKeszletNyilvantarto\AlkatreszDB.mdf;Integrated Security=True
- */
+
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
-        private string DBConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\pejoc\source\repos\ElektronikaiAlkatreszKeszletNyilvantarto\ElektronikaiAlkatreszKeszletNyilvantarto\AlkatreszDB.mdf;Integrated Security=True";
+
         //  Alkatresz alkatresz;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
         List<Alkatresz> projektAlkatreszLista = new List<Alkatresz>();
@@ -28,16 +25,27 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         public AlkatreszKeszletFrm()
         {
             InitializeComponent();
-            kategoriaTSCBX.ComboBox.DataSource = Enum.GetValues(typeof(Kategoria));
+
         }
         void ListaFrissit()
         {
-            keszletLbx.DataSource = null;
-            keszletLbx.DataSource = alkatreszLista;
+            // keszletLbx.DataSource = null;
+            // keszletLbx.DataSource = alkatreszLista;
         }
         private void AlkatreszKeszletFrm_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                ABKezelo.Csatlakozas();
+            }
+            catch (ABKivetel ex)
+            {
+                MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                ABKezelo.KapcsolatBontas();
+            }
         }
 
         private void AlkatreszTSMI_Click(object sender, EventArgs e)
@@ -55,7 +63,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     {
                         MessageBox.Show("Az alkatrészeket nem lehetett betölteni, a felvitel után!", "Betöltési hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    keszletLbx.DataSource = alkatreszLista;
+                    // keszletLbx.DataSource = alkatreszLista;
 
                 }
 
@@ -70,56 +78,16 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void kategoriaTSCBX_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AlkatreszLista != null)
-            {
-                switch (kategoriaTSCBX.SelectedIndex)
-                {
-                    case 0:
-                        {
-                            keszletLbx.Items.Clear();
 
-                            foreach (Alkatresz item in alkatreszLista)
-                            {
-                                if (item is Ellenalas)
-                                {
-                                    keszletLbx.Items.Add(item);
-                                }
-                            }
-                        }
-                        break;
-                    case 1:
-                        {
-                            foreach (Alkatresz item in alkatreszLista)
-                            {
-                                if (item is Kondenzator)
-                                {
-                                    keszletLbx.Items.Add(item);
-                                }
-                            }
-                        }
-                        break;
-                    case 2:
-                        {
-                            foreach (Alkatresz item in alkatreszLista)
-                            {
-                                if (item is Induktivitas)
-                                {
-                                    keszletLbx.Items.Add(item);
-                                }
-                            }
-                        }
-                        break;
-                }
-            }
         }
 
-        private void keszletLbx_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (keszletLbx.SelectedItem != null)
-            {
-                infoTSMI.Text = keszletLbx.SelectedItem.ToString();
-            }
-        }
+        /*   private void keszletLbx_SelectedIndexChanged(object sender, EventArgs e)
+           {
+               if (keszletLbx.SelectedItem != null)
+               {
+                   infoTSMI.Text = keszletLbx.SelectedItem.ToString();
+               }
+           }*/
 
         private void projektTSMI_Click(object sender, EventArgs e)
         {
@@ -153,12 +121,25 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void projektFul1_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void projektFul1_MouseDown(object sender, MouseEventArgs e)
         {
             projektFul1.BorderStyle = BorderStyle.Fixed3D;
+        }
+
+        private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                ABKezelo.KapcsolatBontas();
+            }
+            catch (ABKivetel ex)
+            {
+                MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
     }
 }

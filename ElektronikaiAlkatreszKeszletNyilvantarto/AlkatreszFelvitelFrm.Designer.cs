@@ -29,6 +29,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlkatreszFelvitelFrm));
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -45,66 +46,29 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label3 = new System.Windows.Forms.Label();
             this.megnevezesTbx = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.tokozasCbx = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.toleranciaNud = new System.Windows.Forms.NumericUpDown();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.raszterNUD = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
-            this.kondenzatorBox = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.kondiFeszultsegNUD = new System.Windows.Forms.NumericUpDown();
-            this.kondiMertekEgysegCbx = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.kondiTipusCbx = new System.Windows.Forms.ComboBox();
-            this.kapacitasErtekNUD = new System.Windows.Forms.NumericUpDown();
-            this.label15 = new System.Windows.Forms.Label();
-            this.ellenallasBox = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.ellenallasMertekEgysegCbx = new System.Windows.Forms.ComboBox();
-            this.ellenallasTeljesitmenyNUD = new System.Windows.Forms.NumericUpDown();
-            this.ellenallasErtekNUD = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.induktivBox = new System.Windows.Forms.GroupBox();
-            this.induktivAramMertekCbx = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.induktivUzemiAramNUD = new System.Windows.Forms.NumericUpDown();
-            this.induktivEllenallasMertekCbx = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.induktivitasMertekCbx = new System.Windows.Forms.ComboBox();
-            this.induktivEllenallasNUD = new System.Windows.Forms.NumericUpDown();
-            this.induktivErtekNUD = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.darabArNud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.keszletNud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toleranciaNud)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.raszterNUD)).BeginInit();
-            this.kondenzatorBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kondiFeszultsegNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kapacitasErtekNUD)).BeginInit();
-            this.ellenallasBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ellenallasTeljesitmenyNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ellenallasErtekNUD)).BeginInit();
-            this.induktivBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.induktivUzemiAramNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.induktivEllenallasNUD)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.induktivErtekNUD)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(739, 231);
+            this.button1.Location = new System.Drawing.Point(357, 279);
             this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 41);
+            this.button1.Size = new System.Drawing.Size(259, 41);
             this.button1.TabIndex = 0;
             this.button1.Text = "Listához ad";
             this.button1.UseVisualStyleBackColor = true;
@@ -112,21 +76,23 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(739, 12);
+            this.listBox1.Location = new System.Drawing.Point(629, 29);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(316, 212);
+            this.listBox1.Size = new System.Drawing.Size(319, 244);
             this.listBox1.TabIndex = 2;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.infoTSMI});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 278);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 324);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1061, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(954, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip";
             // 
@@ -140,9 +106,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.kategoriaCbx);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(9, 12);
+            this.panel1.Location = new System.Drawing.Point(5, 29);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(341, 38);
+            this.panel1.Size = new System.Drawing.Size(344, 38);
             this.panel1.TabIndex = 4;
             // 
             // kategoriaCbx
@@ -159,7 +125,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(5, 7);
+            this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 20);
             this.label1.TabIndex = 0;
@@ -176,9 +142,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.megnevezesTbx);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(9, 56);
+            this.groupBox1.Location = new System.Drawing.Point(5, 73);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(341, 207);
+            this.groupBox1.Size = new System.Drawing.Size(344, 200);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Alap adatok";
@@ -262,424 +228,92 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label4.TabIndex = 3;
             this.label4.Text = "Darab ár (Ft):";
             // 
-            // tokozasCbx
-            // 
-            this.tokozasCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tokozasCbx.FormattingEnabled = true;
-            this.tokozasCbx.Location = new System.Drawing.Point(78, 22);
-            this.tokozasCbx.Name = "tokozasCbx";
-            this.tokozasCbx.Size = new System.Drawing.Size(109, 24);
-            this.tokozasCbx.TabIndex = 0;
-            this.tokozasCbx.SelectedIndexChanged += new System.EventHandler(this.TokozasCbx1_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 25);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 17);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Tokozás:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(193, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 17);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Tolerancia (%):";
-            // 
-            // toleranciaNud
-            // 
-            this.toleranciaNud.DecimalPlaces = 1;
-            this.toleranciaNud.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.toleranciaNud.Location = new System.Drawing.Point(304, 23);
-            this.toleranciaNud.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.toleranciaNud.Name = "toleranciaNud";
-            this.toleranciaNud.Size = new System.Drawing.Size(46, 23);
-            this.toleranciaNud.TabIndex = 4;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.raszterNUD);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.toleranciaNud);
-            this.groupBox2.Controls.Add(this.tokozasCbx);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.induktivBox);
-            this.groupBox2.Controls.Add(this.kondenzatorBox);
-            this.groupBox2.Controls.Add(this.ellenallasBox);
-            this.groupBox2.Location = new System.Drawing.Point(356, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(365, 260);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Alkatrész adatok";
-            // 
-            // raszterNUD
-            // 
-            this.raszterNUD.DecimalPlaces = 2;
-            this.raszterNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.raszterNUD.Location = new System.Drawing.Point(145, 52);
-            this.raszterNUD.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.raszterNUD.Name = "raszterNUD";
-            this.raszterNUD.Size = new System.Drawing.Size(59, 23);
-            this.raszterNUD.TabIndex = 10;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 54);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(133, 17);
-            this.label16.TabIndex = 9;
-            this.label16.Text = "Raszterméret (mm):";
-            // 
-            // kondenzatorBox
-            // 
-            this.kondenzatorBox.Controls.Add(this.label13);
-            this.kondenzatorBox.Controls.Add(this.kondiFeszultsegNUD);
-            this.kondenzatorBox.Controls.Add(this.kondiMertekEgysegCbx);
-            this.kondenzatorBox.Controls.Add(this.label14);
-            this.kondenzatorBox.Controls.Add(this.kondiTipusCbx);
-            this.kondenzatorBox.Controls.Add(this.kapacitasErtekNUD);
-            this.kondenzatorBox.Controls.Add(this.label15);
-            this.kondenzatorBox.Location = new System.Drawing.Point(6, 81);
-            this.kondenzatorBox.Name = "kondenzatorBox";
-            this.kondenzatorBox.Size = new System.Drawing.Size(341, 119);
-            this.kondenzatorBox.TabIndex = 8;
-            this.kondenzatorBox.TabStop = false;
-            this.kondenzatorBox.Text = "Kondenzátor adatai";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 84);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(192, 17);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "Kondenzátor feszültsége (V):";
-            // 
-            // kondiFeszultsegNUD
-            // 
-            this.kondiFeszultsegNUD.DecimalPlaces = 1;
-            this.kondiFeszultsegNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.kondiFeszultsegNUD.Location = new System.Drawing.Point(203, 82);
-            this.kondiFeszultsegNUD.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.kondiFeszultsegNUD.Name = "kondiFeszultsegNUD";
-            this.kondiFeszultsegNUD.Size = new System.Drawing.Size(59, 23);
-            this.kondiFeszultsegNUD.TabIndex = 6;
-            // 
-            // kondiMertekEgysegCbx
-            // 
-            this.kondiMertekEgysegCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.kondiMertekEgysegCbx.FormattingEnabled = true;
-            this.kondiMertekEgysegCbx.Location = new System.Drawing.Point(268, 51);
-            this.kondiMertekEgysegCbx.Name = "kondiMertekEgysegCbx";
-            this.kondiMertekEgysegCbx.Size = new System.Drawing.Size(67, 24);
-            this.kondiMertekEgysegCbx.TabIndex = 5;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 54);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(165, 17);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "Kondenzátor kapacitása:";
-            // 
-            // kondiTipusCbx
-            // 
-            this.kondiTipusCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.kondiTipusCbx.FormattingEnabled = true;
-            this.kondiTipusCbx.Location = new System.Drawing.Point(203, 20);
-            this.kondiTipusCbx.Name = "kondiTipusCbx";
-            this.kondiTipusCbx.Size = new System.Drawing.Size(132, 24);
-            this.kondiTipusCbx.TabIndex = 3;
-            // 
-            // kapacitasErtekNUD
-            // 
-            this.kapacitasErtekNUD.DecimalPlaces = 1;
-            this.kapacitasErtekNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.kapacitasErtekNUD.Location = new System.Drawing.Point(203, 52);
-            this.kapacitasErtekNUD.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.kapacitasErtekNUD.Name = "kapacitasErtekNUD";
-            this.kapacitasErtekNUD.Size = new System.Drawing.Size(59, 23);
-            this.kapacitasErtekNUD.TabIndex = 2;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 24);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(135, 17);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "Kondenzátor típusa:";
-            // 
-            // ellenallasBox
-            // 
-            this.ellenallasBox.Controls.Add(this.label9);
-            this.ellenallasBox.Controls.Add(this.ellenallasMertekEgysegCbx);
-            this.ellenallasBox.Controls.Add(this.ellenallasTeljesitmenyNUD);
-            this.ellenallasBox.Controls.Add(this.ellenallasErtekNUD);
-            this.ellenallasBox.Controls.Add(this.label8);
-            this.ellenallasBox.Location = new System.Drawing.Point(6, 81);
-            this.ellenallasBox.Name = "ellenallasBox";
-            this.ellenallasBox.Size = new System.Drawing.Size(341, 85);
-            this.ellenallasBox.TabIndex = 5;
-            this.ellenallasBox.TabStop = false;
-            this.ellenallasBox.Text = "Ellenállás adatai";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 54);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(185, 17);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Ellenállás teljesítménye (W):";
-            // 
-            // ellenallasMertekEgysegCbx
-            // 
-            this.ellenallasMertekEgysegCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ellenallasMertekEgysegCbx.FormattingEnabled = true;
-            this.ellenallasMertekEgysegCbx.Location = new System.Drawing.Point(268, 21);
-            this.ellenallasMertekEgysegCbx.Name = "ellenallasMertekEgysegCbx";
-            this.ellenallasMertekEgysegCbx.Size = new System.Drawing.Size(67, 24);
-            this.ellenallasMertekEgysegCbx.TabIndex = 3;
-            // 
-            // ellenallasTeljesitmenyNUD
-            // 
-            this.ellenallasTeljesitmenyNUD.DecimalPlaces = 1;
-            this.ellenallasTeljesitmenyNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.ellenallasTeljesitmenyNUD.Location = new System.Drawing.Point(203, 52);
-            this.ellenallasTeljesitmenyNUD.Name = "ellenallasTeljesitmenyNUD";
-            this.ellenallasTeljesitmenyNUD.Size = new System.Drawing.Size(59, 23);
-            this.ellenallasTeljesitmenyNUD.TabIndex = 2;
-            // 
-            // ellenallasErtekNUD
-            // 
-            this.ellenallasErtekNUD.DecimalPlaces = 2;
-            this.ellenallasErtekNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.ellenallasErtekNUD.Location = new System.Drawing.Point(203, 21);
-            this.ellenallasErtekNUD.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.ellenallasErtekNUD.Name = "ellenallasErtekNUD";
-            this.ellenallasErtekNUD.Size = new System.Drawing.Size(59, 23);
-            this.ellenallasErtekNUD.TabIndex = 1;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 24);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(116, 17);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Ellenállás értéke:";
-            // 
-            // induktivBox
-            // 
-            this.induktivBox.Controls.Add(this.induktivAramMertekCbx);
-            this.induktivBox.Controls.Add(this.label12);
-            this.induktivBox.Controls.Add(this.induktivUzemiAramNUD);
-            this.induktivBox.Controls.Add(this.induktivEllenallasMertekCbx);
-            this.induktivBox.Controls.Add(this.label10);
-            this.induktivBox.Controls.Add(this.induktivitasMertekCbx);
-            this.induktivBox.Controls.Add(this.induktivEllenallasNUD);
-            this.induktivBox.Controls.Add(this.induktivErtekNUD);
-            this.induktivBox.Controls.Add(this.label11);
-            this.induktivBox.Location = new System.Drawing.Point(6, 81);
-            this.induktivBox.Name = "induktivBox";
-            this.induktivBox.Size = new System.Drawing.Size(341, 119);
-            this.induktivBox.TabIndex = 7;
-            this.induktivBox.TabStop = false;
-            this.induktivBox.Text = "Induktivitás adatai";
-            // 
-            // induktivAramMertekCbx
-            // 
-            this.induktivAramMertekCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.induktivAramMertekCbx.FormattingEnabled = true;
-            this.induktivAramMertekCbx.Location = new System.Drawing.Point(268, 81);
-            this.induktivAramMertekCbx.Name = "induktivAramMertekCbx";
-            this.induktivAramMertekCbx.Size = new System.Drawing.Size(67, 24);
-            this.induktivAramMertekCbx.TabIndex = 8;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 84);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(163, 17);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "Induktivitás üzemi áram :";
-            // 
-            // induktivUzemiAramNUD
-            // 
-            this.induktivUzemiAramNUD.DecimalPlaces = 1;
-            this.induktivUzemiAramNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.induktivUzemiAramNUD.Location = new System.Drawing.Point(203, 82);
-            this.induktivUzemiAramNUD.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.induktivUzemiAramNUD.Name = "induktivUzemiAramNUD";
-            this.induktivUzemiAramNUD.Size = new System.Drawing.Size(59, 23);
-            this.induktivUzemiAramNUD.TabIndex = 6;
-            // 
-            // induktivEllenallasMertekCbx
-            // 
-            this.induktivEllenallasMertekCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.induktivEllenallasMertekCbx.FormattingEnabled = true;
-            this.induktivEllenallasMertekCbx.Location = new System.Drawing.Point(268, 51);
-            this.induktivEllenallasMertekCbx.Name = "induktivEllenallasMertekCbx";
-            this.induktivEllenallasMertekCbx.Size = new System.Drawing.Size(67, 24);
-            this.induktivEllenallasMertekCbx.TabIndex = 5;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 54);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(167, 17);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Induktív ellenállás értéke:";
-            // 
-            // induktivitasMertekCbx
-            // 
-            this.induktivitasMertekCbx.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.induktivitasMertekCbx.FormattingEnabled = true;
-            this.induktivitasMertekCbx.Location = new System.Drawing.Point(268, 21);
-            this.induktivitasMertekCbx.Name = "induktivitasMertekCbx";
-            this.induktivitasMertekCbx.Size = new System.Drawing.Size(67, 24);
-            this.induktivitasMertekCbx.TabIndex = 3;
-            // 
-            // induktivEllenallasNUD
-            // 
-            this.induktivEllenallasNUD.DecimalPlaces = 1;
-            this.induktivEllenallasNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.induktivEllenallasNUD.Location = new System.Drawing.Point(203, 52);
-            this.induktivEllenallasNUD.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.induktivEllenallasNUD.Name = "induktivEllenallasNUD";
-            this.induktivEllenallasNUD.Size = new System.Drawing.Size(59, 23);
-            this.induktivEllenallasNUD.TabIndex = 2;
-            // 
-            // induktivErtekNUD
-            // 
-            this.induktivErtekNUD.DecimalPlaces = 2;
-            this.induktivErtekNUD.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.induktivErtekNUD.Location = new System.Drawing.Point(203, 21);
-            this.induktivErtekNUD.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.induktivErtekNUD.Name = "induktivErtekNUD";
-            this.induktivErtekNUD.Size = new System.Drawing.Size(59, 23);
-            this.induktivErtekNUD.TabIndex = 1;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 24);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(126, 17);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Induktivitás értéke:";
-            // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button2.Location = new System.Drawing.Point(863, 231);
+            this.button2.Location = new System.Drawing.Point(752, 279);
             this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 41);
+            this.button2.Size = new System.Drawing.Size(93, 41);
             this.button2.TabIndex = 7;
             this.button2.Text = "Rögzítés";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button3.Location = new System.Drawing.Point(963, 231);
+            this.button3.Location = new System.Drawing.Point(855, 279);
             this.button3.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(90, 41);
+            this.button3.Size = new System.Drawing.Size(93, 41);
             this.button3.TabIndex = 8;
             this.button3.Text = "Mégsem";
             this.button3.UseVisualStyleBackColor = true;
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(954, 27);
+            this.toolStrip1.TabIndex = 10;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.LemonChiffon;
+            this.button4.Location = new System.Drawing.Point(5, 279);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(136, 40);
+            this.button4.TabIndex = 11;
+            this.button4.Text = "Új kategória";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.LemonChiffon;
+            this.button5.Location = new System.Drawing.Point(169, 279);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(136, 40);
+            this.button5.TabIndex = 12;
+            this.button5.Text = "Új paraméter";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Location = new System.Drawing.Point(357, 31);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(266, 242);
+            this.panel2.TabIndex = 13;
             // 
             // AlkatreszFelvitelFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 300);
+            this.ClientSize = new System.Drawing.Size(954, 346);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
@@ -690,7 +324,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "AlkatreszFelvitelFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Alkatrész felvitele";
+            this.Text = "C";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -699,23 +333,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.darabArNud)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.keszletNud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.toleranciaNud)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.raszterNUD)).EndInit();
-            this.kondenzatorBox.ResumeLayout(false);
-            this.kondenzatorBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kondiFeszultsegNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kapacitasErtekNUD)).EndInit();
-            this.ellenallasBox.ResumeLayout(false);
-            this.ellenallasBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ellenallasTeljesitmenyNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ellenallasErtekNUD)).EndInit();
-            this.induktivBox.ResumeLayout(false);
-            this.induktivBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.induktivUzemiAramNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.induktivEllenallasNUD)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.induktivErtekNUD)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -739,38 +358,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.ToolStripStatusLabel infoTSMI;
         private System.Windows.Forms.TextBox megjegyzesTbx;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox tokozasCbx;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown toleranciaNud;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox ellenallasBox;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox ellenallasMertekEgysegCbx;
-        private System.Windows.Forms.NumericUpDown ellenallasTeljesitmenyNUD;
-        private System.Windows.Forms.NumericUpDown ellenallasErtekNUD;
-        private System.Windows.Forms.GroupBox induktivBox;
-        private System.Windows.Forms.ComboBox induktivEllenallasMertekCbx;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox induktivitasMertekCbx;
-        private System.Windows.Forms.NumericUpDown induktivEllenallasNUD;
-        private System.Windows.Forms.NumericUpDown induktivErtekNUD;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox induktivAramMertekCbx;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown induktivUzemiAramNUD;
-        private System.Windows.Forms.GroupBox kondenzatorBox;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown kondiFeszultsegNUD;
-        private System.Windows.Forms.ComboBox kondiMertekEgysegCbx;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox kondiTipusCbx;
-        private System.Windows.Forms.NumericUpDown kapacitasErtekNUD;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.NumericUpDown raszterNUD;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Panel panel2;
     }
 }

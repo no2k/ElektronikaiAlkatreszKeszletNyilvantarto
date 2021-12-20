@@ -9,45 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
-/*
- * TODO: A listához adásnál az értékeket ellenőrizni kel! Dobj egy hibát!
- * 
- * */
+
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     public partial class AlkatreszFelvitelFrm : Form
     {
-        Alkatresz alkatresz;
+        ParameterLista lista;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
-
+        Kategoria katerogia;
         internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
         public AlkatreszFelvitelFrm()
         {
             InitializeComponent();
-            SzelektorokFeltoltese();
-        }
-
-        private void SzelektorokFeltoltese()
-        {
-            kategoriaCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.Kategoria));
-            kategoriaCbx.SelectedIndex = 0;
-            tokozasCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.PasszivTokozas));
-
-            induktivitasMertekCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.InduktivMertekEgyseg));
-            induktivEllenallasMertekCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.InduktivEllenallasMertekegyseg));
-            induktivAramMertekCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.InduktivUzemiAramMertekEgyseg));
-
-            kondiTipusCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.KondenzatorTipus));
-            kondiMertekEgysegCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.KapacitasMertekEgyseg));
-
-            ellenallasMertekEgysegCbx.DataSource = Enum.GetValues(typeof(AlkatreszOsztalyok.EllenallasMertekEgyseg));
-            ellenallasBox.Visible = true;
-            kondenzatorBox.Visible = false;
-            induktivBox.Visible = false;
 
         }
+
+
 
         private void ListaFrissit()
         {
@@ -64,31 +43,19 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 case 0:
                     {
-                        megnevezesTbx.Enabled = false;
-                        megnevezesTbx.Text = kategoriaCbx.SelectedItem.ToString();
-                        ellenallasBox.Visible = true;
-                        kondenzatorBox.Visible = false;
-                        induktivBox.Visible = false;
+
                     }
                     break;
 
                 case 1:
                     {
-                        megnevezesTbx.Enabled = false;
-                        megnevezesTbx.Text = kategoriaCbx.SelectedItem.ToString();
-                        ellenallasBox.Visible = false;
-                        kondenzatorBox.Visible = true;
-                        induktivBox.Visible = false;
+
                     }
                     break;
 
                 case 2:
                     {
-                        megnevezesTbx.Enabled = false;
-                        megnevezesTbx.Text = kategoriaCbx.SelectedItem.ToString();
-                        ellenallasBox.Visible = false;
-                        kondenzatorBox.Visible = false;
-                        induktivBox.Visible = true;
+
                     }
                     break;
             }
@@ -104,17 +71,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
                         try
                         {
-                            alkatresz = (new Ellenalas((float)ellenallasErtekNUD.Value,
-                                                              (EllenallasMertekEgyseg)ellenallasMertekEgysegCbx.SelectedItem,
-                                                              (float)ellenallasTeljesitmenyNUD.Value,
-                                                              megnevezesTbx.Text,
-                                                              (int)keszletNud.Value,
-                                                              (int)darabArNud.Value,
-                                                              (Kategoria)kategoriaCbx.SelectedItem,
-                                                              (PasszivTokozas)tokozasCbx.SelectedItem,
-                                                              (float)toleranciaNud.Value,
-                                                              (float)raszterNUD.Value,
-                                                              megjegyzesTbx.Text));
 
 
                         }
@@ -131,17 +87,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     {
                         try
                         {
-                            alkatresz = (new Kondenzator((float)kapacitasErtekNUD.Value,
-                                                                 (KapacitasMertekEgyseg)kondiMertekEgysegCbx.SelectedItem,
-                                                                 (float)kondiFeszultsegNUD.Value,
-                                                                 (KondenzatorTipus)kondiTipusCbx.SelectedItem,
-                                                                 megnevezesTbx.Text, (int)keszletNud.Value,
-                                                                 (int)darabArNud.Value,
-                                                                 (Kategoria)kategoriaCbx.SelectedItem,
-                                                                 (PasszivTokozas)tokozasCbx.SelectedItem,
-                                                                 (float)toleranciaNud.Value,
-                                                                 (float)raszterNUD.Value,
-                                                                 megjegyzesTbx.Text));
+
                         }
                         catch (Exception ex)
                         {
@@ -157,20 +103,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     {
                         try
                         {
-                            alkatresz = (new Induktivitas((float)induktivErtekNUD.Value,
-                                                                  (float)induktivEllenallasNUD.Value,
-                                                                  (float)induktivUzemiAramNUD.Value,
-                                                                  (InduktivEllenallasMertekegyseg)induktivEllenallasMertekCbx.SelectedItem,
-                                                                  (InduktivMertekEgyseg)induktivitasMertekCbx.SelectedItem,
-                                                                  (InduktivUzemiAramMertekEgyseg)induktivAramMertekCbx.SelectedItem,
-                                                                  megnevezesTbx.Text,
-                                                                  (int)keszletNud.Value,
-                                                                  (int)darabArNud.Value,
-                                                                  (Kategoria)kategoriaCbx.SelectedItem,
-                                                                  (PasszivTokozas)tokozasCbx.SelectedItem,
-                                                                  (float)toleranciaNud.Value,
-                                                                  (float)raszterNUD.Value,
-                                                                  megjegyzesTbx.Text));
+
 
                         }
                         catch (Exception ex)
@@ -203,29 +136,64 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
              {
                  alkatreszLista.Add(alkatresz);
              }*/
-            if (!alkatreszLista.Contains(alkatresz))
-            {
-                alkatreszLista.Add(alkatresz);
-                infoTSMI.Text = "Alkatrész hozzáadva az alkatrész listához!";
-            }
-            else
-            {
-                MessageBox.Show("Az alkatrész már a listában van!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            /* if (!alkatreszLista.Contains(alkatresz))
+             {
+                 alkatreszLista.Add(alkatresz);
+                 infoTSMI.Text = "Alkatrész hozzáadva az alkatrész listához!";
+             }
+             else
+             {
+                 MessageBox.Show("Az alkatrész már a listában van!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+             }*/
 
             ListaFrissit();
         }
 
         private void TokozasCbx1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (kategoriaCbx.SelectedIndex < 3 && tokozasCbx.SelectedIndex != 0)
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)  //Uj parameter
+        {
+            if (kategoriaCbx.SelectedItem != null )
             {
-                raszterNUD.Enabled = false;
-                raszterNUD.Value = 0;
+
+                UjParameterFrm frm = new UjParameterFrm(katerogia);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+
+                }
             }
-            else
+        }
+
+        private void button4_Click(object sender, EventArgs e) //Uj kategoria
+        {
+            UjKategoriaFrm katFrm = new UjKategoriaFrm();
+            if (katFrm.ShowDialog() == DialogResult.OK)
             {
-                raszterNUD.Enabled = true;
+                Kategoria kat = new Kategoria(null, katFrm.Kategoria);
+                try
+                {
+                    ABKezelo.UjKategoria(kat);
+                }
+                catch (ABKivetel ex)
+                {
+                    MessageBox.Show(ex.Message,"Adatbázis hiba!",MessageBoxButtons.OK,MessageBoxIcon.Error);                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,"Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } 
+               
+                if (katFrm.Parameterez)
+                {
+                    UjParameterFrm paramFrm = new UjParameterFrm((Kategoria)kat);
+                    if (paramFrm.ShowDialog()==DialogResult.OK)
+                    {
+
+                    }
+                }
             }
         }
     }
