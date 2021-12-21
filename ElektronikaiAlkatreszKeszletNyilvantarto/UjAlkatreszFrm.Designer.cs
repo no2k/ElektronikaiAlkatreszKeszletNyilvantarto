@@ -1,7 +1,7 @@
 ﻿
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-    partial class AlkatreszFelvitelFrm
+    partial class UjAlkatreszFrm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlkatreszFelvitelFrm));
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -48,8 +47,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -58,7 +55,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.darabArNud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.keszletNud)).BeginInit();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -254,26 +250,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button3.Text = "Mégsem";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(954, 27);
-            this.toolStrip1.TabIndex = 10;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(24, 24);
-            this.toolStripButton1.Text = "toolStripButton1";
-            // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.LemonChiffon;
@@ -311,7 +287,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox1);
@@ -324,7 +299,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "AlkatreszFelvitelFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "C";
+            this.Text = "Új alkatrész megadása";
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -333,8 +308,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.darabArNud)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.keszletNud)).EndInit();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -360,8 +333,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel2;

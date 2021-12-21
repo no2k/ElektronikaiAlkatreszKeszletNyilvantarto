@@ -48,6 +48,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -66,25 +72,19 @@
   <ItemGroup>
     <Compile Include="ABKezelo.cs" />
     <Compile Include="ABKivetel.cs" />
-    <Compile Include="AlkatreszFelvitelFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AlkatreszFelvitelFrm.Designer.cs">
-      <DependentUpon>AlkatreszFelvitelFrm.cs</DependentUpon>
+    <Compile Include="UjAlkatreszFrm.cs" />
+    <Compile Include="UjAlkatreszFrm.Designer.cs">
+      <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="AlkatreszOsztalyok\Parameter.cs" />
     <Compile Include="AlkatreszOsztalyok\ParameterLista.cs" />
     <Compile Include="Fajlkezelo.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="KeszletFrm.cs" />
+    <Compile Include="KeszletFrm.Designer.cs">
+      <DependentUpon>KeszletFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="AlkatreszOsztalyok\Kategoria.cs" />
-    <Compile Include="UjKategoriaFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UjKategoriaFrm.cs" />
     <Compile Include="UjKategoriaFrm.Designer.cs">
       <DependentUpon>UjKategoriaFrm.cs</DependentUpon>
     </Compile>
@@ -92,29 +92,23 @@
     <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Elemek\ProjektFul.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Elemek\ProjektFul.cs" />
     <Compile Include="Elemek\ProjektFul.Designer.cs">
       <DependentUpon>ProjektFul.cs</DependentUpon>
     </Compile>
-    <Compile Include="UjParameterFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UjParameterFrm.cs" />
     <Compile Include="UjParameterFrm.Designer.cs">
       <DependentUpon>UjParameterFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UjProjektFrm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UjProjektFrm.cs" />
     <Compile Include="UjProjektFrm.Designer.cs">
       <DependentUpon>UjProjektFrm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AlkatreszFelvitelFrm.resx">
-      <DependentUpon>AlkatreszFelvitelFrm.cs</DependentUpon>
+    <EmbeddedResource Include="UjAlkatreszFrm.resx">
+      <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="KeszletFrm.resx">
+      <DependentUpon>KeszletFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UjKategoriaFrm.resx">
       <DependentUpon>UjKategoriaFrm.cs</DependentUpon>
@@ -137,7 +131,7 @@
     <EmbeddedResource Include="UjProjektFrm.resx">
       <DependentUpon>UjProjektFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,10 +162,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="KeszletAB.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="KeszletAB_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>KeszletAB.mdf</DependentUpon>
     </Content>
   </ItemGroup>

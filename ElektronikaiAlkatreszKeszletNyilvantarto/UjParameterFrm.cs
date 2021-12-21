@@ -50,10 +50,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             if (kategoria!=null)
             {
                 this.kategoria = kategoria;
-                label1.Text = kategoria.KategoriaMegnevezes;
+                this.Text = $"Új {kategoria.KategoriaMegnevezes} paraméterek Hozzáadása";
+                label1.Text = kategoria.KategoriaMegnevezes +" paraméterek";
             }
         }
-        public UjParameterFrm(Kategoria kategoria, ParameterLista paramLista) 
+      /*  public UjParameterFrm(Kategoria kategoria, ParameterLista paramLista) 
         {
             InitializeComponent();
             if (kategoria != null && paramLista != null)
@@ -65,7 +66,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     lista.Add(item);
                 }
             }
-        }
+        }*/
         #endregion
 
         #region Metódusok

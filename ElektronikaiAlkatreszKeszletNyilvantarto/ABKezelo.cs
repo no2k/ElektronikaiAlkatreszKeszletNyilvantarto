@@ -76,8 +76,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 (int)reader["KATEGORIA_ID"],
                                 reader["KATEGORIA"].ToString()
                                 )
-                            );
-                    }
+                            ) ;
+                    }  
                     reader.Close();
                     return kategoriaLista;
                 }

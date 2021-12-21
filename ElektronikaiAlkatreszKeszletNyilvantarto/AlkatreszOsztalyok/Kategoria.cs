@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-    public class Kategoria
+    public class Kategoria : IComparable,IEquatable<Kategoria>
     {
         string kategoriaMegnevezes;
         int? kategoriaId;
@@ -37,14 +37,31 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
 
-        public Kategoria(int? kategoriaId,string kategoriaMegnevezes)
+        public Kategoria(int? kategoriaId, string kategoriaMegnevezes)
         {
             KategoriaId = kategoriaId;
             KategoriaMegnevezes = kategoriaMegnevezes;
         }
+
         public override string ToString()
         {
             return kategoriaMegnevezes;
+        }
+        public int CompareTo(object obj)
+        {
+            return kategoriaMegnevezes.CompareTo(obj);
+        }
+
+        bool IEquatable<Kategoria>.Equals(Kategoria other)
+        {
+            if (this.kategoriaMegnevezes == other.KategoriaMegnevezes)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

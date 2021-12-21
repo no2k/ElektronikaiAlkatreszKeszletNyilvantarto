@@ -13,7 +13,7 @@ using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
-    public partial class AlkatreszFelvitelFrm : Form
+    public partial class UjAlkatreszFrm : Form
     {
         ParameterLista lista;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
@@ -21,7 +21,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         Kategoria katerogia;
         internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
-        public AlkatreszFelvitelFrm()
+        public UjAlkatreszFrm()
         {
             InitializeComponent();
             // kategoriaForrasLista = ABKezelo.KategoriaLekerdezes();
@@ -179,7 +179,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             UjKategoriaFrm katFrm = new UjKategoriaFrm();
             if (katFrm.ShowDialog() == DialogResult.OK)
             {
-                Kategoria kat = new Kategoria(null, katFrm.Kategoria);
+               Kategoria kat= katFrm.UjKategoria;
                 try
                 {
                     ABKezelo.UjKategoria(kat);

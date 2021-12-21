@@ -52,7 +52,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             try
             {
-                AlkatreszFelvitelFrm frm = new AlkatreszFelvitelFrm();
+                UjAlkatreszFrm frm = new UjAlkatreszFrm();
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     if (frm.AlkatreszLista != null)
