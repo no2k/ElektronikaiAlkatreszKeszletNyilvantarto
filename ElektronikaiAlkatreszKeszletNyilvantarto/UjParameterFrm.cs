@@ -52,21 +52,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 this.kategoria = kategoria;
                 this.Text = $"Új {kategoria.KategoriaMegnevezes} paraméterek Hozzáadása";
                 label1.Text = kategoria.KategoriaMegnevezes +" paraméterek";
-            }
-        }
-      /*  public UjParameterFrm(Kategoria kategoria, ParameterLista paramLista) 
-        {
-            InitializeComponent();
-            if (kategoria != null && paramLista != null)
-            {
-                label1.Text = kategoria.KategoriaMegnevezes;
-                this.kategoria = kategoria;
-                foreach (Parameter item in paramLista)
+                ParameterLista paramlista = ABKezelo.ParameterekLekerdez(kategoria);
+                if (paramlista.Parameterek != null)
+                {
+                    throw new NotImplementedException("A paraméter lehívás nincs implementálva!");
+                }
+               
+              /* foreach (Parameter item in paramlista)
                 {
                     lista.Add(item);
-                }
+                }*/
             }
-        }*/
+        }
         #endregion
 
         #region Metódusok
@@ -89,10 +86,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string str="";
             if (listBox1.SelectedItem is Parameter param)
             {
                 MegnevezesTbx.Text = param.ParameterMegnevezes;
-                ErtekTbx.Text = param.ParameterErtek;
+                foreach (string item in param.ParameterMertekEgyseg)
+                {
+                   str  = param.ParameterMertekEgyseg+Environment.NewLine;
+                }
+                MertekEgysegTxb.Text = str;
                 switch (param.ParameterTipus)
                 {
                     case 0: { radioButton1.Checked = true; } break;
@@ -105,7 +107,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void button1_Click_1(object sender, EventArgs e) //Parameter hozzaadas (listboxba es listaba)
         {
-            if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text) && !string.IsNullOrWhiteSpace(ErtekTbx.Text))
+            if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text) )
             {
 
                 RadioButton radio = groupBox1.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
@@ -124,9 +126,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         { tipus = 3; }
                         break;
                 }
-                parameter = new Parameter(MegnevezesTbx.Text, ErtekTbx.Text, tipus);
+                parameter = new Parameter(MegnevezesTbx.Text,MertekEgysegTxb.Text.Split('\n'), tipus);
                 listBox1.Items.Add(parameter);
                 lista.Add(parameter);
+                MegnevezesTbx.Clear();
+                MertekEgysegTxb.Clear();
             }
             else
             {
@@ -139,6 +143,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             parameterLista = new ParameterLista(kategoria, lista);
             if (parameterLista!= null)
             {
+                ABKezelo.UjParameterek(kategoria, parameterLista);
                 DialogResult = DialogResult.OK;
             }
             else
@@ -147,5 +152,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 DialogResult = DialogResult.None;
             }
         }
+
+        
     }
 }

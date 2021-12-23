@@ -41,7 +41,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 throw new ABKivetel("Az adatbázis kapcsolat bontása sikertelen!", ex);
             }
-        }
+        } //OK!
         public static void UjKategoria(Kategoria kategoria)
         {
             try
@@ -57,15 +57,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel($"Sikertelen kategória felvitel az adatbázisba! \r\n\t {ex.Message}");
             }
 
-        }
+        } //OK!
         public static List<Kategoria> KategoriaLekerdezes()
         {
             try
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "SELECT * FROM [Kategoria]";
-
-
                 List<Kategoria> kategoriaLista = new List<Kategoria>();
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
@@ -76,8 +74,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 (int)reader["KATEGORIA_ID"],
                                 reader["KATEGORIA"].ToString()
                                 )
-                            ) ;
-                    }  
+                            );
+                    }
                     reader.Close();
                     return kategoriaLista;
                 }
@@ -88,7 +86,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel("Adatbázis (Kategória) lekérdezési hiba! " + ex.Message);
             }
 
-        }
+        } //OK!
         public static void KategoriaTorles(Kategoria torles)
         {
             /*
@@ -98,6 +96,89 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             //  parancs.Transaction = kapcsolat.BeginTransaction();
             //  parancs.CommandText=$"DELETE FROM[{torles.GetType().Name}] WHERE [KATEGORIA]"
         }
+        public static void UjParameterek(Kategoria kategoria, ParameterLista hozzaAd)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText = "INSERT INTO [Parameter] VALUES (@kategoriaId, @parameterSorszam, @parameterMegnevezes, @parameterMertekegyseg, @parameterErtektipus)";
+                int? kategoriaId = hozzaAd.Kategoria.KategoriaId;
+                foreach (Parameter item in hozzaAd)
+                {
+                    parancs.Parameters.AddWithValue("@kategoriaId", kategoriaId);
+                    parancs.Parameters.AddWithValue("@ParameterSorszam", item.ParameterSorszam);
+                    parancs.Parameters.AddWithValue("@ParameterMegnevezes", item.ParameterMegnevezes.ToString());
+                    //parancs.Parameters.AddWithValue("@ParameterMertekegyseg", item.ParameterMertekEgyseg.ToString().Select(x => +x+Environment.NewLine));
+                    parancs.Parameters.AddWithValue("@ParameterMertekegyseg", Parameter.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
+                    parancs.Parameters.AddWithValue("@ParameterErtekTipus", item.ParameterTipus);
+                    parancs.ExecuteNonQuery();
+                }
+                parancs.Transaction.Commit();
+                //  kategoria.KategoriaId = (int)parancs.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
+                }
+                throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n\t {ex.Message}");
+            }
+        }
+        public static ParameterLista ParameterekLekerdez(Kategoria melyik)
+        {
+            List<Parameter> lista = new List<Parameter>();
+            try
+            {
+                int? kategoriaId = melyik.KategoriaId;
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT *, " +
+                    "[PARAMETER_SORSZAM] AS [Sorszam]," +
+                    "[PARAMETER_MEGNEVEZES] AS [Megnevezes]," +
+                    "[PARAMETER_MERTEKEGYSEG] AS [Mertekegyseg]," +
+                    "[PARAMETER_ERTEKTIPUS] AS [Tipus] FROM [PARAMETER]" +
+                    "LEFT JOIN [Kategoria] ON [Parameter].[KATEGORIA_ID] = [Kategoria].[KATEGORIA_ID] WHERE [Kategoria].[KATEGORIA_ID]=@kategoriaId";
+                parancs.Parameters.AddWithValue("@kategoriaId", melyik.KategoriaId);
+                //List<Parameter> lista = new List<Parameter>();
+                using (SqlDataReader reader = parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (reader["PARAMETER_SORSZAM"]!=null)
+                        {
+                            lista.Add(
+                            new Parameter(
+                                (int)reader["PARAMETER_SORSZAM"],
+                                reader["PARAMETER_MEGNEVEZES"].ToString(),
+                                reader["PARAMETER_MERTEKEGYSEG"].ToString().Split(';'),
+                                (int)reader["PARAMETER_ERTEKTIPUS"]
+                                )
+                            );
+                        }
+                        else
+                        {
+                            lista = null;
+                        }
+                        
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Adatbázis (Kategória) lekérdezési hiba! " + ex.Message);
+            }
+            return new ParameterLista(melyik, lista); ;
+        }
+
         public static void UjAlkatresz(Alkatresz ujAlkatresz)
         {
             try

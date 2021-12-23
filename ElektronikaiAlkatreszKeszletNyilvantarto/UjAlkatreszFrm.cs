@@ -172,6 +172,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
                 KategoriaFrissit();
             }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott kategória","Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e) //Uj kategoria

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    public class Parameter : IComparable
+    public class Parameter : IEnumerable
     {
         #region Fieldek
-        
-        private int sorszam=0;
+
+        private int sorszam = 0;
         private int parameterSorszam;
         private string parameterMegnevezes;
-        private string parameterErtek;
+        private string[] parameterMertekEgyseg;
         private int parameterTipus;
         #endregion
 
@@ -50,20 +51,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-        public string ParameterErtek
+        public string[] ParameterMertekEgyseg
         {
-            get => parameterErtek;
-            private set
-            {
-                if (!String.IsNullOrWhiteSpace(value))
-                {
-                    parameterErtek = value;
-                }
-                else
-                {
-                    throw new ArgumentNullException("Az érték paraméter nem lehet üres!");
-                }
-            }
+            get => parameterMertekEgyseg;
+            private set => parameterMertekEgyseg = value;
         }
         public int ParameterTipus
         {
@@ -83,26 +74,51 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         #endregion
 
         #region Konstruktorok
-        public Parameter(string parameterMegnevezes, string parameterErtek, int parameterTipus)
+        public Parameter(string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
         {
-            parameterSorszam=++sorszam;
+            parameterSorszam = ++sorszam;
             ParameterMegnevezes = parameterMegnevezes;
-            ParameterErtek = parameterErtek;
+            ParameterMertekEgyseg = parameterMertekegyseg;
+            ParameterTipus = parameterTipus;
+        }
+        public Parameter(int ParameterSorszam, string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
+        {
+            parameterSorszam = ParameterSorszam;
+            ParameterMegnevezes = parameterMegnevezes;
+            ParameterMertekEgyseg = parameterMertekegyseg;
             ParameterTipus = parameterTipus;
         }
 
         #endregion
 
         #region Metódusok
-
+        public static string TombbolStringbeKonvertal(string[] mertekEgyseg)
+        {    string s = "";
+            if (mertekEgyseg.Length > 1)
+            {
+                foreach (string item in mertekEgyseg)
+                {
+                    s += item+";";
+                }
+                return s;
+            }
+            return mertekEgyseg[0];
+        }
         public override string ToString()
         {
-            return $"-{parameterSorszam}-{parameterMegnevezes}: {parameterErtek}; /{parameterTipus}/";
+            string mertekegysegek = "";
+            foreach (string item in parameterMertekEgyseg)
+            {
+                mertekegysegek += item + " ";
+            }
+            return $"-{parameterSorszam}-{parameterMegnevezes}: {mertekegysegek}; /{parameterTipus}/";
         }
-        public int CompareTo(object obj)
+
+        public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            return parameterMertekEgyseg.GetEnumerator();
         }
+
         #endregion
     }
 }

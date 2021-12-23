@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    public class ParameterLista:IEnumerable
+    public class ParameterLista : IComparable,IEnumerable
     {
         #region Fieldek
-        
+
         Kategoria kategoria; //később enum lessz
         List<Parameter> parameterek = new List<Parameter>();
         Parameter egyParameter;
@@ -22,7 +22,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => kategoria;
             set
             {
-                if (value!=null)
+                if (value != null)
                 {
                     kategoria = value;
                 }
@@ -38,7 +38,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => parameterek;
             set
             {
-                if (value != null) 
+                if (value != null)
                 {
                     parameterek = value;
                 }
@@ -66,7 +66,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         #endregion
 
         #region Konstruktorok
-        
+
         public ParameterLista(Kategoria kategoria, List<Parameter> parameterek)
         {
             Kategoria = kategoria;
@@ -78,7 +78,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         public void UjParameter(Parameter parameter)
         {
-            if (parameter!=null && parameterek!=null)
+            if (parameter != null && parameterek != null)
             {
                 parameterek.Add(parameter);
             }
@@ -91,18 +91,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         public override string ToString()
         {
             return $"[{Kategoria}]=>{parameterek.Select(x => x.ToString())})";
-           
+
+        }
+
+        public int CompareTo(object obj)
+        {
+            return ToString().CompareTo(obj.ToString());
         }
 
         public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            return ((IEnumerable)parameterek).GetEnumerator();
         }
-        #endregion
-
-
-
     }
+
+    #endregion
+
 
 
 }
+
+

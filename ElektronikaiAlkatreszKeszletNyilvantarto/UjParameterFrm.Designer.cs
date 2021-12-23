@@ -35,7 +35,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.ErtekTbx = new System.Windows.Forms.TextBox();
+            this.MertekEgysegTxb = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.MegnevezesTbx = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.ErtekTbx);
+            this.panel1.Controls.Add(this.MertekEgysegTxb);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.MegnevezesTbx);
             this.panel1.Controls.Add(this.label3);
@@ -122,13 +122,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.radioButton1.Text = "Szöveg";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // ErtekTbx
+            // MertekEgysegTxb
             // 
-            this.ErtekTbx.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ErtekTbx.Location = new System.Drawing.Point(6, 67);
-            this.ErtekTbx.Name = "ErtekTbx";
-            this.ErtekTbx.Size = new System.Drawing.Size(185, 21);
-            this.ErtekTbx.TabIndex = 10;
+            this.MertekEgysegTxb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.MertekEgysegTxb.Location = new System.Drawing.Point(6, 67);
+            this.MertekEgysegTxb.Multiline = true;
+            this.MertekEgysegTxb.Name = "MertekEgysegTxb";
+            this.MertekEgysegTxb.Size = new System.Drawing.Size(185, 20);
+            this.MertekEgysegTxb.TabIndex = 10;
             // 
             // label2
             // 
@@ -136,9 +137,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.Location = new System.Drawing.Point(3, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(114, 15);
+            this.label2.Size = new System.Drawing.Size(155, 15);
             this.label2.TabIndex = 9;
-            this.label2.Text = "A paraméter értéke:";
+            this.label2.Text = "Paraméter mértékegysége:";
             // 
             // MegnevezesTbx
             // 
@@ -154,9 +155,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.Location = new System.Drawing.Point(3, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(176, 15);
+            this.label3.Size = new System.Drawing.Size(148, 15);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Az új paraméter megnevezése:";
+            this.label3.Text = "Paraméter megnevezése:";
             // 
             // listBox1
             // 
@@ -230,7 +231,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.RadioButton radioButton3;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox ErtekTbx;
+        private System.Windows.Forms.TextBox MertekEgysegTxb;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox MegnevezesTbx;
         private System.Windows.Forms.Label label3;
