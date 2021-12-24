@@ -53,9 +53,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 this.Text = $"Új {kategoria.KategoriaMegnevezes} paraméterek Hozzáadása";
                 label1.Text = kategoria.KategoriaMegnevezes +" paraméterek";
                 ParameterLista paramlista = ABKezelo.ParameterekLekerdez(kategoria);
-                if (paramlista.Parameterek != null)
+                if (paramlista.Parameterek.Capacity != 0)
                 {
-                    throw new NotImplementedException("A paraméter lehívás nincs implementálva!");
+                    listBox1.DataSource = paramlista.Parameterek;
                 }
                
               /* foreach (Parameter item in paramlista)
