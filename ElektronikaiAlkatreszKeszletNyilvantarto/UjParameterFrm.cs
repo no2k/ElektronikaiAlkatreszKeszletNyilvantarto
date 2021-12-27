@@ -89,7 +89,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
-        private void button1_Click_1(object sender, EventArgs e) //Parameter hozzaadas (listboxba es listaba)
+        private void button1_Click(object sender, EventArgs e) //Parameter hozzaadas (listboxba es listaba)
         {
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
             {
@@ -131,20 +131,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 MessageBox.Show("Minden mező kitöltése kötelező!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void button2_Click_1(object sender, EventArgs e) //Rogzit es bezar
+        private void button2_Click(object sender, EventArgs e) //Rogzit es bezar
         {
             if (lista.Count>0)
-            {    
-                if (lista.Count>listaIndex)
+            {
+                if (lista.Count > listaIndex)
                 {
-                    List<Parameter>  parameterHozzaad=new List<Parameter>();
-                    for (int i=listaIndex; i < lista.Count; i++)
+                    List<Parameter> parameterHozzaad = new List<Parameter>();
+                    for (int i = listaIndex; i < lista.Count; i++)
                     {
                         parameterHozzaad.Add(lista[i]);
-                        ABKezelo.UjParameter(kategoria,lista[i] );
+                        ABKezelo.UjParameter(kategoria, lista[i]);
                     }
-                   // parameterLista =;
-                    
+                    // parameterLista =;
+
+                }
+                else if (lista.Count == listaIndex)
+                {
+                    DialogResult = DialogResult.OK;
                 }
                 else
                 { 

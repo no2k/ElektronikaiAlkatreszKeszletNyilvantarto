@@ -177,7 +177,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button2.TabIndex = 8;
             this.button2.Text = "Rögzít és bezár";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -187,7 +187,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button1.TabIndex = 7;
             this.button1.Text = "Paraméter hozzáadása";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 

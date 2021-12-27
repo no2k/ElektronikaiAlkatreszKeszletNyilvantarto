@@ -13,7 +13,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         Kategoria kategoria; //később enum lessz
         List<Parameter> parameterek = new List<Parameter>();
-        Parameter egyParameter;
+       // Parameter egyParameter;
         #endregion
 
         #region Propertyk
@@ -48,7 +48,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-        public Parameter EgyParameter
+       /* public Parameter EgyParameter
         {
             get => egyParameter;
             private set
@@ -63,6 +63,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
+       */
         #endregion
 
         #region Konstruktorok
