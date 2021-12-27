@@ -14,7 +14,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     public partial class UjParameterFrm : Form
     {
         #region Fieldek
-        private int tipus;
+        private int tipus,listaIndex;
         Kategoria kategoria;
         private Parameter parameter;
         private List<Parameter> lista = new List<Parameter>();
@@ -55,18 +55,20 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 ParameterLista paramlista = ABKezelo.ParameterekLekerdez(kategoria);
                 if (paramlista.Parameterek.Capacity != 0)
                 {
-                    listBox1.DataSource = paramlista.Parameterek;
+                   lista = paramlista.Parameterek; 
                 }
+                listaIndex =lista.Count;
+                LbFrissit();
             }
         }
         #endregion
 
         #region Metódusok
-
-
-
-        
-
+        private void LbFrissit()
+        {
+            listBox1.DataSource = null;
+            listBox1.DataSource = lista;
+        }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string str = "";
@@ -87,7 +89,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
-
         private void button1_Click_1(object sender, EventArgs e) //Parameter hozzaadas (listboxba es listaba)
         {
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
@@ -109,24 +110,49 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         { tipus = 3; }
                         break;
                 }
+                if (listaIndex>0)
+                {
+                    int index = lista.Count;
+                    parameter = new Parameter(++index, MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
+                }
+                else
+                {
                 parameter = new Parameter(MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
-                listBox1.Items.Add(parameter);
+                }
+              //  listBox1.Items.Add(parameter);
+
                 lista.Add(parameter);
                 MegnevezesTbx.Clear();
                 MertekEgysegTxb.Clear();
+                LbFrissit();
             }
             else
             {
                 MessageBox.Show("Minden mező kitöltése kötelező!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
         private void button2_Click_1(object sender, EventArgs e) //Rogzit es bezar
         {
             if (lista.Count>0)
-            {
-                parameterLista = new ParameterLista(kategoria, lista);
-                ABKezelo.UjParameterek(kategoria, parameterLista);
+            {    
+                if (lista.Count>listaIndex)
+                {
+                    List<Parameter>  parameterHozzaad=new List<Parameter>();
+                    for (int i=listaIndex; i < lista.Count; i++)
+                    {
+                        parameterHozzaad.Add(lista[i]);
+                        ABKezelo.UjParameter(kategoria,lista[i] );
+                    }
+                   // parameterLista =;
+                    
+                }
+                else
+                { 
+                    parameterLista = new ParameterLista(kategoria, lista);
+                    ABKezelo.UjParameterLista(kategoria, parameterLista);
+                }
+                
+                
                 DialogResult = DialogResult.OK;
             }
             else

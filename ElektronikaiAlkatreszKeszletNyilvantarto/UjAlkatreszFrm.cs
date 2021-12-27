@@ -17,7 +17,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     {
         ParameterLista lista;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
-       // List<Kategoria> kategoriaForrasLista = new List<Kategoria>();
+        // List<Kategoria> kategoriaForrasLista = new List<Kategoria>();
         Kategoria katerogia;
         internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
@@ -26,12 +26,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             InitializeComponent();
             // kategoriaForrasLista = ABKezelo.KategoriaLekerdezes();
             KategoriaFrissit();
+
         }
 
         private void KategoriaFrissit()
         {
+            kategoriaCbx.DataSource = null;
             kategoriaCbx.DataSource = ABKezelo.KategoriaLekerdezes();
-        }
+        } //ok
 
         private void ListaFrissit()
         {
@@ -41,31 +43,19 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 listBox1.DataSource = alkatreszLista;
             }
 
-        }
+        } //ok
         private void KategoriaCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (kategoriaCbx.SelectedIndex)
+            if (kategoriaCbx.SelectedItem != null)
             {
-                case 0:
-                    {
-
-                    }
-                    break;
-
-                case 1:
-                    {
-
-                    }
-                    break;
-
-                case 2:
-                    {
-
-                    }
-                    break;
+                VezerloFeltoltes((Kategoria)kategoriaCbx.SelectedItem);
             }
-            megjegyzesTbx.Clear();
-        }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott kategória!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.None;
+            }
+        } 
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -153,7 +143,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
             ListaFrissit();
         }
-
+     
         private void TokozasCbx1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -161,11 +151,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void button5_Click(object sender, EventArgs e)  //Uj parameter
         {
-            if (kategoriaCbx.SelectedItem != null )
+            if (kategoriaCbx.SelectedItem != null)
             {
 
                 UjParameterFrm frm = new UjParameterFrm((Kategoria)kategoriaCbx.SelectedItem);
-                
+
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
 
@@ -174,7 +164,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
             else
             {
-                MessageBox.Show("Nincs kiválasztott kategória","Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("Nincs kiválasztott kategória", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -183,31 +173,129 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             UjKategoriaFrm katFrm = new UjKategoriaFrm();
             if (katFrm.ShowDialog() == DialogResult.OK)
             {
-               Kategoria kat= katFrm.UjKategoria;
+                Kategoria kat = katFrm.UjKategoria;
                 try
                 {
                     ABKezelo.UjKategoria(kat);
                 }
                 catch (ABKivetel ex)
                 {
-                    MessageBox.Show(ex.Message,"Adatbázis hiba!",MessageBoxButtons.OK,MessageBoxIcon.Error);                   
+                    MessageBox.Show(ex.Message, "Adatbázis hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message,"Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                } 
-               
+                    MessageBox.Show(ex.Message, "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 if (katFrm.Parameterez)
                 {
                     UjParameterFrm paramFrm = new UjParameterFrm((Kategoria)kat);
-                    if (paramFrm.ShowDialog()==DialogResult.OK)
+                    if (paramFrm.ShowDialog() == DialogResult.OK)
                     {
 
                     }
                 }
                 KategoriaFrissit();
             }
-           
         }
+        public void VezerloFeltoltes(Kategoria kategoria)
+        {
+            panel2.Controls.Clear();
+            ParameterLista parameterek = ABKezelo.ParameterekLekerdez(kategoria);
+            /*
+* A vezérlők száma a paraméterek számától függ.
+* 4 féle típus kell: combobox, numericupdown, textbox, checkbox! (switch-case feltöltés)
+* ezen felül kell a vezérlőkhöz 1-1 label a paraméter megnevezésével.
+* a vezérlők egymás alatt helyezkednek el.
+*/
+            Padding szelek = new Padding(0,5,0,10);
+            int top = 3, left =5;
+            for (int i = 0; i < parameterek.Parameterek.Count; i++)
+            {
+                Label lbl = new Label
+                {
+                    Parent = panel2,
+                   // Margin = szelek,
+                    Top = top,
+                    Left = left,
+                    AutoSize = true,
+                    Text = parameterek.Parameterek[i].ParameterMegnevezes
+                };
+                top = lbl.Bottom + left;
+                switch (parameterek.Parameterek[i].ParameterTipus)
+                {
+                    case 0: //string
+                        {
+                            TextBox txb = new TextBox
+                            {
+                                Parent = panel2,
+                                Margin = szelek,
+                                Top = top,
+                                Left = left,
+                                Size = new Size(label2.Width - (left*2), 23),
+                                
+                                
+                            };
+                            top = txb.Bottom ;
+                        }
+                        break;
+                    case 1:  //int
+                        {
+                            NumericUpDown nud = new NumericUpDown 
+                            {
+                                Parent=panel2,
+                                Margin = szelek,
+                                Top =top,
+                                Left=left,
+                                Increment =1,
+                                Minimum=-1000,
+                                Maximum=1000
+                            };
+                            top = nud.Bottom ;
+                        }
+                        break;
+                    case 2:  //float
+                        {
+                            NumericUpDown nud = new NumericUpDown
+                            {
+                                Parent = panel2,
+                                Margin = szelek,
+                                Top = top,
+                                Left = left,
+                                Increment =0.01m,
+                                DecimalPlaces=2,
+                                Minimum = -1000,
+                                Maximum = 1000
+                            };
+                            top = nud.Bottom ;
+                        }
+                        break;
+                    case 3: // bool
+                        {
+                            CheckBox cbx = new CheckBox
+                            {
+                                Parent = panel2,
+                                Margin = szelek,
+                                Top = top,
+                                Left = left,
+                                Text=null
+                            };
+                            top = cbx.Bottom;
+                        }
+                        break;
+                }
+                
+            }
+            
+           // panel2.Controls.Add();
+
+        }
+      /*  private void Letakarit()
+        {
+            foreach (Control item in panel2.Controls)
+            {
+                item = null;
+            }
+        }*/
     }
 }

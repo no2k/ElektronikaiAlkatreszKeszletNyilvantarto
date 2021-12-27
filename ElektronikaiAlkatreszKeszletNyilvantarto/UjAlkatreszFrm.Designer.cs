@@ -76,9 +76,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.listBox1.FormattingEnabled = true;
             this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(629, 29);
+            this.listBox1.Location = new System.Drawing.Point(647, 29);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(319, 244);
+            this.listBox1.Size = new System.Drawing.Size(301, 244);
             this.listBox1.TabIndex = 2;
             // 
             // statusStrip1
@@ -274,12 +274,16 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(357, 31);
+            this.panel2.AutoScroll = true;
+            this.panel2.AutoScrollMargin = new System.Drawing.Size(25, 10);
+            this.panel2.AutoScrollMinSize = new System.Drawing.Size(25, 10);
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(357, 29);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(266, 242);
+            this.panel2.Size = new System.Drawing.Size(284, 243);
             this.panel2.TabIndex = 13;
             // 
-            // AlkatreszFelvitelFrm
+            // UjAlkatreszFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -297,7 +301,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.Name = "AlkatreszFelvitelFrm";
+            this.Name = "UjAlkatreszFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Új alkatrész megadása";
             this.statusStrip1.ResumeLayout(false);
