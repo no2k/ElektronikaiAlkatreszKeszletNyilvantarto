@@ -11,7 +11,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
     {
         #region Fieldek
 
-        Kategoria kategoria; //később enum lessz
+        Kategoria kategoria;
         List<Parameter> parameterek = new List<Parameter>();
        // Parameter egyParameter;
         #endregion

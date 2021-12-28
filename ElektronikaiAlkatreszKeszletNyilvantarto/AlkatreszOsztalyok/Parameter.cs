@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    public class Parameter : IEnumerable
+    public class Parameter : IEnumerable,IEquatable<Parameter>
     {
         #region Fieldek
 
@@ -54,7 +54,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         public string[] ParameterMertekEgyseg
         {
             get => parameterMertekEgyseg;
-            private set => parameterMertekEgyseg = value;
+            private set
+            {
+                parameterMertekEgyseg = value.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            }
         }
         public int ParameterTipus
         {
@@ -117,6 +120,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         public IEnumerator GetEnumerator()
         {
             return parameterMertekEgyseg.GetEnumerator();
+        }
+
+        bool IEquatable<Parameter>.Equals(Parameter other)
+        {
+            if (String.Equals(this.parameterMegnevezes , other.parameterMegnevezes) &&
+                String.Equals(TombbolStringbeKonvertal(this.ParameterMertekEgyseg ) , TombbolStringbeKonvertal(other.ParameterMertekEgyseg)) &&
+                this.ParameterTipus == other.ParameterTipus)
+            {
+                return true;
+            }
+            return false;
         }
 
         #endregion

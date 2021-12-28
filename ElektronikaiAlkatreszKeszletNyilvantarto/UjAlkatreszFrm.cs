@@ -31,7 +31,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             kategoriaCbx.SelectedIndexChanged -= KategoriaCbx_SelectedIndexChanged;
             kategoriaCbx.DataSource = null;
-            kategoriaCbx.DataSource = ABKezelo.KategoriaLekerdezes();
+            kategoriaCbx.DataSource = ABKezelo.AktivKategoriaLekerdezes();
             kategoriaCbx.SelectedIndexChanged += KategoriaCbx_SelectedIndexChanged;
             if (kategoriaCbx.Items.Count > 0)
             {

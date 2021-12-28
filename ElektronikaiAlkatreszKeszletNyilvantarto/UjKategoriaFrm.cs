@@ -23,7 +23,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             InitializeComponent();
             try
             {
-                lista = ABKezelo.KategoriaLekerdezes();
+                lista = ABKezelo.AktivKategoriaLekerdezes();
             }
             catch (ABKivetel ex)
             {

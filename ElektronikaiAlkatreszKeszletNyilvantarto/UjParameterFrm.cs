@@ -14,7 +14,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     public partial class UjParameterFrm : Form
     {
         #region Fieldek
-        private int tipus,listaIndex;
+        private int tipus, listaIndex;
         Kategoria kategoria;
         private Parameter parameter;
         private List<Parameter> lista = new List<Parameter>();
@@ -55,9 +55,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 ParameterLista paramlista = ABKezelo.ParameterekLekerdez(kategoria);
                 if (paramlista.Parameterek.Capacity != 0)
                 {
-                   lista = paramlista.Parameterek; 
+                    lista = paramlista.Parameterek;
                 }
-                listaIndex =lista.Count;
+                listaIndex = lista.Count;
                 LbFrissit();
             }
         }
@@ -71,15 +71,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string str = "";
             if (listBox1.SelectedItem is Parameter param)
             {
                 MegnevezesTbx.Text = param.ParameterMegnevezes;
-                foreach (string item in param.ParameterMertekEgyseg)
-                {
-                    str = param.ParameterMertekEgyseg + Environment.NewLine;
-                }
-                MertekEgysegTxb.Text = str;
+                MertekEgysegTxb.Text = string.Join(Environment.NewLine, param.ParameterMertekEgyseg);
                 switch (param.ParameterTipus)
                 {
                     case 0: { radioButton1.Checked = true; } break;
@@ -110,30 +105,40 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         { tipus = 3; }
                         break;
                 }
-                if (listaIndex>0)
+                if (listaIndex > 0)
                 {
                     int index = lista.Count;
                     parameter = new Parameter(++index, MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
                 }
                 else
                 {
-                parameter = new Parameter(MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
+                    parameter = new Parameter(MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
                 }
-              //  listBox1.Items.Add(parameter);
+                //  listBox1.Items.Add(parameter);
+                if (!lista.Contains(parameter))
+                {
+                    lista.Add(parameter);
+                    MegnevezesTbx.Clear();
+                    MertekEgysegTxb.Clear();
+                    LbFrissit();
+                }
+                else
+                {
+                    MessageBox.Show("A megadott paraméterekkel megeggyező elem már van a listában!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-                lista.Add(parameter);
-                MegnevezesTbx.Clear();
-                MertekEgysegTxb.Clear();
-                LbFrissit();
             }
             else
             {
                 MessageBox.Show("Minden mező kitöltése kötelező!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        
+
         private void button2_Click(object sender, EventArgs e) //Rogzit es bezar
         {
-            if (lista.Count>0)
+            if (lista.Count > 0)
             {
                 if (lista.Count > listaIndex)
                 {
@@ -151,20 +156,20 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     DialogResult = DialogResult.OK;
                 }
                 else
-                { 
+                {
                     parameterLista = new ParameterLista(kategoria, lista);
                     ABKezelo.UjParameterLista(kategoria, parameterLista);
                 }
-                
-                
+
+
                 DialogResult = DialogResult.OK;
             }
             else
             {
-               if (MessageBox.Show("A paraméter lista üres!", "Figyelem", MessageBoxButtons.RetryCancel
-                    , MessageBoxIcon.Warning)==DialogResult.Retry)
+                if (MessageBox.Show("A paraméter lista üres!", "Figyelem", MessageBoxButtons.RetryCancel
+                     , MessageBoxIcon.Warning) == DialogResult.Retry)
                 {
-                DialogResult = DialogResult.None;
+                    DialogResult = DialogResult.None;
                 }
                 else
                 {

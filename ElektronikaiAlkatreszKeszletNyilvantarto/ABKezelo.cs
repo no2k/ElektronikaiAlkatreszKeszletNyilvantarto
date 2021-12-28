@@ -42,7 +42,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel("Az adatbázis kapcsolat bontása sikertelen!", ex);
             }
         } //OK!
-        public static void UjKategoria(Kategoria kategoria)
+        public static void UjKategoria(Kategoria kategoria) // db.statusz default 1! aktiv statusz
         {
             try
             {
@@ -58,12 +58,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
 
         } //OK!
-        public static List<Kategoria> KategoriaLekerdezes()
+        public static List<Kategoria> AktivKategoriaLekerdezes()
         {
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT * FROM [Kategoria]";
+                parancs.CommandText = "SELECT * FROM [Kategoria] WHERE [STATUSZ]=1";
                 List<Kategoria> kategoriaLista = new List<Kategoria>();
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
@@ -87,24 +87,58 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
 
         } //OK!
-        public static void KategoriaTorles(Kategoria torles)
+        public static List<Kategoria> InaktivKategoriaLekerdezes()
         {
-            /*
-             * Nem feltétlen kell törölni, csak ha nagyon muszály. Kell egy bool változó ami jelzi a kategóriát hogy aktív vagy inaktív! A paraméter listát is érinti
-             * */
-            //  parancs.Parameters.Clear();
-            //  parancs.Transaction = kapcsolat.BeginTransaction();
-            //  parancs.CommandText=$"DELETE FROM[{torles.GetType().Name}] WHERE [KATEGORIA]"
-        }
-        public static void UjParameterLista(Kategoria kategoria, ParameterLista hozzaAd)
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT * FROM [Kategoria] WHERE [STATUSZ]=0";
+                List<Kategoria> kategoriaLista = new List<Kategoria>();
+                using (SqlDataReader reader = parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        kategoriaLista.Add(
+                            new Kategoria(
+                                (int)reader["KATEGORIA_ID"],
+                                reader["KATEGORIA"].ToString()
+                                )
+                            );
+                    }
+                    reader.Close();
+                    return kategoriaLista;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new ABKivetel("Adatbázis (Kategória) lekérdezési hiba! " + ex.Message);
+            }
+
+        } //OK!
+        public static void KategoriaInaktival(Kategoria melyiket)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "UPDATE [Kategoria] SET [STATUSZ] = 0 WHERE [KATEGORIA_ID]=@kategoriaId";
+                parancs.Parameters.AddWithValue("@kategoriaId", melyiket.KategoriaId);
+                parancs.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel($"Sikertelen kategória muvelet az adatbázisba! \r\n\t {ex.Message}");
+            }
+        } //törlés
+        public static void UjParameterLista(Kategoria hova, ParameterLista miket)
         {
             try
             {
                 parancs.Parameters.Clear();
                 parancs.Transaction = kapcsolat.BeginTransaction();
                 parancs.CommandText = "INSERT INTO [Parameter]([KATEGORIA_ID],[PARAMETER_SORSZAM],[PARAMETER_MEGNEVEZES],[PARAMETER_MERTEKEGYSEG],[PARAMETER_ERTEKTIPUS]) VALUES (@kategoriaId, @parameterSorszam, @parameterMegnevezes, @parameterMertekegyseg, @parameterErtekTipus)";
-                int? kategoriaId = hozzaAd.Kategoria.KategoriaId;
-                foreach (Parameter item in hozzaAd)
+                int? kategoriaId = hova.KategoriaId;
+                foreach (Parameter item in miket)
                 {
                     parancs.Parameters.AddWithValue("@kategoriaId", kategoriaId);
                     parancs.Parameters.AddWithValue("@parameterSorszam", item.ParameterSorszam);
@@ -133,17 +167,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
         } //ok
-        public static void UjParameter(Kategoria kategoria,Parameter parameter)
+        public static void UjParameter(Kategoria hova,Parameter mit)
         {
             try
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "INSERT INTO [Parameter]([KATEGORIA_ID],[PARAMETER_SORSZAM],[PARAMETER_MEGNEVEZES],[PARAMETER_MERTEKEGYSEG],[PARAMETER_ERTEKTIPUS]) VALUES (@kategoriaId, @parameterSorszam, @parameterMegnevezes, @parameterMertekegyseg, @parameterErtekTipus)";
-                parancs.Parameters.AddWithValue("@kategoriaId", kategoria.KategoriaId);
-                parancs.Parameters.AddWithValue("@parameterSorszam", parameter.ParameterSorszam);
-                parancs.Parameters.AddWithValue("@parameterMegnevezes", parameter.ParameterMegnevezes.ToString());
-                parancs.Parameters.AddWithValue("@parameterMertekegyseg", Parameter.TombbolStringbeKonvertal(parameter.ParameterMertekEgyseg));
-                parancs.Parameters.AddWithValue("@parameterErtekTipus", parameter.ParameterTipus);
+                parancs.Parameters.AddWithValue("@kategoriaId", hova.KategoriaId);
+                parancs.Parameters.AddWithValue("@parameterSorszam", mit.ParameterSorszam);
+                parancs.Parameters.AddWithValue("@parameterMegnevezes", mit.ParameterMegnevezes.ToString());
+                parancs.Parameters.AddWithValue("@parameterMertekegyseg", Parameter.TombbolStringbeKonvertal(mit.ParameterMertekEgyseg));
+                parancs.Parameters.AddWithValue("@parameterErtekTipus", mit.ParameterTipus);
                 parancs.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -151,6 +185,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
         } //ok
+        public static void ParameterModositas(Kategoria hol,Parameter mire)
+        {
+
+        }
+        public static void ParameterTores(Kategoria honnan, Parameter mit)
+        {
+
+        }
         public static ParameterLista ParameterekLekerdez(Kategoria melyik)
         {
             List<Parameter> lista = new List<Parameter>();
@@ -195,10 +237,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
             return new ParameterLista(melyik, lista); ;
         } //ok
-        public static void ParameterTorles(Kategoria kategoria,Parameter parameter)
-        {
-            throw new NotImplementedException("Paraméter törlés nincs megvalósítva!");
-        }
         public static void UjAlkatresz(Alkatresz ujAlkatresz)
         {
             try
