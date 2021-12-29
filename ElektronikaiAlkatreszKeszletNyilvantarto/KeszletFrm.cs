@@ -17,10 +17,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     {
 
         //  Alkatresz alkatresz;
-        List<Alkatresz> alkatreszLista = new List<Alkatresz>();
-        List<Alkatresz> projektAlkatreszLista = new List<Alkatresz>();
+        List<Keszlet> alkatreszLista = new List<Keszlet>();
+        List<Keszlet> projektAlkatreszLista = new List<Keszlet>();
 
-        internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
+        internal List<Keszlet> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
         public AlkatreszKeszletFrm()
         {

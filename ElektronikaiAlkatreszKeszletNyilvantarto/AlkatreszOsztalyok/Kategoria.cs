@@ -63,5 +63,5 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 return false;
             }
         }
-    }
+   } 
 }

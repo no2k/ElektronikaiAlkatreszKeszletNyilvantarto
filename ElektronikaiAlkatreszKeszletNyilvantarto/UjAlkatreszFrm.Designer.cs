@@ -70,7 +70,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button1.Location = new System.Drawing.Point(357, 280);
             this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(259, 41);
+            this.button1.Size = new System.Drawing.Size(284, 41);
             this.button1.TabIndex = 0;
             this.button1.Text = "Listához ad";
             this.button1.UseVisualStyleBackColor = true;

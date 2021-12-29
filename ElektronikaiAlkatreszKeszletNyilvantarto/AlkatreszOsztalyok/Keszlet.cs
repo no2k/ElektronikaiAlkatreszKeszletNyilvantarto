@@ -7,38 +7,14 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    /*
-     * alkatrész osztály adatai:
-     * -kategória / a meglévő kategória adatbázis kategória oszlopának beolvasása majd enumba konvertálás.(amennyiben van egyszerübb és gyorsabb módja akkor azt kell felkutatni és használni!!!
-     * 
-     * -paraméterek[] /egyedi saját lista dictionary alapokon + a felviteli adat típusát rögzítő integer vagy bináris szám
-     * 
-     * -készleten lévő (int v. uint)
-     * .beszer.ár (float vagy double szám)
-     * -megjegyzés (srting)*
-     * 
-     * /
-
-    enum Kategoria
+    
+    class Keszlet//:IEquatable<Alkatresz>,IComparable
     {
-        Ellenállás,
-        Kondenzátor,
-        Induktivitás/*,
-      Dióda,
-        Tranzisztor,
-        FET,
-        Tirisztor,
-        IGBT,
-        Intergrált,
-        Digitális*/
+        AlkatreszParameter alkatresz;
 
-
-    class Alkatresz//:IEquatable<Alkatresz>,IComparable
-    {
-        ParameterLista parameterek;
         string megnevezes;
-        int darabSzam;
-        int darabAr;
+        int darabSzam;// darabdb
+        int darabAr; //ar db
         string megjegyzes;
 
 
@@ -62,13 +38,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => darabSzam;
             set
             {
-                if (value > 0)
+                if (value >= 0)
                 {
                     darabSzam = value;
                 }
                 else
                 {
-                    throw new ArgumentNullException("A darabszám nem lehet 0  !");
+                    throw new ArgumentNullException("A darabszám nem lehet kevesebb mint 0!");
                 }
             }
         }
@@ -89,29 +65,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         }
 
         public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
-        public ParameterLista Parameterek
-        {
-            get => parameterek;
-            set
-            {
-                if (value != null)
-                {
-                    parameterek = value;
-                }
-                else
-                {
-                    throw new ArgumentNullException("Az alkatrész paraméter listája nem lehet üres!");
-                }
-            }
-        }
+      
 
-        public Alkatresz(string megnevezes, int darabSzam, int darabAr, string megjegyzes, ParameterLista parameterek)
+        public Keszlet(string megnevezes, int darabSzam, int darabAr, string megjegyzes)
         {
             Megnevezes = megnevezes;
             DarabSzam = darabSzam;
             DarabAr = darabAr;
             Megjegyzes = megjegyzes;
-            Parameterek = parameterek;
+          
         }
 
         public int AlkatreszOsszAR()

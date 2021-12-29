@@ -16,14 +16,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     public partial class UjAlkatreszFrm : Form
     {
         // ParameterLista lista;
-        List<Alkatresz> alkatreszLista = new List<Alkatresz>();
+        List<Keszlet> alkatreszLista = new List<Keszlet>();
         
         int valasztottKaterogiaIndex = 0;
-        internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
+        internal List<Keszlet> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
         public UjAlkatreszFrm()
         {
             InitializeComponent();
+            button5.Enabled = false;
             parameterTSMI.Enabled = false;
             KategoriaFrissit();
         }
@@ -51,18 +52,20 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void ListaFrissit()
         {
-
+            throw new NotImplementedException();
         }
         private void KategoriaCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (kategoriaCbx.SelectedItem != null)
             {
                 parameterTSMI.Enabled = true;
+                button5.Enabled = true;
                 valasztottKaterogiaIndex = kategoriaCbx.SelectedIndex;
                 VezerloFeltoltes((Kategoria)kategoriaCbx.SelectedItem);
             }
             else
             {
+                button5.Enabled = false;
                 parameterTSMI.Enabled = false;
                 MessageBox.Show("Nincs kiválasztott kategória!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 DialogResult = DialogResult.None;
@@ -71,88 +74,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            switch (kategoriaCbx.SelectedIndex)
-            {
-                case 0: //ellenallas
-                    {
-
-                        try
-                        {
-
-
-                        }
-                        catch (Exception ex)
-                        {
-
-                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                        }
-                    }
-                    break;
-
-                case 1:  //kondi
-                    {
-                        try
-                        {
-
-                        }
-                        catch (Exception ex)
-                        {
-
-
-                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-
-                    }
-                    break;
-
-                case 2:   //induktiv
-                    {
-                        try
-                        {
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    break;
-            }
-            // bool van = alkatreszLista.Contains(alkatresz) ;
-
-            //infoTSMI.Text = (van) ? "Van ilyen elem a listában" : "nincs még egy ilyen elem a listában";
-            /* if (AlkatreszLista.Count() != 0)
-             {
-
-                 foreach (Alkatresz item in alkatreszLista)
-                 {
-
-                     if (!alkatresz.Equals(item))
-                     {
-                         alkatreszLista.Add(alkatresz);
-                     }
-                     else
-                     {
-                         MessageBox.Show("Az alkatrész már a listában van!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                     }
-                 }
-             }
-             else
-             {
-                 alkatreszLista.Add(alkatresz);
-             }*/
-            /* if (!alkatreszLista.Contains(alkatresz))
-             {
-                 alkatreszLista.Add(alkatresz);
-                 infoTSMI.Text = "Alkatrész hozzáadva az alkatrész listához!";
-             }
-             else
-             {
-                 MessageBox.Show("Az alkatrész már a listában van!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-             }*/
-
+           
             ListaFrissit();
         }
 

@@ -59,15 +59,5 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Button_Add {
-            get {
-                object obj = ResourceManager.GetObject("Button Add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

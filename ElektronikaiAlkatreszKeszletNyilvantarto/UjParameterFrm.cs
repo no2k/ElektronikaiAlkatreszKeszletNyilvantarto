@@ -137,7 +137,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             Parameter ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
             {
-              
                 if (lista.Count > 0)
                 {
                     if (kivalasztottParameter != null) //parameter modositasa
@@ -154,7 +153,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 {
                     ujParameter = new Parameter(MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
                 }
-
                 if (!lista.Contains(ujParameter))
                 {
                     if (kivalasztottParameter != null && ujParameter.ParameterSorszam == kivalasztottParameter.ParameterSorszam)
@@ -180,7 +178,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             if (lista.Count > 0)
             {
-
                 if (betoltottLista != null && lista.Count > betoltottListaIndex) //ellenőrizni a lista összes elemét hogy volt e rajtuk módosítás
                 {
                     for (int i = 0; i < betoltottListaIndex; i++)  //betöltött elemek ellenőrzése/adatbázis módosítása
@@ -190,7 +187,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                             ABKezelo.ParameterModositas(kategoria, lista[i]);
                         }
                     }
-
                     for (int i = betoltottListaIndex; i < lista.Count; i++) // a további új elemek felvitele
                     {
                         ABKezelo.UjParameter(kategoria, lista[i]);
@@ -198,7 +194,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
                 else if (lista.Count == betoltottListaIndex) //a módosítások felvitele az adatbázisba
                 {
-
                     if (!Enumerable.SequenceEqual(lista, betoltottLista.Parameterek)) //!lista.Equals(betoltottLista.Parameterek)
                     {
                         for (int i = 0; i < lista.Count; i++)
@@ -216,8 +211,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     parameterLista = new ParameterLista(kategoria, lista);
                     ABKezelo.UjParameterLista(kategoria, parameterLista);
                 }
-
-
                 DialogResult = DialogResult.OK;
             }
             else
@@ -237,7 +230,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             if (listBox1.SelectedItem != null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?\n\r A törlés, az adatbázisból való törlést is jelenti!!!", "Paraméter törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                // lista.Remove((Parameter)listBox1.SelectedItem);
                 ABKezelo.ParameterTores(kategoria, (Parameter)listBox1.SelectedItem);
                 LbFrissit();
                 betoltottLista = ABKezelo.ParameterekLekerdez(kategoria);
@@ -245,8 +237,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 betoltottListaIndex = lista.Count;
             }
         }
-
-
         private void button5_Click(object sender, EventArgs e)
         {
             kivalasztottParameter = null;

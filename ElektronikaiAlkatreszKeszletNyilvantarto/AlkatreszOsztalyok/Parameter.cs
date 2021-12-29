@@ -11,7 +11,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
     {
         #region Fieldek
 
-      static  private int sorszam = 0;
+        private static int sorszam = 0;
         private int parameterSorszam;
         private string parameterMegnevezes;
         private string[] parameterMertekEgyseg;

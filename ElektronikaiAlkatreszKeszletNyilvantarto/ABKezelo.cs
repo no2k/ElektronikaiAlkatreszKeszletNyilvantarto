@@ -279,7 +279,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         #region Alkatresz kapcsolatok
 
-        public static void UjAlkatresz(Alkatresz ujAlkatresz)
+        public static void UjAlkatresz(Keszlet ujAlkatresz)
         {
             try
             {
@@ -300,7 +300,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw;
             }
         }
-        public static void AlkatreszModositas(Alkatresz alkatreszModosit)
+        public static void AlkatreszModositas(Keszlet alkatreszModosit)
         {
             try
             {
@@ -312,7 +312,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw;
             }
         }
-        public static void AlkatreszTorles(Alkatresz alkatreszTorol)
+        public static void AlkatreszTorles(Keszlet alkatreszTorol)
         {
             try
             {
