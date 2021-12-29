@@ -50,6 +50,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.listView1 = new System.Windows.Forms.ListView();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.beállításokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.adatbázisKarbantartásToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -68,7 +70,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.menuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fajlTSMI});
+            this.fajlTSMI,
+            this.beállításokToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1101, 24);
@@ -92,38 +95,38 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.alkatreszTSMI,
             this.projektTSMI});
             this.ujTSMI.Name = "ujTSMI";
-            this.ujTSMI.Size = new System.Drawing.Size(129, 22);
+            this.ujTSMI.Size = new System.Drawing.Size(180, 22);
             this.ujTSMI.Text = "Új...";
             // 
             // alkatreszTSMI
             // 
             this.alkatreszTSMI.Name = "alkatreszTSMI";
-            this.alkatreszTSMI.Size = new System.Drawing.Size(121, 22);
+            this.alkatreszTSMI.Size = new System.Drawing.Size(180, 22);
             this.alkatreszTSMI.Text = "Alkatrész";
             this.alkatreszTSMI.Click += new System.EventHandler(this.AlkatreszTSMI_Click);
             // 
             // projektTSMI
             // 
             this.projektTSMI.Name = "projektTSMI";
-            this.projektTSMI.Size = new System.Drawing.Size(121, 22);
+            this.projektTSMI.Size = new System.Drawing.Size(180, 22);
             this.projektTSMI.Text = "Projekt";
             this.projektTSMI.Click += new System.EventHandler(this.projektTSMI_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(126, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // megnyitasTSMI
             // 
             this.megnyitasTSMI.Name = "megnyitasTSMI";
-            this.megnyitasTSMI.Size = new System.Drawing.Size(129, 22);
+            this.megnyitasTSMI.Size = new System.Drawing.Size(180, 22);
             this.megnyitasTSMI.Text = "Megnyitás";
             // 
             // mentesTSMI
             // 
             this.mentesTSMI.Name = "mentesTSMI";
-            this.mentesTSMI.Size = new System.Drawing.Size(129, 22);
+            this.mentesTSMI.Size = new System.Drawing.Size(180, 22);
             this.mentesTSMI.Text = "Mentés";
             // 
             // statusStrip1
@@ -262,6 +265,20 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
+            // beállításokToolStripMenuItem
+            // 
+            this.beállításokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.adatbázisKarbantartásToolStripMenuItem});
+            this.beállításokToolStripMenuItem.Name = "beállításokToolStripMenuItem";
+            this.beállításokToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.beállításokToolStripMenuItem.Text = "Beállítások";
+            // 
+            // adatbázisKarbantartásToolStripMenuItem
+            // 
+            this.adatbázisKarbantartásToolStripMenuItem.Name = "adatbázisKarbantartásToolStripMenuItem";
+            this.adatbázisKarbantartásToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.adatbázisKarbantartásToolStripMenuItem.Text = "Adatbázis karbantartás";
+            // 
             // AlkatreszKeszletFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,6 +337,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private ProjektFul projektFul1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ToolStripMenuItem beállításokToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem adatbázisKarbantartásToolStripMenuItem;
     }
 }
 

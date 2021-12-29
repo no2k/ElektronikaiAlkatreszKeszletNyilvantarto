@@ -87,6 +87,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Logikai (1/0)";
             this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.CheckedChanged += new System.EventHandler(this.AllRadioButton_Checked);
             // 
             // radioButton3
             // 
@@ -99,6 +100,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Törtszám";
             this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.CheckedChanged += new System.EventHandler(this.AllRadioButton_Checked);
             // 
             // radioButton2
             // 
@@ -111,6 +113,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Egész szám";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.AllRadioButton_Checked);
             // 
             // radioButton1
             // 
@@ -124,6 +127,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Szöveg";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.AllRadioButton_Checked);
             // 
             // MertekEgysegTxb
             // 

@@ -24,6 +24,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         public UjAlkatreszFrm()
         {
             InitializeComponent();
+            parameterTSMI.Enabled = false;
             KategoriaFrissit();
         }
 
@@ -50,22 +51,19 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void ListaFrissit()
         {
-            if (alkatreszLista != null)
-            {
-                listBox1.DataSource = null;
-                listBox1.DataSource = alkatreszLista;
-            }
 
-        } //ok
+        }
         private void KategoriaCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (kategoriaCbx.SelectedItem != null)
             {
+                parameterTSMI.Enabled = true;
                 valasztottKaterogiaIndex = kategoriaCbx.SelectedIndex;
                 VezerloFeltoltes((Kategoria)kategoriaCbx.SelectedItem);
             }
             else
             {
+                parameterTSMI.Enabled = false;
                 MessageBox.Show("Nincs kiválasztott kategória!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 DialogResult = DialogResult.None;
             }
@@ -158,11 +156,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             ListaFrissit();
         }
 
-        private void TokozasCbx1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button5_Click(object sender, EventArgs e)  //Uj parameter
         {
             if (kategoriaCbx.SelectedItem != null)
@@ -186,36 +179,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
 
-        private void button4_Click(object sender, EventArgs e) //Uj kategoria
-        {
-            UjKategoriaFrm katFrm = new UjKategoriaFrm();
-            if (katFrm.ShowDialog() == DialogResult.OK)
-            {
-                Kategoria kat = katFrm.UjKategoria;
-                try
-                {
-                    ABKezelo.UjKategoria(kat);
-                }
-                catch (ABKivetel ex)
-                {
-                    MessageBox.Show(ex.Message, "Adatbázis hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                if (katFrm.Parameterez)
-                {
-                    UjParameterFrm paramFrm = new UjParameterFrm((Kategoria)kat);
-                    if (paramFrm.ShowDialog() == DialogResult.OK)
-                    {
-
-                    }
-                }
-                KategoriaFrissit();
-            }
-        }
+        
         public void VezerloFeltoltes(Kategoria kategoria)
         {
             panel2.Controls.Clear();
@@ -258,7 +222,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         // Margin = szelek,
                         Top = top+2,
                         Margin = szelek,
-                        Left = Left = elemHossza + 20,
+                        Left = elemHossza + 20,
                         AutoSize = true,
                         Text = parameterek.Parameterek[i].ParameterMertekEgyseg[0]
                     };
@@ -293,7 +257,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Maximum = 1000
                             };
                             top = nud.Bottom;
-                            elemHossza = nud.Height;
+                           // elemHossza = nud.Height;
                         }
                         break;
                     case 2:  //float
@@ -311,7 +275,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Maximum = 1000
                             };
                             top = nud.Bottom;
-                            //elemHossza = nud.Height;
+                           // elemHossza = nud.Height;
                         }
                         break;
                     case 3: // bool
@@ -334,12 +298,63 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // panel2.Controls.Add();
 
         }
-        /*  private void Letakarit()
-          {
-              foreach (Control item in panel2.Controls)
-              {
-                  item = null;
-              }
-          }*/
+
+        private void bezarTSMI_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void kategoriaTSMI_Click(object sender, EventArgs e)
+        {
+            UjKategoriaFrm katFrm = new UjKategoriaFrm();
+            if (katFrm.ShowDialog() == DialogResult.OK)
+            {
+                Kategoria kat = katFrm.UjKategoria;
+                try
+                {
+                    ABKezelo.UjKategoria(kat);
+                }
+                catch (ABKivetel ex)
+                {
+                    MessageBox.Show(ex.Message, "Adatbázis hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (katFrm.Parameterez)
+                {
+                    UjParameterFrm paramFrm = new UjParameterFrm((Kategoria)kat);
+                    if (paramFrm.ShowDialog() == DialogResult.OK)
+                    {
+
+                    }
+                }
+                KategoriaFrissit();
+            }
+        }
+
+        private void parameterTSMI_Click(object sender, EventArgs e)
+        {
+            if (kategoriaCbx.SelectedItem != null)
+            {
+                UjParameterFrm frm = new UjParameterFrm((Kategoria)kategoriaCbx.SelectedItem);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+                else
+                {
+                    // kategoriaCbx.SelectedIndex = valasztottKaterogiaIndex;
+                }
+                KategoriaFrissit();
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott kategória", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+       
     }
 }

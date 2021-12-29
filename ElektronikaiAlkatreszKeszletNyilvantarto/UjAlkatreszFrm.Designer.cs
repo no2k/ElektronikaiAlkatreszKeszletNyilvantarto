@@ -30,9 +30,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.infoTSMI = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kategoriaCbx = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,18 +50,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.bezarTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.kategoriaTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.parameterTSMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.darabArNud)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.keszletNud)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(357, 279);
+            this.button1.Location = new System.Drawing.Point(357, 280);
             this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(259, 41);
@@ -70,22 +76,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.HorizontalScrollbar = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(647, 29);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(301, 244);
-            this.listBox1.TabIndex = 2;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.infoTSMI});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 324);
+            this.infoTSMI,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 331);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(954, 22);
             this.statusStrip1.SizingGrip = false;
@@ -97,12 +93,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.infoTSMI.Name = "infoTSMI";
             this.infoTSMI.Size = new System.Drawing.Size(0, 17);
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.panel1.Controls.Add(this.kategoriaCbx);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(5, 29);
+            this.panel1.Location = new System.Drawing.Point(5, 30);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(344, 38);
             this.panel1.TabIndex = 4;
@@ -138,9 +140,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.megnevezesTbx);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(5, 73);
+            this.groupBox1.Location = new System.Drawing.Point(5, 74);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(344, 200);
+            this.groupBox1.Size = new System.Drawing.Size(344, 201);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Alap adatok";
@@ -201,7 +203,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(6, 56);
+            this.label3.Location = new System.Drawing.Point(6, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 20);
             this.label3.TabIndex = 2;
@@ -218,7 +220,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(160, 56);
+            this.label4.Location = new System.Drawing.Point(160, 55);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 20);
             this.label4.TabIndex = 3;
@@ -229,7 +231,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button2.Location = new System.Drawing.Point(752, 279);
+            this.button2.Location = new System.Drawing.Point(752, 280);
             this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 41);
@@ -242,7 +244,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button3.Location = new System.Drawing.Point(855, 279);
+            this.button3.Location = new System.Drawing.Point(855, 280);
             this.button3.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(93, 41);
@@ -253,24 +255,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.LemonChiffon;
-            this.button4.Location = new System.Drawing.Point(5, 279);
+            this.button4.Location = new System.Drawing.Point(5, 280);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(136, 40);
+            this.button4.Size = new System.Drawing.Size(136, 41);
             this.button4.TabIndex = 11;
             this.button4.Text = "Új kategória";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.kategoriaTSMI_Click);
             // 
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.LemonChiffon;
-            this.button5.Location = new System.Drawing.Point(169, 279);
+            this.button5.Location = new System.Drawing.Point(147, 280);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(136, 40);
+            this.button5.Size = new System.Drawing.Size(136, 41);
             this.button5.TabIndex = 12;
             this.button5.Text = "Új paraméter";
             this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new System.EventHandler(this.parameterTSMI_Click);
             // 
             // panel2
             // 
@@ -278,16 +280,61 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.panel2.AutoScrollMargin = new System.Drawing.Size(25, 10);
             this.panel2.AutoScrollMinSize = new System.Drawing.Size(25, 10);
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Location = new System.Drawing.Point(357, 29);
+            this.panel2.Location = new System.Drawing.Point(357, 30);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(284, 243);
             this.panel2.TabIndex = 13;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bezarTSMI,
+            this.kategoriaTSMI,
+            this.parameterTSMI});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(954, 27);
+            this.menuStrip1.TabIndex = 14;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // bezarTSMI
+            // 
+            this.bezarTSMI.Name = "bezarTSMI";
+            this.bezarTSMI.Size = new System.Drawing.Size(73, 23);
+            this.bezarTSMI.Text = "Bezárás";
+            this.bezarTSMI.Click += new System.EventHandler(this.bezarTSMI_Click);
+            // 
+            // kategoriaTSMI
+            // 
+            this.kategoriaTSMI.Name = "kategoriaTSMI";
+            this.kategoriaTSMI.Size = new System.Drawing.Size(161, 23);
+            this.kategoriaTSMI.Text = "Kategória hozzáadás";
+            this.kategoriaTSMI.Click += new System.EventHandler(this.kategoriaTSMI_Click);
+            // 
+            // parameterTSMI
+            // 
+            this.parameterTSMI.Name = "parameterTSMI";
+            this.parameterTSMI.Size = new System.Drawing.Size(121, 23);
+            this.parameterTSMI.Text = "Paraméterezés";
+            this.parameterTSMI.Click += new System.EventHandler(this.parameterTSMI_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(648, 31);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(300, 242);
+            this.listView1.TabIndex = 15;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // UjAlkatreszFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 346);
+            this.ClientSize = new System.Drawing.Size(954, 353);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -296,10 +343,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.button1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "UjAlkatreszFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -312,6 +360,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.darabArNud)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.keszletNud)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,7 +370,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox kategoriaCbx;
@@ -340,5 +389,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem bezarTSMI;
+        private System.Windows.Forms.ToolStripMenuItem kategoriaTSMI;
+        private System.Windows.Forms.ToolStripMenuItem parameterTSMI;
+        private System.Windows.Forms.ListView listView1;
     }
 }

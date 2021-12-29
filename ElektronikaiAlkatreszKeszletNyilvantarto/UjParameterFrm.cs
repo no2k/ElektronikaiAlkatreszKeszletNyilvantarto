@@ -13,6 +13,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 {
     public partial class UjParameterFrm : Form
     {
+      
         #region Fieldek
         private int tipus, betoltottListaIndex;
         Kategoria kategoria;
@@ -58,7 +59,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 betoltottLista = ABKezelo.ParameterekLekerdez(kategoria);
                 if (betoltottLista.Parameterek.Capacity != 0)
                 {
-                    lista =new List<Parameter>( betoltottLista.Parameterek);
+                    lista = new List<Parameter>(betoltottLista.Parameterek);
                 }
                 betoltottListaIndex = lista.Count;
                 LbFrissit();
@@ -92,52 +93,51 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 button1.Text = "Paraméter módosítás";
             }
         }
-        private void button3_Click(object sender, EventArgs e)  //parameter torles
+        private void AllRadioButton_Checked(object sender,EventArgs e)
         {
-            if (listBox1.SelectedItem  !=null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?\n\r A törlés, az adatbázisból való törlést is jelenti!!!","Paraméter törlése",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes )
+            if (sender is RadioButton radio)
             {
-               // lista.Remove((Parameter)listBox1.SelectedItem);
-                ABKezelo.ParameterTores(kategoria, (Parameter)listBox1.SelectedItem);
-                LbFrissit();
-                betoltottLista = ABKezelo.ParameterekLekerdez(kategoria);
-                lista = new List<Parameter>(betoltottLista.Parameterek);
-                betoltottListaIndex = lista.Count;
+                switch (radio.TabIndex)
+                {
+                    case 9:
+                        {
+                            MertekEgysegTxb.Clear();
+                            MertekEgysegTxb.Enabled = false;
+                            MertekEgysegTxb.Text = "-";
+                            tipus = 0;
+                        }
+                        break;
+                    case 10:
+                        {
+                            MertekEgysegTxb.Enabled = true;
+                            MertekEgysegTxb.Clear();
+                            tipus = 1;
+                        }
+                        break;
+                    case 11:
+                        {
+                            MertekEgysegTxb.Enabled = true;
+                            MertekEgysegTxb.Clear();
+                            tipus = 2;
+                        }
+                        break;
+                    case 12:
+                        {
+                            MertekEgysegTxb.Clear();
+                            MertekEgysegTxb.Enabled = false;
+                            MertekEgysegTxb.Text = "-";
+                            tipus = 3;
+                        }
+                        break;
+                }
             }
         }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            kivalasztottParameter = null;
-            MegnevezesTbx.Clear();
-            MertekEgysegTxb.Clear();
-            radioButton1.Checked = true;
-            button1.Text = "Hozzáadás";
-            button3.Enabled = false;
-        }  // bevitel reset
-        private void button4_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-        }  //mégsem
         private void button1_Click(object sender, EventArgs e) //Parameter hozzaadas (listboxba es listaba)
         {
             Parameter ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
             {
-                RadioButton radio = groupBox1.Controls.OfType<RadioButton>().FirstOrDefault(r => r.Checked);
-                switch (radio.TabIndex)
-                {
-                    case 9:
-                        { tipus = 0; }
-                        break;
-                    case 10:
-                        { tipus = 1; }
-                        break;
-                    case 11:
-                        { tipus = 2; }
-                        break;
-                    case 12:
-                        { tipus = 3; }
-                        break;
-                }
+              
                 if (lista.Count > 0)
                 {
                     if (kivalasztottParameter != null) //parameter modositasa
@@ -180,8 +180,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             if (lista.Count > 0)
             {
-               
-                if (betoltottLista!=null && lista.Count > betoltottListaIndex) //ellenőrizni a lista összes elemét hogy volt e rajtuk módosítás
+
+                if (betoltottLista != null && lista.Count > betoltottListaIndex) //ellenőrizni a lista összes elemét hogy volt e rajtuk módosítás
                 {
                     for (int i = 0; i < betoltottListaIndex; i++)  //betöltött elemek ellenőrzése/adatbázis módosítása
                     {
@@ -190,7 +190,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                             ABKezelo.ParameterModositas(kategoria, lista[i]);
                         }
                     }
-                    
+
                     for (int i = betoltottListaIndex; i < lista.Count; i++) // a további új elemek felvitele
                     {
                         ABKezelo.UjParameter(kategoria, lista[i]);
@@ -199,7 +199,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 else if (lista.Count == betoltottListaIndex) //a módosítások felvitele az adatbázisba
                 {
 
-                    if (!Enumerable.SequenceEqual(lista,betoltottLista.Parameterek)) //!lista.Equals(betoltottLista.Parameterek)
+                    if (!Enumerable.SequenceEqual(lista, betoltottLista.Parameterek)) //!lista.Equals(betoltottLista.Parameterek)
                     {
                         for (int i = 0; i < lista.Count; i++)
                         {
@@ -233,6 +233,33 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
+        private void button3_Click(object sender, EventArgs e)  //parameter torles
+        {
+            if (listBox1.SelectedItem != null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?\n\r A törlés, az adatbázisból való törlést is jelenti!!!", "Paraméter törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                // lista.Remove((Parameter)listBox1.SelectedItem);
+                ABKezelo.ParameterTores(kategoria, (Parameter)listBox1.SelectedItem);
+                LbFrissit();
+                betoltottLista = ABKezelo.ParameterekLekerdez(kategoria);
+                lista = new List<Parameter>(betoltottLista.Parameterek);
+                betoltottListaIndex = lista.Count;
+            }
+        }
+
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            kivalasztottParameter = null;
+            MegnevezesTbx.Clear();
+            MertekEgysegTxb.Clear();
+            radioButton1.Checked = true;
+            button1.Text = "Hozzáadás";
+            button3.Enabled = false;
+        }  // bevitel reset
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }  //mégsem
         #endregion
     }
 }

@@ -135,8 +135,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         } //OK!
         #endregion
 
-        #region Paremeter kapcsolatok
-
+        #region Paremeter kapcsolatok 
         public static void UjParameterLista(Kategoria hova, ParameterLista miket)
         {
             try
@@ -192,43 +191,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
         } //ok
-        public static void ParameterListaModositas(Kategoria hol, ParameterLista mire)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.Transaction = kapcsolat.BeginTransaction();
-                parancs.CommandText = "UPDATE [Parameter] SET " +
-                                      "[PARAMETER_MEGNEVEZES]=@parameterMegnevezes," +
-                                      "[PARAMETER_MERTEKEGYSEG]=@parameterMertekegyseg," +
-                                      "[PARAMETER_ERTEKTIPUS]=@parameterErtekTipus " +
-                                      "WHERE [KATEGORIA_ID]=@kategoriaId";
-                parancs.Parameters.AddWithValue("@kategoriaId", hol.KategoriaId);
-                foreach (Parameter item in mire)
-                {
-                    parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
-                    parancs.Parameters.AddWithValue("@parameterMertekegyseg", Parameter.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
-                    parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
-                    parancs.ExecuteNonQuery();
-                }
-                parancs.Transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    if (parancs.Transaction != null)
-                    {
-                        parancs.Transaction.Rollback();
-                    }
-                }
-                catch (Exception ex2)
-                {
-                    throw new ABKivetel("Végzetes Hiba az adatbázisban! Adatbázis beavatkozásra van szükség!", ex2);
-                }
-                throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
-            }
-        } // ! lehet hogy elszáll a paraméter sorszámok miatt
         public static void ParameterModositas(Kategoria hol, Parameter melyiket)
         {
             try
