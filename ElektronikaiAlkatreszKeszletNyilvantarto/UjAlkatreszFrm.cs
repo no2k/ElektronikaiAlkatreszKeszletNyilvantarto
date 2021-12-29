@@ -17,7 +17,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     {
         // ParameterLista lista;
         List<Alkatresz> alkatreszLista = new List<Alkatresz>();
-
+        
         int valasztottKaterogiaIndex = 0;
         internal List<Alkatresz> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 

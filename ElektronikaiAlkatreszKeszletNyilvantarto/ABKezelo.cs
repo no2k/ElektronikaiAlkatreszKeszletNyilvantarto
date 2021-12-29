@@ -42,7 +42,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel("Az adatbázis kapcsolat bontása sikertelen!", ex);
             }
         } //OK!
-        public static void UjKategoria(Kategoria kategoria) // db.statusz default 1! aktiv statusz
+
+        #region Kategoria kapcsolatok
+
+        public static void UjKategoria(Kategoria kategoria)
         {
             try
             {
@@ -129,7 +132,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 throw new ABKivetel($"Sikertelen kategória muvelet az adatbázisba! \r\n\t {ex.Message}");
             }
-        } //törlés
+        } //OK!
+        #endregion
+
+        #region Paremeter kapcsolatok
+
         public static void UjParameterLista(Kategoria hova, ParameterLista miket)
         {
             try
@@ -143,7 +150,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     parancs.Parameters.AddWithValue("@kategoriaId", kategoriaId);
                     parancs.Parameters.AddWithValue("@parameterSorszam", item.ParameterSorszam);
                     parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
-                   
+
                     parancs.Parameters.AddWithValue("@parameterMertekegyseg", Parameter.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
                     parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
                     parancs.ExecuteNonQuery();
@@ -167,7 +174,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
         } //ok
-        public static void UjParameter(Kategoria hova,Parameter mit)
+        public static void UjParameter(Kategoria hova, Parameter mit)
         {
             try
             {
@@ -185,14 +192,83 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
         } //ok
-        public static void ParameterModositas(Kategoria hol,Parameter mire)
+        public static void ParameterListaModositas(Kategoria hol, ParameterLista mire)
         {
-
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText = "UPDATE [Parameter] SET " +
+                                      "[PARAMETER_MEGNEVEZES]=@parameterMegnevezes," +
+                                      "[PARAMETER_MERTEKEGYSEG]=@parameterMertekegyseg," +
+                                      "[PARAMETER_ERTEKTIPUS]=@parameterErtekTipus " +
+                                      "WHERE [KATEGORIA_ID]=@kategoriaId";
+                parancs.Parameters.AddWithValue("@kategoriaId", hol.KategoriaId);
+                foreach (Parameter item in mire)
+                {
+                    parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
+                    parancs.Parameters.AddWithValue("@parameterMertekegyseg", Parameter.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
+                    parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
+                    parancs.ExecuteNonQuery();
+                }
+                parancs.Transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes Hiba az adatbázisban! Adatbázis beavatkozásra van szükség!", ex2);
+                }
+                throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
+            }
+        } // ! lehet hogy elszáll a paraméter sorszámok miatt
+        public static void ParameterModositas(Kategoria hol, Parameter melyiket)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "UPDATE [Parameter] SET " +
+                                      "[PARAMETER_MEGNEVEZES]=@parameterMegnevezes, " +
+                                      "[PARAMETER_MERTEKEGYSEG]=@parameterMertekegyseg, " +
+                                      "[PARAMETER_ERTEKTIPUS]=@parameterErtekTipus " +
+                                      "WHERE [KATEGORIA_ID]=@kategoriaId AND" +
+                                            "[PARAMETER_SORSZAM]=@parameterSorszam";
+                parancs.Parameters.AddWithValue("@parameterMegnevezes", melyiket.ParameterMegnevezes.ToString());
+                parancs.Parameters.AddWithValue("@parameterMertekegyseg", Parameter.TombbolStringbeKonvertal(melyiket.ParameterMertekEgyseg));
+                parancs.Parameters.AddWithValue("@parameterErtekTipus", melyiket.ParameterTipus);
+                parancs.Parameters.AddWithValue("@kategoriaId", hol.KategoriaId);
+                parancs.Parameters.AddWithValue("@parameterSorszam", melyiket.ParameterSorszam);
+                parancs.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Paraméter módosítási hiba az adatbázisban!"+ex.Message,ex);
+            }
         }
         public static void ParameterTores(Kategoria honnan, Parameter mit)
         {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "DELETE FROM [Parameter] WHERE [KATEGORIA_ID]=@kategoriaId AND [PARAMETER_SORSZAM]=@parameterSorszam";
+                parancs.Parameters.AddWithValue("@kategoriaId",honnan.KategoriaId);
+                parancs.Parameters.AddWithValue("@parameterSorszam",mit.ParameterSorszam);
+                parancs.ExecuteNonQuery();
 
-        }
+            }
+            catch (Exception ex)
+            {
+
+                throw new ABKivetel("Hiba az adatbázisból való, paraméter kitörlése közben!",ex);
+            }
+        } //OK!
         public static ParameterLista ParameterekLekerdez(Kategoria melyik)
         {
             List<Parameter> lista = new List<Parameter>();
@@ -212,7 +288,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 {
                     while (reader.Read())
                     {
-                        if (reader["PARAMETER_SORSZAM"]!=null)
+                        if (reader["PARAMETER_SORSZAM"] != null)
                         {
                             lista.Add(
                             new Parameter(
@@ -237,6 +313,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
             return new ParameterLista(melyik, lista); ;
         } //ok
+        #endregion
+
+        #region Alkatresz kapcsolatok
+
         public static void UjAlkatresz(Alkatresz ujAlkatresz)
         {
             try
@@ -282,6 +362,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw;
             }
         }
+        #endregion
+
+        #region Projekt kapcsolatok
+
         public static void UjProjekt(object ujProjekt)
         {
             try
@@ -367,5 +451,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                }
            }
           // public static List*/
+        #endregion
     }
 }

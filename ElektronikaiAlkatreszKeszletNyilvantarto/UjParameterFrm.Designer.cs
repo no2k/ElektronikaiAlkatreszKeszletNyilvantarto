@@ -43,6 +43,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -56,7 +59,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(10, 34);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(203, 169);
+            this.panel1.Size = new System.Drawing.Size(200, 169);
             this.panel1.TabIndex = 10;
             // 
             // groupBox1
@@ -163,18 +166,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(228, 34);
+            this.listBox1.Location = new System.Drawing.Point(299, 34);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(228, 169);
+            this.listBox1.Size = new System.Drawing.Size(214, 139);
             this.listBox1.TabIndex = 9;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button2.Location = new System.Drawing.Point(228, 209);
+            this.button2.Location = new System.Drawing.Point(299, 176);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 27);
+            this.button2.Size = new System.Drawing.Size(120, 31);
             this.button2.TabIndex = 8;
             this.button2.Text = "Rögzít és bezár";
             this.button2.UseVisualStyleBackColor = true;
@@ -182,11 +185,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(10, 209);
+            this.button1.Location = new System.Drawing.Point(216, 34);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(203, 27);
+            this.button1.Size = new System.Drawing.Size(77, 48);
             this.button1.TabIndex = 7;
-            this.button1.Text = "Paraméter hozzáadása";
+            this.button1.Text = "Hozzáad";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -200,11 +203,45 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.label1.TabIndex = 11;
             this.label1.Text = "label1";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(216, 88);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(77, 37);
+            this.button3.TabIndex = 12;
+            this.button3.Text = "Törlés";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button4.Location = new System.Drawing.Point(425, 176);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(88, 31);
+            this.button4.TabIndex = 13;
+            this.button4.Text = "Mégsem";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(216, 131);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(77, 42);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Mező Reset";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // UjParameterFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 247);
+            this.ClientSize = new System.Drawing.Size(520, 211);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listBox1);
@@ -214,7 +251,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "UjParameterFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Új paraméter hozzáadása";
+            this.Text = "Új paraméter hozzáadása, módosítása";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -240,5 +277,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }

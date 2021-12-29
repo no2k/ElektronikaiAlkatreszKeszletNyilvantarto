@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    public class ParameterLista : IComparable,IEnumerable
+    public class ParameterLista : IComparable, IEnumerable, IEquatable<ParameterLista>
     {
         #region Fieldek
 
         Kategoria kategoria;
         List<Parameter> parameterek = new List<Parameter>();
-       // Parameter egyParameter;
         #endregion
 
         #region Propertyk
@@ -48,22 +47,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-       /* public Parameter EgyParameter
-        {
-            get => egyParameter;
-            private set
-            {
-                if (value != null)
-                {
-                    egyParameter = value;
-                }
-                else
-                {
-                    throw new ArgumentNullException("A Paraméter nem lehet üres!");
-                }
-            }
-        }
-       */
         #endregion
 
         #region Konstruktorok
@@ -88,21 +71,36 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 throw new ArgumentNullException("A Hozzáadni kívánt paraméter vagy paraméter lista üres!");
             }
         }
-
         public override string ToString()
         {
             return $"[{Kategoria}]=>{parameterek.Select(x => x.ToString())})";
-
         }
-
         public int CompareTo(object obj)
         {
             return ToString().CompareTo(obj.ToString());
         }
-
         public IEnumerator GetEnumerator()
         {
             return ((IEnumerable)parameterek).GetEnumerator();
+        }
+        public bool Equals(ParameterLista other)
+        {
+            if (this.Parameterek.Count == other.Parameterek.Count)
+            {
+                int ugyanaz = 0;
+                for (int i = 0; i < this.Parameterek.Count; i++)
+                {
+                    if (this.parameterek[i].Equals(other.Parameterek[i]))
+                    {
+                        ugyanaz++;
+                    }
+                }
+                if (ugyanaz==parameterek.Count)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
