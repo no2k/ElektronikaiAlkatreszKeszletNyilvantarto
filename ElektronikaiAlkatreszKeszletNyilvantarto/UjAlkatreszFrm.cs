@@ -17,7 +17,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     {
         // ParameterLista lista;
         List<Keszlet> alkatreszLista = new List<Keszlet>();
-        
+        Alkatresz alkatresz;
+        List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
         int valasztottKaterogiaIndex = 0;
         internal List<Keszlet> AlkatreszLista { get => alkatreszLista; set => alkatreszLista = value; }
 
@@ -52,7 +53,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
         private void ListaFrissit()
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("listafrissit");
         }
         private void KategoriaCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -72,9 +73,60 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e) //hozzáad listához
         {
-           
+            if (panel2.Controls != null)
+            {
+                string str = "";
+                int darab = 0;
+                foreach (Control item in panel2.Controls)
+                {
+                    string meStr = "";
+                    string s = (item is Label lbl) ? lbl.Text : "";
+                    if ((item is TextBox txb))
+                    {
+                        if (!string.IsNullOrWhiteSpace(txb.Text))
+                        {
+                            str = txb.Text;
+                            darab++;
+                        }
+                        else
+                        {
+                            throw new ArgumentNullException($"A \"{s}\" paraméter nem lehet üres;");
+                        }
+                    }
+                    else if (item is NumericUpDown nud)
+                    {
+                        str = nud.Value.ToString();
+                        darab++;
+                    }
+                    else if (item is CheckBox chbx)
+                    {
+                        str = (chbx.Checked) ? "1" : "0";
+                        darab++;
+                    }
+                    
+                    if (item is ComboBox cbx && cbx.Name=="meCbx")
+                    {
+                        meStr = cbx.SelectedItem.ToString();
+                    }
+                    else if(item is Label meLbl && meLbl.Name=="meLBL")
+                    {
+                        meStr = meLbl.Text;
+                    }
+                    else
+                    {
+                        meStr = "";
+                    }
+                    if (!string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(meStr) )
+                    {
+                        alkatreszParameterLista.Add(new AlkatreszParameter(darab, str, meStr));
+                       
+                    }
+                    throw new NotImplementedException("alkatrész paraméter nem működik, ujalkatreszfrm,125");
+                }
+            }
+
             ListaFrissit();
         }
 
@@ -101,7 +153,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
 
-        
+
         public void VezerloFeltoltes(Kategoria kategoria)
         {
             panel2.Controls.Clear();
@@ -112,10 +164,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             for (int i = 0; i < parameterek.Parameterek.Count; i++)
             {
                 Label lbl = new Label
-                {
+                {   Name="lbl"+i.ToString(),
                     Parent = panel2,
                     Margin = szelek,
-                    Top = top+10,
+                    Top = top + 10,
                     Left = left,
                     AutoSize = true,
                     Text = parameterek.Parameterek[i].ParameterMegnevezes
@@ -124,25 +176,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
                 if (parameterek.Parameterek[i].ParameterMertekEgyseg.Length > 1)
                 {
-                    ComboBox cbx = new ComboBox
+                    ComboBox meCbx= new ComboBox
                     {
                         Parent = panel2,
                         Size = new Size(elemHossza, 23),
                         Margin = szelek,
                         Top = top,
-                        Left = elemHossza+20,
+                        Left = elemHossza + 20,
                         DataSource = parameterek.Parameterek[i].ParameterMertekEgyseg,
-                       // Font=new Font("Microsoft Sans Serif",9,)
+                        // Font=new Font("Microsoft Sans Serif",9,)
                     };
-
                 }
                 else
                 {
-                    Label lbl1 = new Label
+                    Label meLbl = new Label
                     {
                         Parent = panel2,
                         // Margin = szelek,
-                        Top = top+2,
+                        Top = top + 2,
                         Margin = szelek,
                         Left = elemHossza + 20,
                         AutoSize = true,
@@ -171,7 +222,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                             {
                                 Parent = panel2,
                                 Margin = szelek,
-                                Size=new Size(elemHossza,23),
+                                Size = new Size(elemHossza, 23),
                                 Top = top,
                                 Left = left,
                                 Increment = 1,
@@ -179,7 +230,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Maximum = 1000
                             };
                             top = nud.Bottom;
-                           // elemHossza = nud.Height;
+                            // elemHossza = nud.Height;
                         }
                         break;
                     case 2:  //float
@@ -197,7 +248,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Maximum = 1000
                             };
                             top = nud.Bottom;
-                           // elemHossza = nud.Height;
+                            // elemHossza = nud.Height;
                         }
                         break;
                     case 3: // bool
@@ -216,9 +267,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
 
             }
-
-            // panel2.Controls.Add();
-
         }
 
         private void bezarTSMI_Click(object sender, EventArgs e)
@@ -277,6 +325,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
 
-       
+
     }
 }

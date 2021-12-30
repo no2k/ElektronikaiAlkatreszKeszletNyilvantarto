@@ -8,13 +8,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
     class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>
     {
-
-
         int parameterSorszam;
         string parameterErtek, parameterMertekegyseg;
-
-
-
+       
         public string ParameterErtek
         {
             get => parameterErtek;
@@ -30,23 +26,23 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
 
-        } //not null
+        } 
         public string ParameterMertekegyseg
         {
             get => parameterMertekegyseg;
-            set => parameterMertekegyseg = value;
-        } //null
+           private set => parameterMertekegyseg = value;
+        } 
         public int ParameterSorszam
         {
             get => parameterSorszam; private set
             {
-                if (value > 0)
+                if (value >=0)
                 {
                     parameterSorszam = value;
                 }
                 else
                 {
-                    throw new ArgumentNullException("A paraméter Sorszáma nem lehet 0 vagy kevesebb!");
+                    throw new ArgumentNullException("A paraméter Sorszáma nem lehet kevesebb mint 0!");
                 }
             }
         }
@@ -59,14 +55,48 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             ParameterMertekegyseg = parameterMertekegyseg;
         }
 
+        public override string ToString()
+        {
+            return $"{ParameterErtek} {parameterMertekegyseg}";
+        }
         int IComparable<AlkatreszParameter>.CompareTo(AlkatreszParameter other)
         {
-            throw new NotImplementedException();
+            return ToString().CompareTo(other.ToString());
         }
 
         public bool Equals(AlkatreszParameter other)
         {
-            throw new NotImplementedException();
+            if (parameterSorszam==other.parameterSorszam &&
+                parameterErtek==other.parameterErtek &&
+                parameterMertekegyseg==other.parameterMertekegyseg)
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    class Alkatresz:IEquatable<Alkatresz>
+    {
+        Kategoria kategoria;
+        private List<AlkatreszParameter> parameterek = new List<AlkatreszParameter>();
+
+        public Kategoria Kategoria { get => kategoria; /*set => kategoria = value;*/ }
+        internal List<AlkatreszParameter> Parameterek { get => parameterek; /*set => parameterek = value; */}
+
+        public Alkatresz(Kategoria kategoria, List<AlkatreszParameter> parameterek)
+        {
+            this.kategoria = kategoria;
+            this.parameterek = parameterek;
+        }
+
+        public bool Equals(Alkatresz other)
+        {
+            if (parameterek.Equals(other))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
