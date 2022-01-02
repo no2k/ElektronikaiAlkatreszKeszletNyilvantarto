@@ -57,7 +57,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 {
                     if (frm.AlkatreszLista != null)
                     {
-                        alkatreszLista = frm.AlkatreszLista;
+                        //alkatreszLista = frm.AlkatreszLista;
                     }
                     else
                     {

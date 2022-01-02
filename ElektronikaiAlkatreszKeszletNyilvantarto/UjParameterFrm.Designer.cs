@@ -46,6 +46,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.felsorolChbx = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -59,11 +60,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(10, 34);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 169);
+            this.panel1.Size = new System.Drawing.Size(200, 187);
             this.panel1.TabIndex = 10;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.felsorolChbx);
             this.groupBox1.Controls.Add(this.radioButton4);
             this.groupBox1.Controls.Add(this.radioButton3);
             this.groupBox1.Controls.Add(this.radioButton2);
@@ -71,7 +73,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.groupBox1.Location = new System.Drawing.Point(6, 94);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(185, 65);
+            this.groupBox1.Size = new System.Drawing.Size(185, 88);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paraméter érték típusa:";
@@ -169,17 +171,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.HorizontalScrollbar = true;
             this.listBox1.ItemHeight = 15;
             this.listBox1.Location = new System.Drawing.Point(299, 34);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(214, 139);
+            this.listBox1.Size = new System.Drawing.Size(214, 154);
             this.listBox1.TabIndex = 9;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button2.Location = new System.Drawing.Point(299, 176);
+            this.button2.Location = new System.Drawing.Point(299, 194);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(120, 31);
             this.button2.TabIndex = 8;
@@ -191,7 +194,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.button1.Location = new System.Drawing.Point(216, 34);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(77, 48);
+            this.button1.Size = new System.Drawing.Size(77, 38);
             this.button1.TabIndex = 7;
             this.button1.Text = "Hozzáad";
             this.button1.UseVisualStyleBackColor = true;
@@ -209,7 +212,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(216, 88);
+            this.button3.Location = new System.Drawing.Point(216, 78);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(77, 37);
             this.button3.TabIndex = 12;
@@ -220,7 +223,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // button4
             // 
             this.button4.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button4.Location = new System.Drawing.Point(425, 176);
+            this.button4.Location = new System.Drawing.Point(425, 194);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(88, 31);
             this.button4.TabIndex = 13;
@@ -230,7 +233,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(216, 131);
+            this.button5.Location = new System.Drawing.Point(216, 121);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(77, 42);
             this.button5.TabIndex = 14;
@@ -238,11 +241,22 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // felsorolChbx
+            // 
+            this.felsorolChbx.AutoSize = true;
+            this.felsorolChbx.Location = new System.Drawing.Point(6, 65);
+            this.felsorolChbx.Name = "felsorolChbx";
+            this.felsorolChbx.Size = new System.Drawing.Size(83, 19);
+            this.felsorolChbx.TabIndex = 13;
+            this.felsorolChbx.Text = "Felsorolás";
+            this.felsorolChbx.UseVisualStyleBackColor = true;
+            this.felsorolChbx.CheckedChanged += new System.EventHandler(this.felsorolChbx_CheckedChanged);
+            // 
             // UjParameterFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 211);
+            this.ClientSize = new System.Drawing.Size(520, 228);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -284,5 +298,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.CheckBox felsorolChbx;
     }
 }

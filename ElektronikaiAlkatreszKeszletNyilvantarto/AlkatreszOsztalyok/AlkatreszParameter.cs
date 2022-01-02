@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ElektronikaiAlkatreszKeszletNyilvantarto.Interfacek;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>
+    class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>,IEnumerable,IListViewTomb
     {
         int parameterSorszam;
         string parameterErtek, parameterMertekegyseg;
@@ -34,7 +36,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         } 
         public int ParameterSorszam
         {
-            get => parameterSorszam; private set
+            get => parameterSorszam; 
+            private set
             {
                 if (value >=0)
                 {
@@ -74,29 +77,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             }
             return false;
         }
-    }
 
-    class Alkatresz:IEquatable<Alkatresz>
-    {
-        Kategoria kategoria;
-        private List<AlkatreszParameter> parameterek = new List<AlkatreszParameter>();
-
-        public Kategoria Kategoria { get => kategoria; /*set => kategoria = value;*/ }
-        internal List<AlkatreszParameter> Parameterek { get => parameterek; /*set => parameterek = value; */}
-
-        public Alkatresz(Kategoria kategoria, List<AlkatreszParameter> parameterek)
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            this.kategoria = kategoria;
-            this.parameterek = parameterek;
+            return parameterSorszam.ToString().GetEnumerator();
         }
 
-        public bool Equals(Alkatresz other)
+        public string[] ToListView()
         {
-            if (parameterek.Equals(other))
-            {
-                return true;
-            }
-            return false;
+
+            return new string[] {parameterErtek,parameterMertekegyseg };
         }
     }
+
 }

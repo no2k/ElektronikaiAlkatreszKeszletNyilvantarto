@@ -23,7 +23,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         public int ParameterSorszam
         {
             get => parameterSorszam;
-            private set
+            set
             {
                 if (value > 0)
                 {
@@ -56,6 +56,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => parameterMertekEgyseg;
             private set
             {
+               // parameterMertekEgyseg = value;
                 parameterMertekEgyseg = value.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             }
         }
@@ -114,7 +115,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             {
                 mertekegysegek += item + " ";
             }
-            return $"-{parameterSorszam}-{parameterMegnevezes}: {mertekegysegek}; /{parameterTipus}/";
+            return $"-{parameterMegnevezes}: {mertekegysegek}; /{parameterTipus}/";
         }
 
         public IEnumerator GetEnumerator()

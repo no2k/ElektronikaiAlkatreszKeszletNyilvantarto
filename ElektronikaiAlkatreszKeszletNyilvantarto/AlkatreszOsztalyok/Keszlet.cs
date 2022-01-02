@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    
-    class Keszlet//:IEquatable<Alkatresz>,IComparable
-    {
-        AlkatreszParameter alkatresz;
 
-        string megnevezes;
+    class Keszlet:IEquatable<Alkatresz>,IComparable<Alkatresz>
+    {
+        Alkatresz alkatresz;
+
+        // string megnevezes;
         int darabSzam;// darabdb
         int darabAr; //ar db
         string megjegyzes;
 
 
-        public string Megnevezes
-        {
-            get => megnevezes;
-            private set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    megnevezes = value;
-                }
-                else
-                {
-                    throw new ArgumentNullException("A megnevezés nem lehet üres!");
-                }
-            }
-        }
+        /*  public string Megnevezes
+          {
+              get => megnevezes;
+              private set
+              {
+                  if (!string.IsNullOrWhiteSpace(value))
+                  {
+                      megnevezes = value;
+                  }
+                  else
+                  {
+                      throw new ArgumentNullException("A megnevezés nem lehet üres!");
+                  }
+              }
+          }*/
         public int DarabSzam
         {
             get => darabSzam;
@@ -65,15 +65,25 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         }
 
         public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
-      
-
-        public Keszlet(string megnevezes, int darabSzam, int darabAr, string megjegyzes)
+        internal Alkatresz Alkatresz
         {
-            Megnevezes = megnevezes;
+            get => alkatresz;
+            set
+            {
+                if (value != null)
+                {
+                    alkatresz = value;
+                }
+            }
+        }
+
+        public Keszlet(/*string megnevezes,*/ int darabSzam, int darabAr, string megjegyzes)
+        {
+            // Megnevezes = megnevezes;
             DarabSzam = darabSzam;
             DarabAr = darabAr;
             Megjegyzes = megjegyzes;
-          
+
         }
 
         public int AlkatreszOsszAR()
@@ -82,16 +92,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         }
 
 
-        //   public  bool Equals(Alkatresz other);
-        // public int CompareTo(object obj);
+        public bool Equals(Alkatresz other)
+        {
+            return ((IEquatable<Alkatresz>)alkatresz).Equals(other);
+        }
 
-
-        /*  public int CompareTo(Alkatresz masikAlkatresz)
-          {
-              return ToString().CompareTo(masikAlkatresz.ToString());
-          }*/
-
-
+        int IComparable<Alkatresz>.CompareTo(Alkatresz other)
+        {
+            return ToString().CompareTo(other.ToString());
+        }
     }
-
 }
