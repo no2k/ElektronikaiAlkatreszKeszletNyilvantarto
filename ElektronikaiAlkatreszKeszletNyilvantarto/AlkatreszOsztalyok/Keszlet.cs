@@ -8,31 +8,13 @@ using System.Threading.Tasks;
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
 
-    class Keszlet:IEquatable<Alkatresz>,IComparable<Alkatresz>
+    class Keszlet:IEquatable<Keszlet>
     {
         Alkatresz alkatresz;
-
-        // string megnevezes;
         int darabSzam;// darabdb
-        int darabAr; //ar db
+        float darabAr; //ar db
         string megjegyzes;
-
-
-        /*  public string Megnevezes
-          {
-              get => megnevezes;
-              private set
-              {
-                  if (!string.IsNullOrWhiteSpace(value))
-                  {
-                      megnevezes = value;
-                  }
-                  else
-                  {
-                      throw new ArgumentNullException("A megnevezés nem lehet üres!");
-                  }
-              }
-          }*/
+       
         public int DarabSzam
         {
             get => darabSzam;
@@ -48,7 +30,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-        public int DarabAr
+        public float DarabAr
         {
             get => darabAr;
             set
@@ -63,9 +45,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-
         public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
-        internal Alkatresz Alkatresz
+        public Alkatresz Alkatresz
         {
             get => alkatresz;
             set
@@ -77,29 +58,76 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             }
         }
 
-        public Keszlet(/*string megnevezes,*/ int darabSzam, int darabAr, string megjegyzes)
+        public Keszlet( int darabSzam, float darabAr, string megjegyzes,Alkatresz alkatresz)
         {
-            // Megnevezes = megnevezes;
             DarabSzam = darabSzam;
             DarabAr = darabAr;
             Megjegyzes = megjegyzes;
-
+            Alkatresz = alkatresz;
         }
 
-        public int AlkatreszOsszAR()
+        public float AlkatreszOsszAR()
         {
             return darabAr * darabSzam;
         }
 
+        bool IEquatable<Keszlet>.Equals(Keszlet other)
+        {
+            if (alkatresz.Kategoria.KategoriaMegnevezes.ToLower() == other.alkatresz.Kategoria.KategoriaMegnevezes.ToLower() &&
+                alkatresz.Megnevezes.ToLower() ==other.Alkatresz.Megnevezes.ToLower() )
+            {
+                int eggyezik = 0;
+                int parameterekSzama = alkatresz.Parameterek.Count;
+                for (int i = 0; i < parameterekSzama; i++)
+                {
+                    if (alkatresz.Parameterek[i].Equals(other.alkatresz.Parameterek[i]))
+                    {
+                        eggyezik++;
+                    }
+                }
+                if (eggyezik==parameterekSzama)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+
+
+
+
+        /*
+         * bool IEquatable<Parameter>.Equals(Parameter other)
+        {
+            if (String.Equals(this.parameterMegnevezes , other.parameterMegnevezes) &&
+                String.Equals(TombbolStringbeKonvertal(this.ParameterMertekEgyseg ) , TombbolStringbeKonvertal(other.ParameterMertekEgyseg)) &&
+                this.ParameterTipus == other.ParameterTipus)
+            {
+                return true;
+            }
+            return false;
+        }
+         * 
 
         public bool Equals(Alkatresz other)
         {
-            return ((IEquatable<Alkatresz>)alkatresz).Equals(other);
-        }
+            if (alkatresz.Equals(other))
+            {
+                return true;
+            }
+            return false;
+        }*/
 
-        int IComparable<Alkatresz>.CompareTo(Alkatresz other)
-        {
-            return ToString().CompareTo(other.ToString());
-        }
+        /*  int IComparable<Alkatresz>.CompareTo(Alkatresz other)
+          {
+              return ToString().CompareTo(other.ToString());
+          }
+
+          public IEnumerator GetEnumerator()
+          {
+              return ((IEnumerable)alkatresz.ToString()).GetEnumerator();
+          }*/
     }
 }

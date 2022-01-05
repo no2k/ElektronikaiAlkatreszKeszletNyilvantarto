@@ -17,31 +17,128 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
     public partial class UjAlkatreszFrm : Form
     {
         #region Fieldek
-
         // ParameterLista lista;
-        List<Alkatresz> alkatreszLista = new List<Alkatresz>();
+        List<Keszlet> keszletLista = new List<Keszlet>();
+        Keszlet keszlet;
         Alkatresz alkatresz;
-        List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
+        // List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
         int valasztottKaterogiaIndex = 0;
         #endregion
+       
         #region Property-k
-        internal List<Alkatresz> AlkatreszLista
+        internal List<Keszlet> KeszletLista
         {
-            get => alkatreszLista;
-            set => alkatreszLista = value;
+            get => keszletLista;
+            set => keszletLista = value;
         }
-        #endregion 
+        #endregion
 
+        #region Konstruktorok
         public UjAlkatreszFrm()     //módosításhoz 1 alkatrész paraméterét felvinni!!!
         {
             InitializeComponent();
 
             button5.Enabled = false;
             parameterTSMI.Enabled = false;
+            //lv1 fejlec
+            lv1.Columns.Add("*", 30);
+            lv1.Columns.Add("Készlet", 50);
+            lv1.Columns.Add("Darabár", 75);
+            lv1.Columns.Add("Kategória", 150);
+            lv1.Columns.Add("Megnevezés", 150);
+            lv1.Columns.Add("Paraméterek", 300);
+
             KategoriaFrissit();
             ListaFrissit();
         }
+        #endregion
 
+        #region ListView metódusok
+
+        private void ListaFrissit()
+        {
+            try
+            {
+                lv1.Items.Clear();
+                int i = 1;
+                foreach (Keszlet item in keszletLista)
+                {
+                    lv1.Items.Add(LVSorFeltolt(i,item));
+                    i++;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        private ListViewItem LVSorFeltolt(int sorszam, Keszlet keszletElem)
+        {
+            string parameterekString = "";
+            foreach (AlkatreszParameter parameter in keszletElem.Alkatresz.Parameterek)
+            {
+                parameterekString += parameter + "; ";
+            }
+            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszlet.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, parameterekString };
+            return new ListViewItem(ujSor);
+        }
+        #endregion
+        
+        #region Menüsor metódusok
+
+        private void bezarTSMI_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void kategoriaTSMI_Click(object sender, EventArgs e)
+        {
+            UjKategoriaFrm katFrm = new UjKategoriaFrm();
+            if (katFrm.ShowDialog() == DialogResult.OK)
+            {
+                Kategoria kat = katFrm.UjKategoria;
+                try
+                {
+                    ABKezelo.UjKategoria(kat);
+                }
+                catch (ABKivetel ex)
+                {
+                    MessageBox.Show(ex.Message, "Adatbázis hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (katFrm.Parameterez)
+                {
+                    UjParameterFrm paramFrm = new UjParameterFrm((Kategoria)kat);
+                    if (paramFrm.ShowDialog() == DialogResult.OK)
+                    {
+                        labLecLbl.Text = $"Új paraméter(ek) lett(ek) hozzáadva/módosítva a(z) {kat} kategóriához";
+                    }
+                }
+                KategoriaFrissit();
+            }
+        }
+        private void parameterTSMI_Click(object sender, EventArgs e)
+        {
+            if (kategoriaCbx.SelectedItem != null)
+            {
+                UjParameterFrm frm = new UjParameterFrm((Kategoria)kategoriaCbx.SelectedItem);
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    labLecLbl.Text = $"Új paraméterek hozzáadva a(z){kategoriaCbx.SelectedItem} kategóriához!";
+                }
+
+                KategoriaFrissit();
+            }
+            else
+            {
+                MessageBox.Show("Nincs kiválasztott kategória", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
+        
+        #region ComboBox metódusok
         private void KategoriaFrissit()
         {
             kategoriaCbx.SelectedIndexChanged -= KategoriaCbx_SelectedIndexChanged;
@@ -61,44 +158,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         } //ok
-
-        private void ListaFrissit()
-        {
-            try
-            {
-                if (lv1.Columns.Count == 0)
-                {
-                    lv1.Columns.Add("*", 35);
-                    lv1.Columns.Add("Kategória", 100);
-                    lv1.Columns.Add("Megnevezés", 150);
-                    lv1.Columns.Add("Paraméterek", 400);
-                }
-                if (alkatreszLista != null)
-                {
-                    int i = 1;
-                    lv1.Items.Clear();
-                   
-                    foreach (Alkatresz alkatresz in alkatreszLista)
-                    { 
-                        string parameterekString = "";
-                        ListViewItem ujLvItem = new ListViewItem($"{i}");
-                        ujLvItem.SubItems.Add(alkatresz.Kategoria.KategoriaMegnevezes);
-                        ujLvItem.SubItems.Add(alkatresz.Megnevezes);
-                        foreach (AlkatreszParameter parameter in alkatresz.Parameterek)
-                        {
-                            parameterekString += parameter + ";";
-                        }
-                        ujLvItem.SubItems.Add(parameterekString);
-                        lv1.Items.Add(ujLvItem);
-                        i++;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
         private void KategoriaCbx_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (kategoriaCbx.SelectedItem != null)
@@ -117,7 +176,75 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
 
+        #endregion
+        
+        #region Button metódusok
 
+        private void Button1_Click(object sender, EventArgs e) //hozzáad listához
+        {
+            if (kategoriaCbx.SelectedItem != null)
+            {
+                List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
+                if (UjAlkatreszLista(alkatreszParameterLista))
+                {
+                    if (string.IsNullOrWhiteSpace(megnevezTxB.Text))
+                    {
+                        megnevezTxB.Text = (kategoriaCbx.SelectedItem as Kategoria).KategoriaMegnevezes;
+                    }
+                    keszlet = new Keszlet((int)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(
+                         (Kategoria)kategoriaCbx.SelectedItem,
+                         megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
+                        ));
+
+                    if (!keszletLista.Contains(keszlet))
+                    {
+                        keszletLista.Add(keszlet);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Már van ilyen alkatrszész a listában!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    // alkatreszParameterLista.Clear();
+                }
+            }
+            ListaFrissit();
+        }
+        private void button6_Click(object sender, EventArgs e) //uj alkatresz
+        {
+            if (kategoriaCbx.SelectedItem != null)
+            {
+                megjegyzesTbx.Clear();
+                darabArNud.Value = 0;
+                keszletNud.Value = 0;
+                kategoriaCbx.SelectedIndex = 0;
+            }
+            else
+            {
+                if (MessageBox.Show("Nincs kiválasztható kategória a listában!\n\r\n\r Szeretnél új kategóriát hozzáadni???", "Figyelem...", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    kategoriaTSMI_Click(sender, e);
+                }
+            }
+        }
+        private void button5_Click_1(object sender, EventArgs e)  //torles
+        {
+            if (lv1.SelectedItems != null)
+            {
+                foreach (Keszlet item in lv1.SelectedItems)
+                {
+                    keszletLista.Remove(item);
+                }
+                ListaFrissit();
+            }
+        }
+        private void button2_Click(object sender, EventArgs e) //OK
+        {
+            //adatbázis feltöltése
+            
+        }
+        #endregion
+        
+        #region panel dinamikus feltöltés
         public void VezerloFeltoltes(Kategoria kategoria)
         {
             panel2.Controls.Clear();
@@ -190,7 +317,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Maximum = 1000
                             };
                             gbUjPozicio = nud.Top;
-
                             top = nud.Bottom;
                             // elemHossza = nud.Height;
                         }
@@ -206,7 +332,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Text = null
                             };
                             gbUjPozicio = chbx.Top;
-
                             top = chbx.Bottom;
                         }
                         break;
@@ -219,7 +344,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         Parent = panel2,
                         Size = new Size(elemHossza, 23),
                         Margin = szelek,
-                        Top = top,
+                        Top = gbUjPozicio,
                         Left = elemHossza + 20,
                         DataSource = parameterek.Parameterek[i].ParameterMertekEgyseg,
                         // Font=new Font("Microsoft Sans Serif",9,)
@@ -232,7 +357,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         Name = "meLbl",
                         Parent = panel2,
                         // Margin = szelek,
-                        Top = top + 2,
+                        Top = gbUjPozicio + 2,
                         Margin = szelek,
                         Left = elemHossza + 20,
                         AutoSize = true,
@@ -242,163 +367,61 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
 
             }
         }
-
-        private void bezarTSMI_Click(object sender, EventArgs e)
+        private bool UjAlkatreszLista(List<AlkatreszParameter> lista)
         {
-            this.Close();
-        }
-
-        private void kategoriaTSMI_Click(object sender, EventArgs e)
-        {
-            UjKategoriaFrm katFrm = new UjKategoriaFrm();
-            if (katFrm.ShowDialog() == DialogResult.OK)
+            if (panel2.Controls != null)
             {
-                Kategoria kat = katFrm.UjKategoria;
-                try
+                string str = "";
+                string meStr = "";
+                int ParameterSorszam = 0;
+                foreach (Control item in panel2.Controls)
                 {
-                    ABKezelo.UjKategoria(kat);
-                }
-                catch (ABKivetel ex)
-                {
-                    MessageBox.Show(ex.Message, "Adatbázis hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                if (katFrm.Parameterez)
-                {
-                    UjParameterFrm paramFrm = new UjParameterFrm((Kategoria)kat);
-                    if (paramFrm.ShowDialog() == DialogResult.OK)
+                    string s = (item is Label lbl) ? lbl.Text : "";
+                    if ((item is TextBox txb))
                     {
-
-                    }
-                }
-                KategoriaFrissit();
-            }
-        }
-
-        private void parameterTSMI_Click(object sender, EventArgs e)
-        {
-            if (kategoriaCbx.SelectedItem != null)
-            {
-                UjParameterFrm frm = new UjParameterFrm((Kategoria)kategoriaCbx.SelectedItem);
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-
-                }
-                else
-                {
-                    // kategoriaCbx.SelectedIndex = valasztottKaterogiaIndex;
-                }
-                KategoriaFrissit();
-            }
-            else
-            {
-                MessageBox.Show("Nincs kiválasztott kategória", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void Button1_Click(object sender, EventArgs e) //hozzáad listához
-        {
-            if (kategoriaCbx.SelectedItem != null)
-            {
-                if (panel2.Controls != null)
-                {
-                    string str = "";
-                    string meStr = "";
-                    int darab = 0;
-                    foreach (Control item in panel2.Controls)
-                    {
-                        string s = (item is Label lbl) ? lbl.Text : "";
-                        if ((item is TextBox txb))
+                        if (!string.IsNullOrWhiteSpace(txb.Text))
                         {
-                            if (!string.IsNullOrWhiteSpace(txb.Text))
-                            {
-                                str = txb.Text;
-                                darab++;
-                            }
-                            else
-                            {
-                                throw new ArgumentNullException($"A \"{s}\" paraméter nem lehet üres;");
-                            }
-                        }
-                        else if (item is NumericUpDown nud)
-                        {
-                            str = nud.Value.ToString();
-                            darab++;
-                        }
-                        else if (item is CheckBox chbx)
-                        {
-                            str = (chbx.Checked) ? "1" : "0";
-                            darab++;
-                        }
-                        if (item is ComboBox cbx && cbx.Name == "meCbx")
-                        {
-                            meStr = cbx.SelectedItem.ToString();
-                        }
-                        else if (item is Label meLbl && meLbl.Name == "meLbl")
-                        {
-                            meStr = meLbl.Text;
+                            str = txb.Text;
+                            ParameterSorszam++;
                         }
                         else
                         {
-                            //  meStr = "";
-                        }
-                        if (!string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(meStr))
-                        {
-                            alkatreszParameterLista.Add(new AlkatreszParameter(darab, str, meStr));
-                            str = "";
-                            meStr = "";
+                            throw new ArgumentNullException($"A \"{s}\" paraméter nem lehet üres;");
                         }
                     }
-                }
-                if (alkatreszParameterLista != null)
-                {
-                    if (string.IsNullOrWhiteSpace(megnevezTxB.Text))
+                    else if (item is NumericUpDown nud)
                     {
-                        megnevezTxB.Text = (kategoriaCbx.SelectedItem as Kategoria).KategoriaMegnevezes;
+                        str = nud.Value.ToString();
+                        ParameterSorszam++;
                     }
-                    alkatresz =new Alkatresz(
-                         (Kategoria)kategoriaCbx.SelectedItem,
-                         megnevezTxB.Text,new List<AlkatreszParameter>(alkatreszParameterLista)
-                        );
-                    if (!alkatreszLista.Contains(alkatresz))
+                    else if (item is CheckBox chbx)
                     {
-                        alkatreszLista.Add(alkatresz);
-                    } 
-                       alkatreszParameterLista.Clear();
+                        str = (chbx.Checked) ? "1" : "0";
+                        ParameterSorszam++;
+                    }
+                    if (item is ComboBox cbx && cbx.Name == "meCbx")
+                    {
+                        meStr = cbx.SelectedItem.ToString();
+                    }
+                    else if (item is Label meLbl && meLbl.Name == "meLbl")
+                    {
+                        meStr = meLbl.Text;
+                    }
+                    else
+                    {
+                        //  meStr = "";
+                    }
+                    if (!string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(meStr))
+                    {
+                        lista.Add(new AlkatreszParameter(ParameterSorszam, str, meStr));
+                        str = "";
+                        meStr = "";
+                    }
                 }
+                return true;
             }
-            ListaFrissit();
+            return false;
         }
-
-        private void button6_Click(object sender, EventArgs e) //uj alkatresz
-        {
-            if (kategoriaCbx.SelectedItem != null)
-            {
-                megjegyzesTbx.Clear();
-                darabArNud.Value = 0;
-                keszletNud.Value = 0;
-                kategoriaCbx.SelectedIndex = 0;
-            }
-            else
-            {
-                if (MessageBox.Show("Nincs kiválasztható kategória a listában!\n\r\n\r Szeretnél új kategóriát hozzáadni???", "Figyelem...", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
-                {
-                    kategoriaTSMI_Click(sender, e);
-                }
-            }
-        }
-
-        private void button5_Click_1(object sender, EventArgs e)  //torles
-        {
-            MessageBox.Show("Törlés nincs megírva!!");
-        }
-
-        private void button2_Click(object sender, EventArgs e) //rogzit
-        {
-
-        }
+        #endregion
     }
 }

@@ -34,9 +34,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         private void AlkatreszKeszletFrm_Load(object sender, EventArgs e)
         {
+            
             try
             {
                 ABKezelo.Csatlakozas();
+
             }
             catch (ABKivetel ex)
             {
@@ -55,7 +57,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 UjAlkatreszFrm frm = new UjAlkatreszFrm();
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    if (frm.AlkatreszLista != null)
+                    if (frm.KeszletLista != null)
                     {
                         //alkatreszLista = frm.AlkatreszLista;
                     }

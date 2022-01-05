@@ -7,7 +7,7 @@ using ElektronikaiAlkatreszKeszletNyilvantarto.Interfacek;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    class Alkatresz : IEquatable<Alkatresz>//,IListViewTomb
+    class Alkatresz : IEquatable<Alkatresz>
     {
         Kategoria kategoria;
         string megnevezes;
@@ -61,9 +61,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             return false;
         }
 
-      /*  public string[] ToListView()
-        {
-            return new string[] { megnevezes, parameterek.Select(x => x.ToListView()).ToArray() };
-        }*/
+      
     }
 }

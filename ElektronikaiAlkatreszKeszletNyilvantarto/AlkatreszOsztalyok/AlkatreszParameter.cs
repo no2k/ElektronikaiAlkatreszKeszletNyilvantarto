@@ -8,7 +8,7 @@ using ElektronikaiAlkatreszKeszletNyilvantarto.Interfacek;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>,IEnumerable,IListViewTomb
+    class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>,IEnumerable
     {
         int parameterSorszam;
         string parameterErtek, parameterMertekegyseg;
@@ -83,11 +83,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             return parameterSorszam.ToString().GetEnumerator();
         }
 
-        public string[] ToListView()
-        {
-
-            return new string[] {parameterErtek,parameterMertekegyseg };
-        }
+      
     }
 
 }

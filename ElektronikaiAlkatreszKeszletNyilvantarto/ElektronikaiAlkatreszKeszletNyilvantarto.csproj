@@ -55,6 +55,7 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -84,11 +85,11 @@
     <Compile Include="AlkatreszOsztalyok\Parameter.cs" />
     <Compile Include="AlkatreszOsztalyok\ParameterLista.cs" />
     <Compile Include="Fajlkezelo.cs" />
-    <Compile Include="KeszletFrm.cs">
+    <Compile Include="KeszletNyilvanTartoFrm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="KeszletFrm.Designer.cs">
-      <DependentUpon>KeszletFrm.cs</DependentUpon>
+    <Compile Include="KeszletNyilvanTartoFrm.Designer.cs">
+      <DependentUpon>KeszletNyilvanTartoFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="AlkatreszOsztalyok\Kategoria.cs" />
     <Compile Include="UjKategoriaFrm.cs">
@@ -121,8 +122,8 @@
     <EmbeddedResource Include="UjAlkatreszFrm.resx">
       <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="KeszletFrm.resx">
-      <DependentUpon>KeszletFrm.cs</DependentUpon>
+    <EmbeddedResource Include="KeszletNyilvanTartoFrm.resx">
+      <DependentUpon>KeszletNyilvanTartoFrm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UjKategoriaFrm.resx">
       <DependentUpon>UjKategoriaFrm.cs</DependentUpon>

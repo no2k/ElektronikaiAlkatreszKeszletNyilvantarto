@@ -73,7 +73,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         }
         public override string ToString()
         {
-            return $"[{Kategoria}]=>{parameterek.Select(x => x.ToString())})";
+            return base.ToString();
+          //  return $"[{Kategoria}]=>{parameterek.Select(x => x.ToString())})";
         }
         public int CompareTo(object obj)
         {

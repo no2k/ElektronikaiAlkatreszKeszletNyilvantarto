@@ -32,7 +32,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button1 = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.infoTSMI = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labLecLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kategoriaCbx = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -79,7 +79,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.infoTSMI,
-            this.toolStripStatusLabel1});
+            this.labLecLbl});
             this.statusStrip1.Location = new System.Drawing.Point(0, 517);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(688, 22);
@@ -92,11 +92,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.infoTSMI.Name = "infoTSMI";
             this.infoTSMI.Size = new System.Drawing.Size(0, 17);
             // 
-            // toolStripStatusLabel1
+            // labLecLbl
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.labLecLbl.Name = "labLecLbl";
+            this.labLecLbl.Size = new System.Drawing.Size(0, 17);
             // 
             // panel1
             // 
@@ -164,6 +163,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // darabArNud
             // 
+            this.darabArNud.DecimalPlaces = 2;
             this.darabArNud.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.darabArNud.Location = new System.Drawing.Point(270, 58);
             this.darabArNud.Maximum = new decimal(new int[] {
@@ -234,7 +234,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 41);
             this.button2.TabIndex = 7;
-            this.button2.Text = "Rögzítés";
+            this.button2.Text = "Ok";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -391,7 +391,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel labLecLbl;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem bezarTSMI;
         private System.Windows.Forms.ToolStripMenuItem kategoriaTSMI;

@@ -117,7 +117,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             }
             return $"-{parameterMegnevezes}: {mertekegysegek}; /{parameterTipus}/";
         }
-
         public IEnumerator GetEnumerator()
         {
             return parameterMertekEgyseg.GetEnumerator();

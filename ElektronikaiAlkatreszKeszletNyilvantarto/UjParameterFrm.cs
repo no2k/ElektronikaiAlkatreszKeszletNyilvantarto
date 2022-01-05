@@ -139,7 +139,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
-        private void button1_Click(object sender, EventArgs e) //Parameter hozzaadas (listboxba es listaba)
+        private void button1_Click(object sender, EventArgs e) 
         {
             Parameter ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
@@ -180,78 +180,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 MessageBox.Show("Minden mező kitöltése kötelező!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-        }
+        }//Parameter hozzaadas
         private void button2_Click(object sender, EventArgs e) //Rogzit es bezar
         {
             if (lista.Count > 0)
-            {
-                if (betoltottLista != null && lista.Count > betoltottLista.Parameterek.Count) //ellenőrizni a lista összes elemét hogy volt e rajtuk módosítás
-                {
-                    for (int i = 0; i < betoltottLista.Parameterek.Count; i++)  //betöltött elemek ellenőrzése/adatbázis módosítása
-                    {
-                        if (betoltottLista.Parameterek[i].ParameterSorszam == lista[i].ParameterSorszam && !betoltottLista.Parameterek[i].Equals(lista[i]))
-                        {
-                            ABKezelo.ParameterModositas(kategoria, lista[i]);
-                        }
-                    }
-                    for (int i = betoltottLista.Parameterek.Count; i < lista.Count; i++) // a további új elemek felvitele
-                    {
-                        ABKezelo.UjParameter(kategoria, lista[i]);
-                    }
-                }
-                else if (lista.Count == betoltottLista.Parameterek.Count) //a módosítások felvitele az adatbázisba
-                {
-                    if (!Enumerable.SequenceEqual(lista, betoltottLista.Parameterek)) //!lista.Equals(betoltottLista.Parameterek)
-                    {
-                        for (int i = 0; i < lista.Count; i++)
-                        {
-                            if (!lista[i].Equals(betoltottLista.Parameterek[i]))
-                            {
-                                ABKezelo.ParameterModositas(kategoria, lista[i]);
-                            }
-                        }
-                    }
-                    DialogResult = DialogResult.OK;
-                }
-                else if (lista.Count < betoltottLista.Parameterek.Count)
-                {
-                    List<Parameter> ujLista = new List<Parameter>();
-                    int i = 1;
-                    foreach (Parameter betoltott in betoltottLista.Parameterek)
-                    {
-                        if (lista.Contains(betoltott))
-                        {
-                           ujLista.Add(new Parameter(i,betoltott.ParameterMegnevezes,betoltott.ParameterMertekEgyseg,betoltott.ParameterTipus)); 
-                        }
-                        i++;
-                    }
-                    //uj ab kezelo metodus a parameterlista modositasara!!!
-                    throw new NotImplementedException("nincs megirva ujparameterfrm 229 sor!");
-
-                    foreach (Parameter item in lista)
-                    {
-                        if (item.ParameterSorszam != i)
-                        {
-                            ujLista.Add(new Parameter(i, lista[i].ParameterMegnevezes, lista[i].ParameterMertekEgyseg, lista[i].ParameterTipus));
-                        }
-                        else
-                        {
-                            ujLista.Add(item);
-                        }
-                        i++;
-                    }
-                    foreach (Parameter item in ujLista)
-                    {
-                        ABKezelo.ParameterModositas(kategoria, item);
-                    }
-                    //a törlendő paraméterek sorszámát egy tömbben tárolni majd új listát létrehozni a törölni kívánt paraméterek sorszámait felülírva az azt rá következővel..., majd az egész táblát update-lni!!!
-                }
-                else
-                {
-                    parameterLista = new ParameterLista(kategoria, lista);
-                    ABKezelo.UjParameterLista(kategoria, parameterLista);
-                }
-                DialogResult = DialogResult.OK;
+            {   
+                ParameterekTorles(kategoria, betoltottLista.Parameterek);
+                ParameterHozzaAd(kategoria, ParameterekListaFrissit(lista));
             }
             else
             {
@@ -266,15 +201,36 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
+        private void ParameterekTorles(Kategoria kategoria, List<Parameter> parameterek) 
+        {
+            foreach (Parameter item in parameterek)
+            {
+                ABKezelo.ParameterTores(kategoria, item);
+            }
+        }
+        private List<Parameter> ParameterekListaFrissit(List<Parameter> regiLista) 
+        {
+            List<Parameter> ujLista = new List<Parameter>();
+            int i = 1;
+            foreach (Parameter item in lista)
+            {
+                ujLista.Add(new Parameter(i, item.ParameterMegnevezes, item.ParameterMertekEgyseg, item.ParameterTipus));
+                i++;
+            }
+            return ujLista;
+        }
+        private void ParameterHozzaAd(Kategoria kategoria, List<Parameter> parameterek)
+        {
+            foreach (Parameter item in parameterek)
+            {
+                ABKezelo.UjParameter(kategoria, item);
+            }
+        }
         private void button3_Click(object sender, EventArgs e)  //parameter torles
         {
             if (listBox1.SelectedItem != null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?\n\r A törlés, az adatbázisból való törlést is jelenti!!!", "Paraméter törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                // ABKezelo.ParameterTores(kategoria, (Parameter)listBox1.SelectedItem);
                 lista.RemoveAt(listBox1.SelectedIndex);
-                // betoltottLista = ABKezelo.ParameterekLekerdez(kategoria);
-                // lista = new List<Parameter>(betoltottLista.Parameterek);
-                // betoltottLista.Parameterek. = lista.Count;
                 LbFrissit();
             }
         }
@@ -290,7 +246,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 MertekEgysegTxb.Enabled = false;
                 MertekEgysegTxb.Text = "-";
             }
-        } //OK
+        } 
         private void button5_Click(object sender, EventArgs e)
         {
             kivalasztottParameter = null;

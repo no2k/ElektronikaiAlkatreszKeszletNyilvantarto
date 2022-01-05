@@ -31,6 +31,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.felsorolChbx = new System.Windows.Forms.CheckBox();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -46,7 +47,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.felsorolChbx = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +77,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paraméter érték típusa:";
+            // 
+            // felsorolChbx
+            // 
+            this.felsorolChbx.AutoSize = true;
+            this.felsorolChbx.Location = new System.Drawing.Point(6, 65);
+            this.felsorolChbx.Name = "felsorolChbx";
+            this.felsorolChbx.Size = new System.Drawing.Size(83, 19);
+            this.felsorolChbx.TabIndex = 13;
+            this.felsorolChbx.Text = "Felsorolás";
+            this.felsorolChbx.UseVisualStyleBackColor = true;
+            this.felsorolChbx.CheckedChanged += new System.EventHandler(this.felsorolChbx_CheckedChanged);
             // 
             // radioButton4
             // 
@@ -182,17 +193,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button2.Location = new System.Drawing.Point(299, 194);
+            this.button2.Location = new System.Drawing.Point(332, 194);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 31);
+            this.button2.Size = new System.Drawing.Size(87, 31);
             this.button2.TabIndex = 8;
-            this.button2.Text = "Rögzít és bezár";
+            this.button2.Text = "OK";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(216, 34);
+            this.button1.Location = new System.Drawing.Point(216, 150);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(77, 38);
             this.button1.TabIndex = 7;
@@ -212,7 +223,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(216, 78);
+            this.button3.Location = new System.Drawing.Point(216, 84);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(77, 37);
             this.button3.TabIndex = 12;
@@ -233,24 +244,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(216, 121);
+            this.button5.Location = new System.Drawing.Point(216, 34);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(77, 42);
             this.button5.TabIndex = 14;
             this.button5.Text = "Mező Reset";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // felsorolChbx
-            // 
-            this.felsorolChbx.AutoSize = true;
-            this.felsorolChbx.Location = new System.Drawing.Point(6, 65);
-            this.felsorolChbx.Name = "felsorolChbx";
-            this.felsorolChbx.Size = new System.Drawing.Size(83, 19);
-            this.felsorolChbx.TabIndex = 13;
-            this.felsorolChbx.Text = "Felsorolás";
-            this.felsorolChbx.UseVisualStyleBackColor = true;
-            this.felsorolChbx.CheckedChanged += new System.EventHandler(this.felsorolChbx_CheckedChanged);
             // 
             // UjParameterFrm
             // 
