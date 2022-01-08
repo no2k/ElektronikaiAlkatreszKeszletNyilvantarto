@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    public class Parameter : IEnumerable,IEquatable<Parameter>
+    public class ParameterDef : IEnumerable,IEquatable<ParameterDef>
     {
         #region Fieldek
 
@@ -78,14 +78,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         #endregion
 
         #region Konstruktorok
-        public Parameter(string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
+        public ParameterDef(string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
         {
             parameterSorszam = ++sorszam;
             ParameterMegnevezes = parameterMegnevezes;
             ParameterMertekEgyseg = parameterMertekegyseg;
             ParameterTipus = parameterTipus;
         }
-        public Parameter(int ParameterSorszam, string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
+        public ParameterDef(int ParameterSorszam, string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
         {
             parameterSorszam = ParameterSorszam;
             ParameterMegnevezes = parameterMegnevezes;
@@ -122,7 +122,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             return parameterMertekEgyseg.GetEnumerator();
         }
 
-        bool IEquatable<Parameter>.Equals(Parameter other)
+        bool IEquatable<ParameterDef>.Equals(ParameterDef other)
         {
             if (String.Equals(this.parameterMegnevezes , other.parameterMegnevezes) &&
                 String.Equals(TombbolStringbeKonvertal(this.ParameterMertekEgyseg ) , TombbolStringbeKonvertal(other.ParameterMertekEgyseg)) &&

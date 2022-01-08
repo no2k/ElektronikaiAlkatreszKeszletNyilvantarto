@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
-    public class ParameterLista : IComparable, IEnumerable, IEquatable<ParameterLista>
+    public class ParameterDefLista : IComparable, IEnumerable, IEquatable<ParameterDefLista>
     {
         #region Fieldek
 
         Kategoria kategoria;
-        List<Parameter> parameterek = new List<Parameter>();
+        List<ParameterDef> parameterek = new List<ParameterDef>();
         #endregion
 
         #region Propertyk
@@ -32,7 +32,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             }
 
         }
-        public List<Parameter> Parameterek
+        public List<ParameterDef> Parameterek
         {
             get => parameterek;
             set
@@ -51,7 +51,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         #region Konstruktorok
 
-        public ParameterLista(Kategoria kategoria, List<Parameter> parameterek)
+        public ParameterDefLista(Kategoria kategoria, List<ParameterDef> parameterek)
         {
             Kategoria = kategoria;
             Parameterek = parameterek;
@@ -60,7 +60,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         #region Metódusok
 
-        public void UjParameter(Parameter parameter)
+        public void UjParameter(ParameterDef parameter)
         {
             if (parameter != null && parameterek != null)
             {
@@ -84,7 +84,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         {
             return ((IEnumerable)parameterek).GetEnumerator();
         }
-        public bool Equals(ParameterLista other)
+        public bool Equals(ParameterDefLista other)
         {
             if (this.Parameterek.Count == other.Parameterek.Count)
             {

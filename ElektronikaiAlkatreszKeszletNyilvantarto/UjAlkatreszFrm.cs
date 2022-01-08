@@ -43,19 +43,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             button5.Enabled = false;
             parameterTSMI.Enabled = false;
             //lv1 fejlec
+            LVFejlecFeltolt();
+
+            KategoriaFrissit();
+            ListaFrissit();
+        }
+
+        #endregion
+
+        #region ListView metódusok
+        private void LVFejlecFeltolt()
+        {
             lv1.Columns.Add("*", 30);
             lv1.Columns.Add("Készlet", 50);
             lv1.Columns.Add("Darabár", 75);
             lv1.Columns.Add("Kategória", 150);
             lv1.Columns.Add("Megnevezés", 150);
             lv1.Columns.Add("Paraméterek", 300);
-
-            KategoriaFrissit();
-            ListaFrissit();
         }
-        #endregion
-
-        #region ListView metódusok
 
         private void ListaFrissit()
         {
@@ -81,7 +86,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 parameterekString += parameter + "; ";
             }
-            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszlet.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, parameterekString };
+            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, parameterekString };
             return new ListViewItem(ujSor);
         }
         #endregion
@@ -266,8 +271,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         public void VezerloFeltoltes(Kategoria kategoria)
         {
             panel2.Controls.Clear();
-            ParameterLista parameterek = ABKezelo.ParameterekLekerdez(kategoria);
-            int elemHossza = 75; int gbUjPozicio = 0;
+            ParameterDefLista parameterek = ABKezelo.ParameterDefLekerdez(kategoria);
+            int elemHossza = (panel2.Height/2)-10; 
+            int gbUjPozicio = 0;
             Padding szelek = new Padding(0, 5, 0, 10);
             int top = 3, left = 5;
             for (int i = 0; i < parameterek.Parameterek.Count; i++)
@@ -296,7 +302,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Top = top,
                                 Left = left,
                                 Size = new Size(elemHossza, 23),
-                                //  Size = new Size(label2.Width-(left*2), 23),
+                                
                             };
                             gbUjPozicio = txb.Top;
                             top = txb.Bottom;
@@ -359,6 +365,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     ComboBox meCbx = new ComboBox
                     {
                         Name = "meCbx",
+                        DropDownStyle=ComboBoxStyle.DropDownList,
                         Parent = panel2,
                         Size = new Size(elemHossza, 23),
                         Margin = szelek,

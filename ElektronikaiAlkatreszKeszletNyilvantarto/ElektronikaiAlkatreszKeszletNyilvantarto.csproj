@@ -82,8 +82,8 @@
     <Compile Include="UjAlkatreszFrm.Designer.cs">
       <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AlkatreszOsztalyok\Parameter.cs" />
-    <Compile Include="AlkatreszOsztalyok\ParameterLista.cs" />
+    <Compile Include="AlkatreszOsztalyok\ParameterDef.cs" />
+    <Compile Include="AlkatreszOsztalyok\ParameterDefLista.cs" />
     <Compile Include="Fajlkezelo.cs" />
     <Compile Include="KeszletNyilvanTartoFrm.cs">
       <SubType>Form</SubType>

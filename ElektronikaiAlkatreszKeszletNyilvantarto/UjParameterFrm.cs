@@ -17,14 +17,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         #region Fieldek
         private int tipus;
         Kategoria kategoria;
-        private Parameter kivalasztottParameter;
-        private List<Parameter> lista = new List<Parameter>();
-        private ParameterLista parameterLista, betoltottLista;
+        private ParameterDef kivalasztottParameter;
+        private List<ParameterDef> lista = new List<ParameterDef>();
+        private ParameterDefLista parameterLista, betoltottLista;
 
         #endregion
 
         #region Propertyk
-        public ParameterLista ParameterLista
+        public ParameterDefLista ParameterLista
         {
             get => parameterLista;
             private set
@@ -56,10 +56,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 this.kategoria = kategoria;
                 this.Text = $"Új {kategoria.KategoriaMegnevezes} paraméterek Hozzáadása";
                 label1.Text = kategoria.KategoriaMegnevezes + " paraméterek";
-                betoltottLista = ABKezelo.ParameterekLekerdez(kategoria);
+                betoltottLista = ABKezelo.ParameterDefLekerdez(kategoria);
                 if (betoltottLista.Parameterek.Capacity != 0)
                 {
-                    lista = new List<Parameter>(betoltottLista.Parameterek);
+                    lista = new List<ParameterDef>(betoltottLista.Parameterek);
                 }
 
                 LbFrissit();
@@ -77,7 +77,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem is Parameter param)
+            if (listBox1.SelectedItem is ParameterDef param)
             {
                 MegnevezesTbx.Text = param.ParameterMegnevezes;
                 MertekEgysegTxb.Text = string.Join(Environment.NewLine, param.ParameterMertekEgyseg);
@@ -141,24 +141,24 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         private void button1_Click(object sender, EventArgs e) 
         {
-            Parameter ujParameter;
+            ParameterDef ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
             {
                 if (lista.Count > 0)
                 {
                     if (kivalasztottParameter != null) //parameter modositasa
                     {
-                        ujParameter = new Parameter(kivalasztottParameter.ParameterSorszam, MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
+                        ujParameter = new ParameterDef(kivalasztottParameter.ParameterSorszam, MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
                     }
                     else //parameter felvitel
                     {
                         int index = lista.Count;
-                        ujParameter = new Parameter(++index, MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
+                        ujParameter = new ParameterDef(++index, MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
                     }
                 }
                 else
                 {
-                    ujParameter = new Parameter(MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
+                    ujParameter = new ParameterDef(MegnevezesTbx.Text, MertekEgysegTxb.Text.Split('\n'), tipus);
                 }
                 if (!lista.Contains(ujParameter))
                 {
@@ -201,29 +201,29 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
-        private void ParameterekTorles(Kategoria kategoria, List<Parameter> parameterek) 
+        private void ParameterekTorles(Kategoria kategoria, List<ParameterDef> parameterek) 
         {
-            foreach (Parameter item in parameterek)
+            foreach (ParameterDef item in parameterek)
             {
-                ABKezelo.ParameterTores(kategoria, item);
+                ABKezelo.ParameterDefTores(kategoria, item);
             }
         }
-        private List<Parameter> ParameterekListaFrissit(List<Parameter> regiLista) 
+        private List<ParameterDef> ParameterekListaFrissit(List<ParameterDef> regiLista) 
         {
-            List<Parameter> ujLista = new List<Parameter>();
+            List<ParameterDef> ujLista = new List<ParameterDef>();
             int i = 1;
-            foreach (Parameter item in lista)
+            foreach (ParameterDef item in lista)
             {
-                ujLista.Add(new Parameter(i, item.ParameterMegnevezes, item.ParameterMertekEgyseg, item.ParameterTipus));
+                ujLista.Add(new ParameterDef(i, item.ParameterMegnevezes, item.ParameterMertekEgyseg, item.ParameterTipus));
                 i++;
             }
             return ujLista;
         }
-        private void ParameterHozzaAd(Kategoria kategoria, List<Parameter> parameterek)
+        private void ParameterHozzaAd(Kategoria kategoria, List<ParameterDef> parameterek)
         {
-            foreach (Parameter item in parameterek)
+            foreach (ParameterDef item in parameterek)
             {
-                ABKezelo.UjParameter(kategoria, item);
+                ABKezelo.UjParameterDef(kategoria, item);
             }
         }
         private void button3_Click(object sender, EventArgs e)  //parameter torles
