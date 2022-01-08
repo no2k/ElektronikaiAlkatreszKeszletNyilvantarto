@@ -23,6 +23,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         Alkatresz alkatresz;
         // List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
         int valasztottKaterogiaIndex = 0;
+        int AlkatreszId;
         #endregion
        
         #region Property-k
@@ -38,6 +39,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             InitializeComponent();
 
+            AlkatreszId = ABKezelo.UtolsoAlkatreszId();
             button5.Enabled = false;
             parameterTSMI.Enabled = false;
             //lv1 fejlec
@@ -181,7 +183,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         #region Button metódusok
 
         private void Button1_Click(object sender, EventArgs e) //hozzáad listához
-        {
+        {   
             if (kategoriaCbx.SelectedItem != null)
             {
                 List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
@@ -191,7 +193,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     {
                         megnevezTxB.Text = (kategoriaCbx.SelectedItem as Kategoria).KategoriaMegnevezes;
                     }
-                    keszlet = new Keszlet((int)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(
+                    AlkatreszId++;
+                    keszlet = new Keszlet(null,(float)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(AlkatreszId,
                          (Kategoria)kategoriaCbx.SelectedItem,
                          megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
                         ));
@@ -238,8 +241,23 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
         private void button2_Click(object sender, EventArgs e) //OK
-        {
-            //adatbázis feltöltése
+        {       
+            //keresés az adatbázisban, a megadott kategóriánál, hogy tartalmazza e az adott elemeket. amennyiben tartalmazza, akkor egy messageboxban értesítést adni hogy van ilyen alkatrész, a mennyiséget és az árat akarod e frissíteni a megadottakkal?
+           
+            if (keszletLista.Count>0)
+            {
+               
+                foreach (Keszlet keszlet in keszletLista)
+                {
+                    keszlet.KeszletId=ABKezelo.UjAlkatresz(keszlet.Alkatresz);
+                    ABKezelo.UjKeszlet(keszlet);
+                }
+                MessageBox.Show("sikeres készletfelvitel");
+            }
+            else
+            {
+                DialogResult = DialogResult.None;
+            }
             
         }
         #endregion

@@ -10,12 +10,17 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
     class Keszlet:IEquatable<Keszlet>
     {
+        #region Fied-ek
         Alkatresz alkatresz;
-        int darabSzam;// darabdb
+        int? keszletId;
+        float darabSzam;// darabdb
         float darabAr; //ar db
         string megjegyzes;
-       
-        public int DarabSzam
+        #endregion
+
+        #region Propertyk
+
+        public float DarabSzam
         {
             get => darabSzam;
             set
@@ -57,14 +62,33 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-
-        public Keszlet( int darabSzam, float darabAr, string megjegyzes,Alkatresz alkatresz)
+        public int? KeszletId 
         {
+            get => keszletId;
+            set
+            {
+                if (keszletId == null)
+                {
+                    keszletId = value;
+                }
+                else
+                {
+                    throw new InvalidOperationException("A készlet ID csak egyszer adható meg!");
+                }
+            }
+        }
+        #endregion
+
+        #region Konstruktorok
+        public Keszlet(int? keszletId, float darabSzam, float darabAr, string megjegyzes,Alkatresz alkatresz)
+        {
+            KeszletId = keszletId;
             DarabSzam = darabSzam;
             DarabAr = darabAr;
             Megjegyzes = megjegyzes;
             Alkatresz = alkatresz;
         }
+        #endregion
 
         public float AlkatreszOsszAR()
         {
@@ -93,10 +117,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             }
             return false;
         }
-
-
-
-
 
         /*
          * bool IEquatable<Parameter>.Equals(Parameter other)

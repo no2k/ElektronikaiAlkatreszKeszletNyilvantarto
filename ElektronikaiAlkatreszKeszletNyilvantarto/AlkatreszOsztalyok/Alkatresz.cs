@@ -9,24 +9,26 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 {
     class Alkatresz : IEquatable<Alkatresz>
     {
+        int alkatreszId;
         Kategoria kategoria;
         string megnevezes;
         List<AlkatreszParameter> parameterek = new List<AlkatreszParameter>();
 
         public Kategoria Kategoria { get => kategoria; /*set => kategoria = value;*/ }
-        public List<AlkatreszParameter> Parameterek { 
+        public List<AlkatreszParameter> Parameterek
+        {
             get => parameterek;
             set
             {
-                if (value!=null)
+                if (value != null)
                 {
-                    parameterek=value;
+                    parameterek = value;
                 }
-            } 
-            
+            }
+
         }
-        public string Megnevezes 
-        { 
+        public string Megnevezes
+        {
             get => megnevezes;
             set
             {
@@ -40,17 +42,34 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-
-        public Alkatresz(Kategoria kategoria,string megnevezes, List<AlkatreszParameter> parameterek)
+        public int AlkatreszId
         {
+            get => alkatreszId; private set
+            {
+                if (value>0)
+                {
+                    alkatreszId = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException("Az alkatrész azonosító nem lehet 0!");
+                }
+            }
+        }
+
+        public Alkatresz(int azonosito, Kategoria kategoria, string megnevezes, List<AlkatreszParameter> parameterek)
+        {
+
             this.kategoria = kategoria;
             this.megnevezes = megnevezes;
             this.parameterek = parameterek;
+            AlkatreszId = azonosito;
         }
+
 
         public override string ToString()
         {
-            return $"{megnevezes} {parameterek.Select(x=>x.ParameterErtek + x.ParameterMertekegyseg)}";
+            return $"{megnevezes} {parameterek.Select(x => x.ParameterErtek + x.ParameterMertekegyseg)}";
         }
         public bool Equals(Alkatresz other)
         {
@@ -61,6 +80,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             return false;
         }
 
-      
+
     }
 }
