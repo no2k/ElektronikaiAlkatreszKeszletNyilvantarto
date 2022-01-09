@@ -57,6 +57,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             }
         }
 
+        public Alkatresz()
+        {
+        }
+
         public Alkatresz(int azonosito, Kategoria kategoria, string megnevezes, List<AlkatreszParameter> parameterek)
         {
 

@@ -26,22 +26,34 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         {
             AdatBazisCsatlakozas();
             InitializeComponent();
-            LVFejlecekFeltoltes();
+            LVBeallitas();
             KategoriaFrissit();
             //kategoriaTSCBX1_Click(null,null);
         }
 
-        private void LVFejlecekFeltoltes()
+        private void LVBeallitas()
         {
+            keszletLV.MultiSelect = true;
+            keszletLV.FullRowSelect = true;
             keszletLV.Columns.Add("*", 30);
             keszletLV.Columns.Add("Kategória", 150);
-            keszletLV.Columns.Add("Készlet", 50);
+            keszletLV.Columns.Add("Készlet", 75);
             keszletLV.Columns.Add("Darabár", 75);
-            keszletLV.Columns.Add("Készlet ár", 300);
+            keszletLV.Columns.Add("Készlet ár", 75);
             keszletLV.Columns.Add("Megnevezés", 150);
             keszletLV.Columns.Add("Paraméterek", 300);
             keszletLV.Columns.Add("Megjegyzés", 300);
 
+            projektLV.Columns.Add("*", 30);
+            projektLV.Columns.Add("Kategória", 150);
+            projektLV.Columns.Add("Készlet", 75);
+            projektLV.Columns.Add("Darabár", 75);
+            projektLV.Columns.Add("Készlet ár", 75);
+            projektLV.Columns.Add("Megnevezés", 150);
+            projektLV.Columns.Add("Paraméterek", 300);
+            projektLV.Columns.Add("Megjegyzés", 300);
+            projektLV.MultiSelect = true;
+            projektLV.FullRowSelect = true;
         }
         private void AdatBazisCsatlakozas()
         {
@@ -60,12 +72,12 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             kategoriaTSCBX1.ComboBox.DataSource = null;
             kategoriaTSCBX1.ComboBox.DataSource = ABKezelo.AktivKategoriaLekerdezes();
         }   //OK!
-        void keszletListaFrissit()
+        void ListaFrissit(ListView lv,List<Keszlet>alkatreszLista)
         {
 
             keszletLV.Items.Clear();
             int i = 1;
-            foreach (Keszlet item in keszletLista)
+            foreach (Keszlet item in alkatreszLista)
             {
                 keszletLV.Items.Add(LVSorFeltolt(i, item));
                 i++;
@@ -73,12 +85,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         private ListViewItem LVSorFeltolt(int sorszam, Keszlet item)
         {
+                    
             string parameterekString = "";
             foreach (AlkatreszParameter parameter in item.Alkatresz.Parameterek)
             {
                 parameterekString += parameter + "; ";
             }
-            string[] ujSor = new string[] { sorszam.ToString(), item.Alkatresz.Kategoria.KategoriaMegnevezes, item.DarabSzam.ToString() + " Db", item.DarabAr.ToString() + " Ft", item.AlkatreszOsszAR().ToString(), item.Alkatresz.Megnevezes, parameterekString, item.Megjegyzes };
+
+            string[] ujSor = new string[] { sorszam.ToString(), item.Alkatresz.Kategoria.KategoriaMegnevezes, item.DarabSzam.ToString() + " Db", item.DarabAr.ToString() + " Ft", item.AlkatreszOsszAR().ToString()+" Ft", item.Alkatresz.Megnevezes, parameterekString, item.Megjegyzes };
             return new ListViewItem(ujSor);
         }
         void PRJAlkatreszListaFrissit()
@@ -111,7 +125,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 {
                     if (frm.KeszletLista != null)
                     {
-                        //alkatreszLista = frm.AlkatreszLista;
+                        keszletLista = frm.KeszletLista;
+                        KategoriaFrissit();
+                       // keszletListaFrissit();
                     }
                     else
                     {
@@ -200,9 +216,10 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 try
                 {
                     keszletLista.Clear();
-                    keszletLista = ABKezelo.KeszletLekerdezes(kat);
-                    keszletListaFrissit();
-
+                    List<Alkatresz> al = new List<Alkatresz>();
+                    al = ABKezelo.AlkatreszListaLekerdezes(kat);
+                    keszletLista =ABKezelo.KeszletLeker(al,kat);
+                    ListaFrissit(keszletLV, keszletLista);
                 }
                 catch (Exception ex)
                 {

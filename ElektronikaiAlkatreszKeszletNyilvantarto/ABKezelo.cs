@@ -350,6 +350,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }  //OK!
         #endregion
+
         #region Alkatresz kapcsolatok
         private static (bool, int) UjAlkatreszIdHozzaAdas(string megnevezes, int kategoriaId)
         {
@@ -502,14 +503,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel("Hiba történt a készlet adatbázisba való felvitelekor felvitelekor!" + ex.Message);
             }
         } //OK!
-        public static List<Keszlet> KeszletLekerdezes(Kategoria kategoria)
+        public static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
+            List<Alkatresz> alkatreszLista = new List<Alkatresz>();
             try
             {
-                //először lekérdezem a paramétereket, majd az alkatrész táblát és utánna a készletet
+
                 List<Keszlet> keszletLista = new List<Keszlet>();
                 List<AlkatreszParameter> parameterLista = new List<AlkatreszParameter>();
-                List<Alkatresz> alkatreszLista = new List<Alkatresz>();
                 parancs.Parameters.Clear();
                 parancs.CommandText = "SELECT " +
                          "P.[KATEGORIA_ID],P.[PARAMETER_ID],p.[PARAMETER_SORSZAM]," +
@@ -519,55 +520,53 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 parancs.Parameters.AddWithValue("@kategoria", kategoria.KategoriaId);
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
-                    string parameterString = string.Empty;
-                    int parameterSzamlalo = 0;
-                    int id = 0;
+                    Alkatresz ujAlkatresz = new Alkatresz();
                     while (reader.Read())
                     {
-                        if ((int)reader["PARAMETER_SORSZAM"] > parameterSzamlalo)
+                        if (ujAlkatresz.AlkatreszId == 0)
                         {
-                            id = (int)reader["PARAMETER_ID"];
-                            parameterString = reader["MEGNEVEZES"].ToString();
-                            parameterLista.Add(new AlkatreszParameter((int)reader["PARAMETER_SORSZAM"], reader["PARAMETER_ERTEK"].ToString(), reader["PARAMETER_MERTEKEGYSEG"].ToString()));
-                            parameterSzamlalo++;
+                            ujAlkatresz = null;
+                            ujAlkatresz = new Alkatresz((int)reader["PARAMETER_ID"], kategoria, reader["MEGNEVEZES"].ToString(), new List<AlkatreszParameter>());
+                        }
+                        AlkatreszParameter parameter = new AlkatreszParameter((int)reader["PARAMETER_ID"], reader["PARAMETER_ERTEK"].ToString(), reader["PARAMETER_MERTEKEGYSEG"].ToString());
+                        if (ujAlkatresz.AlkatreszId == (int)reader["PARAMETER_ID"]) //elsöre nem egyenlö
+                        {
+                            ujAlkatresz.Parameterek.Add(parameter);
                         }
                         else
                         {
-                            alkatreszLista.Add(new Alkatresz(id, kategoria, parameterString, new List<AlkatreszParameter>(parameterLista)));
-                            parameterSzamlalo = 1;
-                            parameterLista.Clear();
-                            id = (int)reader["PARAMETER_ID"];
-                            parameterString = reader["MEGNEVEZES"].ToString();
-                            parameterLista.Add(new AlkatreszParameter((int)reader["PARAMETER_SORSZAM"], reader["PARAMETER_ERTEK"].ToString(), reader["PARAMETER_MERTEKEGYSEG"].ToString()));
+                            alkatreszLista.Add(ujAlkatresz); //referencia alapján adja hozzá!
+                            ujAlkatresz = new Alkatresz((int)reader["PARAMETER_ID"], kategoria, reader["MEGNEVEZES"].ToString(), new List<AlkatreszParameter>()); // uj alkatrész?
+                            ujAlkatresz.Parameterek.Add(parameter);
                         }
                     }
+                    //mivel hamarabb kilép a ciklusból ezért az utolsó alkatrészt itt kell hozzáadni!!!
+                    alkatreszLista.Add(ujAlkatresz);
                     reader.Close();
-
+                    return alkatreszLista;
                 }
-               
-               
-                return KeszletLekerdezes(alkatreszLista,kategoria);
             }
             catch (Exception ex)
             {
                 throw new ABKivetel("Hiba a készlet lekérdezés közben!" + ex.Message);
             }
+
         }  //OK!
-        private static List<Keszlet> KeszletLekerdezes(List<Alkatresz> alkatreszLista,Kategoria kategoria)
+        public static List<Keszlet> KeszletLeker(List<Alkatresz> alkatreszLista, Kategoria kategoria)
         {
             try
             {
                 List<Keszlet> keszletLista = new List<Keszlet>();
+                parancs.Parameters.Clear();
+                // K.[KESZLET_ID],K.[ALKATRESZ_ID],K.[MENNYISEG],K.[EGYSEGAR],K.[MEGJEGYZES]
+                parancs.CommandText = "SELECT * FROM [Keszlet] AS K INNER JOIN [Alkatresz] AS A ON K.[ALKATRESZ_ID]=A.[ALKATRESZ_ID] WHERE A.[KATEGORIA_ID]=@id";
+                parancs.Parameters.AddWithValue("@id", kategoria.KategoriaId);
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
                     int i = 0;
-                    parancs.Parameters.Clear();
-                    parancs.CommandText = "SELECT K.[KESZLET_ID],K.[ALKATRESZ_ID],K.[MENNYISEG],K.[EGYSEGAR],K.[MEGJEGYZES] FROM [Keszlet] AS K INNER JOIN [Alkatresz] AS A ON K.[ALKATRESZ_ID]=A.[ALKATRESZ_ID] WHERE A.[KATEGORIA_ID]=@id";
-                    parancs.Parameters.AddWithValue("@id", kategoria.KategoriaId);
                     while (reader.Read())
                     {
-                        int alkatreszId = (int)reader["KESZLET_ID"];
-
+                        int alkatreszId = (int)reader["ALKATRESZ_ID"];
                         foreach (Alkatresz alkatresz in alkatreszLista)
                         {
                             if (alkatreszId == alkatresz.AlkatreszId)
@@ -578,17 +577,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         }
                     }
                     reader.Close();
-                    if (i == keszletLista.Count)
-                    {
-                        return keszletLista;
-                    }
+                    return keszletLista;
                 }
-                return null;
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Hibás készlet beolvasás az adatbázisból!"+ex.Message);
-;            }
+                throw new ABKivetel("Hibás készlet beolvasás az adatbázisból!" + ex.Message);
+            }
         }
         public static int UtolsoKeszletId()
         {

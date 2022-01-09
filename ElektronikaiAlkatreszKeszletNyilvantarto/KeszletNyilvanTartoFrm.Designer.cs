@@ -56,7 +56,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.projektPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.projektFul1 = new ElektronikaiAlkatreszKeszletNyilvantarto.ProjektFul();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
@@ -72,6 +71,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.projektLV = new System.Windows.Forms.ListView();
+            this.projektFul1 = new ElektronikaiAlkatreszKeszletNyilvantarto.ProjektFul();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -118,7 +118,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.alkatreszTSMI,
             this.projektTSMI});
             this.ujTSMI.Name = "ujTSMI";
-            this.ujTSMI.Size = new System.Drawing.Size(129, 22);
+            this.ujTSMI.Size = new System.Drawing.Size(180, 22);
             this.ujTSMI.Text = "Új...";
             // 
             // alkatreszTSMI
@@ -138,18 +138,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(126, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // megnyitasTSMI
             // 
             this.megnyitasTSMI.Name = "megnyitasTSMI";
-            this.megnyitasTSMI.Size = new System.Drawing.Size(129, 22);
+            this.megnyitasTSMI.Size = new System.Drawing.Size(180, 22);
             this.megnyitasTSMI.Text = "Megnyitás";
             // 
             // mentesTSMI
             // 
             this.mentesTSMI.Name = "mentesTSMI";
-            this.mentesTSMI.Size = new System.Drawing.Size(129, 22);
+            this.mentesTSMI.Size = new System.Drawing.Size(180, 22);
             this.mentesTSMI.Text = "Mentés";
             // 
             // beállításokToolStripMenuItem
@@ -309,25 +309,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.projektPanel.Size = new System.Drawing.Size(248, 466);
             this.projektPanel.TabIndex = 0;
             // 
-            // projektFul1
-            // 
-            this.projektFul1.AllowDrop = true;
-            this.projektFul1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.projektFul1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.projektFul1.HatterSzinMH = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.projektFul1.HatterSzinMO = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.projektFul1.Ikon = null;
-            this.projektFul1.Leiras = "gdsfgf";
-            this.projektFul1.Location = new System.Drawing.Point(3, 3);
-            this.projektFul1.Megnevezes = "sdfsdf";
-            this.projektFul1.Name = "projektFul1";
-            this.projektFul1.Size = new System.Drawing.Size(252, 38);
-            this.projektFul1.TabIndex = 0;
-            this.projektFul1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.projektFul1_MouseClick);
-            this.projektFul1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.projektFul1_MouseDown);
-            this.projektFul1.MouseLeave += new System.EventHandler(this.projektFul1_MouseLeave);
-            this.projektFul1.MouseHover += new System.EventHandler(this.projektFul1_MouseHover);
-            // 
             // splitContainer1
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -412,6 +393,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.keszletLV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.keszletLV.FullRowSelect = true;
             this.keszletLV.GridLines = true;
             this.keszletLV.HideSelection = false;
             this.keszletLV.Location = new System.Drawing.Point(1, 26);
@@ -480,15 +462,36 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             this.projektLV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.projektLV.FullRowSelect = true;
             this.projektLV.GridLines = true;
             this.projektLV.HideSelection = false;
             this.projektLV.Location = new System.Drawing.Point(1, 26);
             this.projektLV.Margin = new System.Windows.Forms.Padding(1);
             this.projektLV.Name = "projektLV";
+            this.projektLV.OwnerDraw = true;
             this.projektLV.Size = new System.Drawing.Size(839, 225);
             this.projektLV.TabIndex = 1;
             this.projektLV.UseCompatibleStateImageBehavior = false;
             this.projektLV.View = System.Windows.Forms.View.Details;
+            // 
+            // projektFul1
+            // 
+            this.projektFul1.AllowDrop = true;
+            this.projektFul1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.projektFul1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.projektFul1.HatterSzinMH = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.projektFul1.HatterSzinMO = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.projektFul1.Ikon = null;
+            this.projektFul1.Leiras = "gdsfgf";
+            this.projektFul1.Location = new System.Drawing.Point(3, 3);
+            this.projektFul1.Megnevezes = "sdfsdf";
+            this.projektFul1.Name = "projektFul1";
+            this.projektFul1.Size = new System.Drawing.Size(252, 38);
+            this.projektFul1.TabIndex = 0;
+            this.projektFul1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.projektFul1_MouseClick);
+            this.projektFul1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.projektFul1_MouseDown);
+            this.projektFul1.MouseLeave += new System.EventHandler(this.projektFul1_MouseLeave);
+            this.projektFul1.MouseHover += new System.EventHandler(this.projektFul1_MouseHover);
             // 
             // AlkatreszKeszletFrm
             // 
