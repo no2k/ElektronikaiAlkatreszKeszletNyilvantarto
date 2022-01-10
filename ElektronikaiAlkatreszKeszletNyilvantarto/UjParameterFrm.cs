@@ -1,15 +1,9 @@
-﻿using System;
+﻿using EKNyilvantarto.AlkatreszOsztalyok;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
     public partial class UjParameterFrm : Form
     {
@@ -139,7 +133,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
-        private void button1_Click(object sender, EventArgs e) 
+        private void button1_Click(object sender, EventArgs e)
         {
             ParameterDef ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
@@ -184,7 +178,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         private void button2_Click(object sender, EventArgs e) //Rogzit es bezar
         {
             if (lista.Count > 0)
-            {   
+            {
                 ParameterekTorles(kategoria, betoltottLista.Parameterek);
                 ParameterHozzaAd(kategoria, ParameterekListaFrissit(lista));
             }
@@ -201,14 +195,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 }
             }
         }
-        private void ParameterekTorles(Kategoria kategoria, List<ParameterDef> parameterek) 
+        private void ParameterekTorles(Kategoria kategoria, List<ParameterDef> parameterek)
         {
             foreach (ParameterDef item in parameterek)
             {
                 ABKezelo.ParameterDefTores(kategoria, item);
             }
         }
-        private List<ParameterDef> ParameterekListaFrissit(List<ParameterDef> regiLista) 
+        private List<ParameterDef> ParameterekListaFrissit(List<ParameterDef> regiLista)
         {
             List<ParameterDef> ujLista = new List<ParameterDef>();
             int i = 1;
@@ -246,7 +240,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 MertekEgysegTxb.Enabled = false;
                 MertekEgysegTxb.Text = "-";
             }
-        } 
+        }
         private void button5_Click(object sender, EventArgs e)
         {
             kivalasztottParameter = null;

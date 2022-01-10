@@ -1,18 +1,12 @@
-﻿using System;
+﻿using EKNyilvantarto.AlkatreszOsztalyok;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
 
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
     public partial class UjAlkatreszFrm : Form
     {
@@ -20,12 +14,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         // ParameterLista lista;
         List<Keszlet> keszletLista = new List<Keszlet>();
         Keszlet keszlet;
-        Alkatresz alkatresz;
         // List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
         int valasztottKaterogiaIndex = 0;
         int AlkatreszId;
         #endregion
-       
+
         #region Property-k
         internal List<Keszlet> KeszletLista
         {
@@ -70,7 +63,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 int i = 1;
                 foreach (Keszlet item in keszletLista)
                 {
-                    lv1.Items.Add(LVSorFeltolt(i,item));
+                    lv1.Items.Add(LVSorFeltolt(i, item));
                     i++;
                 }
             }
@@ -81,16 +74,16 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
         private ListViewItem LVSorFeltolt(int sorszam, Keszlet keszletElem)
         {
-            string parameterekString = "";
-            foreach (AlkatreszParameter parameter in keszletElem.Alkatresz.Parameterek)
-            {
-                parameterekString += parameter + "; ";
-            }
-            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, parameterekString };
+            /*  string parameterekString = "";
+              foreach (AlkatreszParameter parameter in keszletElem.Alkatresz.Parameterek)
+              {
+                  parameterekString += parameter + "; ";
+              }*/
+            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, keszletElem.Alkatresz.ToString() /*parameterekString*/ };
             return new ListViewItem(ujSor);
         }
         #endregion
-        
+
         #region Menüsor metódusok
 
         private void bezarTSMI_Click(object sender, EventArgs e)
@@ -144,7 +137,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
         #endregion
-        
+
         #region ComboBox metódusok
         private void KategoriaFrissit()
         {
@@ -184,11 +177,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
         }
 
         #endregion
-        
+
         #region Button metódusok
 
         private void Button1_Click(object sender, EventArgs e) //hozzáad listához
-        {   
+        {
             if (kategoriaCbx.SelectedItem != null)
             {
                 List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
@@ -199,7 +192,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         megnevezTxB.Text = (kategoriaCbx.SelectedItem as Kategoria).KategoriaMegnevezes;
                     }
                     AlkatreszId++;
-                    keszlet = new Keszlet(null,(float)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(AlkatreszId,
+                    keszlet = new Keszlet(null, (float)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(AlkatreszId,
                          (Kategoria)kategoriaCbx.SelectedItem,
                          megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
                         ));
@@ -246,15 +239,15 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
         }
         private void button2_Click(object sender, EventArgs e) //OK
-        {       
+        {
             //keresés az adatbázisban, a megadott kategóriánál, hogy tartalmazza e az adott elemeket. amennyiben tartalmazza, akkor egy messageboxban értesítést adni hogy van ilyen alkatrész, a mennyiséget és az árat akarod e frissíteni a megadottakkal?
-           
-            if (keszletLista.Count>0)
+
+            if (keszletLista.Count > 0)
             {
-               
+
                 foreach (Keszlet keszlet in keszletLista)
                 {
-                    keszlet.KeszletId=ABKezelo.UjAlkatresz(keszlet.Alkatresz);
+                    keszlet.KeszletId = ABKezelo.UjAlkatresz(keszlet.Alkatresz);
                     ABKezelo.UjKeszlet(keszlet);
                 }
                 MessageBox.Show("sikeres készletfelvitel");
@@ -263,16 +256,16 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             {
                 DialogResult = DialogResult.None;
             }
-            
+
         }
         #endregion
-        
+
         #region panel dinamikus feltöltés
         public void VezerloFeltoltes(Kategoria kategoria)
         {
             panel2.Controls.Clear();
             ParameterDefLista parameterek = ABKezelo.ParameterDefLekerdez(kategoria);
-            int elemHossza = (panel2.Height/2)-10; 
+            int elemHossza = (panel2.Height / 2) - 10;
             int gbUjPozicio = 0;
             Padding szelek = new Padding(0, 5, 0, 10);
             int top = 3, left = 5;
@@ -302,7 +295,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                                 Top = top,
                                 Left = left,
                                 Size = new Size(elemHossza, 23),
-                                
+
                             };
                             gbUjPozicio = txb.Top;
                             top = txb.Bottom;
@@ -365,7 +358,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                     ComboBox meCbx = new ComboBox
                     {
                         Name = "meCbx",
-                        DropDownStyle=ComboBoxStyle.DropDownList,
+                        DropDownStyle = ComboBoxStyle.DropDownList,
                         Parent = panel2,
                         Size = new Size(elemHossza, 23),
                         Margin = szelek,

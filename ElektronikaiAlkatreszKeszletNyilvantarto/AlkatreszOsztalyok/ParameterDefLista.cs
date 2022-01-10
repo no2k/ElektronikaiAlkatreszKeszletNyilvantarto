@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
     public class ParameterDefLista : IComparable, IEnumerable, IEquatable<ParameterDefLista>
     {
@@ -74,7 +71,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         public override string ToString()
         {
             return base.ToString();
-          //  return $"[{Kategoria}]=>{parameterek.Select(x => x.ToString())})";
+            //  return $"[{Kategoria}]=>{parameterek.Select(x => x.ToString())})";
         }
         public int CompareTo(object obj)
         {
@@ -96,7 +93,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                         ugyanaz++;
                     }
                 }
-                if (ugyanaz==parameterek.Count)
+                if (ugyanaz == parameterek.Count)
                 {
                     return true;
                 }

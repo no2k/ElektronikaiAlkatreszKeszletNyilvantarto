@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
     [Serializable]
     internal class ABKivetel : Exception

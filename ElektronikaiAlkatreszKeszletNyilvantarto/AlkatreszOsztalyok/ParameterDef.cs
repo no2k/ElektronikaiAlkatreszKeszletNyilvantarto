@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
-    public class ParameterDef : IEnumerable,IEquatable<ParameterDef>
+    public class ParameterDef : IEnumerable, IEquatable<ParameterDef>
     {
         #region Fieldek
 
@@ -56,7 +53,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => parameterMertekEgyseg;
             private set
             {
-               // parameterMertekEgyseg = value;
+                // parameterMertekEgyseg = value;
                 parameterMertekEgyseg = value.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             }
         }
@@ -97,12 +94,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         #region Metódusok
         public static string TombbolStringbeKonvertal(string[] mertekEgyseg)
-        {    string s = "";
+        {
+            string s = "";
             if (mertekEgyseg.Length > 1)
             {
                 foreach (string item in mertekEgyseg)
                 {
-                    s += item+";";
+                    s += item + ";";
                 }
                 return s;
             }
@@ -124,8 +122,8 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         bool IEquatable<ParameterDef>.Equals(ParameterDef other)
         {
-            if (String.Equals(this.parameterMegnevezes , other.parameterMegnevezes) &&
-                String.Equals(TombbolStringbeKonvertal(this.ParameterMertekEgyseg ) , TombbolStringbeKonvertal(other.ParameterMertekEgyseg)) &&
+            if (String.Equals(this.parameterMegnevezes, other.parameterMegnevezes) &&
+                String.Equals(TombbolStringbeKonvertal(this.ParameterMertekEgyseg), TombbolStringbeKonvertal(other.ParameterMertekEgyseg)) &&
                 this.ParameterTipus == other.ParameterTipus)
             {
                 return true;

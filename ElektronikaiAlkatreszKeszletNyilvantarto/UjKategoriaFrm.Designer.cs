@@ -1,5 +1,5 @@
 ﻿
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
     partial class UjKategoriaFrm
     {

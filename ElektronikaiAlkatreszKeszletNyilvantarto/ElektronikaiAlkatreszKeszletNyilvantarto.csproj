@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{27817464-DB2A-425B-A3AB-60E247114160}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ElektronikaiAlkatreszKeszletNyilvantarto</RootNamespace>
+    <RootNamespace>EKNyilvantarto</RootNamespace>
     <AssemblyName>ElektronikaiAlkatreszKeszletNyilvantarto</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -75,6 +75,7 @@
     <Compile Include="ABKivetel.cs" />
     <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
     <Compile Include="AlkatreszOsztalyok\AlkatreszParameter.cs" />
+    <Compile Include="AlkatreszOsztalyok\Projekt.cs" />
     <Compile Include="Interfacek\IListViewTomb.cs" />
     <Compile Include="UjAlkatreszFrm.cs">
       <SubType>Form</SubType>
@@ -187,6 +188,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>KeszletAB.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\power-button3.png" />
+    <None Include="Resources\power-button2.png" />
+    <None Include="Resources\power-button1.png" />
+    <None Include="Resources\Button Play.png" />
+    <None Include="Resources\Button Reload.png" />
+    <None Include="Resources\Button Refresh.png" />
+    <None Include="Resources\Button Previous.png" />
+    <None Include="Resources\Button Next.png" />
+    <None Include="Resources\Button Delete.png" />
+    <None Include="Resources\Button Add.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

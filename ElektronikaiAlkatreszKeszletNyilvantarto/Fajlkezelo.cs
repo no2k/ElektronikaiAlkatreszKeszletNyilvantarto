@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
     static class Fajlkezelo
     {
@@ -76,11 +74,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 using (StreamReader reader = new StreamReader(fajlNev, Encoding.Default))
                 {
                     List<string> lista = new List<string>();
-                  //  int i = 0;
+                    //  int i = 0;
                     while (!reader.EndOfStream)
                     {
-                         lista.Add(reader.ReadLine());
-                       // i++;
+                        lista.Add(reader.ReadLine());
+                        // i++;
                     }
                     reader.Close();
                     return lista;

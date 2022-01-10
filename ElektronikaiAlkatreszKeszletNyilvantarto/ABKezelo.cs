@@ -1,19 +1,15 @@
-﻿using System;
+﻿using EKNyilvantarto.AlkatreszOsztalyok;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
     static class ABKezelo
     {
         static SqlConnection kapcsolat;
         static SqlCommand parancs;
-
 
         public static void Csatlakozas()
         {
@@ -442,21 +438,6 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw;
             }
         }
-        internal static int UtolsoAlkatreszId()
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT [ALKATRESZ_ID] FROM [Alkatresz] WHERE [ALKATRESZ_ID]=(SELECT MAX([ALKATRESZ_ID]) FROM [Alkatresz])";
-
-                int? i = (int?)parancs.ExecuteScalar();
-                return (i != null) ? (int)i : 0;
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel($"Sikertelen paraméter kiolvasás az adatbázisból! \r\n {ex.Message}");
-            }
-        } //OK!
         public static Alkatresz AlkatresztLekerdez(Kategoria kategoria, int alkatreszId)
         {
             try
@@ -482,28 +463,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw new ABKivetel("Hiba az alkatrész paraméterek lekérdezése közben" + ex.Message);
             }
         }
-        #endregion
-
-        #region Keszlet kapcsolatok
-        public static void UjKeszlet(Keszlet hozzaAd)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "INSERT INTO [Keszlet] ([ALKATRESZ_ID],[MENNYISEG],[EGYSEGAR],[MEGJEGYZES]) OUTPUT INSERTED.KESZLET_ID VALUES(@alkatreszId,@darabSzam,@ar,@megjegyzes)";
-                parancs.Parameters.AddWithValue("@keszletId", (int)hozzaAd.KeszletId);
-                parancs.Parameters.AddWithValue("@alkatreszId", hozzaAd.Alkatresz.AlkatreszId);
-                parancs.Parameters.AddWithValue("@darabSzam", hozzaAd.DarabSzam);
-                parancs.Parameters.AddWithValue("@ar", hozzaAd.DarabAr);
-                parancs.Parameters.AddWithValue("@megjegyzes", hozzaAd.Megjegyzes);
-                parancs.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hiba történt a készlet adatbázisba való felvitelekor felvitelekor!" + ex.Message);
-            }
-        } //OK!
-        public static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
+        private static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
             List<Alkatresz> alkatreszLista = new List<Alkatresz>();
             try
@@ -552,8 +512,46 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
             }
 
         }  //OK!
-        public static List<Keszlet> KeszletLeker(List<Alkatresz> alkatreszLista, Kategoria kategoria)
+        internal static int UtolsoAlkatreszId()
         {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT [ALKATRESZ_ID] FROM [Alkatresz] WHERE [ALKATRESZ_ID]=(SELECT MAX([ALKATRESZ_ID]) FROM [Alkatresz])";
+
+                int? i = (int?)parancs.ExecuteScalar();
+                return (i != null) ? (int)i : 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel($"Sikertelen paraméter kiolvasás az adatbázisból! \r\n {ex.Message}");
+            }
+        } //OK!
+
+        #endregion
+
+        #region Keszlet kapcsolatok
+        public static void UjKeszlet(Keszlet hozzaAd)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "INSERT INTO [Keszlet] ([ALKATRESZ_ID],[MENNYISEG],[EGYSEGAR],[MEGJEGYZES]) OUTPUT INSERTED.KESZLET_ID VALUES(@alkatreszId,@darabSzam,@ar,@megjegyzes)";
+                parancs.Parameters.AddWithValue("@keszletId", (int)hozzaAd.KeszletId);
+                parancs.Parameters.AddWithValue("@alkatreszId", hozzaAd.Alkatresz.AlkatreszId);
+                parancs.Parameters.AddWithValue("@darabSzam", hozzaAd.DarabSzam);
+                parancs.Parameters.AddWithValue("@ar", hozzaAd.DarabAr);
+                parancs.Parameters.AddWithValue("@megjegyzes", hozzaAd.Megjegyzes);
+                parancs.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt a készlet adatbázisba való felvitelekor felvitelekor!" + ex.Message);
+            }
+        } //OK!
+        public static List<Keszlet> KeszletLeker(Kategoria kategoria)
+        {
+            List<Alkatresz> alkatreszLista = AlkatreszListaLekerdezes(kategoria);
             try
             {
                 List<Keszlet> keszletLista = new List<Keszlet>();
@@ -577,8 +575,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                         }
                     }
                     reader.Close();
-                    return keszletLista;
+
                 }
+                return keszletLista;
             }
             catch (Exception ex)
             {
@@ -636,55 +635,20 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 throw;
             }
         }
-        /*   public static Alkatresz LekerdezAlkatresz()
-           {
-               try
-               {
-
-               }
-               catch (Exception)
-               {
-
-                   throw;
-               }
-           }
-           public static List<Alkatresz> LekerdezKeszlet()
-           {
-               try
-               {
-
-               }
-               catch (Exception)
-               {
-
-                   throw;
-               }
-           }
-           public static Projekt LekerdezProjekt()
-           {
-               try
-               {
-
-               }
-               catch (Exception)
-               {
-
-                   throw;
-               }
-           }
-           public static List<Projekt> LekerdezProjektek()
-           {
-               try
-               {
-
-               }
-               catch (Exception)
-               {
-
-                   throw;
-               }
-           }
-          // public static List*/
+        public static int UtolsoProjektAzonosito()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT [PROJEKT_ID] FROM [Projekt] WHERE [PROJEKT_ID]=(SELECT MAX([PROJEKT_ID]) FROM [PROJEKT])";
+                int? i = (int?)parancs.ExecuteScalar();
+                return (i != null) ? (int)i : 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel($"Sikertelen Projekt azonosító kiolvasás az adatbázisból! \r\n {ex.Message}");
+            }
+        }
         #endregion
     }
 }

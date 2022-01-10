@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElektronikaiAlkatreszKeszletNyilvantarto.Interfacek;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
     class Alkatresz : IEquatable<Alkatresz>
     {
@@ -46,7 +42,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         {
             get => alkatreszId; private set
             {
-                if (value>0)
+                if (value > 0)
                 {
                     alkatreszId = value;
                 }
@@ -73,7 +69,13 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         public override string ToString()
         {
-            return $"{megnevezes} {parameterek.Select(x => x.ParameterErtek + x.ParameterMertekegyseg)}";
+            string parameterString = string.Empty;
+            foreach (AlkatreszParameter item in parameterek)
+            {
+                parameterString += item.ToString() + " ";
+            }
+            return parameterString;
+            //   return $"{parameterek.Select(x => x.ParameterErtek + x.ParameterMertekegyseg)}";
         }
         public bool Equals(Alkatresz other)
         {

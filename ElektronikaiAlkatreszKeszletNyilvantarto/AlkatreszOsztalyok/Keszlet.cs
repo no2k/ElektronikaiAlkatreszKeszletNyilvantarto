@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
 
-    class Keszlet:IEquatable<Keszlet>
+    class Keszlet : IEquatable<Keszlet>
     {
         #region Fied-ek
         Alkatresz alkatresz;
@@ -62,7 +57,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-        public int? KeszletId 
+        public int? KeszletId
         {
             get => keszletId;
             set
@@ -80,7 +75,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         #endregion
 
         #region Konstruktorok
-        public Keszlet(int? keszletId, float darabSzam, float darabAr, string megjegyzes,Alkatresz alkatresz)
+        public Keszlet(int? keszletId, float darabSzam, float darabAr, string megjegyzes, Alkatresz alkatresz)
         {
             KeszletId = keszletId;
             DarabSzam = darabSzam;
@@ -98,7 +93,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
         bool IEquatable<Keszlet>.Equals(Keszlet other)
         {
             if (alkatresz.Kategoria.KategoriaMegnevezes.ToLower() == other.alkatresz.Kategoria.KategoriaMegnevezes.ToLower() &&
-                alkatresz.Megnevezes.ToLower() ==other.Alkatresz.Megnevezes.ToLower() )
+                alkatresz.Megnevezes.ToLower() == other.Alkatresz.Megnevezes.ToLower())
             {
                 int eggyezik = 0;
                 int parameterekSzama = alkatresz.Parameterek.Count;
@@ -109,7 +104,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                         eggyezik++;
                     }
                 }
-                if (eggyezik==parameterekSzama)
+                if (eggyezik == parameterekSzama)
                 {
                     return true;
                 }

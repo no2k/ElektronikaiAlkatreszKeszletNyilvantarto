@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ElektronikaiAlkatreszKeszletNyilvantarto.Interfacek;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
-    class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>,IEnumerable
+    class AlkatreszParameter : IComparable<AlkatreszParameter>, IEquatable<AlkatreszParameter>, IEnumerable
     {
         int parameterSorszam;
         string parameterErtek, parameterMertekegyseg;
-       
+
         public string ParameterErtek
         {
             get => parameterErtek;
@@ -28,18 +23,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
                 }
             }
 
-        } 
+        }
         public string ParameterMertekegyseg
         {
             get => parameterMertekegyseg;
-           private set => parameterMertekegyseg = value;
-        } 
+            private set => parameterMertekegyseg = value;
+        }
         public int ParameterSorszam
         {
-            get => parameterSorszam; 
+            get => parameterSorszam;
             private set
             {
-                if (value >=0)
+                if (value >= 0)
                 {
                     parameterSorszam = value;
                 }
@@ -60,7 +55,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         public override string ToString()
         {
-            return $"{ParameterErtek} {parameterMertekegyseg}";
+            return $"{ParameterErtek} {parameterMertekegyseg};";
         }
         int IComparable<AlkatreszParameter>.CompareTo(AlkatreszParameter other)
         {
@@ -69,9 +64,9 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
 
         public bool Equals(AlkatreszParameter other)
         {
-            if (parameterSorszam==other.parameterSorszam &&
-                parameterErtek==other.parameterErtek &&
-                parameterMertekegyseg==other.parameterMertekegyseg)
+            if (parameterSorszam == other.parameterSorszam &&
+                parameterErtek == other.parameterErtek &&
+                parameterMertekegyseg == other.parameterMertekegyseg)
             {
                 return true;
             }
@@ -83,7 +78,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             return parameterSorszam.ToString().GetEnumerator();
         }
 
-      
+
     }
 
 }

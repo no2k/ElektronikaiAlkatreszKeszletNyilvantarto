@@ -1,7 +1,7 @@
 ﻿using System;
-namespace ElektronikaiAlkatreszKeszletNyilvantarto
+namespace EKNyilvantarto
 {
-    public class Kategoria : IComparable,IEquatable<Kategoria>
+    public class Kategoria : IComparable, IEquatable<Kategoria>
     {
         string kategoriaMegnevezes;
         int? kategoriaId;
@@ -63,5 +63,5 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto
                 return false;
             }
         }
-   } 
+    }
 }
