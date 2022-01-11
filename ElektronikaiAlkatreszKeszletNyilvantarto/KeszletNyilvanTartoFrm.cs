@@ -10,6 +10,8 @@ namespace EKNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
+
+
         ListViewItem.ListViewSubItem kivalasztottSubItem;
         bool hianyzik;
         //  Alkatresz alkatresz;
@@ -71,40 +73,121 @@ namespace EKNyilvantarto
             projektLV.Columns.Add("Megjegyzés", 300);
             projektLV.MultiSelect = true;
             projektLV.FullRowSelect = true;
+
         }
         void ListaFrissit(ListView lv, List<Keszlet> alkatreszLista)
         {
+
             lv.Items.Clear();
             int i = 1;
             foreach (Keszlet item in alkatreszLista)
             {
+                ListViewItem sor = new ListViewItem(i.ToString());
                 if (hianyzik)
                 {
                     if (item.DarabSzam > 0)
                     {
-                        lv.Items.Add(LVSorFeltolt(i, item));
+                        sor.SubItems.AddRange(lvSorFeltolt(i, item));
+                        lv.Items.Add(sor);
                         i++;
                     }
                 }
                 else
                 {
-                    lv.Items.Add(LVSorFeltolt(i, item));
+                    sor.SubItems.AddRange(lvSorFeltolt(i, item));
+                    lv.Items.Add(sor);
                     i++;
                 }
             }
         }
-        private ListViewItem LVSorFeltolt(int sorszam, Keszlet item)
+        private string[] lvSorFeltolt(int sorszam, Keszlet item)
         {
-            string[] ujSor = new string[] { sorszam.ToString(),
-                item.Alkatresz.Kategoria.KategoriaMegnevezes,
-                item.DarabSzam.ToString() + " Db",
-                item.DarabAr.ToString() + " Ft",
-                item.AlkatreszOsszAR().ToString() + " Ft",
-                item.Alkatresz.Megnevezes,
-                item.Alkatresz.ToString(),
-                item.Megjegyzes };
-            return new ListViewItem(ujSor);
+            return new string[] {
+            item.Alkatresz.Kategoria.KategoriaMegnevezes,
+            item.DarabSzam.ToString() + " Db",
+            item.DarabAr.ToString() + " Ft",
+            item.AlkatreszOsszAR().ToString() + " Ft",
+            item.Alkatresz.Megnevezes,
+            item.Alkatresz.ToString(),
+            item.Megjegyzes};
         }
+        
+        
+        
+        private void projektLv_MouseUp(object sender, MouseEventArgs e)
+        { 
+            /*https://stackoverflow-com.translate.goog/questions/471859/c-how-do-you-edit-items-and-subitems-in-a-listview?_x_tr_sl=en&_x_tr_tl=hu&_x_tr_hl=en  */
+          
+            ListViewHitTestInfo lVinfo = projektLV.HitTest(e.X, e.Y);
+            kivalasztottSubItem = lVinfo.SubItem;
+            MessageBox.Show($"{lVinfo.SubItem.Text}\n\r");
+
+
+            if (kivalasztottSubItem == null)
+            {
+                return;
+            }
+            int keret = 0;
+            switch (projektLV.BorderStyle)
+            {
+                case BorderStyle.None:
+                    keret = 0;
+                    break;
+                case BorderStyle.FixedSingle:
+                    keret = 1;
+                    break;
+                case BorderStyle.Fixed3D:
+                    keret = 2;
+                    break;
+            }
+            int cellaWidth = kivalasztottSubItem.Bounds.Width;
+            int cellaHeight = kivalasztottSubItem.Bounds.Height;
+            int balPozicio = keret + projektLV.Left + lVinfo.SubItem.Bounds.Left;
+            int felsoPozicio = projektLV.Top + kivalasztottSubItem.Bounds.Top;
+
+            if (lVinfo.SubItem == lVinfo.Item.SubItems[0])
+            {
+                cellaWidth = projektLV.Columns[0].Width;
+            }
+            //nud beallitas
+
+            darabNud.Visible = true;
+            darabNud.Size = new Size(cellaWidth, cellaHeight);
+            // darabNud.Size = kivalasztottSubItem.Bounds.Size;
+            darabNud.Location = new Point(balPozicio, felsoPozicio);
+            darabNud.BringToFront();
+            darabNud.Select();
+        }
+
+        private void projektLv_MouseDown(object sender, MouseEventArgs e)
+        {
+            DarabNudElRejt();
+        }
+        private void projektLv_Scroll(object sender, EventArgs e)
+        {
+            DarabNudElRejt();
+        }
+
+        /* private void projektLv_Leave(object sender, EventArgs e)
+         {
+             DarabNudElRejt();
+         }*/
+        /*  private void projektLv_KeyUp(object sender, KeyEventArgs e)
+          {
+              if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+                  HideTextEditor();
+          }*/
+        private void DarabNudElRejt()
+        {
+            darabNud.Visible = false;
+            if (kivalasztottSubItem != null)
+                kivalasztottSubItem.Text = darabNud.Value.ToString();
+            kivalasztottSubItem = null;
+            darabNud.Value = 0;
+        }
+
+
+
 
         #endregion
         #region "Alkatrész" metódusok
@@ -159,7 +242,6 @@ namespace EKNyilvantarto
             hianyzik = !hianyzik;
             ListaFrissit(keszletLV, keszletLista);
         }
-
         private void toolStripButton7_MouseUp(object sender, MouseEventArgs e)
         {
             if (hianyzik)
@@ -171,12 +253,10 @@ namespace EKNyilvantarto
                 toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button1;
             }
         }
-
         private void toolStripButton7_MouseDown(object sender, MouseEventArgs e)
         {
             toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button3;
         }
-
         #endregion
         private void kategoriaTSCBX_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -197,6 +277,7 @@ namespace EKNyilvantarto
             UjProjektFrm frm = new UjProjektFrm();
             if (frm.ShowDialog() == DialogResult.OK)
             {
+
                 projekt = frm.Projekt;
                 projektek.Add(projekt);
                 ProjektFul prj = new ProjektFul();
@@ -206,6 +287,7 @@ namespace EKNyilvantarto
                 prj.HatterSzinMH = Color.FromArgb(52, 105, 216, 75);
                 prj.Click += Prj_Click;
                 projektPanel.Controls.Add(prj);
+
                 projektPanel.Refresh();
             }
         }
@@ -221,16 +303,9 @@ namespace EKNyilvantarto
         {
             if ((keszletLV.SelectedItems) != null)
             {
-                //kikeresem a listából a készletet a megfelelő szűrés alapján, 
-                //majd létrehozom belőlle az alkatrészt,
-                //aztán ezen aklatrészen beállítom az új darabszámot (amennyiben nulla akkor nem adja hozzá!)
-                //majd hozzáadom a projektalkatrészlisához, és kivonom a készletből az átvitt darabszámot, aztán a műveletek végeztével update-adatbázis!
-
-
                 foreach (ListViewItem item in keszletLV.SelectedItems)
                 {
                     string parameterek = item.SubItems[6].Text;
-                    // int cella
                     foreach (Keszlet keszletElem in keszletLista)
                     {
                         string str = keszletElem.Alkatresz.ToString();
@@ -239,9 +314,6 @@ namespace EKNyilvantarto
                             projektAlkatreszLista.Add(keszletElem);
                         }
                     }
-                    //  var param= keszletLista.Single(x => x.Alkatresz.Parameterek.ToString() == parameterek);
-                    //Keszlet keszlet = keszletLista.Single(x => x.Alkatresz.Parameterek.ToString() ==parameterek);
-                    //  projektAlkatreszLista.Add(keszlet); 
                 }
                 ListaFrissit(projektLV, projektAlkatreszLista);
             }
