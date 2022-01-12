@@ -3,6 +3,7 @@ using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace EKNyilvantarto
@@ -609,7 +610,8 @@ namespace EKNyilvantarto
                 parancs.Parameters.AddWithValue("@megnevezes",ujProjekt.PrjNev);
                 parancs.Parameters.AddWithValue("@leiras",ujProjekt.Leiras);
                 parancs.Parameters.AddWithValue("@megjegyzes",ujProjekt.Megjegyzes);
-                parancs.Parameters.AddWithValue("@statusz",ujProjekt.Statusz);
+                parancs.Parameters.AddWithValue("@statusz",SqlDbType.Bit).Value=ujProjekt.Statusz;
+              
                 ujProjekt.Azonosito = (int)parancs.ExecuteScalar();
             }
             catch (Exception ex)

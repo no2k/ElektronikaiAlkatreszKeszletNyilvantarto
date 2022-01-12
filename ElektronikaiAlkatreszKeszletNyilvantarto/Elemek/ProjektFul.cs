@@ -17,6 +17,8 @@ namespace EKNyilvantarto
         private Image prjIkon;
         private Color hatterSzinMH;
         private Color hatterSzinMO;
+        private Color hatterSzinAktiv;
+        private Color hatterSzinInaktiv;
 
         [Category("Projekt név")]
         public string Megnevezes
@@ -67,6 +69,32 @@ namespace EKNyilvantarto
         private void ProjektFul_MouseLeave(object sender, EventArgs e)
         {
             this.BackColor = hatterSzinMO;
+        }
+
+        [Category("Háttérszín Aktiv")]
+        public Color HatterSzinAktiv
+        {
+            get { return hatterSzinAktiv; }
+            set { hatterSzinAktiv = value; }
+        }
+
+
+        [Category("Háttérszín Inaktív")]
+        public Color HatterSzinInaktiv
+        {
+            get { return hatterSzinInaktiv; }
+            set { hatterSzinInaktiv = value; }
+        }
+
+        private void ProjektFul_DoubleClick(object sender, EventArgs e)
+        {
+            this.BackColor = hatterSzinAktiv;
+
+        }
+
+        private void ProjektFul_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.BackColor = hatterSzinAktiv;
         }
     }
 }

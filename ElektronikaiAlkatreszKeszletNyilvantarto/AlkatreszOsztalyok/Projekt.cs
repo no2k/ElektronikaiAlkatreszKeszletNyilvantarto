@@ -40,7 +40,7 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => azonosito;
             set
             {
-                if (value ==null)
+                if (azonosito ==null)
                 {
                     azonosito = value;
                 }

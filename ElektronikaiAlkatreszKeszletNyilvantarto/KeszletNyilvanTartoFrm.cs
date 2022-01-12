@@ -10,7 +10,9 @@ namespace EKNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
-
+        Color prjAktiv = Color.FromArgb(14, 155, 155);
+        Color prjInaktiv = Color.FromArgb(112, 118, 155);
+        Color prjKivalaszt = Color.FromArgb(0, 212, 167);
 
         ListViewItem.ListViewSubItem kivalasztottSubItem;
         bool hianyzik;
@@ -29,12 +31,29 @@ namespace EKNyilvantarto
             KategoriaFrissit();
             ProjektekBetoltes();
 
+
         }
 
         private void ProjektekBetoltes()
         {
+
             projektek = ABKezelo.ProjektekLekerdez();
+            foreach (Projekt item in projektek)
+            {
+                ProjektFul prj = new ProjektFul()
+                {
+                    Megnevezes = item.PrjNev,
+                    Leiras = item.Leiras,
+                    HatterSzinMO = prjInaktiv,
+                    //HatterSzinMH = prjKivalaszt,
+                    Anchor = AnchorStyles.Left
+                };
+                prj.Click += Prj_Click;
+                projektPanel.Controls.Add(prj);
+            }
+            projektPanel.Refresh();
         }
+
 
         private void AdatBazisCsatlakozas()
         {
@@ -87,19 +106,30 @@ namespace EKNyilvantarto
             int i = 1;
             foreach (Keszlet item in alkatreszLista)
             {
+                Color BetuSzin = new Color();
+                Color Hatterszin = new Color();
                 ListViewItem sor = new ListViewItem(i.ToString());
+                if (item.DarabSzam <= 5 && lv == keszletLV)
+                {
+                    sor.UseItemStyleForSubItems = false;
+                    int G = (int)(5 + (50 * item.DarabSzam));
+                    Hatterszin = Color.FromArgb(255, G, 0);
+                    BetuSzin = (G < 84) ? Color.FromArgb(255, 255, 255) : Color.FromArgb(0, 0, 0);
+                }
                 if (hianyzik)
                 {
                     if (item.DarabSzam > 0)
                     {
-                        sor.SubItems.AddRange(LvSorFeltolt(item));
+
+                        sor.SubItems.AddRange(LvSorFeltolt(item), BetuSzin, Hatterszin, default);
                         lv.Items.Add(sor);
                         i++;
                     }
+
                 }
                 else
                 {
-                    sor.SubItems.AddRange(LvSorFeltolt(item));
+                    sor.SubItems.AddRange(LvSorFeltolt(item), BetuSzin, Hatterszin, default);
                     lv.Items.Add(sor);
                     i++;
                 }
@@ -123,11 +153,19 @@ namespace EKNyilvantarto
             ListViewHitTestInfo lVinfo = projektLV.HitTest(e.X, e.Y);
 
             kivalasztottSubItem = lVinfo.SubItem;
-            bool bennevan = kivalasztottSubItem.Text.ToString().EndsWith(" Db");
-            if (kivalasztottSubItem == null && !bennevan)
+            // bool bennevan = kivalasztottSubItem.Text.ToString().EndsWith(" Db");
+            if (kivalasztottSubItem == null)
             {
                 return;
             }
+            else
+            {
+                if (!kivalasztottSubItem.Text.ToString().EndsWith(" Db"))
+                {
+                    return;
+                }
+            }
+
             int keret = 0;
             switch (projektLV.BorderStyle)
             {
@@ -150,13 +188,15 @@ namespace EKNyilvantarto
             {
                 cellaWidth = projektLV.Columns[0].Width;
             }
-            //nud beallitas
 
+            int hossz = kivalasztottSubItem.Text.Length - 3;
             darabNud.Visible = true;
-            darabNud.Size = new Size(cellaWidth, cellaHeight);
-            // darabNud.Size = kivalasztottSubItem.Bounds.Size;
+                        darabNud.Size = new Size(cellaWidth, cellaHeight);
+            darabNud.Value = decimal.Parse(kivalasztottSubItem.Text.ToString().Remove(hossz));
             darabNud.Location = new Point(balPozicio, felsoPozicio);
+            projektLV.Scrollable = false;
             darabNud.BringToFront();
+            darabNud.Focus();
             darabNud.Select();
         }
         private void projektLv_MouseDown(object sender, MouseEventArgs e)
@@ -171,21 +211,23 @@ namespace EKNyilvantarto
         {
             darabNud.Visible = false;
             if (kivalasztottSubItem != null)
-                kivalasztottSubItem.Text = darabNud.Value.ToString();
+                kivalasztottSubItem.Text = darabNud.Value.ToString() + " Db";
             kivalasztottSubItem = null;
-            darabNud.Value = 0;
+            projektLV.Scrollable = true ;
+            // darabNud.Value = 0;
         }
 
-        /* private void projektLv_Leave(object sender, EventArgs e)
-         {
-             DarabNudElRejt();
-         }*/
-        /*  private void projektLv_KeyUp(object sender, KeyEventArgs e)
-          {
-              if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
-                  HideTextEditor();
-          }*/
+        private void projektLv_Leave(object sender, EventArgs e)
+        {
+            DarabNudElRejt();
+        }
+        private void projektLv_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+                DarabNudElRejt();
+        }
         #endregion
+
         #region "Alkatrész" metódusok
         private void AlkatreszKeszletFrm_Load(object sender, EventArgs e)
         {
@@ -259,36 +301,43 @@ namespace EKNyilvantarto
         #region "Projekt" metódusok
         private void projektTSMI_Click(object sender, EventArgs e)
         {
-
             UjProjektFrm frm = new UjProjektFrm();
             if (frm.ShowDialog() == DialogResult.OK)
             {
 
                 projekt = frm.Projekt;
                 projektek.Add(projekt);
-                ProjektFul prj = new ProjektFul()
-                {
-                    Megnevezes = projekt.PrjNev,
-                    Leiras = projekt.Leiras,
-                    HatterSzinMO = this.BackColor,
-                    HatterSzinMH = Color.FromArgb(52, 105, 216, 75),
-                };
-                Click += Prj_Click;
-                /* prj.Megnevezes = projekt.PrjNev;
-                 prj.Leiras = projekt.Leiras;
-                 prj.HatterSzinMO = this.BackColor;
-                 prj.HatterSzinMH = Color.FromArgb(52, 105, 216, 75);
-                 prj.Click += Prj_Click;*/
-                projektPanel.Controls.Add(prj);
                 ABKezelo.UjProjekt(projekt);
                 projektPanel.Refresh();
             }
-        }
+        } //uj projekt
         private void Prj_Click(object sender, EventArgs e)
         {
             if ((sender is ProjektFul prj))
             {
-                projekt.AlkatreszLista = new List<Keszlet>(projektek.FirstOrDefault(x => x.PrjNev == prj.Megnevezes).AlkatreszLista);
+
+                foreach (ProjektFul item in projektPanel.Controls)
+                {
+                    if (item != prj)
+                    {
+                        item.HatterSzinInaktiv = prjInaktiv;
+                    }
+                    else
+                    {
+                        //item.HatterSzinAktiv = prjAktiv;
+                        item.HatterSzinMO = prjAktiv;
+                    }
+                }
+                projektPanel.Refresh();
+                foreach (Projekt item in projektek)
+                {
+                    if (item.PrjNev == prj.Megnevezes)
+                    {
+                        projekt = item;
+                    }
+                }
+                //projekt.AlkatreszLista = new List<Keszlet>(projektek.FirstOrDefault(x => x.PrjNev == prj.Megnevezes).AlkatreszLista);
+                ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
 
         }
@@ -308,9 +357,13 @@ namespace EKNyilvantarto
                     foreach (Keszlet keszletElem in keszletLista)
                     {
                         string str = keszletElem.Alkatresz.ToString();
-                        if (str == parameterek)
+                        if (str == parameterek && keszletElem.DarabSzam > 0)
                         {
-                            projekt.AlkatreszLista.Add(new Keszlet(keszletElem.KeszletId, 1, keszletElem.DarabAr, keszletElem.Megjegyzes, keszletElem.Alkatresz));
+                            Keszlet ujKeszlet = new Keszlet(keszletElem.KeszletId, 1, keszletElem.DarabAr, keszletElem.Megjegyzes, keszletElem.Alkatresz);
+                            if (!projekt.AlkatreszLista.Contains(ujKeszlet))
+                            {
+                                projekt.AlkatreszLista.Add(ujKeszlet);
+                            }
                         }
                     }
                 }
@@ -321,10 +374,7 @@ namespace EKNyilvantarto
         #endregion
 
         #region Kategória metódusok
-        private void kategoriaTSCBX_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
         private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
         {
             Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
@@ -335,6 +385,7 @@ namespace EKNyilvantarto
                     if (keszletLista != null) keszletLista.Clear();
                     keszletLista = ABKezelo.KeszletLeker(kat);
                     ListaFrissit(keszletLV, keszletLista);
+
                 }
                 catch (Exception ex)
                 {
@@ -344,7 +395,7 @@ namespace EKNyilvantarto
         }
         private void kategoriaTSCBX2_Click(object sender, EventArgs e)
         {
-            //ha a projekt be van töltve!!!
+
         }
         #endregion
         private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
@@ -358,6 +409,17 @@ namespace EKNyilvantarto
                 MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void darabNud_Leave(object sender, EventArgs e)
+        {
+            DarabNudElRejt();
+        }
+
+        private void KilepesTSMI_Click(object sender, EventArgs e)
+        {
+
+            this.Close();
         }
     }
 }

@@ -76,6 +76,9 @@
     <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
     <Compile Include="AlkatreszOsztalyok\AlkatreszParameter.cs" />
     <Compile Include="AlkatreszOsztalyok\Projekt.cs" />
+    <Compile Include="Elemek\SajatListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Interfacek\IListViewTomb.cs" />
     <Compile Include="UjAlkatreszFrm.cs">
       <SubType>Form</SubType>
@@ -185,8 +188,8 @@
     </Content>
     <Content Include="KeszletAb.sql" />
     <Content Include="KeszletAB_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>KeszletAB.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\power-button3.png" />
     <None Include="Resources\power-button2.png" />
