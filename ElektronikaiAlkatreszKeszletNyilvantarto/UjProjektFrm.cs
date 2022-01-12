@@ -1,4 +1,5 @@
-﻿using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
+﻿using EKNyilvantarto.AlkatreszOsztalyok;
+using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -58,7 +59,7 @@ namespace EKNyilvantarto
             }
             else if (!string.IsNullOrWhiteSpace(megnevezTxb.Text))
             {
-                projekt = new Projekt(megnevezTxb.Text, leirasTxb.Text, ABKezelo.UtolsoProjektAzonosito(), new List<AlkatreszOsztalyok.Keszlet>());
+                projekt = new Projekt(megnevezTxb.Text, leirasTxb.Text, null, new List<Keszlet>(),megjegyzesTxb.Text,false);
             }
             else
             {

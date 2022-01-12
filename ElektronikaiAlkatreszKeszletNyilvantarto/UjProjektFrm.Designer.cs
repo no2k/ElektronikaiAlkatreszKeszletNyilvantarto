@@ -35,6 +35,8 @@ namespace EKNyilvantarto
             this.leirasTxb = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.megjegyzesTxb = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +75,7 @@ namespace EKNyilvantarto
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(17, 141);
+            this.button1.Location = new System.Drawing.Point(17, 235);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(95, 27);
             this.button1.TabIndex = 4;
@@ -84,18 +86,37 @@ namespace EKNyilvantarto
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.button2.Location = new System.Drawing.Point(142, 141);
+            this.button2.Location = new System.Drawing.Point(142, 235);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 27);
             this.button2.TabIndex = 5;
             this.button2.Text = "Mégsem";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // megjegyzesTxb
+            // 
+            this.megjegyzesTxb.Location = new System.Drawing.Point(17, 161);
+            this.megjegyzesTxb.Multiline = true;
+            this.megjegyzesTxb.Name = "megjegyzesTxb";
+            this.megjegyzesTxb.Size = new System.Drawing.Size(217, 46);
+            this.megjegyzesTxb.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 138);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 20);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Megjegyzés:";
+            // 
             // UjProjektFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(247, 190);
+            this.ClientSize = new System.Drawing.Size(247, 274);
+            this.Controls.Add(this.megjegyzesTxb);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.leirasTxb);
@@ -121,5 +142,7 @@ namespace EKNyilvantarto
         private System.Windows.Forms.TextBox leirasTxb;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox megjegyzesTxb;
+        private System.Windows.Forms.Label label3;
     }
 }

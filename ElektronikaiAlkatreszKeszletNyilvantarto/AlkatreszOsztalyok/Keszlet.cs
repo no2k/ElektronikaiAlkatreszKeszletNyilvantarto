@@ -113,36 +113,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return false;
         }
 
-        /*
-         * bool IEquatable<Parameter>.Equals(Parameter other)
-        {
-            if (String.Equals(this.parameterMegnevezes , other.parameterMegnevezes) &&
-                String.Equals(TombbolStringbeKonvertal(this.ParameterMertekEgyseg ) , TombbolStringbeKonvertal(other.ParameterMertekEgyseg)) &&
-                this.ParameterTipus == other.ParameterTipus)
-            {
-                return true;
-            }
-            return false;
-        }
-         * 
-
-        public bool Equals(Alkatresz other)
-        {
-            if (alkatresz.Equals(other))
-            {
-                return true;
-            }
-            return false;
-        }*/
-
-        /*  int IComparable<Alkatresz>.CompareTo(Alkatresz other)
-          {
-              return ToString().CompareTo(other.ToString());
-          }
-
-          public IEnumerator GetEnumerator()
-          {
-              return ((IEnumerable)alkatresz.ToString()).GetEnumerator();
-          }*/
+      
     }
 }

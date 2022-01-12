@@ -21,7 +21,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
                     parameterek = value;
                 }
             }
-
         }
         public string Megnevezes
         {

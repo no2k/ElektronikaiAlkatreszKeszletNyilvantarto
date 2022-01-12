@@ -1,4 +1,5 @@
 ﻿using EKNyilvantarto.AlkatreszOsztalyok;
+using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -599,40 +600,110 @@ namespace EKNyilvantarto
         #endregion
 
         #region Projekt kapcsolatok
-        public static void UjProjekt(object ujProjekt)
-        {
+        public static void UjProjekt(Projekt ujProjekt)
+        { 
             try
             {
-
+                parancs.Parameters.Clear();
+                parancs.CommandText = "INSERT INTO [Projekt] ([MEGNEVEZES],[LEIRAS],[MEGJEGYZES],[STATUSZ]) OUTPUT INSERTED.PROJEKT_ID VALUES(@megnevezes,@leiras,@megjegyzes,@statusz)";
+                parancs.Parameters.AddWithValue("@megnevezes",ujProjekt.PrjNev);
+                parancs.Parameters.AddWithValue("@leiras",ujProjekt.Leiras);
+                parancs.Parameters.AddWithValue("@megjegyzes",ujProjekt.Megjegyzes);
+                parancs.Parameters.AddWithValue("@statusz",ujProjekt.Statusz);
+                ujProjekt.Azonosito = (int)parancs.ExecuteScalar();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new ABKivetel("Hiba a projekt adatbázisba történő létrehozásakor!",ex);
             }
         }
-        public static void ProjektModositas(object prjModosit)
+        public static void ProjektModositas(Projekt prjModosit)
         {
             try
             {
-
+                parancs.Parameters.Clear();
+                parancs.CommandText = " UPDATE [Projekt] SET [LEIRAS]=@leiras,[MEGJEGYZES]=@megjegyzes WHERE [PROJEKT_ID]=@id" ;
+                parancs.Parameters.AddWithValue("@leiras", prjModosit.Leiras);
+                parancs.Parameters.AddWithValue("@megjegyzes",prjModosit.Megjegyzes);
+                parancs.Parameters.AddWithValue("@id",prjModosit.Azonosito);
+                parancs.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new ABKivetel("Hiba a projekt adatainak módosításakor, az adatbázisban!",ex);
             }
         }
-        public static void ProjektTorles(object prjTorol)
+        public static void ProjektStatusz(Projekt projekt,bool statusz)
         {
             try
             {
-
+                parancs.Parameters.Clear();
+                parancs.CommandText = " UPDATE [Projekt] SET [STATUSZ]=@statusz WHERE [PROJEKT_ID]=@id";
+                parancs.Parameters.AddWithValue("@statusz", statusz);
+                parancs.Parameters.AddWithValue("@id", projekt.Azonosito);
+                parancs.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new ABKivetel("Hiba a projekt státuszának módosításakor, az adatbázisban!",ex);
+            }
+        }
+        public static void ProjektTorles(Projekt prjTorol)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText = "DELETE FROM [PrJ_Alkatresz] WHERE [PROJEKT_ID]=@id";
+                parancs.Parameters.AddWithValue("@id",prjTorol.Azonosito);
+                parancs.ExecuteNonQuery();
+                parancs.CommandText = "DELETE FROM [Projekt] WHERE [PROJEKT_ID]=@id";
+                parancs.ExecuteNonQuery();
+                parancs.Transaction.Commit();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes hiba az adatbázisban, adatbázis beavatkozásra van szükség!",ex2);
+                }
+                throw new ABKivetel("Sikertelen projekt törlés!",ex);
+            }
+        }
+        public static List<Projekt> ProjektekLekerdez()
+        {
+            try
+            {
+                List<Projekt> lista = new List<Projekt>();
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT * FROM [Projekt]";
+                using (SqlDataReader reader= parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new Projekt(
+                            reader["MEGNEVEZES"].ToString(),
+                            reader["LEIRAS"].ToString(),
+                            (int)reader["PROJEKT_ID"],
+                            new List<Keszlet>(),
+                            reader["MEGJEGYZES"].ToString(),
+                            (bool)reader["STATUSZ"]
+                            ));
+                    }
+                    reader.Close();
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba a projektek adatbázisból való lekérdezésekor!",ex);
             }
         }
         public static int UtolsoProjektAzonosito()
@@ -650,5 +721,7 @@ namespace EKNyilvantarto
             }
         }
         #endregion
+
+
     }
 }

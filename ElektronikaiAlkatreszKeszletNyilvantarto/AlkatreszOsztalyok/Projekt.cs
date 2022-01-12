@@ -7,9 +7,11 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
     class Projekt
     {
         #region Fieldek
-        string prjNev, leiras;
-        int azonosito;
-        List<Keszlet> lista;
+        string prjNev, leiras,megjegyzes;
+        int? azonosito; //adatbázisból lekérdezi
+        List<Keszlet> alkatreszLista;
+        bool statusz;
+        
         #endregion
 
         #region Property-k
@@ -33,36 +35,39 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => leiras;
             set => leiras = value;
         }
-        public int Azonosito
+        public int? Azonosito
         {
             get => azonosito;
-            private set
+            set
             {
-                if (value > 0)
+                if (value ==null)
                 {
                     azonosito = value;
                 }
                 else
                 {
-                    azonosito = 1;
-                    //throw new ArgumentNullException("Az azonositó nem lehetkissebb mint 1!");
+                    throw new ArgumentNullException("Az azonositót csak egyszer lehet beeállítani!");
                 }
             }
         }
-        internal List<Keszlet> Lista
+        internal List<Keszlet> AlkatreszLista
         {
-            get => lista;
-            set => lista = value;
+            get => alkatreszLista;
+            set => alkatreszLista = value;
         }
+        public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
+        public bool Statusz { get => statusz; private set => statusz = value; }
         #endregion
 
         #region Konstruktor
-        public Projekt(string prjNev, string leiras, int azonosito, List<Keszlet> lista)
+        public Projekt(string prjNev, string leiras, int? azonosito, List<Keszlet> alkatreszLista, string megjegyzes, bool statusz)
         {
             PrjNev = prjNev;
             Leiras = leiras;
             Azonosito = azonosito;
-            Lista = lista;
+            AlkatreszLista = alkatreszLista;
+            Megjegyzes = megjegyzes;
+            Statusz = statusz;
         }
         #endregion
 

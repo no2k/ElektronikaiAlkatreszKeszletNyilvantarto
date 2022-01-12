@@ -1,8 +1,9 @@
-﻿drop table dbo.Prj_Alkatresz
-drop table dbo.Keszlet
-drop table dbo.Alkatresz
+﻿
+drop table dbo.Prj_Alkatresz
 drop table dbo.Projekt
+drop table dbo.Keszlet
 drop table dbo.Parameterek
+drop table dbo.Alkatresz
 drop table dbo.Parameter_Def
 drop table dbo.Kategoria
 
@@ -24,7 +25,7 @@ CREATE TABLE [Parameter_Def] (
 --OK
 CREATE TABLE [Alkatresz] (
     [ALKATRESZ_ID] INT PRIMARY KEY  IDENTITY(1,1) NOT NULL,
-	[MEGNEVEZES]  varchar(50) not null,
+	[MEGNEVEZES]  VARCHAR(50) NOT NULL,
 	[KATEGORIA_ID] INT NOT NULL FOREIGN KEY REFERENCES [Kategoria] ([KATEGORIA_ID])
 	
     
@@ -54,16 +55,20 @@ CREATE TABLE [Keszlet] (
 --ok
 CREATE TABLE [Projekt] (
     [PROJEKT_ID] INT  NOT NULL PRIMARY KEY IDENTITY(1,1) ,    
-    [PROJEKT_MEGNEVEZES] VARCHAR (200)  NOT NULL,
-    [PROJEKT_LEIRAS] VARCHAR (2000) NULL,
+    [MEGNEVEZES] VARCHAR (200)  NOT NULL,
+    [LEIRAS] VARCHAR (2000) NULL,
+    [MEGJEGYZES] VARCHAR NULL,
+    [STATUSZ] BIT NOT NULL DEFAULT (1)
 );
 --ok
 CREATE TABLE [Prj_Alkatresz] (
     [PROJEKT_ID]  INT NOT NULL REFERENCES [Projekt] ([PROJEKT_ID]) ,
     [ALKATRESZ_ID]  INT NOT NULL,
-    [ALKATRESZ_DARABSZAM] INT NOT NULL,
+    [DARABSZAM] INT NOT NULL,
+    [DARAB_AR] FLOAT NULL,
     CONSTRAINT [fk_Prj_Alkatresz] FOREIGN KEY ([ALKATRESZ_ID]) REFERENCES [Alkatresz] ([ALKATRESZ_ID]),
 );
 
 
 
+                     

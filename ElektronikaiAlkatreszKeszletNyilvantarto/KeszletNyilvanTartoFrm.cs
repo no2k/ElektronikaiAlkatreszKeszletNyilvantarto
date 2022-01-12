@@ -16,7 +16,7 @@ namespace EKNyilvantarto
         bool hianyzik;
         //  Alkatresz alkatresz;
         List<Keszlet> keszletLista = new List<Keszlet>();
-        List<Keszlet> projektAlkatreszLista = new List<Keszlet>();
+
         List<Projekt> projektek = new List<Projekt>();
         Projekt projekt;
 
@@ -27,7 +27,13 @@ namespace EKNyilvantarto
             InitializeComponent();
             LVBeallitas();
             KategoriaFrissit();
+            ProjektekBetoltes();
 
+        }
+
+        private void ProjektekBetoltes()
+        {
+            projektek = ABKezelo.ProjektekLekerdez();
         }
 
         private void AdatBazisCsatlakozas()
@@ -53,31 +59,30 @@ namespace EKNyilvantarto
         {
             keszletLV.MultiSelect = true;
             keszletLV.FullRowSelect = true;
-            keszletLV.Columns.Add("*", 30);
-            keszletLV.Columns.Add("Kategória", 150);
-            keszletLV.Columns.Add("Készlet", 75);
-            keszletLV.Columns.Add("Darabár", 75);
-            keszletLV.Columns.Add("Készlet ár", 75);
-            keszletLV.Columns.Add("Megnevezés", 150);
-            keszletLV.Columns.Add("Paraméterek", 300);
-            keszletLV.Columns.Add("Megjegyzés", 300);
+            keszletLV.Columns.Add("*", 30).Name = "Sorszam";
+            keszletLV.Columns.Add("Kategória", 150).Name = "Kategoria";
+            keszletLV.Columns.Add("Készlet", 75).Name = "Keszlet";
+            keszletLV.Columns.Add("Darabár", 75).Name = "DarabAr";
+            keszletLV.Columns.Add("Készlet ár", 75).Name = "KeszletAr";
+            keszletLV.Columns.Add("Megnevezés", 150).Name = "Megnevezes";
+            keszletLV.Columns.Add("Paraméterek", 300).Name = "Parameterek";
+            keszletLV.Columns.Add("Megjegyzés", 300).Name = "Megjegyzes";
 
 
-            projektLV.Columns.Add("*", 30);
-            projektLV.Columns.Add("Kategória", 150);
-            projektLV.Columns.Add("Készlet", 75);
-            projektLV.Columns.Add("Darabár", 75);
-            projektLV.Columns.Add("Készlet ár", 75);
-            projektLV.Columns.Add("Megnevezés", 150);
-            projektLV.Columns.Add("Paraméterek", 300);
-            projektLV.Columns.Add("Megjegyzés", 300);
+            projektLV.Columns.Add("*", 30).Name = "Sorszam";
+            projektLV.Columns.Add("Kategória", 150).Name = "Kategoria";
+            projektLV.Columns.Add("Készlet", 75).Name = "Keszlet";
+            projektLV.Columns.Add("Darabár", 75).Name = "DarabAr";
+            projektLV.Columns.Add("Készlet ár", 75).Name = "KeszletAr";
+            projektLV.Columns.Add("Megnevezés", 150).Name = "Megnevezes";
+            projektLV.Columns.Add("Paraméterek", 300).Name = "Parameterek";
+            projektLV.Columns.Add("Megjegyzés", 300).Name = "Megjegyzes";
             projektLV.MultiSelect = true;
             projektLV.FullRowSelect = true;
 
         }
         void ListaFrissit(ListView lv, List<Keszlet> alkatreszLista)
         {
-
             lv.Items.Clear();
             int i = 1;
             foreach (Keszlet item in alkatreszLista)
@@ -87,20 +92,20 @@ namespace EKNyilvantarto
                 {
                     if (item.DarabSzam > 0)
                     {
-                        sor.SubItems.AddRange(lvSorFeltolt(i, item));
+                        sor.SubItems.AddRange(LvSorFeltolt(item));
                         lv.Items.Add(sor);
                         i++;
                     }
                 }
                 else
                 {
-                    sor.SubItems.AddRange(lvSorFeltolt(i, item));
+                    sor.SubItems.AddRange(LvSorFeltolt(item));
                     lv.Items.Add(sor);
                     i++;
                 }
             }
         }
-        private string[] lvSorFeltolt(int sorszam, Keszlet item)
+        private string[] LvSorFeltolt(Keszlet item)
         {
             return new string[] {
             item.Alkatresz.Kategoria.KategoriaMegnevezes,
@@ -111,19 +116,15 @@ namespace EKNyilvantarto
             item.Alkatresz.ToString(),
             item.Megjegyzes};
         }
-        
-        
-        
         private void projektLv_MouseUp(object sender, MouseEventArgs e)
-        { 
+        {
             /*https://stackoverflow-com.translate.goog/questions/471859/c-how-do-you-edit-items-and-subitems-in-a-listview?_x_tr_sl=en&_x_tr_tl=hu&_x_tr_hl=en  */
-          
+
             ListViewHitTestInfo lVinfo = projektLV.HitTest(e.X, e.Y);
+
             kivalasztottSubItem = lVinfo.SubItem;
-            MessageBox.Show($"{lVinfo.SubItem.Text}\n\r");
-
-
-            if (kivalasztottSubItem == null)
+            bool bennevan = kivalasztottSubItem.Text.ToString().EndsWith(" Db");
+            if (kivalasztottSubItem == null && !bennevan)
             {
                 return;
             }
@@ -158,7 +159,6 @@ namespace EKNyilvantarto
             darabNud.BringToFront();
             darabNud.Select();
         }
-
         private void projektLv_MouseDown(object sender, MouseEventArgs e)
         {
             DarabNudElRejt();
@@ -166,6 +166,14 @@ namespace EKNyilvantarto
         private void projektLv_Scroll(object sender, EventArgs e)
         {
             DarabNudElRejt();
+        }
+        private void DarabNudElRejt()
+        {
+            darabNud.Visible = false;
+            if (kivalasztottSubItem != null)
+                kivalasztottSubItem.Text = darabNud.Value.ToString();
+            kivalasztottSubItem = null;
+            darabNud.Value = 0;
         }
 
         /* private void projektLv_Leave(object sender, EventArgs e)
@@ -177,18 +185,6 @@ namespace EKNyilvantarto
               if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
                   HideTextEditor();
           }*/
-        private void DarabNudElRejt()
-        {
-            darabNud.Visible = false;
-            if (kivalasztottSubItem != null)
-                kivalasztottSubItem.Text = darabNud.Value.ToString();
-            kivalasztottSubItem = null;
-            darabNud.Value = 0;
-        }
-
-
-
-
         #endregion
         #region "Alkatrész" metódusok
         private void AlkatreszKeszletFrm_Load(object sender, EventArgs e)
@@ -258,18 +254,8 @@ namespace EKNyilvantarto
             toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button3;
         }
         #endregion
-        private void kategoriaTSCBX_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
 
-        /*   private void keszletLbx_SelectedIndexChanged(object sender, EventArgs e)
-           {
-               if (keszletLbx.SelectedItem != null)
-               {
-                   infoTSMI.Text = keszletLbx.SelectedItem.ToString();
-               }
-           }*/
         #region "Projekt" metódusok
         private void projektTSMI_Click(object sender, EventArgs e)
         {
@@ -280,14 +266,21 @@ namespace EKNyilvantarto
 
                 projekt = frm.Projekt;
                 projektek.Add(projekt);
-                ProjektFul prj = new ProjektFul();
-                prj.Megnevezes = projekt.PrjNev;
-                prj.Leiras = projekt.Leiras;
-                prj.HatterSzinMO = this.BackColor;
-                prj.HatterSzinMH = Color.FromArgb(52, 105, 216, 75);
-                prj.Click += Prj_Click;
+                ProjektFul prj = new ProjektFul()
+                {
+                    Megnevezes = projekt.PrjNev,
+                    Leiras = projekt.Leiras,
+                    HatterSzinMO = this.BackColor,
+                    HatterSzinMH = Color.FromArgb(52, 105, 216, 75),
+                };
+                Click += Prj_Click;
+                /* prj.Megnevezes = projekt.PrjNev;
+                 prj.Leiras = projekt.Leiras;
+                 prj.HatterSzinMO = this.BackColor;
+                 prj.HatterSzinMH = Color.FromArgb(52, 105, 216, 75);
+                 prj.Click += Prj_Click;*/
                 projektPanel.Controls.Add(prj);
-
+                ABKezelo.UjProjekt(projekt);
                 projektPanel.Refresh();
             }
         }
@@ -295,7 +288,7 @@ namespace EKNyilvantarto
         {
             if ((sender is ProjektFul prj))
             {
-                projektAlkatreszLista = new List<Keszlet>(projektek.FirstOrDefault(x => x.PrjNev == prj.Megnevezes).Lista);
+                projekt.AlkatreszLista = new List<Keszlet>(projektek.FirstOrDefault(x => x.PrjNev == prj.Megnevezes).AlkatreszLista);
             }
 
         }
@@ -303,24 +296,57 @@ namespace EKNyilvantarto
         {
             if ((keszletLV.SelectedItems) != null)
             {
+                if (projekt == null)
+                {
+                    MessageBox.Show("Nincs kiválasztott Projekt!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    return;
+                }
                 foreach (ListViewItem item in keszletLV.SelectedItems)
                 {
+
                     string parameterek = item.SubItems[6].Text;
                     foreach (Keszlet keszletElem in keszletLista)
                     {
                         string str = keszletElem.Alkatresz.ToString();
                         if (str == parameterek)
                         {
-                            projektAlkatreszLista.Add(keszletElem);
+                            projekt.AlkatreszLista.Add(new Keszlet(keszletElem.KeszletId, 1, keszletElem.DarabAr, keszletElem.Megjegyzes, keszletElem.Alkatresz));
                         }
                     }
                 }
-                ListaFrissit(projektLV, projektAlkatreszLista);
+                ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
         }
 
         #endregion
 
+        #region Kategória metódusok
+        private void kategoriaTSCBX_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
+        {
+            Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
+            if (kat != null)
+            {
+                try
+                {
+                    if (keszletLista != null) keszletLista.Clear();
+                    keszletLista = ABKezelo.KeszletLeker(kat);
+                    ListaFrissit(keszletLV, keszletLista);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a kategória betötése közben!\n\r" + ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+        private void kategoriaTSCBX2_Click(object sender, EventArgs e)
+        {
+            //ha a projekt be van töltve!!!
+        }
+        #endregion
         private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -332,42 +358,6 @@ namespace EKNyilvantarto
                 MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-        }
-
-
-        private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
-        {
-            Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
-            if (kat != null)
-            {
-                try
-                {
-                    keszletLista.Clear();
-                    keszletLista = ABKezelo.KeszletLeker(kat);
-                    ListaFrissit(keszletLV, keszletLista);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Hiba a kategória betötése közben!\n\r" + ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
-
-        private void kategoriaTSCBX2_Click(object sender, EventArgs e)
-        {
-            //ha a projekt be van töltve!!!
-        }
-
-        private void keszletLV_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (keszletLV.SelectedItems != null)
-            {
-                foreach (ListViewItem item in keszletLV.SelectedItems)
-                {
-                    NumericUpDown nud = new NumericUpDown();
-                    // item.SubItems.Add(nud)
-                }
-            }
         }
     }
 }
