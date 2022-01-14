@@ -88,6 +88,7 @@ namespace EKNyilvantarto
             this.Name = "ProjektFul";
             this.Size = new System.Drawing.Size(242, 36);
             this.DoubleClick += new System.EventHandler(this.ProjektFul_DoubleClick);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ProjektFul_MouseClick);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProjektFul_MouseDoubleClick);
             this.MouseLeave += new System.EventHandler(this.ProjektFul_MouseLeave);
             this.MouseHover += new System.EventHandler(this.ProjektFul_MouseHover);

@@ -39,11 +39,11 @@ namespace EKNyilvantarto
         public UjParameterFrm()
         {
             InitializeComponent();
-            button3.Enabled = false;
+           // button3.Enabled = false;
         }
-        public UjParameterFrm(Kategoria kategoria)
+        public UjParameterFrm(Kategoria kategoria) : this()
         {
-            InitializeComponent();
+           // InitializeComponent();
             button3.Enabled = false;
             if (kategoria != null)
             {

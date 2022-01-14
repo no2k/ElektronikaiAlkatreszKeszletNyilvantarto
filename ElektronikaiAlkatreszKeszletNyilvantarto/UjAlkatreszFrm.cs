@@ -240,7 +240,7 @@ namespace EKNyilvantarto
         }
         private void button2_Click(object sender, EventArgs e) //OK
         {
-            //keresés az adatbázisban, a megadott kategóriánál, hogy tartalmazza e az adott elemeket. amennyiben tartalmazza, akkor egy messageboxban értesítést adni hogy van ilyen alkatrész, a mennyiséget és az árat akarod e frissíteni a megadottakkal?
+            
 
             if (keszletLista.Count > 0)
             {

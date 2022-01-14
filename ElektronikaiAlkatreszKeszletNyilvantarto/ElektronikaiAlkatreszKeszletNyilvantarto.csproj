@@ -73,12 +73,15 @@
   <ItemGroup>
     <Compile Include="ABKezelo.cs" />
     <Compile Include="ABKivetel.cs" />
+    <Compile Include="AlkatreszDarabszamBeallitasFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlkatreszDarabszamBeallitasFrm.Designer.cs">
+      <DependentUpon>AlkatreszDarabszamBeallitasFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
     <Compile Include="AlkatreszOsztalyok\AlkatreszParameter.cs" />
     <Compile Include="AlkatreszOsztalyok\Projekt.cs" />
-    <Compile Include="Elemek\SajatListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Interfacek\IListViewTomb.cs" />
     <Compile Include="UjAlkatreszFrm.cs">
       <SubType>Form</SubType>
@@ -123,6 +126,9 @@
     <Compile Include="UjProjektFrm.Designer.cs">
       <DependentUpon>UjProjektFrm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AlkatreszDarabszamBeallitasFrm.resx">
+      <DependentUpon>AlkatreszDarabszamBeallitasFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UjAlkatreszFrm.resx">
       <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </EmbeddedResource>

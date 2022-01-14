@@ -1,5 +1,4 @@
 ﻿using EKNyilvantarto.AlkatreszOsztalyok;
-using ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -43,12 +42,12 @@ namespace EKNyilvantarto
         {
             //InitializeComponent();
             this.projekt = projekt;
-            Text = projekt.PrjNev + " módosítása";
+            Text = projekt.ProjektNev + " módosítása";
             megnevezTxb.Enabled = true;
-            megnevezTxb.Text = projekt.PrjNev;
+            megnevezTxb.Text = projekt.ProjektNev;
             leirasTxb.Text = projekt.Leiras;
             button1.Text = "Módosítás";
-            label1.Text = projekt.PrjNev + " módosítása";
+            label1.Text = projekt.ProjektNev + " módosítása";
         }
 
         private void button1_Click(object sender, EventArgs e)

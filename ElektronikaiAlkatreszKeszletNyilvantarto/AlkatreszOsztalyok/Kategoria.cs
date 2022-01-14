@@ -1,5 +1,5 @@
 ﻿using System;
-namespace EKNyilvantarto
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
     public class Kategoria : IComparable, IEquatable<Kategoria>
     {

@@ -7,6 +7,7 @@ namespace EKNyilvantarto
 {
     public partial class ProjektFul : UserControl
     {
+        public event EventHandler Clicked;
         public ProjektFul()
         {
             InitializeComponent();
@@ -95,6 +96,11 @@ namespace EKNyilvantarto
         private void ProjektFul_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.BackColor = hatterSzinAktiv;
+        }
+
+        private void ProjektFul_MouseClick(object sender, MouseEventArgs e)
+        {
+            Clicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

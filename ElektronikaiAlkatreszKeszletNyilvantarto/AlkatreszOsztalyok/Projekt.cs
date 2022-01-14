@@ -2,27 +2,27 @@
 using System;
 using System.Collections.Generic;
 
-namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
+namespace EKNyilvantarto
 {
-    class Projekt
+    internal class Projekt
     {
         #region Fieldek
-        string prjNev, leiras,megjegyzes;
-        int? azonosito; //adatbázisból lekérdezi
+        string projektNev, leiras, megjegyzes;
+        int? projektAzonosito; //adatbázisból lekérdezi
         List<Keszlet> alkatreszLista;
-        bool statusz;
+        bool lezartStatusz;
         
         #endregion
 
         #region Property-k
-        public string PrjNev
+        public string ProjektNev
         {
-            get => prjNev;
+            get => projektNev;
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    prjNev = value;
+                    projektNev = value;
                 }
                 else
                 {
@@ -35,14 +35,14 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             get => leiras;
             set => leiras = value;
         }
-        public int? Azonosito
+        public int? ProjektAzonosito
         {
-            get => azonosito;
+            get => projektAzonosito;
             set
             {
-                if (azonosito ==null)
+                if (projektAzonosito ==null)
                 {
-                    azonosito = value;
+                    projektAzonosito = value;
                 }
                 else
                 {
@@ -56,18 +56,18 @@ namespace ElektronikaiAlkatreszKeszletNyilvantarto.AlkatreszOsztalyok
             set => alkatreszLista = value;
         }
         public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
-        public bool Statusz { get => statusz; private set => statusz = value; }
+        public bool LezartStatusz { get => lezartStatusz; private set => lezartStatusz = value; }
         #endregion
 
         #region Konstruktor
-        public Projekt(string prjNev, string leiras, int? azonosito, List<Keszlet> alkatreszLista, string megjegyzes, bool statusz)
+        public Projekt(string projektNev, string leiras, int? projektAzonosito, List<Keszlet> alkatreszLista, string megjegyzes, bool lezartStatusz)
         {
-            PrjNev = prjNev;
+            ProjektNev = projektNev;
             Leiras = leiras;
-            Azonosito = azonosito;
+            ProjektAzonosito = projektAzonosito;
             AlkatreszLista = alkatreszLista;
             Megjegyzes = megjegyzes;
-            Statusz = statusz;
+            LezartStatusz = lezartStatusz;
         }
         #endregion
 
