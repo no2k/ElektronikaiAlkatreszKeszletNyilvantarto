@@ -55,14 +55,38 @@ namespace EKNyilvantarto
             if (projekt != null)
             {
                 projekt.Leiras = leirasTxb.Text;
+                DialogResult = DialogResult.OK;
             }
-            else if (!string.IsNullOrWhiteSpace(megnevezTxb.Text))
+            else
             {
-                projekt = new Projekt(megnevezTxb.Text, leirasTxb.Text, null, new List<Keszlet>(),megjegyzesTxb.Text,false);
+                AdatokTeszteleseEsLetrehozas();
+
+            }
+
+        }
+
+        private void AdatokTeszteleseEsLetrehozas()
+        {
+            if (!string.IsNullOrWhiteSpace(megnevezTxb.Text))
+            {
+                UjProjektLetrehoz();
             }
             else
             {
                 MessageBox.Show("A projekt neve nem lehet üres!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                DialogResult = DialogResult.None;
+            }
+        }
+
+        private void UjProjektLetrehoz()
+        {
+            if (!ABKezelo.VanIlyenProjekt(megnevezTxb.Text))
+            {
+                projekt = new Projekt(megnevezTxb.Text, leirasTxb.Text, null, new List<Keszlet>(), megjegyzesTxb.Text, false);
+            }
+            else
+            {
+                MessageBox.Show("Már van egy ilyen elnevezésű projekt az adatbázisban!","Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Stop);
                 DialogResult = DialogResult.None;
             }
         }

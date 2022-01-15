@@ -810,7 +810,7 @@ namespace EKNyilvantarto
              
                 
                 parancs.Parameters.AddWithValue("@projektId", projekt.ProjektAzonosito);
-
+                projekt.AlkatreszLista.Clear();
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
                     int alkatreszId = -1;
@@ -841,16 +841,20 @@ namespace EKNyilvantarto
                         else
                         {
                             projekt.AlkatreszLista.Add(
-                                new Keszlet(
-                                    (int)reader["ALKATRESZ_ID"],
-                                    (float)reader["DARABSZAM"],
-                                    (float)reader["DARAB_AR"], "",
-                                    new Alkatresz(
-                                        (int)reader["ALKATRESZ_ID"], 
-                                        new Kategoria((int)reader["KATEGORIA_ID"], 
-                                        reader["KATEGORIA"].ToString()),
-                                        reader["MEGNEVEZES"].ToString(),
-                                        new List<AlkatreszParameter>(parameterek))));
+                               new Keszlet(alkatreszId, darabszam, darabar, "",
+                               new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
+                               new List<AlkatreszParameter>(parameterek))));
+                            /*   projekt.AlkatreszLista.Add(
+                                   new Keszlet(
+                                       (int)reader["ALKATRESZ_ID"],
+                                       (float)reader["DARABSZAM"],
+                                       (float)reader["DARAB_AR"], "",
+                                       new Alkatresz(
+                                           (int)reader["ALKATRESZ_ID"], 
+                                           new Kategoria((int)reader["KATEGORIA_ID"], 
+                                           reader["KATEGORIA"].ToString()),
+                                           reader["MEGNEVEZES"].ToString(),
+                                           new List<AlkatreszParameter>(parameterek))));*/
                             parameterek.Clear();
                             parameterek.Add(new AlkatreszParameter(
                                (int)reader["PARAMETER_SORSZAM"],
@@ -877,6 +881,29 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba történt a projekt alkatrész adatbázisból való lekérdezése közben!", ex);
             }
         }
+        public static bool VanIlyenProjekt(string projektNev)
+        {
+            if (UtolsoProjektAzonosito()<1)
+            {
+                return false;
+            }
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT [PROJEKT_ID] FROM [Projekt] WHERE [Projekt].[MEGNEVEZES]=@megnevezes";
+                parancs.Parameters.AddWithValue("@megnevezes",projektNev);
+                int? id = (int?)parancs.ExecuteScalar();
+                if (id!=null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba a projekt azonosításának lekérdezése közben!",ex);
+            }
+        }  //OK!
         #endregion
 
     }

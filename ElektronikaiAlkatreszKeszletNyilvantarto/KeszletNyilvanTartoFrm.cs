@@ -196,6 +196,7 @@ namespace EKNyilvantarto
         {
 
             projektek = ABKezelo.ProjektekLekerdez();
+            projektPanel.Controls.Clear();
             foreach (Projekt item in projektek)
             {
                 ProjektFul prj = new ProjektFul()
@@ -213,59 +214,38 @@ namespace EKNyilvantarto
             projektPanel.Refresh();
         }
 
-     /*   private void Prj_Clicked(object sender, EventArgs e)
-        {
-            foreach (Projekt item in projektek)
-            {
-                if (item.ProjektNev == prj.Megnevezes)
-                {
-                    projekt = item;
-                    ABKezelo.ProjektAlkatreszLekerdez(projekt);
-
-                }
-            }
-        }*/
 
         private void UjProjektTSMI_Click(object sender, EventArgs e)
         {
             UjProjektFrm frm = new UjProjektFrm();
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                projekt = frm.Projekt;
-                projektek.Add(projekt);
-                ABKezelo.UjProjekt(projekt);
+                ABKezelo.UjProjekt(frm.Projekt);
                 ProjektekBetoltes();
             }
-        }
+        }  //OK!
         //private void Prj_Click(object sender, EventArgs e)
         private void Prj_Clicked(object sender, EventArgs e)
         {
             if ((sender is ProjektFul prj))
             {
-
-                foreach (ProjektFul item in projektPanel.Controls)
-                {
-                    if (item != prj)
-                    {
-                        item.HatterSzinInaktiv = prjInaktiv;
-                    }
-                    else
-                    {
-                        item.HatterSzinAktiv = prjAktiv;
-                        item.HatterSzinMO = prjAktiv;
-                    }
-                }
-                projektPanel.Refresh();
+                
                 foreach (Projekt item in projektek)
                 {
                     if (item.ProjektNev == prj.Megnevezes)
                     {
+                        prj.HatterSzinAktiv = prjKivalaszt;
                         projekt = item;
                         ABKezelo.ProjektAlkatreszLekerdez(projekt);
-                        
+
                     }
+                    else
+                    {
+                        prj.HatterSzinInaktiv = prjInaktiv;
+                    }
+
                 }
-               
+
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
 
@@ -278,7 +258,8 @@ namespace EKNyilvantarto
                 MessageBox.Show("Nincs kiválasztott Projekt!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
-            List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
+
+           /* List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
             foreach (ListViewItem item in keszletLV.SelectedItems)
             {
                 string parameterek = item.SubItems[6].Text;
@@ -294,17 +275,15 @@ namespace EKNyilvantarto
                         }
                     }
                 }
-            }
+            }*/
 
-            DarabSzamBeallit(kivalasztottAlkatreszek);
+            DarabSzamBeallit(ListViewElemekbolAlkatreszLista(keszletLV.SelectedItems,keszletLista));
             ListaFrissit(projektLV, projekt.AlkatreszLista);
         }
 
         private void DarabSzamBeallit(List<Keszlet> alkatreszLista)
         {
-
             AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(alkatreszLista);
-
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 foreach (Keszlet beallitottAlkatresz in frm.Alkatreszek)
@@ -316,8 +295,7 @@ namespace EKNyilvantarto
                 }
                 ABKezelo.ProjektAlkatreszFelvitel(projekt);
             }
-
-        } //ok
+        } //OK!
         #endregion
         private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
         {
@@ -329,7 +307,6 @@ namespace EKNyilvantarto
                     if (keszletLista != null) keszletLista.Clear();
                     keszletLista = ABKezelo.KeszletLeker(kat);
                     ListaFrissit(keszletLV, keszletLista);
-
                 }
                 catch (Exception ex)
                 {
@@ -358,5 +335,35 @@ namespace EKNyilvantarto
             this.Close();
         }
 
+        private void projektLV_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (projektLV.SelectedItems!=null)
+            {
+                ;
+                AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems,projekt.AlkatreszLista));
+            }
+        }
+
+        private List<Keszlet> ListViewElemekbolAlkatreszLista(ListView.SelectedListViewItemCollection kivalasztottElemek,List<Keszlet> alkatreszLista)
+        {
+            List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
+            foreach (ListViewItem item in kivalasztottElemek)
+            {
+                string parameterek = item.SubItems[6].Text;
+                foreach (Keszlet alkatreszelem in alkatreszLista)
+                {
+                    string str = alkatreszelem.Alkatresz.ToString();
+                    if (str == parameterek && alkatreszelem.DarabSzam > 0)
+                    {
+                        Keszlet ujKeszlet = new Keszlet(alkatreszelem.KeszletId, 1, alkatreszelem.DarabAr, alkatreszelem.Megjegyzes, alkatreszelem.Alkatresz);
+                        if (!projekt.AlkatreszLista.Contains(ujKeszlet))
+                        {
+                            kivalasztottAlkatreszek.Add(ujKeszlet);
+                        }
+                    }
+                }
+            }
+            return kivalasztottAlkatreszek;
+        }
     }
 }

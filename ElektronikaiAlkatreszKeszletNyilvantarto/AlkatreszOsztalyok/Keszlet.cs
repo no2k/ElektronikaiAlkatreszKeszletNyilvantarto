@@ -93,7 +93,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         bool IEquatable<Keszlet>.Equals(Keszlet other)
         {
             if (alkatresz.Kategoria.KategoriaMegnevezes.ToLower() == other.alkatresz.Kategoria.KategoriaMegnevezes.ToLower() &&
-                alkatresz.Megnevezes.ToLower() == other.Alkatresz.Megnevezes.ToLower())
+                alkatresz.Megnevezes.ToLower() == other.Alkatresz.Megnevezes.ToLower() &&
+                alkatresz.Parameterek.Count==other.Alkatresz.Parameterek.Count)
             {
                 int eggyezik = 0;
                 int parameterekSzama = alkatresz.Parameterek.Count;
