@@ -69,8 +69,6 @@ namespace EKNyilvantarto
             this.prjAlkatreszModosit = new System.Windows.Forms.ToolStripButton();
             this.kategoriaTSCBX2 = new System.Windows.Forms.ToolStripComboBox();
             this.prjAlkatreszKeresTbx = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.projektLV = new System.Windows.Forms.ListView();
             this.infoTSMI = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -431,9 +429,7 @@ namespace EKNyilvantarto
             this.prjAlkatreszTorolBtn,
             this.prjAlkatreszModosit,
             this.kategoriaTSCBX2,
-            this.prjAlkatreszKeresTbx,
-            this.toolStripSeparator2,
-            this.toolStripButton2});
+            this.prjAlkatreszKeresTbx});
             this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(784, 25);
@@ -449,6 +445,7 @@ namespace EKNyilvantarto
             this.prjAlkatreszTorolBtn.Size = new System.Drawing.Size(23, 22);
             this.prjAlkatreszTorolBtn.Text = "toolStripButton3";
             this.prjAlkatreszTorolBtn.ToolTipText = "Alkatrész törlése";
+            this.prjAlkatreszTorolBtn.Click += new System.EventHandler(this.prjAlkatreszTorolBtn_Click);
             // 
             // prjAlkatreszModosit
             // 
@@ -459,6 +456,7 @@ namespace EKNyilvantarto
             this.prjAlkatreszModosit.Size = new System.Drawing.Size(23, 22);
             this.prjAlkatreszModosit.Text = "toolStripButton2";
             this.prjAlkatreszModosit.ToolTipText = "Darabszám frissítése";
+            this.prjAlkatreszModosit.Click += new System.EventHandler(this.prjAlkatreszModosit_Click);
             // 
             // kategoriaTSCBX2
             // 
@@ -475,21 +473,6 @@ namespace EKNyilvantarto
             this.prjAlkatreszKeresTbx.Name = "prjAlkatreszKeresTbx";
             this.prjAlkatreszKeresTbx.Size = new System.Drawing.Size(150, 25);
             this.prjAlkatreszKeresTbx.ToolTipText = "Alkatrész keresése";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::EKNyilvantarto.Properties.Resources.Button_Play;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
-            this.toolStripButton2.ToolTipText = "Alkatrészek rögzítése";
             // 
             // projektLV
             // 
@@ -603,7 +586,6 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripButton prjAlkatreszModosit;
         private System.Windows.Forms.ToolStripComboBox kategoriaTSCBX2;
         private System.Windows.Forms.ToolStripTextBox prjAlkatreszKeresTbx;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButton6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
@@ -617,7 +599,6 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.ToolStripButton toolStripButton3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem kilépésToolStripMenuItem;

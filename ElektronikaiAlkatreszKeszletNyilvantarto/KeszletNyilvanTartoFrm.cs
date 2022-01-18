@@ -10,21 +10,10 @@ namespace EKNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
-
-
-        Color prjAktiv = Color.FromArgb(14, 155, 155);
-        Color prjInaktiv = Color.FromArgb(112, 118, 155);
-        Color prjKivalaszt = Color.FromArgb(0, 212, 167);
-
-
         bool hianyzik;
-
         List<Keszlet> keszletLista = new List<Keszlet>();
-
-
         List<Projekt> projektek = new List<Projekt>();
         Projekt projekt;
-
 
         public AlkatreszKeszletFrm()
         {
@@ -33,9 +22,7 @@ namespace EKNyilvantarto
             LVBeallitas();
             KategoriaFrissit();
             ProjektekBetoltes();
-
         }
-
 
         private void AdatBazisCsatlakozas()
         {
@@ -189,8 +176,6 @@ namespace EKNyilvantarto
             toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button3;
         }
         #endregion
-
-
         #region "Projekt" metódusok
         private void ProjektekBetoltes()
         {
@@ -203,7 +188,8 @@ namespace EKNyilvantarto
                 {
                     Megnevezes = item.ProjektNev,
                     Leiras = item.Leiras,
-                    HatterSzinMO = prjInaktiv,
+                    HatterSzinEgerAlatt = Color.LightSlateGray,
+                    AlapHatterSzin = Color.FromArgb(50, 100, 100, 250),
                     //HatterSzinMH = prjKivalaszt,
                     Anchor = AnchorStyles.Left
                 };
@@ -213,8 +199,6 @@ namespace EKNyilvantarto
             }
             projektPanel.Refresh();
         }
-
-
         private void UjProjektTSMI_Click(object sender, EventArgs e)
         {
             UjProjektFrm frm = new UjProjektFrm();
@@ -224,31 +208,25 @@ namespace EKNyilvantarto
                 ProjektekBetoltes();
             }
         }  //OK!
-        //private void Prj_Click(object sender, EventArgs e)
         private void Prj_Clicked(object sender, EventArgs e)
         {
             if ((sender is ProjektFul prj))
             {
-                
                 foreach (Projekt item in projektek)
                 {
                     if (item.ProjektNev == prj.Megnevezes)
                     {
-                        prj.HatterSzinAktiv = prjKivalaszt;
+                        prj.AlapHatterSzin = Color.LightSkyBlue;
                         projekt = item;
                         ABKezelo.ProjektAlkatreszLekerdez(projekt);
-
                     }
                     else
                     {
-                        prj.HatterSzinInaktiv = prjInaktiv;
+                        prj.AlapHatterSzin = Color.DeepSkyBlue;
                     }
-
                 }
-
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
-
         }
         private void projekthezAdBtn_Click(object sender, EventArgs e)
         {
@@ -258,44 +236,149 @@ namespace EKNyilvantarto
                 MessageBox.Show("Nincs kiválasztott Projekt!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                 return;
             }
+            List<Keszlet> atrakniKivantAlkatreszek = new List<Keszlet>(ListViewElemekbolAlkatreszLista(keszletLV.SelectedItems, keszletLista));
+            List<Keszlet> beallitani = DuplaAlkatreszSzeparator(atrakniKivantAlkatreszek, projekt.AlkatreszLista);
+            DarabSzamBeallit(atrakniKivantAlkatreszek);
+            ProjektAlkatreszDarabszamBeallit(beallitani);
+            if (atrakniKivantAlkatreszek.Count > 0)
+            {
+                ListabaTesz(atrakniKivantAlkatreszek, projekt.AlkatreszLista);
+                //    ABKezelo.ProjektAlkatreszFelvitel(projekt);
+                ListaFrissit(projektLV, projekt.AlkatreszLista);
 
-           /* List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
-            foreach (ListViewItem item in keszletLV.SelectedItems)
+            }
+        }
+
+        private void ProjektAlkatreszDarabszamBeallit(List<Keszlet> melyikAlkatreszeket)
+        {/*
+          * ki kell keresni a projektből a beállított alkatrészt és összehasonlítani a duplikáltakkal
+          * 
+          * */
+          
+            List<Keszlet> AlkatreszKeszlet = new List<Keszlet>();
+            Keszlet keresett;
+            foreach (Keszlet projektAlkatresz in projekt.AlkatreszLista)
+            {
+                keresett = ABKezelo.KeszletKeres(projektAlkatresz.Alkatresz);
+
+                if (melyikAlkatreszeket.Count != 0 && melyikAlkatreszeket.Contains(projektAlkatresz))
+                {
+                    foreach (Keszlet item in melyikAlkatreszeket)
+                    {
+                        if (item.DarabSzam > projektAlkatresz.DarabSzam)  
+                        {
+                            float korrekcio = item.DarabSzam - projektAlkatresz.DarabSzam;
+                            //keszlethez hozzaad, projekttol elvesz
+                        }
+                        else 
+                        {
+                            float korrekcio = projektAlkatresz.DarabSzam - item.DarabSzam;
+                            //keszletbol elvesz projekthez hozzaad
+                        }
+                    }
+                    ABKezelo.ProjektAlkatreszModositas(projekt, projektAlkatresz);
+                    
+                    //felülír és darabszámot csökkent/növel a készletben
+                    ABKezelo.KeszletModositas()  // ???
+                }
+                else
+                {
+                    //át kell dolgozni hogy az alkatrészt külön vigye fel eggyessével ne pedig listában, így ami már megvan az frissül fentébb
+                    //a készletből ki kell vonni a projektbe felvitt darabszámot!
+                    ABKezelo.ProjektAlkatreszFelvitel(projekt);
+
+                }
+                
+                ABKezelo.ProjektAlkatreszModositas(projekt, item);
+              
+            }
+        }
+
+        /// <summary>
+        /// A metódus a forrás listából az elemeket a cél listához adja.
+        /// Amennyiben duplikálció lép fel, akkor egy üzenetabllak rákérdez, hogy akarod e módosítani a duplikált elemekek darabszámát az új elemek hozzáadásakor (return), vagy nem, ezesetben a forráslistából eltávolítja a duplikált elemeket.
+        /// </summary>
+        /// <param name="celLista">Cél lista, ahová az új alkatrészeket kell hozzáadni</param>
+        /// <param name="forrasLista">A hozzáadni kívánt alkatrészek forrás listája</param>
+        /// <returns>A duplikált elemek listája, amik már benne vannak a cél listában</returns>
+        private List<Keszlet> DuplaAlkatreszSzeparator(List<Keszlet> forrasLista, List<Keszlet> celLista)
+        {
+            List<Keszlet> duplikalt = new List<Keszlet>();
+            foreach (Keszlet item in forrasLista)
+            {
+                if (celLista.Contains(item))
+                {
+                    duplikalt.Add(item);
+                }
+            }
+            if (duplikalt.Count > 0 && MessageBox.Show("A kiválasztott alkatrészek közzül már van a listában!\n\rSzeretné azokat az alkatrészeket módosítani?\n\rAmennyiben a Nem-re kattint a duplikált elemeket kiveszem a listából!", "Figyelem duplikáció!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                foreach (Keszlet alkatresz in duplikalt)
+                {
+                    forrasLista.Remove(alkatresz);
+                }
+            }
+            return duplikalt;
+        }
+
+
+        private void ListabaTesz(List<Keszlet> honnan, List<Keszlet> hova)
+        {
+            hova.Clear();
+            foreach (Keszlet item in honnan)
+            {
+                if (item.DarabSzam > 0)
+                {
+                    hova.Add(item);
+                }
+            }
+        }
+        private List<Keszlet> EgyDarabosListaEllenorzes(List<Keszlet> melyikListan)
+        {
+            List<Keszlet> egyDarabosLista = new List<Keszlet>();
+            foreach (Keszlet item in melyikListan)
+            {
+                if (item.DarabSzam == 1)
+                {
+                    egyDarabosLista.Add(item);
+                }
+            }
+            return egyDarabosLista;
+        }
+        private void DarabSzamBeallit(List<Keszlet> melyikAlkatreszListan)
+        {
+            if (melyikAlkatreszListan.Count == 0) return;
+
+            AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(melyikAlkatreszListan);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                return;
+            }
+            melyikAlkatreszListan.Clear();
+
+        } //OK!
+        private List<Keszlet> ListViewElemekbolAlkatreszLista(ListView.SelectedListViewItemCollection kivalasztottElemek, List<Keszlet> melyikListabol)
+        {
+            List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
+            foreach (ListViewItem item in kivalasztottElemek)
             {
                 string parameterek = item.SubItems[6].Text;
-                foreach (Keszlet keszletElem in keszletLista)
+                float darabSzam = float.Parse(item.SubItems[2].Text.Remove((item.SubItems[2].Text.Length - 3)));
+                foreach (Keszlet alkatreszelem in melyikListabol)
                 {
-                    string str = keszletElem.Alkatresz.ToString();
-                    if (str == parameterek && keszletElem.DarabSzam > 0)
+                    string str = alkatreszelem.Alkatresz.ToString();
+                    if (str == parameterek && alkatreszelem.DarabSzam > 0)
                     {
-                        Keszlet ujKeszlet = new Keszlet(keszletElem.KeszletId, 1, keszletElem.DarabAr, keszletElem.Megjegyzes, keszletElem.Alkatresz);
-                        if (!projekt.AlkatreszLista.Contains(ujKeszlet))
+                        Keszlet ujKeszlet = new Keszlet(alkatreszelem.KeszletId, darabSzam, alkatreszelem.DarabAr, alkatreszelem.Megjegyzes, alkatreszelem.Alkatresz);
+                        //    if (!projekt.AlkatreszLista.Contains(ujKeszlet))
                         {
                             kivalasztottAlkatreszek.Add(ujKeszlet);
                         }
                     }
                 }
-            }*/
-
-            DarabSzamBeallit(ListViewElemekbolAlkatreszLista(keszletLV.SelectedItems,keszletLista));
-            ListaFrissit(projektLV, projekt.AlkatreszLista);
-        }
-
-        private void DarabSzamBeallit(List<Keszlet> alkatreszLista)
-        {
-            AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(alkatreszLista);
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                foreach (Keszlet beallitottAlkatresz in frm.Alkatreszek)
-                {
-                    if (!projekt.AlkatreszLista.Contains(beallitottAlkatresz))
-                    {
-                        projekt.AlkatreszLista.Add(beallitottAlkatresz);
-                    }
-                }
-                ABKezelo.ProjektAlkatreszFelvitel(projekt);
             }
-        } //OK!
+            return kivalasztottAlkatreszek;
+        }
         #endregion
         private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
         {
@@ -328,42 +411,50 @@ namespace EKNyilvantarto
             {
                 MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
         private void KilepesTSMI_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void projektLV_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (projektLV.SelectedItems!=null)
+            if (projektLV.SelectedItems != null)
             {
                 ;
-                AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems,projekt.AlkatreszLista));
+                AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista));
             }
         }
-
-        private List<Keszlet> ListViewElemekbolAlkatreszLista(ListView.SelectedListViewItemCollection kivalasztottElemek,List<Keszlet> alkatreszLista)
+        private void prjAlkatreszModosit_Click(object sender, EventArgs e)
         {
-            List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
-            foreach (ListViewItem item in kivalasztottElemek)
+            if (projektLV.SelectedItems == null) { return; }
+            List<Keszlet> modositandoAlkatreszek = ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista);
+            DarabSzamBeallit(modositandoAlkatreszek);
+            foreach (Keszlet eredeti in projekt.AlkatreszLista)
             {
-                string parameterek = item.SubItems[6].Text;
-                foreach (Keszlet alkatreszelem in alkatreszLista)
+                foreach (Keszlet modositott in modositandoAlkatreszek)
                 {
-                    string str = alkatreszelem.Alkatresz.ToString();
-                    if (str == parameterek && alkatreszelem.DarabSzam > 0)
+                    if (modositott.Alkatresz.Equals(eredeti.Alkatresz))
                     {
-                        Keszlet ujKeszlet = new Keszlet(alkatreszelem.KeszletId, 1, alkatreszelem.DarabAr, alkatreszelem.Megjegyzes, alkatreszelem.Alkatresz);
-                        if (!projekt.AlkatreszLista.Contains(ujKeszlet))
-                        {
-                            kivalasztottAlkatreszek.Add(ujKeszlet);
-                        }
+                        eredeti.DarabSzam = modositott.DarabSzam;
                     }
                 }
             }
-            return kivalasztottAlkatreszek;
+            ListaFrissit(projektLV, projekt.AlkatreszLista);
+        }
+
+        private void prjAlkatreszTorolBtn_Click(object sender, EventArgs e)
+        {
+            if (projektLV.SelectedItems.Count > 0 && MessageBox.Show("Biztos törölni akarod a kiválasztott alkatrészeket, a projekt alkatrész listájáról?", "Biztos törlöd?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                List<Keszlet> torlendoLista = ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista);
+                foreach (Keszlet alkatresz in torlendoLista)
+                {
+                    ABKezelo.ProjektAlkatreszTorles((int)projekt.ProjektAzonosito, (int)alkatresz.KeszletId);
+                    projekt.AlkatreszLista.Remove(alkatresz);
+                }
+                ListaFrissit(projektLV, projekt.AlkatreszLista);
+            }
         }
     }
 }

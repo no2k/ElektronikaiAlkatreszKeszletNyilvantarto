@@ -78,7 +78,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         }
         public bool Equals(Alkatresz other)
         {
-            if (parameterek.Equals(other))
+            if (parameterek.Equals(other.Parameterek))
             {
                 return true;
             }

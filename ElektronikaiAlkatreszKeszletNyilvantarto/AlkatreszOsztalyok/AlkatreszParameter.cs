@@ -64,7 +64,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
 
         public bool Equals(AlkatreszParameter other)
         {
-            if (parameterSorszam == other.parameterSorszam &&
+            if (/*parameterSorszam == other.parameterSorszam &&*/
                 parameterErtek == other.parameterErtek &&
                 parameterMertekegyseg == other.parameterMertekegyseg)
             {

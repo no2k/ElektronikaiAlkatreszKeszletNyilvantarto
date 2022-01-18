@@ -11,15 +11,15 @@ namespace EKNyilvantarto
         public ProjektFul()
         {
             InitializeComponent();
+           
         }
 
         private string projektNeve;
         private string projektLeiras;
         private Image prjIkon;
-        private Color hatterSzinMH;
-        private Color hatterSzinMO;
-        private Color hatterSzinAktiv;
-        private Color hatterSzinInaktiv;
+       // private Color hatterSzinKijelolt;
+        private Color hatterSzinEgerAlatt;
+        private Color alapHatterSzin;
 
         [Category("Projekt név")]
         public string Megnevezes
@@ -48,59 +48,38 @@ namespace EKNyilvantarto
             }
         }
 
-        [Category("Háttérszín (egér fölé)")]
-        public Color HatterSzinMH
+        [Category("Háttérszín(egér alatt)")]
+        public Color HatterSzinEgerAlatt
         {
-            get { return hatterSzinMH; }
-            set { hatterSzinMH = value; }
+            get { return hatterSzinEgerAlatt; }
+            set { hatterSzinEgerAlatt = value; }
         }
 
-        [Category("Háttérszín (egér kívül)")]
-        public Color HatterSzinMO
+        [Category("Alap háttérszín")]
+        public Color AlapHatterSzin
         {
-            get { return hatterSzinMO; }
-            set { hatterSzinMO = value; }
+            get { return alapHatterSzin; }
+            set { alapHatterSzin = value; }
+        }
+
+       
+        private void ProjektFul_MouseClick(object sender, MouseEventArgs e)
+        {
+            Clicked?.Invoke(this, EventArgs.Empty);
+            BackColor = alapHatterSzin;
         }
 
         private void ProjektFul_MouseHover(object sender, EventArgs e)
         {
-            this.BackColor = hatterSzinMH;
+            BackColor = hatterSzinEgerAlatt;
+            
         }
 
         private void ProjektFul_MouseLeave(object sender, EventArgs e)
         {
-            this.BackColor = hatterSzinMO;
+            BackColor = alapHatterSzin;
         }
 
-        [Category("Háttérszín Aktiv")]
-        public Color HatterSzinAktiv
-        {
-            get { return hatterSzinAktiv; }
-            set { hatterSzinAktiv = value; }
-        }
-
-
-        [Category("Háttérszín Inaktív")]
-        public Color HatterSzinInaktiv
-        {
-            get { return hatterSzinInaktiv; }
-            set { hatterSzinInaktiv = value; }
-        }
-
-        private void ProjektFul_DoubleClick(object sender, EventArgs e)
-        {
-            this.BackColor = hatterSzinAktiv;
-
-        }
-
-        private void ProjektFul_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.BackColor = hatterSzinAktiv;
-        }
-
-        private void ProjektFul_MouseClick(object sender, MouseEventArgs e)
-        {
-            Clicked?.Invoke(this, EventArgs.Empty);
-        }
+        
     }
 }

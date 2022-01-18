@@ -269,6 +269,12 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Paraméter lista módosítási hiba az adatbázisban!" + ex.Message, ex);
             }
         } //OK
+
+        internal static Keszlet KeszletKeres(Alkatresz alkatresz)
+        {
+            throw new NotImplementedException();
+        }
+
         public static int ParameterDefTores(Kategoria honnan, ParameterDef mit)
         {
             try
@@ -446,16 +452,19 @@ namespace EKNyilvantarto
                 throw;
             }
         }
-        public static void AlkatreszTorles(Keszlet alkatreszTorol)
+        public static void ProjektAlkatreszTorles(int projektId,int alkatreszId)
         {
             try
             {
-
+                parancs.Parameters.Clear();
+                parancs.CommandText = "DELETE FROM [Prj_Alkatresz] WHERE [PROJEKT_ID]=@projektId AND [ALKATRESZ_ID]=@alkatreszId";
+                parancs.Parameters.AddWithValue("@projektId", projektId);
+                parancs.Parameters.AddWithValue("@alkatreszId", alkatreszId);
+                parancs.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new ABKivetel("Hiba a projekt alkatrész adatbázisból való törlése közben!",ex);
             }
         }
         public static Alkatresz AlkatresztLekerdez(Kategoria kategoria, int alkatreszId)
@@ -807,31 +816,26 @@ namespace EKNyilvantarto
                         "INNER JOIN [Alkatresz] AS A ON A.[ALKATRESZ_ID]=PA.[ALKATRESZ_ID]" +
                         "LEFT JOIN [Kategoria] AS K ON K.[KATEGORIA_ID]= P.[KATEGORIA_ID] " +
                            "WHERE PA.[PROJEKT_ID]= @projektId";
-             
-                
                 parancs.Parameters.AddWithValue("@projektId", projekt.ProjektAzonosito);
                 projekt.AlkatreszLista.Clear();
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
                     int alkatreszId = -1;
                     List<AlkatreszParameter> parameterek = new List<AlkatreszParameter>();
-                    //int alkatreszId = 0; 
-                       float darabszam = 0;        
-                        float darabar = 0;        
-                      int kategoriaId = 0;                  
-                       string kategoria= string.Empty;                 
-                       string megnevezes = string.Empty;                
-                                      
+                    float darabszam = 0;
+                    float darabar = 0;
+                    int kategoriaId = 0;
+                    string kategoria = string.Empty;
+                    string megnevezes = string.Empty;
                     while (reader.Read())
                     {
-                        darabszam =float.Parse( reader["DARABSZAM"].ToString());
-                        darabar = float.Parse(reader["DARAB_AR"].ToString()) ;
-                        kategoriaId = (int)reader["KATEGORIA_ID"]; 
+                        darabszam = float.Parse(reader["DARABSZAM"].ToString());
+                        darabar = float.Parse(reader["DARAB_AR"].ToString());
+                        kategoriaId = (int)reader["KATEGORIA_ID"];
                         kategoria = reader["KATEGORIA"].ToString();
                         megnevezes = reader["MEGNEVEZES"].ToString();
-
                         int id_ = (int)reader["ALKATRESZ_ID"];
-                        if (alkatreszId == id_ || alkatreszId==-1)
+                        if (alkatreszId == id_ || alkatreszId == -1)
                         {
                             parameterek.Add(new AlkatreszParameter(
                                 (int)reader["PARAMETER_SORSZAM"],
@@ -844,34 +848,20 @@ namespace EKNyilvantarto
                                new Keszlet(alkatreszId, darabszam, darabar, "",
                                new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
                                new List<AlkatreszParameter>(parameterek))));
-                            /*   projekt.AlkatreszLista.Add(
-                                   new Keszlet(
-                                       (int)reader["ALKATRESZ_ID"],
-                                       (float)reader["DARABSZAM"],
-                                       (float)reader["DARAB_AR"], "",
-                                       new Alkatresz(
-                                           (int)reader["ALKATRESZ_ID"], 
-                                           new Kategoria((int)reader["KATEGORIA_ID"], 
-                                           reader["KATEGORIA"].ToString()),
-                                           reader["MEGNEVEZES"].ToString(),
-                                           new List<AlkatreszParameter>(parameterek))));*/
                             parameterek.Clear();
                             parameterek.Add(new AlkatreszParameter(
                                (int)reader["PARAMETER_SORSZAM"],
                                reader["PARAMETER_ERTEK"].ToString(),
                                reader["PARAMETER_MERTEKEGYSEG"].ToString()));
-                            //alkatreszId = (int)reader["ALKATRESZ_ID"];
-
                         }
                         alkatreszId = (int)reader["ALKATRESZ_ID"];
                     }
-                   if (parameterek.Count>0 )
+                    if (parameterek.Count > 0)
                     {
-
-                    projekt.AlkatreszLista.Add(
-                                new Keszlet(alkatreszId,darabszam,darabar,"", 
-                                new Alkatresz(alkatreszId,new Kategoria(kategoriaId,kategoria),megnevezes,
-                                new List<AlkatreszParameter>(parameterek))));
+                        projekt.AlkatreszLista.Add(
+                                    new Keszlet(alkatreszId, darabszam, darabar, "",
+                                    new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
+                                    new List<AlkatreszParameter>(parameterek))));
                     }
                     reader.Close();
                 }
@@ -883,7 +873,7 @@ namespace EKNyilvantarto
         }
         public static bool VanIlyenProjekt(string projektNev)
         {
-            if (UtolsoProjektAzonosito()<1)
+            if (UtolsoProjektAzonosito() < 1)
             {
                 return false;
             }
@@ -891,9 +881,9 @@ namespace EKNyilvantarto
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "SELECT [PROJEKT_ID] FROM [Projekt] WHERE [Projekt].[MEGNEVEZES]=@megnevezes";
-                parancs.Parameters.AddWithValue("@megnevezes",projektNev);
+                parancs.Parameters.AddWithValue("@megnevezes", projektNev);
                 int? id = (int?)parancs.ExecuteScalar();
-                if (id!=null)
+                if (id != null)
                 {
                     return true;
                 }
@@ -901,10 +891,47 @@ namespace EKNyilvantarto
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Hiba a projekt azonosításának lekérdezése közben!",ex);
+                throw new ABKivetel("Hiba a projekt azonosításának lekérdezése közben!", ex);
             }
         }  //OK!
         #endregion
 
+
+
+
+        internal static void ProjektAlkatreszModositas(Projekt hol, Keszlet mit)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Keszlet AlkatreszKeres(Alkatresz alkatresz)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT *";
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
+            }
+        }
+
+        internal static Keszlet AlkatreszKeres(string parameter)
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
+            }
+        }
+
+        internal static void KeszletModositas(Keszlet item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
