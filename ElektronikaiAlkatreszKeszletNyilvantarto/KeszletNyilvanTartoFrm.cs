@@ -242,61 +242,59 @@ namespace EKNyilvantarto
             ProjektAlkatreszDarabszamBeallit(beallitani);
             if (atrakniKivantAlkatreszek.Count > 0)
             {
-                ListabaTesz(atrakniKivantAlkatreszek, projekt.AlkatreszLista);
-                //    ABKezelo.ProjektAlkatreszFelvitel(projekt);
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
 
+                ListaFrissit(keszletLV, keszletLista);
             }
         }
 
         private void ProjektAlkatreszDarabszamBeallit(List<Keszlet> melyikAlkatreszeket)
-        {/*
-          * ki kell keresni a projektből a beállított alkatrészt és összehasonlítani a duplikáltakkal
-          * 
-          * */
-          
-            List<Keszlet> AlkatreszKeszlet = new List<Keszlet>();
+        {
             Keszlet keresett;
             foreach (Keszlet projektAlkatresz in projekt.AlkatreszLista)
             {
                 keresett = ABKezelo.KeszletKeres(projektAlkatresz.Alkatresz);
-
                 if (melyikAlkatreszeket.Count != 0 && melyikAlkatreszeket.Contains(projektAlkatresz))
                 {
                     foreach (Keszlet item in melyikAlkatreszeket)
                     {
-                        if (item.DarabSzam > projektAlkatresz.DarabSzam)  
+                        if (item.Alkatresz.Parameterek == projektAlkatresz.Alkatresz.Parameterek)
                         {
-                            float korrekcio = item.DarabSzam - projektAlkatresz.DarabSzam;
-                            //keszlethez hozzaad, projekttol elvesz
-                        }
-                        else 
-                        {
-                            float korrekcio = projektAlkatresz.DarabSzam - item.DarabSzam;
-                            //keszletbol elvesz projekthez hozzaad
+                            if (item.DarabSzam > projektAlkatresz.DarabSzam)
+                            {
+                                float korrekcio = item.DarabSzam - projektAlkatresz.DarabSzam;
+                                projektAlkatresz.DarabSzam = item.DarabSzam;
+                                keresett.DarabSzam -= korrekcio;
+                                ABKezelo.KeszletModositas(keresett);
+                                ABKezelo.ProjektAlkatreszModositas((int)projekt.ProjektAzonosito, projektAlkatresz);
+                            }
+                            else
+                            {
+                                float korrekcio = projektAlkatresz.DarabSzam - item.DarabSzam;
+                                keresett.DarabSzam += korrekcio;
+                                ABKezelo.KeszletModositas(keresett);
+                                ABKezelo.ProjektAlkatreszModositas((int)projekt.ProjektAzonosito, projektAlkatresz);
+                            }
+                            //    keszletLista.FirstOrDefault(x => x.Alkatresz.Equals(keresett.Alkatresz)).DarabSzam = keresett.DarabSzam;
                         }
                     }
-                    ABKezelo.ProjektAlkatreszModositas(projekt, projektAlkatresz);
-                    
-                    //felülír és darabszámot csökkent/növel a készletben
-                    ABKezelo.KeszletModositas()  // ???
                 }
                 else
                 {
-                    //át kell dolgozni hogy az alkatrészt külön vigye fel eggyessével ne pedig listában, így ami már megvan az frissül fentébb
-                    //a készletből ki kell vonni a projektbe felvitt darabszámot!
-                    ABKezelo.ProjektAlkatreszFelvitel(projekt);
-
+                    ABKezelo.ProjektAlkatreszModositas((int)projekt.ProjektAzonosito, projektAlkatresz);
+                    keresett.DarabSzam -= projektAlkatresz.DarabSzam;
+                    ABKezelo.KeszletModositas(keresett);
+                    ABKezelo.ProjektAlkatreszFelvitel((int)projekt.ProjektAzonosito, projektAlkatresz);
                 }
-                
-                ABKezelo.ProjektAlkatreszModositas(projekt, item);
-              
+                keszletLista.FirstOrDefault(x => x.Alkatresz.Equals(keresett.Alkatresz)).DarabSzam = keresett.DarabSzam;
             }
+            ListaFrissit(keszletLV, keszletLista);
+            ListaFrissit(projektLV, projekt.AlkatreszLista);
         }
 
         /// <summary>
         /// A metódus a forrás listából az elemeket a cél listához adja.
-        /// Amennyiben duplikálció lép fel, akkor egy üzenetabllak rákérdez, hogy akarod e módosítani a duplikált elemekek darabszámát az új elemek hozzáadásakor (return), vagy nem, ezesetben a forráslistából eltávolítja a duplikált elemeket.
+        /// Amennyiben duplikálció lép fel, akkor egy üzenetablak rákérdez, hogy akarod e módosítani a duplikált elemek darabszámát az új elemek hozzáadásakor (returns), vagy nem, ezesetben a forráslistából eltávolítja a duplikált elemeket.
         /// </summary>
         /// <param name="celLista">Cél lista, ahová az új alkatrészeket kell hozzáadni</param>
         /// <param name="forrasLista">A hozzáadni kívánt alkatrészek forrás listája</param>
@@ -310,6 +308,10 @@ namespace EKNyilvantarto
                 {
                     duplikalt.Add(item);
                 }
+                else
+                {
+                    celLista.Add(item);
+                }
             }
             if (duplikalt.Count > 0 && MessageBox.Show("A kiválasztott alkatrészek közzül már van a listában!\n\rSzeretné azokat az alkatrészeket módosítani?\n\rAmennyiben a Nem-re kattint a duplikált elemeket kiveszem a listából!", "Figyelem duplikáció!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
@@ -321,30 +323,6 @@ namespace EKNyilvantarto
             return duplikalt;
         }
 
-
-        private void ListabaTesz(List<Keszlet> honnan, List<Keszlet> hova)
-        {
-            hova.Clear();
-            foreach (Keszlet item in honnan)
-            {
-                if (item.DarabSzam > 0)
-                {
-                    hova.Add(item);
-                }
-            }
-        }
-        private List<Keszlet> EgyDarabosListaEllenorzes(List<Keszlet> melyikListan)
-        {
-            List<Keszlet> egyDarabosLista = new List<Keszlet>();
-            foreach (Keszlet item in melyikListan)
-            {
-                if (item.DarabSzam == 1)
-                {
-                    egyDarabosLista.Add(item);
-                }
-            }
-            return egyDarabosLista;
-        }
         private void DarabSzamBeallit(List<Keszlet> melyikAlkatreszListan)
         {
             if (melyikAlkatreszListan.Count == 0) return;
@@ -367,7 +345,7 @@ namespace EKNyilvantarto
                 foreach (Keszlet alkatreszelem in melyikListabol)
                 {
                     string str = alkatreszelem.Alkatresz.ToString();
-                    if (str == parameterek && alkatreszelem.DarabSzam > 0)
+                    if (str == parameterek /*&& alkatreszelem.DarabSzam > 0*/)
                     {
                         Keszlet ujKeszlet = new Keszlet(alkatreszelem.KeszletId, darabSzam, alkatreszelem.DarabAr, alkatreszelem.Megjegyzes, alkatreszelem.Alkatresz);
                         //    if (!projekt.AlkatreszLista.Contains(ujKeszlet))
@@ -380,6 +358,7 @@ namespace EKNyilvantarto
             return kivalasztottAlkatreszek;
         }
         #endregion
+
         private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
         {
             Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
@@ -428,18 +407,21 @@ namespace EKNyilvantarto
         private void prjAlkatreszModosit_Click(object sender, EventArgs e)
         {
             if (projektLV.SelectedItems == null) { return; }
+            Keszlet keresett;
             List<Keszlet> modositandoAlkatreszek = ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista);
             DarabSzamBeallit(modositandoAlkatreszek);
-            foreach (Keszlet eredeti in projekt.AlkatreszLista)
+            foreach (Keszlet modositott in modositandoAlkatreszek)
             {
-                foreach (Keszlet modositott in modositandoAlkatreszek)
+                keresett = ABKezelo.KeszletKeres(modositott.Alkatresz);
+
+                if (modositott.Alkatresz.Equals(keresett.Alkatresz))
                 {
-                    if (modositott.Alkatresz.Equals(eredeti.Alkatresz))
-                    {
-                        eredeti.DarabSzam = modositott.DarabSzam;
-                    }
+                    keresett.DarabSzam -= modositott.DarabSzam;
+                    ABKezelo.KeszletModositas(keresett);
+                    keszletLista.FirstOrDefault(x => x.Alkatresz.Equals(keresett.Alkatresz)).DarabSzam = keresett.DarabSzam;
                 }
             }
+            ListaFrissit(keszletLV, keszletLista);
             ListaFrissit(projektLV, projekt.AlkatreszLista);
         }
 
@@ -447,14 +429,43 @@ namespace EKNyilvantarto
         {
             if (projektLV.SelectedItems.Count > 0 && MessageBox.Show("Biztos törölni akarod a kiválasztott alkatrészeket, a projekt alkatrész listájáról?", "Biztos törlöd?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                Keszlet keresett;
                 List<Keszlet> torlendoLista = ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista);
                 foreach (Keszlet alkatresz in torlendoLista)
                 {
+                    keresett = ABKezelo.KeszletKeres(alkatresz.Alkatresz);
+                    keresett.DarabSzam += alkatresz.DarabSzam;
+                    ABKezelo.KeszletModositas(keresett);
                     ABKezelo.ProjektAlkatreszTorles((int)projekt.ProjektAzonosito, (int)alkatresz.KeszletId);
                     projekt.AlkatreszLista.Remove(alkatresz);
+
+                    keszletLista.FirstOrDefault(x => x.Alkatresz.Equals(keresett.Alkatresz)).DarabSzam = keresett.DarabSzam;
                 }
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
+                ListaFrissit(keszletLV, keszletLista);
+
             }
         }
+
+        private void keszletAlkatreszModositBtn_Click(object sender, EventArgs e)
+        {
+            if (keszletLV.SelectedItems == null) { return; }
+            List<Keszlet> modositandoAlkatreszek = ListViewElemekbolAlkatreszLista(keszletLV.SelectedItems, keszletLista);
+            DarabSzamBeallit(modositandoAlkatreszek);
+            foreach (Keszlet eredeti in keszletLista)
+            {
+                foreach (Keszlet modositott in modositandoAlkatreszek)
+                {
+                    if (modositott.Alkatresz.Equals(eredeti.Alkatresz))
+                    {
+                        eredeti.DarabSzam = modositott.DarabSzam;
+
+                        ABKezelo.KeszletModositas(eredeti);
+                    }
+                }
+            }
+            ListaFrissit(keszletLV, keszletLista);
+        }
     }
+
 }

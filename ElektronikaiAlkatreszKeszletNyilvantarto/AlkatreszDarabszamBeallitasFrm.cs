@@ -67,7 +67,7 @@ namespace EKNyilvantarto
                     DecimalPlaces = 2,
                     Value = (decimal)(float)alkatresz.DarabSzam,
                 };
-                nud.Maximum =(decimal)keresett.DarabSzam;
+                nud.Maximum =((decimal)keresett.DarabSzam==0)?2000: (decimal)keresett.DarabSzam;
                 lbl = new Label()
                 {
                     Parent = panel2,

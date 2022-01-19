@@ -363,6 +363,7 @@ namespace EKNyilvantarto
             this.keszletAlkatreszModositBtn.Size = new System.Drawing.Size(23, 22);
             this.keszletAlkatreszModositBtn.Text = "toolStripButton2";
             this.keszletAlkatreszModositBtn.ToolTipText = "Darabszám módosítása";
+            this.keszletAlkatreszModositBtn.Click += new System.EventHandler(this.keszletAlkatreszModositBtn_Click);
             // 
             // toolStripSeparator1
             // 

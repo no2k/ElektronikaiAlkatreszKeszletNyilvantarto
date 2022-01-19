@@ -152,7 +152,7 @@ namespace EKNyilvantarto
         #endregion
 
         #region Parameter definíciós kapcsolatok 
-        public static void UjParameterDefLista(Kategoria hova, ParameterDefLista miket)
+      /*  public static void UjParameterDefLista(Kategoria hova, ParameterDefLista miket)
         {
             try
             {
@@ -188,7 +188,8 @@ namespace EKNyilvantarto
                 }
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
-        } //OK
+        }*/ 
+        //OK 
         public static void UjParameterDef(Kategoria hova, ParameterDef mit)
         {
             try
@@ -206,8 +207,8 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
-        } //OK
-        public static void ParameterDefModositas(Kategoria hol, ParameterDef melyiket)
+        }   //OK
+       /* public static void ParameterDefModositas(Kategoria hol, ParameterDef melyiket)
         {
             try
             {
@@ -229,8 +230,8 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Paraméter módosítási hiba az adatbázisban!" + ex.Message, ex);
             }
-        }  //OK
-        public static void ParameterDefListaModositas(Kategoria hol, List<ParameterDef> miket)
+        }  */ //OK
+        /* public static void ParameterDefListaModositas(Kategoria hol, List<ParameterDef> miket)
         {
             try
             {
@@ -268,12 +269,8 @@ namespace EKNyilvantarto
                 }
                 throw new ABKivetel("Paraméter lista módosítási hiba az adatbázisban!" + ex.Message, ex);
             }
-        } //OK
+        }  */ //OK
 
-        internal static Keszlet KeszletKeres(Alkatresz alkatresz)
-        {
-            throw new NotImplementedException();
-        }
 
         public static int ParameterDefTores(Kategoria honnan, ParameterDef mit)
         {
@@ -340,7 +337,7 @@ namespace EKNyilvantarto
         #endregion
 
         #region Parameterek kapcsolatok
-        private static List<AlkatreszParameter> ParameterListaLekerdez(Kategoria kategoria, int parameterId)
+       /* private static List<AlkatreszParameter> ParameterListaLekerdez(Kategoria kategoria, int parameterId)
         {
             try
             {
@@ -369,7 +366,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Sikertelen paraméter(ek) beolvasás az adatbázisból" + ex.Message);
             }
-        }  //OK!
+        }  */ //OK! 
 
         #endregion
 
@@ -440,7 +437,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen alkatrész felvitel az adatbázisba! \r\n\t {ex.Message}");
             }
         } //OK!
-        public static void AlkatreszModositas(Keszlet alkatreszModosit)
+       /* public static void AlkatreszModositas(Keszlet alkatreszModosit)
         {
             try
             {
@@ -451,23 +448,9 @@ namespace EKNyilvantarto
 
                 throw;
             }
-        }
-        public static void ProjektAlkatreszTorles(int projektId,int alkatreszId)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "DELETE FROM [Prj_Alkatresz] WHERE [PROJEKT_ID]=@projektId AND [ALKATRESZ_ID]=@alkatreszId";
-                parancs.Parameters.AddWithValue("@projektId", projektId);
-                parancs.Parameters.AddWithValue("@alkatreszId", alkatreszId);
-                parancs.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hiba a projekt alkatrész adatbázisból való törlése közben!",ex);
-            }
-        }
-        public static Alkatresz AlkatresztLekerdez(Kategoria kategoria, int alkatreszId)
+        }  */
+
+       /* public static Alkatresz AlkatresztLekerdez(Kategoria kategoria, int alkatreszId)
         {
             try
             {
@@ -491,8 +474,9 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba az alkatrész paraméterek lekérdezése közben" + ex.Message);
             }
-        }
-        private static Alkatresz AlkatreszLekerdezAlkatreszIdAlapjan(int id)
+        }*/
+
+      /*  private static Alkatresz AlkatreszLekerdezAlkatreszIdAlapjan(int id)
         {
             try
             {
@@ -519,7 +503,8 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba az alkatrész paraméterek lekérdezése közben" + ex.Message);
             }
-        }
+        }  */
+
         private static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
             List<Alkatresz> alkatreszLista = new List<Alkatresz>();
@@ -633,7 +618,6 @@ namespace EKNyilvantarto
                         }
                     }
                     reader.Close();
-
                 }
                 return keszletLista;
             }
@@ -641,20 +625,53 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hibás készlet beolvasás az adatbázisból!" + ex.Message);
             }
-        }
-
-        public static int UtolsoKeszletId()
+        }  //OK!
+        internal static Keszlet KeszletKeres(Alkatresz alkatresz)
         {
             try
             {
-                return 0;
+                parancs.Parameters.Clear();
+                parancs.CommandText ="SELECT * FROM [Keszlet] WHERE [ALKATRESZ_ID]=@alkatreszId";
+                parancs.Parameters.AddWithValue("@alkatreszId",alkatresz.AlkatreszId);
+                using (SqlDataReader reader=parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if ((int)reader["KESZLET_ID"] > 0)
+                        {
+                           return new Keszlet(
+                                (int)reader["KESZLET_ID"], 
+                                float.Parse(reader["MENNYISEG"].ToString()), 
+                                float.Parse(reader["EGYSEGAR"].ToString()), 
+                                reader["MEGJEGYZES"].ToString(),
+                                alkatresz);
+                        }
+                    }
+                    reader.Close();
+                    return null;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new ABKivetel("Hiba az adatbázisban való alkatrész keresése közben!",ex);
             }
-        }
+        }  //OK!
+        internal static void KeszletModositas(Keszlet mit)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "UPDATE [Keszlet] SET [MENNYISEG]=@darabSzam WHERE [ALKATRESZ_ID]=@alkatreszId";
+                parancs.Parameters.AddWithValue("@darabSzam", mit.DarabSzam);
+                parancs.Parameters.AddWithValue("@alkatreszId", mit.Alkatresz.AlkatreszId);
+                parancs.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba az alkatrész adatainak frissítésekor, az adatbázisban!", ex);
+            }
+        }  //OK!
+       
         #endregion
 
         #region Projekt kapcsolatok
@@ -675,7 +692,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba a projekt adatbázisba történő létrehozásakor!", ex);
             }
-        }
+        }  //OK!
         public static void ProjektModositas(Projekt prjModosit)
         {
             try
@@ -691,8 +708,8 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba a projekt adatainak módosításakor, az adatbázisban!", ex);
             }
-        }
-        public static void ProjektStatusz(Projekt projekt, bool statusz)
+        }  //OK!
+        public static void ProjektStatuszBeallit(Projekt projekt, bool statusz)
         {
             try
             {
@@ -706,7 +723,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba a projekt státuszának módosításakor, az adatbázisban!", ex);
             }
-        }
+        }  //OK!
         public static void ProjektTorles(Projekt prjTorol)
         {
             try
@@ -735,7 +752,7 @@ namespace EKNyilvantarto
                 }
                 throw new ABKivetel("Sikertelen projekt törlés!", ex);
             }
-        }
+        }  //OK!
         public static List<Projekt> ProjektekLekerdez()
         {
             try
@@ -764,7 +781,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba a projektek adatbázisból való lekérdezésekor!", ex);
             }
-        }
+        }  //OK!
         public static int UtolsoProjektAzonosito()
         {
             try
@@ -778,29 +795,26 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel($"Sikertelen Projekt azonosító kiolvasás az adatbázisból! \r\n {ex.Message}");
             }
-        }
-        public static void ProjektAlkatreszFelvitel(Projekt projekt)
+        }  //OK!
+        public static void ProjektAlkatreszFelvitel(int projektId,Keszlet alkatresz)
         {
             try
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "INSERT INTO [Prj_Alkatresz] ([PROJEKT_ID],[ALKATRESZ_ID],[DARABSZAM],[DARAB_AR]) VALUES(@projektId,@alkatreszId,@darabSzam,@darabAr)";
-
-                foreach (Keszlet alkatresz in projekt.AlkatreszLista)
-                {
-                    parancs.Parameters.Clear();
-                    parancs.Parameters.AddWithValue("@projektId", projekt.ProjektAzonosito);
-                    parancs.Parameters.AddWithValue("@alkatreszId", alkatresz.Alkatresz.AlkatreszId);
+                   
+                    parancs.Parameters.AddWithValue("@projektId", projektId);
+                    parancs.Parameters.AddWithValue("@alkatreszId", alkatresz.Alkatresz.
+                        AlkatreszId);
                     parancs.Parameters.AddWithValue("@darabSzam", alkatresz.DarabSzam);
                     parancs.Parameters.AddWithValue("@darabAr", alkatresz.DarabAr);
                     parancs.ExecuteNonQuery();
-                }
             }
             catch (Exception ex)
             {
                 throw new ABKivetel("Hiba a projekt alkatrészeinek adatbázisba történő felvitele közben!", ex);
             }
-        }
+        }  //OK!
         public static void ProjektAlkatreszLekerdez(Projekt projekt)
         {
             try
@@ -870,7 +884,22 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba történt a projekt alkatrész adatbázisból való lekérdezése közben!", ex);
             }
-        }
+        }  //OK!
+        public static void ProjektAlkatreszTorles(int projektId,int alkatreszId)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "DELETE FROM [Prj_Alkatresz] WHERE [PROJEKT_ID]=@projektId AND [ALKATRESZ_ID]=@alkatreszId";
+                parancs.Parameters.AddWithValue("@projektId", projektId);
+                parancs.Parameters.AddWithValue("@alkatreszId", alkatreszId);
+                parancs.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba a projekt alkatrész adatbázisból való törlése közben!",ex);
+            }
+        }  //OK!
         public static bool VanIlyenProjekt(string projektNev)
         {
             if (UtolsoProjektAzonosito() < 1)
@@ -894,30 +923,40 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba a projekt azonosításának lekérdezése közben!", ex);
             }
         }  //OK!
-        #endregion
-
-
-
-
-        internal static void ProjektAlkatreszModositas(Projekt hol, Keszlet mit)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static Keszlet AlkatreszKeres(Alkatresz alkatresz)
+        internal static void ProjektAlkatreszModositas(int projektId, Keszlet mit)
         {
             try
             {
                 parancs.Parameters.Clear();
+                parancs.CommandText = "UPDATE [Prj_Alkatresz] SET [DARABSZAM]=@darabSzam WHERE[PROJEKT_ID]=@projektId AND [ALKATRESZ_ID]=@alkatreszId";
+                parancs.Parameters.AddWithValue("@darabSzam",mit.DarabSzam);
+                parancs.Parameters.AddWithValue("@projektId",projektId);
+                parancs.Parameters.AddWithValue("@alkatreszId",mit.Alkatresz.AlkatreszId);
+                parancs.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba a projekt alkatrész adatainak frissítésekor, az adatbázisban!",ex);
+            }
+        }  //OK!
+        #endregion
+
+      /*  internal static Keszlet AlkatreszKeres(Alkatresz alkatresz)
+        {
+            try
+            {
+                throw new NotImplementedException("Az alkatrész keresés még nincs megírva!");
+                parancs.Parameters.Clear();
                 parancs.CommandText = "SELECT *";
+               
             }
             catch (Exception ex)
             {
                 throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
             }
-        }
+        } */
 
-        internal static Keszlet AlkatreszKeres(string parameter)
+      /*  internal static Keszlet AlkatreszKeres(string parameter)
         {
             try
             {
@@ -927,11 +966,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
             }
-        }
+        }*/
 
-        internal static void KeszletModositas(Keszlet item)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
