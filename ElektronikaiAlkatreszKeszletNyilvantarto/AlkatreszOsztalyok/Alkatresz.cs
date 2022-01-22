@@ -76,7 +76,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return parameterString;
             //   return $"{parameterek.Select(x => x.ParameterErtek + x.ParameterMertekegyseg)}";
         }
-        public bool Equals(Alkatresz other)
+
+        bool IEquatable<Alkatresz>.Equals(Alkatresz other)
         {
             if (parameterek.Equals(other.Parameterek))
             {
@@ -84,6 +85,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             }
             return false;
         }
+
+
 
 
     }

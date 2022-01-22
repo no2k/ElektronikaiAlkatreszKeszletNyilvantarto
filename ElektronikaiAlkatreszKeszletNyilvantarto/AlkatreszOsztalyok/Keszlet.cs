@@ -90,7 +90,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return darabAr * darabSzam;
         }
 
-        bool IEquatable<Keszlet>.Equals(Keszlet other)
+        public bool Equals(Keszlet other)
         {
             if (alkatresz.Kategoria.KategoriaMegnevezes.ToLower() == other.alkatresz.Kategoria.KategoriaMegnevezes.ToLower() &&
                 alkatresz.Megnevezes.ToLower() == other.Alkatresz.Megnevezes.ToLower() &&

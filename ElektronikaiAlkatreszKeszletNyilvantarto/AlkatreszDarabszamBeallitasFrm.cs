@@ -15,6 +15,7 @@ namespace EKNyilvantarto
     {
         Keszlet keresett;
         List<Keszlet> alkatreszek = new List<Keszlet>();
+        int maxDarabszam;
         Point scrollPointPanel = new Point(0, 0);
         internal List<Keszlet> Alkatreszek
         {
@@ -46,6 +47,14 @@ namespace EKNyilvantarto
             Listazas();
         }
 
+        public AlkatreszDarabszamBeallitasFrm(List<Keszlet> alkatreszek,int maxDarabszam) : this()
+        {
+            this.alkatreszek = alkatreszek;
+            this.maxDarabszam = maxDarabszam;
+            Listazas();
+        }
+
+
         private void Listazas()
         {
             NumericUpDown nud;
@@ -55,7 +64,7 @@ namespace EKNyilvantarto
             int nudWidth = panel1.Width - 35;
             foreach (Keszlet alkatresz in alkatreszek)
             {
-                keresett= ABKezelo.KeszletKeres(alkatresz.Alkatresz);
+                keresett = ABKezelo.KeszletKeres(alkatresz.Alkatresz);
                 string alkatreszString = $"[{alkatresz.Alkatresz.Kategoria.KategoriaMegnevezes}]  {alkatresz.Alkatresz.Megnevezes}: {alkatresz.Alkatresz.ToString().Replace("\r", " ")}";
                 nud = new NumericUpDown()
                 {
@@ -65,9 +74,17 @@ namespace EKNyilvantarto
                     Width = nudWidth,
                     Name = alkatresz.KeszletId.ToString(),
                     DecimalPlaces = 2,
-                    Value = (decimal)(float)alkatresz.DarabSzam,
+                    
                 };
-                nud.Maximum =((decimal)keresett.DarabSzam==0)?2000: (decimal)keresett.DarabSzam;
+                if (maxDarabszam >0)
+                {
+                    nud.Maximum = (decimal)maxDarabszam;
+                }
+                else
+                {
+                    nud.Maximum = ((decimal)keresett.DarabSzam == 0) ? 2000 : (decimal)keresett.DarabSzam;
+                }
+                nud.Value = (decimal)(float)alkatresz.DarabSzam;
                 lbl = new Label()
                 {
                     Parent = panel2,
