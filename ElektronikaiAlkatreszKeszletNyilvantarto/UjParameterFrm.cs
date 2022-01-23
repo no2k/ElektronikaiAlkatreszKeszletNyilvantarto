@@ -39,14 +39,24 @@ namespace EKNyilvantarto
         public UjParameterFrm()
         {
             InitializeComponent();
-           // button3.Enabled = false;
+            // button3.Enabled = false;
         }
         public UjParameterFrm(Kategoria kategoria) : this()
         {
-           // InitializeComponent();
+            // InitializeComponent();
             button3.Enabled = false;
             if (kategoria != null)
             {
+                if (ABKezelo.VanMarIlyenKategoriavalAlkatresz(kategoria))
+                {
+                    MessageBox.Show("Ezekkel a paraméterekkel már van alkatrész felvéve az adatbázisba! A további helyes működés érdekében, a paraméterek módosítására nincs lehetőség!", "Figyelem!!!", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    listBox1.Enabled = false;
+                    button5.Enabled = false;
+                    button3.Enabled = false;
+                    button2.Enabled = false;
+                    button1.Enabled = false;
+                    panel1.Enabled = false;
+                }
                 this.kategoria = kategoria;
                 this.Text = $"Új {kategoria.KategoriaMegnevezes} paraméterek Hozzáadása";
                 label1.Text = kategoria.KategoriaMegnevezes + " paraméterek";
@@ -55,7 +65,7 @@ namespace EKNyilvantarto
                 {
                     lista = new List<ParameterDef>(betoltottLista.Parameterek);
                 }
-
+                button3.Enabled = false;
                 LbFrissit();
             }
         }
@@ -158,11 +168,13 @@ namespace EKNyilvantarto
                 {
                     if (kivalasztottParameter != null && ujParameter.ParameterSorszam == kivalasztottParameter.ParameterSorszam)
                     {
-                        lista.Remove(kivalasztottParameter);
+                        int index = lista.IndexOf(kivalasztottParameter);
+                        lista[index] = ujParameter;
                     }
-                    lista.Add(ujParameter);
-                    MegnevezesTbx.Clear();
-                    MertekEgysegTxb.Clear();
+                    else
+                    {
+                        lista.Add(ujParameter);
+                    }
                     LbFrissit();
                 }
                 else
@@ -179,8 +191,18 @@ namespace EKNyilvantarto
         {
             if (lista.Count > 0)
             {
-                ParameterekTorles(kategoria, betoltottLista.Parameterek);
-                ParameterHozzaAd(kategoria, ParameterekListaFrissit(lista));
+                if (betoltottLista != null)
+                {
+                    ParameterModositas();
+                }
+                else
+                {
+                    foreach (ParameterDef item in lista)
+                    {
+                        ABKezelo.UjParameterDef(kategoria, item);
+                    }
+
+                }
             }
             else
             {
@@ -195,34 +217,52 @@ namespace EKNyilvantarto
                 }
             }
         }
-        private void ParameterekTorles(Kategoria kategoria, List<ParameterDef> parameterek)
+
+        private void ParameterModositas()
         {
-            foreach (ParameterDef item in parameterek)
+            if (betoltottLista.Parameterek.Count < lista.Count)
             {
-                ABKezelo.ParameterDefTores(kategoria, item);
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    if (i < betoltottLista.Parameterek.Count)
+                    {
+                        foreach (ParameterDef betoltott in betoltottLista)
+                        {
+                            if (lista[i].ParameterSorszam == betoltott.ParameterSorszam &&
+                                (lista[i].ParameterMegnevezes != betoltott.ParameterMegnevezes ||
+                                lista[i].ParameterMertekEgyseg != betoltott.ParameterMertekEgyseg ||
+                                lista[i].ParameterTipus != betoltott.ParameterTipus))
+                            {
+                                ABKezelo.ParameterDefModositas(kategoria, lista[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ABKezelo.UjParameterDef(kategoria, lista[i]);
+                    }
+                }
+            }
+            else
+            {
+                foreach (ParameterDef regi in betoltottLista)
+                {
+                    ABKezelo.ParameterDefTores(kategoria, regi);
+                }
+                int UjSorszam = 1;
+                foreach (ParameterDef item in lista)
+                {
+                    item.ParameterSorszam = UjSorszam;
+                    ABKezelo.UjParameterDef(kategoria, item);
+                    UjSorszam++;
+
+                }
             }
         }
-        private List<ParameterDef> ParameterekListaFrissit(List<ParameterDef> regiLista)
-        {
-            List<ParameterDef> ujLista = new List<ParameterDef>();
-            int i = 1;
-            foreach (ParameterDef item in lista)
-            {
-                ujLista.Add(new ParameterDef(i, item.ParameterMegnevezes, item.ParameterMertekEgyseg, item.ParameterTipus));
-                i++;
-            }
-            return ujLista;
-        }
-        private void ParameterHozzaAd(Kategoria kategoria, List<ParameterDef> parameterek)
-        {
-            foreach (ParameterDef item in parameterek)
-            {
-                ABKezelo.UjParameterDef(kategoria, item);
-            }
-        }
+
         private void button3_Click(object sender, EventArgs e)  //parameter torles
         {
-            if (listBox1.SelectedItem != null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?\n\r A törlés, az adatbázisból való törlést is jelenti!!!", "Paraméter törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (listBox1.SelectedItem != null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?", "Paraméter törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 lista.RemoveAt(listBox1.SelectedIndex);
                 LbFrissit();

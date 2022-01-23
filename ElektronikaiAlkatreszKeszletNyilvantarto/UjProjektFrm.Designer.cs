@@ -62,7 +62,7 @@ namespace EKNyilvantarto
             this.megnevezTxb.Location = new System.Drawing.Point(17, 36);
             this.megnevezTxb.Name = "megnevezTxb";
             this.megnevezTxb.Size = new System.Drawing.Size(217, 26);
-            this.megnevezTxb.TabIndex = 2;
+            this.megnevezTxb.TabIndex = 1;
             // 
             // leirasTxb
             // 
@@ -70,7 +70,7 @@ namespace EKNyilvantarto
             this.leirasTxb.Multiline = true;
             this.leirasTxb.Name = "leirasTxb";
             this.leirasTxb.Size = new System.Drawing.Size(217, 46);
-            this.leirasTxb.TabIndex = 3;
+            this.leirasTxb.TabIndex = 2;
             // 
             // button1
             // 
@@ -99,7 +99,7 @@ namespace EKNyilvantarto
             this.megjegyzesTxb.Multiline = true;
             this.megjegyzesTxb.Name = "megjegyzesTxb";
             this.megjegyzesTxb.Size = new System.Drawing.Size(217, 46);
-            this.megjegyzesTxb.TabIndex = 7;
+            this.megjegyzesTxb.TabIndex = 3;
             // 
             // label3
             // 

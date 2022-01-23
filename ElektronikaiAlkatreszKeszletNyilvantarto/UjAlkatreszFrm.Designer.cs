@@ -70,7 +70,7 @@ namespace EKNyilvantarto
             this.button1.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(117, 41);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 7;
             this.button1.Text = "Listához ad";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Button1_Click);
@@ -159,7 +159,7 @@ namespace EKNyilvantarto
             this.megnevezTxB.Location = new System.Drawing.Point(105, 22);
             this.megnevezTxB.Name = "megnevezTxB";
             this.megnevezTxB.Size = new System.Drawing.Size(227, 23);
-            this.megnevezTxB.TabIndex = 7;
+            this.megnevezTxB.TabIndex = 2;
             // 
             // darabArNud
             // 
@@ -173,7 +173,7 @@ namespace EKNyilvantarto
             0});
             this.darabArNud.Name = "darabArNud";
             this.darabArNud.Size = new System.Drawing.Size(62, 26);
-            this.darabArNud.TabIndex = 5;
+            this.darabArNud.TabIndex = 4;
             // 
             // keszletNud
             // 
@@ -186,7 +186,7 @@ namespace EKNyilvantarto
             0});
             this.keszletNud.Name = "keszletNud";
             this.keszletNud.Size = new System.Drawing.Size(59, 26);
-            this.keszletNud.TabIndex = 4;
+            this.keszletNud.TabIndex = 3;
             // 
             // megjegyzesTbx
             // 
@@ -194,7 +194,7 @@ namespace EKNyilvantarto
             this.megjegyzesTbx.Multiline = true;
             this.megjegyzesTbx.Name = "megjegyzesTbx";
             this.megjegyzesTbx.Size = new System.Drawing.Size(329, 81);
-            this.megjegyzesTbx.TabIndex = 6;
+            this.megjegyzesTbx.TabIndex = 5;
             // 
             // label7
             // 
@@ -233,7 +233,7 @@ namespace EKNyilvantarto
             this.button2.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 41);
-            this.button2.TabIndex = 7;
+            this.button2.TabIndex = 10;
             this.button2.Text = "Ok";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -246,7 +246,7 @@ namespace EKNyilvantarto
             this.button3.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(93, 41);
-            this.button3.TabIndex = 8;
+            this.button3.TabIndex = 11;
             this.button3.Text = "Mégsem";
             this.button3.UseVisualStyleBackColor = true;
             // 
@@ -256,7 +256,7 @@ namespace EKNyilvantarto
             this.button5.Location = new System.Drawing.Point(110, 285);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(101, 41);
-            this.button5.TabIndex = 12;
+            this.button5.TabIndex = 9;
             this.button5.Text = "Törlés";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click_1);
@@ -270,7 +270,7 @@ namespace EKNyilvantarto
             this.panel2.Location = new System.Drawing.Point(357, 30);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(327, 247);
-            this.panel2.TabIndex = 13;
+            this.panel2.TabIndex = 6;
             // 
             // menuStrip1
             // 
@@ -289,6 +289,7 @@ namespace EKNyilvantarto
             // bezarTSMI
             // 
             this.bezarTSMI.Name = "bezarTSMI";
+            this.bezarTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.bezarTSMI.Size = new System.Drawing.Size(73, 23);
             this.bezarTSMI.Text = "Bezárás";
             this.bezarTSMI.Click += new System.EventHandler(this.bezarTSMI_Click);
@@ -296,6 +297,7 @@ namespace EKNyilvantarto
             // kategoriaTSMI
             // 
             this.kategoriaTSMI.Name = "kategoriaTSMI";
+            this.kategoriaTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
             this.kategoriaTSMI.Size = new System.Drawing.Size(161, 23);
             this.kategoriaTSMI.Text = "Kategória hozzáadás";
             this.kategoriaTSMI.Click += new System.EventHandler(this.kategoriaTSMI_Click);
@@ -303,6 +305,7 @@ namespace EKNyilvantarto
             // parameterTSMI
             // 
             this.parameterTSMI.Name = "parameterTSMI";
+            this.parameterTSMI.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.parameterTSMI.Size = new System.Drawing.Size(121, 23);
             this.parameterTSMI.Text = "Paraméterezés";
             this.parameterTSMI.Click += new System.EventHandler(this.parameterTSMI_Click);
@@ -313,7 +316,7 @@ namespace EKNyilvantarto
             this.button6.Location = new System.Drawing.Point(5, 285);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(99, 41);
-            this.button6.TabIndex = 16;
+            this.button6.TabIndex = 8;
             this.button6.Text = "Új alkatrész";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);

@@ -58,7 +58,7 @@ namespace EKNyilvantarto
             this.panel1.Location = new System.Drawing.Point(0, 19);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(101, 146);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 1;
             this.panel1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.panel1_Scroll);
             // 
             // alkatreszekGbx

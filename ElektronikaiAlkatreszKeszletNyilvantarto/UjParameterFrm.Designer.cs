@@ -74,7 +74,7 @@ namespace EKNyilvantarto
             this.groupBox1.Location = new System.Drawing.Point(6, 94);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(185, 88);
-            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paraméter érték típusa:";
             // 
@@ -149,7 +149,7 @@ namespace EKNyilvantarto
             this.MertekEgysegTxb.Multiline = true;
             this.MertekEgysegTxb.Name = "MertekEgysegTxb";
             this.MertekEgysegTxb.Size = new System.Drawing.Size(185, 20);
-            this.MertekEgysegTxb.TabIndex = 10;
+            this.MertekEgysegTxb.TabIndex = 3;
             // 
             // label2
             // 
@@ -167,7 +167,7 @@ namespace EKNyilvantarto
             this.MegnevezesTbx.Location = new System.Drawing.Point(6, 27);
             this.MegnevezesTbx.Name = "MegnevezesTbx";
             this.MegnevezesTbx.Size = new System.Drawing.Size(185, 21);
-            this.MegnevezesTbx.TabIndex = 8;
+            this.MegnevezesTbx.TabIndex = 1;
             // 
             // label3
             // 
@@ -196,7 +196,7 @@ namespace EKNyilvantarto
             this.button2.Location = new System.Drawing.Point(332, 194);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(87, 31);
-            this.button2.TabIndex = 8;
+            this.button2.TabIndex = 5;
             this.button2.Text = "OK";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -206,7 +206,7 @@ namespace EKNyilvantarto
             this.button1.Location = new System.Drawing.Point(216, 150);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(77, 38);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 4;
             this.button1.Text = "Hozzáad";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -226,7 +226,7 @@ namespace EKNyilvantarto
             this.button3.Location = new System.Drawing.Point(216, 84);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(77, 37);
-            this.button3.TabIndex = 12;
+            this.button3.TabIndex = 7;
             this.button3.Text = "Törlés";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -237,7 +237,7 @@ namespace EKNyilvantarto
             this.button4.Location = new System.Drawing.Point(425, 194);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(88, 31);
-            this.button4.TabIndex = 13;
+            this.button4.TabIndex = 6;
             this.button4.Text = "Mégsem";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -247,7 +247,7 @@ namespace EKNyilvantarto
             this.button5.Location = new System.Drawing.Point(216, 34);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(77, 42);
-            this.button5.TabIndex = 14;
+            this.button5.TabIndex = 8;
             this.button5.Text = "Mező Reset";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);

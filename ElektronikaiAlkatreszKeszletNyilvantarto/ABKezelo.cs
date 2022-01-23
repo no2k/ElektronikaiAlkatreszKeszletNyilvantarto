@@ -208,7 +208,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
             }
         }   //OK
-       /* public static void ParameterDefModositas(Kategoria hol, ParameterDef melyiket)
+        public static void ParameterDefModositas(Kategoria hol, ParameterDef melyiket)
         {
             try
             {
@@ -230,7 +230,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Paraméter módosítási hiba az adatbázisban!" + ex.Message, ex);
             }
-        }  */ //OK
+        }   //OK
         /* public static void ParameterDefListaModositas(Kategoria hol, List<ParameterDef> miket)
         {
             try
@@ -337,6 +337,21 @@ namespace EKNyilvantarto
         #endregion
 
         #region Parameterek kapcsolatok
+        public static bool VanMarIlyenKategoriavalAlkatresz(Kategoria kategoria)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([ALKATRESZ_ID]) FROM [Alkatresz] WHERE [KATEGORIA_ID]=@kategoriaId";
+                parancs.Parameters.AddWithValue("@kategoriaId", kategoria.KategoriaId);
+                int i = (int)parancs.ExecuteScalar();
+                return (i !=0) ? true : false;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel($"Sikertelen parméter(darabszám) kiolvasás az adatbázisból! \r\n {ex.Message}");
+            }
+        }
        /* private static List<AlkatreszParameter> ParameterListaLekerdez(Kategoria kategoria, int parameterId)
         {
             try
