@@ -185,7 +185,6 @@ namespace EKNyilvantarto
         {
             if (kategoriaCbx.SelectedItem != null)
             {
-
                 List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
                 if (UjAlkatreszLista(alkatreszParameterLista))
                 {
@@ -198,10 +197,7 @@ namespace EKNyilvantarto
                          (Kategoria)kategoriaCbx.SelectedItem,
                          megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
                         ));
-                    if (ABKezelo.VanIlyenAlkatresz(keszlet.Alkatresz) > 0)
-                    {
 
-                    }
                     if (!ujKeszletLista.Contains(keszlet))
                     {
                         ujKeszletLista.Add(keszlet);
@@ -210,7 +206,6 @@ namespace EKNyilvantarto
                     {
                         MessageBox.Show("Már van ilyen alkatrszész a listában!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
-                    // alkatreszParameterLista.Clear();
                 }
             }
             ListaFrissit();
@@ -245,23 +240,29 @@ namespace EKNyilvantarto
         }
         private void button2_Click(object sender, EventArgs e) //OK
         {
-
-
             if (ujKeszletLista.Count > 0)
             {
-
-                foreach (Keszlet keszlet in ujKeszletLista)
+                foreach (Keszlet ujKeszlet in ujKeszletLista)
                 {
-                    keszlet.KeszletId = ABKezelo.UjAlkatresz(keszlet.Alkatresz);
-                    ABKezelo.UjKeszlet(keszlet);
+                 
+                    if (ABKezelo.VanIlyenAlkatresz(ujKeszlet.Alkatresz))
+                    {  
+                       // keszlet = ABKezelo.;
+                        ujKeszlet.DarabSzam += keszlet.DarabSzam;
+                        
+                       ABKezelo.KeszletModositas(ujKeszlet);
+                    }
+                    else
+                    {
+                        ujKeszlet.KeszletId = ABKezelo.UjAlkatresz(ujKeszlet.Alkatresz);
+                        ABKezelo.UjKeszlet(ujKeszlet);
+                    }
                 }
-                MessageBox.Show("sikeres készletfelvitel");
             }
             else
             {
                 DialogResult = DialogResult.None;
             }
-
         }
         #endregion
 
@@ -355,9 +356,17 @@ namespace EKNyilvantarto
                         }
                         break;
                     case 4: // felsorolas
-                        {   
-                           // gbUjPozicio = chbx.Top;
-                           // top = lbl.Bottom;
+                        {
+                            TextBox txb = new TextBox
+                            {
+                                Parent = panel2,
+                                Margin = szelek,
+                                Top = top,
+                                Left = left,
+                                Size = new Size(elemHossza, 23),
+                                Text = "-",
+                                Visible = false
+                            };
                         }
                         break;
                 }
@@ -370,8 +379,8 @@ namespace EKNyilvantarto
                         Parent = panel2,
                         Size = new Size(elemHossza, 23),
                         Margin = szelek,
-                        Top = (parameterek.Parameterek[i].ParameterTipus == 4) ?lbl.Bottom+left :gbUjPozicio,
-                        Left = (parameterek.Parameterek[i].ParameterTipus==4) ? left:elemHossza + 20,
+                        Top = (parameterek.Parameterek[i].ParameterTipus == 4) ? lbl.Bottom + left : gbUjPozicio,
+                        Left = (parameterek.Parameterek[i].ParameterTipus == 4) ? left : elemHossza + 20,
                         DataSource = parameterek.Parameterek[i].ParameterMertekEgyseg,
                     };
                 }
@@ -394,7 +403,7 @@ namespace EKNyilvantarto
         {
             if (panel2.Controls != null)
             {
-                string str = "";
+                string str = "-";
                 string meStr = "";
                 int ParameterSorszam = 0;
                 foreach (Control item in panel2.Controls)
@@ -430,14 +439,10 @@ namespace EKNyilvantarto
                     {
                         meStr = meLbl.Text;
                     }
-                    else
-                    {
-                        //  meStr = "";
-                    }
                     if (!string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(meStr))
                     {
                         lista.Add(new AlkatreszParameter(ParameterSorszam, str, meStr));
-                        str = "";
+                        str = "-";
                         meStr = "";
                     }
                 }

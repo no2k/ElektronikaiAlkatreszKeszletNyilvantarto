@@ -185,6 +185,7 @@ namespace EKNyilvantarto
                 {
                     MessageBox.Show("A megadott paraméterekkel megeggyező elem már van a listában!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                button5_Click(this, EventArgs.Empty);
             }
             else
             {
