@@ -12,7 +12,8 @@ namespace EKNyilvantarto
     {
         #region Fieldek
         // ParameterLista lista;
-        List<Keszlet> keszletLista = new List<Keszlet>();
+        List<Keszlet> meglevoKeszletLista = new List<Keszlet>();
+        List<Keszlet> ujKeszletLista = new List<Keszlet>();
         Keszlet keszlet;
         // List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
         int valasztottKaterogiaIndex = 0;
@@ -22,8 +23,8 @@ namespace EKNyilvantarto
         #region Property-k
         internal List<Keszlet> KeszletLista
         {
-            get => keszletLista;
-            set => keszletLista = value;
+            get => ujKeszletLista;
+            set => ujKeszletLista = value;
         }
         #endregion
 
@@ -61,7 +62,7 @@ namespace EKNyilvantarto
             {
                 lv1.Items.Clear();
                 int i = 1;
-                foreach (Keszlet item in keszletLista)
+                foreach (Keszlet item in ujKeszletLista)
                 {
                     lv1.Items.Add(LVSorFeltolt(i, item));
                     i++;
@@ -184,6 +185,7 @@ namespace EKNyilvantarto
         {
             if (kategoriaCbx.SelectedItem != null)
             {
+
                 List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
                 if (UjAlkatreszLista(alkatreszParameterLista))
                 {
@@ -196,10 +198,13 @@ namespace EKNyilvantarto
                          (Kategoria)kategoriaCbx.SelectedItem,
                          megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
                         ));
-
-                    if (!keszletLista.Contains(keszlet))
+                    if (ABKezelo.VanIlyenAlkatresz(keszlet.Alkatresz) > 0)
                     {
-                        keszletLista.Add(keszlet);
+
+                    }
+                    if (!ujKeszletLista.Contains(keszlet))
+                    {
+                        ujKeszletLista.Add(keszlet);
                     }
                     else
                     {
@@ -233,19 +238,19 @@ namespace EKNyilvantarto
             {
                 foreach (Keszlet item in lv1.SelectedItems)
                 {
-                    keszletLista.Remove(item);
+                    ujKeszletLista.Remove(item);
                 }
                 ListaFrissit();
             }
         }
         private void button2_Click(object sender, EventArgs e) //OK
         {
-            
 
-            if (keszletLista.Count > 0)
+
+            if (ujKeszletLista.Count > 0)
             {
 
-                foreach (Keszlet keszlet in keszletLista)
+                foreach (Keszlet keszlet in ujKeszletLista)
                 {
                     keszlet.KeszletId = ABKezelo.UjAlkatresz(keszlet.Alkatresz);
                     ABKezelo.UjKeszlet(keszlet);
@@ -295,7 +300,6 @@ namespace EKNyilvantarto
                                 Top = top,
                                 Left = left,
                                 Size = new Size(elemHossza, 23),
-
                             };
                             gbUjPozicio = txb.Top;
                             top = txb.Bottom;
@@ -316,7 +320,6 @@ namespace EKNyilvantarto
                             };
                             gbUjPozicio = nud.Top;
                             top = nud.Bottom;
-                            // elemHossza = nud.Height;
                         }
                         break;
                     case 2:  //float
@@ -335,7 +338,6 @@ namespace EKNyilvantarto
                             };
                             gbUjPozicio = nud.Top;
                             top = nud.Bottom;
-                            // elemHossza = nud.Height;
                         }
                         break;
                     case 3: // bool
@@ -352,6 +354,12 @@ namespace EKNyilvantarto
                             top = chbx.Bottom;
                         }
                         break;
+                    case 4: // felsorolas
+                        {   
+                           // gbUjPozicio = chbx.Top;
+                           // top = lbl.Bottom;
+                        }
+                        break;
                 }
                 if (parameterek.Parameterek[i].ParameterMertekEgyseg.Length > 1)
                 {
@@ -362,10 +370,9 @@ namespace EKNyilvantarto
                         Parent = panel2,
                         Size = new Size(elemHossza, 23),
                         Margin = szelek,
-                        Top = gbUjPozicio,
-                        Left = elemHossza + 20,
+                        Top = (parameterek.Parameterek[i].ParameterTipus == 4) ?lbl.Bottom+left :gbUjPozicio,
+                        Left = (parameterek.Parameterek[i].ParameterTipus==4) ? left:elemHossza + 20,
                         DataSource = parameterek.Parameterek[i].ParameterMertekEgyseg,
-                        // Font=new Font("Microsoft Sans Serif",9,)
                     };
                 }
                 else
@@ -374,7 +381,6 @@ namespace EKNyilvantarto
                     {
                         Name = "meLbl",
                         Parent = panel2,
-                        // Margin = szelek,
                         Top = gbUjPozicio + 2,
                         Margin = szelek,
                         Left = elemHossza + 20,
@@ -382,7 +388,6 @@ namespace EKNyilvantarto
                         Text = parameterek.Parameterek[i].ParameterMertekEgyseg[0]
                     };
                 }
-
             }
         }
         private bool UjAlkatreszLista(List<AlkatreszParameter> lista)

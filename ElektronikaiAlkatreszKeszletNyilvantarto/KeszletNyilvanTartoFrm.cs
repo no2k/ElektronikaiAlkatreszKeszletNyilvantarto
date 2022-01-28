@@ -142,7 +142,6 @@ namespace EKNyilvantarto
                     {
                         keszletLista = frm.KeszletLista;
                         KategoriaFrissit();
-
                     }
                     else
                     {
@@ -480,6 +479,11 @@ namespace EKNyilvantarto
                 }
             }
             ListaFrissit(keszletLV, keszletLista);
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            AlkatreszTSMI_Click(this, EventArgs.Empty);
         }
     }
 

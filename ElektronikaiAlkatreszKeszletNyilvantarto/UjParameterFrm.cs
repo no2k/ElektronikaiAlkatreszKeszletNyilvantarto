@@ -111,8 +111,12 @@ namespace EKNyilvantarto
                                 MertekEgysegTxb.Clear();
                                 MertekEgysegTxb.Enabled = false;
                                 MertekEgysegTxb.Text = "-";
+                                tipus = 0;
                             }
-                            tipus = 0;
+                            else
+                            {
+                                tipus = 4;
+                            }
                         }
                         break;
                     case 10:
@@ -201,7 +205,6 @@ namespace EKNyilvantarto
                     {
                         ABKezelo.UjParameterDef(kategoria, item);
                     }
-
                 }
             }
             else
@@ -217,7 +220,6 @@ namespace EKNyilvantarto
                 }
             }
         }
-
         private void ParameterModositas()
         {
             if (betoltottLista.Parameterek.Count < lista.Count)
@@ -255,11 +257,9 @@ namespace EKNyilvantarto
                     item.ParameterSorszam = UjSorszam;
                     ABKezelo.UjParameterDef(kategoria, item);
                     UjSorszam++;
-
                 }
             }
         }
-
         private void button3_Click(object sender, EventArgs e)  //parameter torles
         {
             if (listBox1.SelectedItem != null && MessageBox.Show("Biztosan törölni akarod a kiválasztott paramétert?", "Paraméter törlése", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -274,11 +274,13 @@ namespace EKNyilvantarto
             {
                 MertekEgysegTxb.Enabled = true;
                 MertekEgysegTxb.Clear();
+                tipus = 4;
             }
             else
             {
                 MertekEgysegTxb.Enabled = false;
                 MertekEgysegTxb.Text = "-";
+                tipus = 0;
             }
         }
         private void button5_Click(object sender, EventArgs e)
