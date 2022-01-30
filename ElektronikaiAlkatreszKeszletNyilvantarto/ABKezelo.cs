@@ -353,7 +353,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen parméter(darabszám) kiolvasás az adatbázisból! \r\n {ex.Message}");
             }
         }
-       /* private static List<AlkatreszParameter> ParameterListaLekerdez(Kategoria kategoria, int parameterId)
+      /*   private static List<AlkatreszParameter> ParameterListaLekerdez(Kategoria kategoria, int parameterId)
         {
             try
             {
@@ -451,8 +451,77 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen alkatrész felvitel az adatbázisba! \r\n\t {ex.Message}");
             }
         } //OK!
-       
 
+        public static Alkatresz AlkatreszKeresesParameterListaAlapjan(List<AlkatreszParameter> parameterek)
+        {
+            try
+            {
+                if (UtolsoAlkatreszId() < 1) return null;
+                List<int> keresettIdk = new List<int>();
+                parancs.Parameters.Clear();
+                parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText =
+                    "SELECT [ALKATRESZ_ID] FROM [Alkatresz] AS A" +
+                    "INNER JOIN [Parameterek] AS P ON A.[ALKATRESZ_ID]=P.[PARAMETER_ID] " +
+                    "WHERE [PARAMETER_SORSZAM]=@sorSzam AND " +
+                          "[PARAMETER_ERTEK]=@ertek AND " +
+                          "[PARAMETER_MERTEKEGYSEG]=@mertekEgyseg";
+                foreach (AlkatreszParameter item in parameterek)
+                {
+                    parancs.Parameters.Clear();
+                    parancs.Parameters.AddWithValue("@sorSzam", item.ParameterSorszam);
+                    parancs.Parameters.AddWithValue("@ertek", item.ParameterErtek);
+                    parancs.Parameters.AddWithValue("@mertekEgyseg", item.ParameterMertekegyseg);
+                    using (SqlDataReader reader = parancs.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            keresettIdk.Add((int)reader["ALKATRESZ_ID"]);
+                        }
+                        reader.Close();
+                    }
+                }
+                keresettIdk.Sort();
+                Dictionary<int, int> alkatreszIdk = new Dictionary<int, int>();
+                int elozo = 0;
+                foreach (int item in keresettIdk)
+                {
+                    if (elozo != item)
+                    {
+                        alkatreszIdk.Add(item, 1);
+                        elozo = item;
+                    }
+                    else
+                    {
+                        alkatreszIdk[item]++;
+                    }
+                }
+                elozo = 0;
+                foreach (int item in alkatreszIdk.Values)
+                {
+                    if (item > elozo)
+                    {
+                        elozo = item;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
+                }
+                throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
+            }
+        }
        /* public static Alkatresz AlkatresztLekerdez(Kategoria kategoria, int alkatreszId)
         {
             try
@@ -480,7 +549,7 @@ namespace EKNyilvantarto
         }*/
 
    
-        /*  private static Alkatresz AlkatreszLekerdezAlkatreszIdAlapjan(int id)
+    /*     private static Alkatresz AlkatreszLekerdezAlkatreszIdAlapjan(int id)
         {
             try
             {
@@ -507,7 +576,7 @@ namespace EKNyilvantarto
             {
                 throw new ABKivetel("Hiba az alkatrész paraméterek lekérdezése közben" + ex.Message);
             }
-        }  */
+        }    */
 
         private static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
@@ -623,6 +692,9 @@ namespace EKNyilvantarto
         {
             try
             {
+               
+                Alkatresz keresettAlkatresz = AlkatreszKeresesParameterListaAlapjan(keresettParameterek);
+                 if (keresettAlkatresz==null) return null;
                 List<int> keresettIdk = new List<int>();
                 parancs.Parameters.Clear();
                 parancs.Transaction = kapcsolat.BeginTransaction();
@@ -647,20 +719,45 @@ namespace EKNyilvantarto
                         reader.Close();
                     }
                 }
+                keresettIdk.Sort();
+                Dictionary<int, int> alkatreszIdk = new Dictionary<int, int>();
+                int elozo = 0;
+                foreach (int item in keresettIdk)
+                {
+                    if (elozo!=item)
+                    {
+                        alkatreszIdk.Add(item, 1);
+                        elozo = item;
+                    }
+                    else
+                    {
+                        alkatreszIdk[item]++;
+                    }
+                }
+                elozo = 0;
+                foreach (int item in alkatreszIdk.Values)
+                {
+                    if (item>elozo)
+                    {
+                        elozo = item;
+                    }
+                }
 
             }
             catch (Exception ex)
             {
                 try
                 {
-
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
                 }
                 catch (Exception ex2)
                 {
-
-                    throw;
+                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
                 }
-                throw
+                throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
             }
         }
         public static void UjKeszlet(Keszlet hozzaAd)
