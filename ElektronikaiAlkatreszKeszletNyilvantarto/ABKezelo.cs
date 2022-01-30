@@ -353,36 +353,6 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen parméter(darabszám) kiolvasás az adatbázisból! \r\n {ex.Message}");
             }
         }
-      /*   private static List<AlkatreszParameter> ParameterListaLekerdez(Kategoria kategoria, int parameterId)
-        {
-            try
-            {
-                List<AlkatreszParameter> parameterLista = new List<AlkatreszParameter>();
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT [PARAMETER_SORSZAM],[PARAMETER_ERTEK],[PARAMETER_MERTEKEGYSEG] FROM [Parameterek] WHERE [PARAMETER_ID]=@parameterId AND [KATEGORIA_ID]=@kategoriaId";
-                parancs.Parameters.AddWithValue("@parameterId", parameterId);
-                parancs.Parameters.AddWithValue("@kategoriaId", kategoria.KategoriaId);
-                using (SqlDataReader reader = parancs.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        if (reader["PARAMETER_SORSZAM"] != null)
-                        {
-                            parameterLista.Add(new AlkatreszParameter(
-                            (int)reader["PARAMETER_SORSZAM"],
-                            reader["PARAMETER_ERTEK"].ToString(),
-                            reader["PARAMETER_MERTEKEGYSEG"].ToString()));
-                        }
-                    }
-                    reader.Close();
-                }
-                return parameterLista;
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Sikertelen paraméter(ek) beolvasás az adatbázisból" + ex.Message);
-            }
-        }  */ //OK! 
 
         #endregion
 
@@ -483,28 +453,43 @@ namespace EKNyilvantarto
                 }
                 keresettIdk.Sort();
                 Dictionary<int, int> alkatreszIdk = new Dictionary<int, int>();
-                int elozo = 0;
-                foreach (int item in keresettIdk)
+                int elozoId = 0;
+                int keresettId = 0;
+                int szamol=0;
+                int elozoErtek = 0; ;
+                foreach (int id in keresettIdk)
                 {
-                    if (elozo != item)
+                    if (elozoId != id)
                     {
-                        alkatreszIdk.Add(item, 1);
-                        elozo = item;
+                        elozoId = id;
+                        if (elozoErtek > szamol)
+                        {
+                            keresettId = elozoId;
+                        }
+                        elozoErtek = szamol;
+                        szamol = 1;
                     }
                     else
                     {
-                        alkatreszIdk[item]++;
+                        szamol++;
                     }
                 }
-                elozo = 0;
-                foreach (int item in alkatreszIdk.Values)
+                Alkatresz keresettAlkatresz=new Alkatresz();
+                parancs.Parameters.Clear();
+                parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText =
+                    "SELECT [MEGNEVEZES],[KATEGORIA_ID],[KATEGORIA] FROM [Alkatresz] AS A INNER JOIN [Kategoria] AS K ON A.[KATEGORIA_ID]=K.[KATEGORIA_ID] " +
+                    "WHERE [ALKATRESZ_ID]=@id";
+                parancs.Parameters.AddWithValue("@id",keresettId);
+                using (SqlDataReader reader = parancs.ExecuteReader())
                 {
-                    if (item > elozo)
+                    while (reader.Read())
                     {
-                        elozo = item;
+                       keresettAlkatresz= new Alkatresz(keresettId, new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), parameterek);
                     }
+                    reader.Close();
+                    return keresettAlkatresz;
                 }
-
             }
             catch (Exception ex)
             {
@@ -522,61 +507,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
             }
         }
-       /* public static Alkatresz AlkatresztLekerdez(Kategoria kategoria, int alkatreszId)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT [MEGNEVEZES],[ALKATRESZ_ID] FROM [ALKATRESZ] WHERE [KATEGORIA_ID]=@kategoriaId AND [PARAMETER_ID]=@parameterId";
-                parancs.Parameters.AddWithValue("@kategoriaId", kategoria.KategoriaId);
-                parancs.Parameters.AddWithValue("@parameterId", alkatreszId);
-                string megnevezes = "";
-                using (SqlDataReader reader = parancs.ExecuteReader())
-                {
-                    if (reader["ALKATRESZ_ID"] != null)
-                    {
-                        alkatreszId = (int)reader["ALKATRESZ_ID"];
-                        megnevezes = reader["MEGNEVEZES"].ToString();
-                    }
-                    reader.Close();
-                    return new Alkatresz(alkatreszId, kategoria, megnevezes, ParameterListaLekerdez(kategoria, alkatreszId));
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hiba az alkatrész paraméterek lekérdezése közben" + ex.Message);
-            }
-        }*/
-
-   
-    /*     private static Alkatresz AlkatreszLekerdezAlkatreszIdAlapjan(int id)
-        {
-            try
-            {
-                List<Alkatresz> alkatreszek = new List<Alkatresz>();
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT [MEGNEVEZES],[KATEGORIA_ID] FROM [ALKATRESZ] WHERE [ALKATRESZ_ID]=@alkatreszId ";
-                parancs.Parameters.AddWithValue("@alkatreszId", id);
-                string megnevezes = "";
-                int kategoriaId = 0;
-                using (SqlDataReader reader = parancs.ExecuteReader())
-                {
-                    if (reader["ALKATRESZ_ID"] != null)
-                    {
-                        kategoriaId = (int)reader["KATEGORIA_ID"];
-                        megnevezes = reader["MEGNEVEZES"].ToString();
-                    }
-                    reader.Close();
-                }
-                Kategoria kategoria = KategoriaLekerdezIdAlapjan(kategoriaId);
-
-                return new Alkatresz(id, kategoria, megnevezes, ParameterListaLekerdez(kategoria, id));
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hiba az alkatrész paraméterek lekérdezése közben" + ex.Message);
-            }
-        }    */
+      
 
         private static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
@@ -692,10 +623,8 @@ namespace EKNyilvantarto
         {
             try
             {
-               
                 Alkatresz keresettAlkatresz = AlkatreszKeresesParameterListaAlapjan(keresettParameterek);
                  if (keresettAlkatresz==null) return null;
-                List<int> keresettIdk = new List<int>();
                 parancs.Parameters.Clear();
                 parancs.Transaction = kapcsolat.BeginTransaction();
                 parancs.CommandText=
@@ -719,30 +648,7 @@ namespace EKNyilvantarto
                         reader.Close();
                     }
                 }
-                keresettIdk.Sort();
-                Dictionary<int, int> alkatreszIdk = new Dictionary<int, int>();
-                int elozo = 0;
-                foreach (int item in keresettIdk)
-                {
-                    if (elozo!=item)
-                    {
-                        alkatreszIdk.Add(item, 1);
-                        elozo = item;
-                    }
-                    else
-                    {
-                        alkatreszIdk[item]++;
-                    }
-                }
-                elozo = 0;
-                foreach (int item in alkatreszIdk.Values)
-                {
-                    if (item>elozo)
-                    {
-                        elozo = item;
-                    }
-                }
-
+              
             }
             catch (Exception ex)
             {
