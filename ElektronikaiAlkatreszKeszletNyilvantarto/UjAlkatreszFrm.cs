@@ -247,10 +247,10 @@ namespace EKNyilvantarto
                  
                     if (ABKezelo.VanIlyenAlkatresz(ujKeszlet.Alkatresz))
                     {  
-                       // keszlet = ABKezelo.;
-                        ujKeszlet.DarabSzam += keszlet.DarabSzam;
+                        keszlet = ABKezelo.KeszletKeresParameterekAlapjan(ujKeszlet.Alkatresz.Parameterek);
+                       // ujKeszlet.DarabSzam += keszlet.DarabSzam;
                         
-                       ABKezelo.KeszletModositas(ujKeszlet);
+                      // ABKezelo.KeszletModositas(ujKeszlet);
                     }
                     else
                     {
