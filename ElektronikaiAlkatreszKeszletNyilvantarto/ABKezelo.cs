@@ -153,43 +153,43 @@ namespace EKNyilvantarto
 
         #region Parameter definíciós kapcsolatok 
 
-      /*  public static void UjParameterDefLista(Kategoria hova, ParameterDefLista miket)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.Transaction = kapcsolat.BeginTransaction();
-                parancs.CommandText = "INSERT INTO [Parameter_Def]([KATEGORIA_ID],[PARAMETER_SORSZAM],[PARAMETER_MEGNEVEZES],[PARAMETER_MERTEKEGYSEG],[PARAMETER_ERTEKTIPUS]) VALUES (@kategoriaId, @parameterSorszam, @parameterMegnevezes, @parameterMertekegyseg, @parameterErtekTipus)";
-                int? kategoriaId = hova.KategoriaId;
-                foreach (ParameterDef item in miket)
-                {
-                    parancs.Parameters.AddWithValue("@kategoriaId", kategoriaId);
-                    parancs.Parameters.AddWithValue("@parameterSorszam", item.ParameterSorszam);
-                    parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
+        /*  public static void UjParameterDefLista(Kategoria hova, ParameterDefLista miket)
+          {
+              try
+              {
+                  parancs.Parameters.Clear();
+                  parancs.Transaction = kapcsolat.BeginTransaction();
+                  parancs.CommandText = "INSERT INTO [Parameter_Def]([KATEGORIA_ID],[PARAMETER_SORSZAM],[PARAMETER_MEGNEVEZES],[PARAMETER_MERTEKEGYSEG],[PARAMETER_ERTEKTIPUS]) VALUES (@kategoriaId, @parameterSorszam, @parameterMegnevezes, @parameterMertekegyseg, @parameterErtekTipus)";
+                  int? kategoriaId = hova.KategoriaId;
+                  foreach (ParameterDef item in miket)
+                  {
+                      parancs.Parameters.AddWithValue("@kategoriaId", kategoriaId);
+                      parancs.Parameters.AddWithValue("@parameterSorszam", item.ParameterSorszam);
+                      parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
 
-                    parancs.Parameters.AddWithValue("@parameterMertekegyseg", ParameterDef.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
-                    parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
-                    parancs.ExecuteNonQuery();
-                }
-                parancs.Transaction.Commit();
-                //  kategoria.KategoriaId = (int)parancs.ExecuteScalar();
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    if (parancs.Transaction != null)
-                    {
-                        parancs.Transaction.Rollback();
-                    }
-                }
-                catch (Exception ex2)
-                {
-                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
-                }
-                throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
-            }
-        }*/ 
+                      parancs.Parameters.AddWithValue("@parameterMertekegyseg", ParameterDef.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
+                      parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
+                      parancs.ExecuteNonQuery();
+                  }
+                  parancs.Transaction.Commit();
+                  //  kategoria.KategoriaId = (int)parancs.ExecuteScalar();
+              }
+              catch (Exception ex)
+              {
+                  try
+                  {
+                      if (parancs.Transaction != null)
+                      {
+                          parancs.Transaction.Rollback();
+                      }
+                  }
+                  catch (Exception ex2)
+                  {
+                      throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
+                  }
+                  throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
+              }
+          }*/
         //OK 
         public static void UjParameterDef(Kategoria hova, ParameterDef mit)
         {
@@ -346,7 +346,7 @@ namespace EKNyilvantarto
                 parancs.CommandText = "SELECT COUNT([ALKATRESZ_ID]) FROM [Alkatresz] WHERE [KATEGORIA_ID]=@kategoriaId";
                 parancs.Parameters.AddWithValue("@kategoriaId", kategoria.KategoriaId);
                 int i = (int)parancs.ExecuteScalar();
-                return (i !=0) ? true : false;
+                return (i != 0) ? true : false;
             }
             catch (Exception ex)
             {
@@ -431,8 +431,8 @@ namespace EKNyilvantarto
                 parancs.Parameters.Clear();
                 parancs.Transaction = kapcsolat.BeginTransaction();
                 parancs.CommandText =
-                    "SELECT [ALKATRESZ_ID] FROM [Alkatresz] AS A" +
-                    "INNER JOIN [Parameterek] AS P ON A.[ALKATRESZ_ID]=P.[PARAMETER_ID] " +
+                    "SELECT [ALKATRESZ_ID] FROM [Alkatresz] AS A " +
+                    "INNER JOIN [Parameterek] AS P ON P.[PARAMETER_ID]=A.[ALKATRESZ_ID]  " +
                     "WHERE [PARAMETER_SORSZAM]=@sorSzam AND " +
                           "[PARAMETER_ERTEK]=@ertek AND " +
                           "[PARAMETER_MERTEKEGYSEG]=@mertekEgyseg";
@@ -451,43 +451,45 @@ namespace EKNyilvantarto
                         reader.Close();
                     }
                 }
+                parancs.Transaction.Commit();
                 keresettIdk.Sort();
                 Dictionary<int, int> alkatreszIdk = new Dictionary<int, int>();
                 int elozoId = 0;
                 int keresettId = 0;
-                int szamol=0;
+                int szamol = 0;
                 int elozoErtek = 0; ;
                 foreach (int id in keresettIdk)
                 {
-                    if (elozoId != id)
-                    {
-                        elozoId = id;
-                        if (elozoErtek > szamol)
-                        {
-                            keresettId = elozoId;
-                        }
-                        elozoErtek = szamol;
-                        szamol = 1;
-                    }
-                    else
+                    if (elozoId == id)
                     {
                         szamol++;
                     }
+                    else
+                    {
+                        szamol = 1;
+                        elozoId = id;
+                    }
+                    if (elozoErtek < szamol)
+                    {
+                        elozoErtek = szamol;
+                        keresettId = elozoId;
+                    }
                 }
-                Alkatresz keresettAlkatresz=new Alkatresz();
+                Alkatresz keresettAlkatresz = new Alkatresz();
                 parancs.Parameters.Clear();
                 parancs.Transaction = kapcsolat.BeginTransaction();
                 parancs.CommandText =
-                    "SELECT [MEGNEVEZES],[KATEGORIA_ID],[KATEGORIA] FROM [Alkatresz] AS A INNER JOIN [Kategoria] AS K ON A.[KATEGORIA_ID]=K.[KATEGORIA_ID] " +
-                    "WHERE [ALKATRESZ_ID]=@id";
-                parancs.Parameters.AddWithValue("@id",keresettId);
+                    "SELECT A.[MEGNEVEZES],K.[KATEGORIA_ID],K.[KATEGORIA] FROM [Alkatresz] AS A INNER JOIN [Kategoria] AS K ON A.[KATEGORIA_ID]=K.[KATEGORIA_ID] " +
+                    "WHERE A.[ALKATRESZ_ID]=@id";
+                parancs.Parameters.AddWithValue("@id", keresettId);
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                       keresettAlkatresz= new Alkatresz(keresettId, new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), parameterek);
+                        keresettAlkatresz = new Alkatresz(keresettId, new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), parameterek);
                     }
                     reader.Close();
+                    parancs.Transaction.Commit();
                     return keresettAlkatresz;
                 }
             }
@@ -507,7 +509,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
             }
         }
-      
+
 
         private static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
@@ -624,31 +626,24 @@ namespace EKNyilvantarto
             try
             {
                 Alkatresz keresettAlkatresz = AlkatreszKeresesParameterListaAlapjan(keresettParameterek);
-                 if (keresettAlkatresz==null) return null;
+                if (keresettAlkatresz == null) return null;
                 parancs.Parameters.Clear();
                 parancs.Transaction = kapcsolat.BeginTransaction();
-                parancs.CommandText=
-                    "SELECT [ALKATRESZ_ID] FROM [Alkatresz] AS A" +
-                    "INNER JOIN [Parameterek] AS P ON A.[ALKATRESZ_ID]=P.[PARAMETER_ID] " +
-                    "WHERE [PARAMETER_SORSZAM]=@sorSzam AND " +
-                          "[PARAMETER_ERTEK]=@ertek AND " +
-                          "[PARAMETER_MERTEKEGYSEG]=@mertekEgyseg";
-                foreach (AlkatreszParameter item in keresettParameterek)
+                parancs.CommandText =
+                    "SELECT [KESZLET_ID],[MENNYISEG],[EGYSEGAR],[MEGJEGYZES] FROM [Keszlet]" +
+                          "WHERE [ALKATRESZ_ID]=@id";
+                parancs.Parameters.AddWithValue("@id", keresettAlkatresz.AlkatreszId);
+                Keszlet keresettKeszlet = null;
+                using (SqlDataReader reader = parancs.ExecuteReader())
                 {
-                    parancs.Parameters.Clear();
-                    parancs.Parameters.AddWithValue("@sorSzam", item.ParameterSorszam);
-                    parancs.Parameters.AddWithValue("@ertek", item.ParameterErtek);
-                    parancs.Parameters.AddWithValue("@mertekEgyseg", item.ParameterMertekegyseg);
-                    using (SqlDataReader reader = parancs.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            keresettIdk.Add((int)reader["ALKATRESZ_ID"]);
-                        }
-                        reader.Close();
+                        keresettKeszlet = new Keszlet((int)reader["KESZLET_ID"], float.Parse(reader["MENNYISEG"].ToString()), float.Parse(reader["EGYSEGAR"].ToString()), reader["MEGJEGYZES"].ToString(), keresettAlkatresz);
                     }
+                    reader.Close();
+                    parancs.Transaction.Commit();
+                    return keresettKeszlet;
                 }
-              
             }
             catch (Exception ex)
             {
@@ -663,7 +658,7 @@ namespace EKNyilvantarto
                 {
                     throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
                 }
-                throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
+                throw new ABKivetel("Hiba a készletben való  kereséskor az adatbázisban!" + ex.Message);
             }
         }
         public static void UjKeszlet(Keszlet hozzaAd)
@@ -723,20 +718,20 @@ namespace EKNyilvantarto
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText ="SELECT * FROM [Keszlet] WHERE [ALKATRESZ_ID]=@alkatreszId";
-                parancs.Parameters.AddWithValue("@alkatreszId",alkatresz.AlkatreszId);
-                using (SqlDataReader reader=parancs.ExecuteReader())
+                parancs.CommandText = "SELECT * FROM [Keszlet] WHERE [ALKATRESZ_ID]=@alkatreszId";
+                parancs.Parameters.AddWithValue("@alkatreszId", alkatresz.AlkatreszId);
+                using (SqlDataReader reader = parancs.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         if ((int)reader["KESZLET_ID"] > 0)
                         {
-                           return new Keszlet(
-                                (int)reader["KESZLET_ID"], 
-                                float.Parse(reader["MENNYISEG"].ToString()), 
-                                float.Parse(reader["EGYSEGAR"].ToString()), 
-                                reader["MEGJEGYZES"].ToString(),
-                                alkatresz);
+                            return new Keszlet(
+                                 (int)reader["KESZLET_ID"],
+                                 float.Parse(reader["MENNYISEG"].ToString()),
+                                 float.Parse(reader["EGYSEGAR"].ToString()),
+                                 reader["MEGJEGYZES"].ToString(),
+                                 alkatresz);
                         }
                     }
                     reader.Close();
@@ -745,7 +740,7 @@ namespace EKNyilvantarto
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Hiba az adatbázisban való alkatrész keresése közben!",ex);
+                throw new ABKivetel("Hiba az adatbázisban való alkatrész keresése közben!", ex);
             }
         }  //OK!
         internal static void KeszletModositas(Keszlet mit)
@@ -753,8 +748,9 @@ namespace EKNyilvantarto
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText = "UPDATE [Keszlet] SET [MENNYISEG]=@darabSzam WHERE [ALKATRESZ_ID]=@alkatreszId";
+                parancs.CommandText = "UPDATE [Keszlet] SET [MENNYISEG]=@darabSzam ,[EGYSEGAR]=@darabAr WHERE [ALKATRESZ_ID]=@alkatreszId";
                 parancs.Parameters.AddWithValue("@darabSzam", mit.DarabSzam);
+                parancs.Parameters.AddWithValue("@darabAr", mit.DarabAr);
                 parancs.Parameters.AddWithValue("@alkatreszId", mit.Alkatresz.AlkatreszId);
                 parancs.ExecuteNonQuery();
             }
@@ -763,7 +759,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba az alkatrész adatainak frissítésekor, az adatbázisban!", ex);
             }
         }  //OK!
-       
+
         #endregion
 
         #region Projekt kapcsolatok
@@ -888,19 +884,19 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen Projekt azonosító kiolvasás az adatbázisból! \r\n {ex.Message}");
             }
         }  //OK!
-        public static void ProjektAlkatreszFelvitel(int projektId,Keszlet alkatresz)
+        public static void ProjektAlkatreszFelvitel(int projektId, Keszlet alkatresz)
         {
             try
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "INSERT INTO [Prj_Alkatresz] ([PROJEKT_ID],[ALKATRESZ_ID],[DARABSZAM],[DARAB_AR]) VALUES(@projektId,@alkatreszId,@darabSzam,@darabAr)";
-                   
-                    parancs.Parameters.AddWithValue("@projektId", projektId);
-                    parancs.Parameters.AddWithValue("@alkatreszId", alkatresz.Alkatresz.
-                        AlkatreszId);
-                    parancs.Parameters.AddWithValue("@darabSzam", alkatresz.DarabSzam);
-                    parancs.Parameters.AddWithValue("@darabAr", alkatresz.DarabAr);
-                    parancs.ExecuteNonQuery();
+
+                parancs.Parameters.AddWithValue("@projektId", projektId);
+                parancs.Parameters.AddWithValue("@alkatreszId", alkatresz.Alkatresz.
+                    AlkatreszId);
+                parancs.Parameters.AddWithValue("@darabSzam", alkatresz.DarabSzam);
+                parancs.Parameters.AddWithValue("@darabAr", alkatresz.DarabAr);
+                parancs.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -977,7 +973,7 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba történt a projekt alkatrész adatbázisból való lekérdezése közben!", ex);
             }
         }  //OK!
-        public static void ProjektAlkatreszTorles(int projektId,int alkatreszId)
+        public static void ProjektAlkatreszTorles(int projektId, int alkatreszId)
         {
             try
             {
@@ -989,7 +985,7 @@ namespace EKNyilvantarto
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Hiba a projekt alkatrész adatbázisból való törlése közben!",ex);
+                throw new ABKivetel("Hiba a projekt alkatrész adatbázisból való törlése közben!", ex);
             }
         }  //OK!
         public static bool VanIlyenProjekt(string projektNev)
@@ -1021,44 +1017,44 @@ namespace EKNyilvantarto
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "UPDATE [Prj_Alkatresz] SET [DARABSZAM]=@darabSzam WHERE[PROJEKT_ID]=@projektId AND [ALKATRESZ_ID]=@alkatreszId";
-                parancs.Parameters.AddWithValue("@darabSzam",mit.DarabSzam);
-                parancs.Parameters.AddWithValue("@projektId",projektId);
-                parancs.Parameters.AddWithValue("@alkatreszId",mit.Alkatresz.AlkatreszId);
+                parancs.Parameters.AddWithValue("@darabSzam", mit.DarabSzam);
+                parancs.Parameters.AddWithValue("@projektId", projektId);
+                parancs.Parameters.AddWithValue("@alkatreszId", mit.Alkatresz.AlkatreszId);
                 parancs.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Hiba a projekt alkatrész adatainak frissítésekor, az adatbázisban!",ex);
+                throw new ABKivetel("Hiba a projekt alkatrész adatainak frissítésekor, az adatbázisban!", ex);
             }
         }  //OK!
         #endregion
 
-      /*  internal static Keszlet AlkatreszKeres(Alkatresz alkatresz)
-        {
-            try
-            {
-                throw new NotImplementedException("Az alkatrész keresés még nincs megírva!");
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT *";
-               
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
-            }
-        } */
+        /*  internal static Keszlet AlkatreszKeres(Alkatresz alkatresz)
+          {
+              try
+              {
+                  throw new NotImplementedException("Az alkatrész keresés még nincs megírva!");
+                  parancs.Parameters.Clear();
+                  parancs.CommandText = "SELECT *";
 
-      /*  internal static Keszlet AlkatreszKeres(string parameter)
-        {
-            try
-            {
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
-            }
-        }*/
+              }
+              catch (Exception ex)
+              {
+                  throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
+              }
+          } */
+
+        /*  internal static Keszlet AlkatreszKeres(string parameter)
+          {
+              try
+              {
+                  return null;
+              }
+              catch (Exception ex)
+              {
+                  throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
+              }
+          }*/
 
     }
 }

@@ -244,13 +244,12 @@ namespace EKNyilvantarto
             {
                 foreach (Keszlet ujKeszlet in ujKeszletLista)
                 {
-                 
                     if (ABKezelo.VanIlyenAlkatresz(ujKeszlet.Alkatresz))
                     {  
                         keszlet = ABKezelo.KeszletKeresParameterekAlapjan(ujKeszlet.Alkatresz.Parameterek);
-                       // ujKeszlet.DarabSzam += keszlet.DarabSzam;
-                        
-                      // ABKezelo.KeszletModositas(ujKeszlet);
+                        keszlet.DarabSzam+=ujKeszlet.DarabSzam;
+                        keszlet.DarabAr =ujKeszlet.DarabAr;
+                        ABKezelo.KeszletModositas(keszlet);
                     }
                     else
                     {
