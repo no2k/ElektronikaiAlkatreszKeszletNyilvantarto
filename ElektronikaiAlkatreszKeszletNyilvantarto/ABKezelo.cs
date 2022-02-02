@@ -153,43 +153,6 @@ namespace EKNyilvantarto
 
         #region Parameter definíciós kapcsolatok 
 
-        /*  public static void UjParameterDefLista(Kategoria hova, ParameterDefLista miket)
-          {
-              try
-              {
-                  parancs.Parameters.Clear();
-                  parancs.Transaction = kapcsolat.BeginTransaction();
-                  parancs.CommandText = "INSERT INTO [Parameter_Def]([KATEGORIA_ID],[PARAMETER_SORSZAM],[PARAMETER_MEGNEVEZES],[PARAMETER_MERTEKEGYSEG],[PARAMETER_ERTEKTIPUS]) VALUES (@kategoriaId, @parameterSorszam, @parameterMegnevezes, @parameterMertekegyseg, @parameterErtekTipus)";
-                  int? kategoriaId = hova.KategoriaId;
-                  foreach (ParameterDef item in miket)
-                  {
-                      parancs.Parameters.AddWithValue("@kategoriaId", kategoriaId);
-                      parancs.Parameters.AddWithValue("@parameterSorszam", item.ParameterSorszam);
-                      parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
-
-                      parancs.Parameters.AddWithValue("@parameterMertekegyseg", ParameterDef.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
-                      parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
-                      parancs.ExecuteNonQuery();
-                  }
-                  parancs.Transaction.Commit();
-                  //  kategoria.KategoriaId = (int)parancs.ExecuteScalar();
-              }
-              catch (Exception ex)
-              {
-                  try
-                  {
-                      if (parancs.Transaction != null)
-                      {
-                          parancs.Transaction.Rollback();
-                      }
-                  }
-                  catch (Exception ex2)
-                  {
-                      throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
-                  }
-                  throw new ABKivetel($"Sikertelen paraméterlista felvitel az adatbázisba! \r\n {ex.Message}");
-              }
-          }*/
         //OK 
         public static void UjParameterDef(Kategoria hova, ParameterDef mit)
         {
@@ -232,47 +195,6 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Paraméter módosítási hiba az adatbázisban!" + ex.Message, ex);
             }
         }   //OK
-        /* public static void ParameterDefListaModositas(Kategoria hol, List<ParameterDef> miket)
-{
-   try
-   {
-       parancs.Parameters.Clear();
-       parancs.Transaction = kapcsolat.BeginTransaction();
-       parancs.CommandText = "UPDATE [Parameter_Def] SET " +
-                             "[PARAMETER_MEGNEVEZES]=@parameterMegnevezes, " +
-                             "[PARAMETER_MERTEKEGYSEG]=@parameterMertekegyseg, " +
-                             "[PARAMETER_ERTEKTIPUS]=@parameterErtekTipus " +
-                             "WHERE [KATEGORIA_ID]=@kategoriaId AND" +
-                                   "[PARAMETER_SORSZAM]=@parameterSorszam";
-       foreach (ParameterDef item in miket)
-       {
-           parancs.Parameters.AddWithValue("@parameterMegnevezes", item.ParameterMegnevezes.ToString());
-           parancs.Parameters.AddWithValue("@parameterMertekegyseg", ParameterDef.TombbolStringbeKonvertal(item.ParameterMertekEgyseg));
-           parancs.Parameters.AddWithValue("@parameterErtekTipus", item.ParameterTipus);
-           parancs.Parameters.AddWithValue("@kategoriaId", hol.KategoriaId);
-           parancs.Parameters.AddWithValue("@parameterSorszam", item.ParameterSorszam);
-           parancs.ExecuteNonQuery();
-       }
-       parancs.Transaction.Commit();
-   }
-   catch (Exception ex)
-   {
-       try
-       {
-           if (parancs.Transaction != null)
-           {
-               parancs.Transaction.Rollback();
-           }
-       }
-       catch (Exception ex2)
-       {
-           throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
-       }
-       throw new ABKivetel("Paraméter lista módosítási hiba az adatbázisban!" + ex.Message, ex);
-   }
-}  */ //OK
-
-
         public static int ParameterDefTores(Kategoria honnan, ParameterDef mit)
         {
             try
@@ -1028,33 +950,6 @@ namespace EKNyilvantarto
             }
         }  //OK!
         #endregion
-
-        /*  internal static Keszlet AlkatreszKeres(Alkatresz alkatresz)
-          {
-              try
-              {
-                  throw new NotImplementedException("Az alkatrész keresés még nincs megírva!");
-                  parancs.Parameters.Clear();
-                  parancs.CommandText = "SELECT *";
-
-              }
-              catch (Exception ex)
-              {
-                  throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
-              }
-          } */
-
-        /*  internal static Keszlet AlkatreszKeres(string parameter)
-          {
-              try
-              {
-                  return null;
-              }
-              catch (Exception ex)
-              {
-                  throw new ABKivetel("Hba történt az alkatrész keresése közben!", ex);
-              }
-          }*/
 
     }
 }

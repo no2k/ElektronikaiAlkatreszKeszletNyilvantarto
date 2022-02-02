@@ -371,10 +371,7 @@ namespace EKNyilvantarto
                 }
             }
         }
-        private void kategoriaTSCBX2_Click(object sender, EventArgs e)
-        {
-
-        }
+       
         private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -484,6 +481,16 @@ namespace EKNyilvantarto
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             AlkatreszTSMI_Click(this, EventArgs.Empty);
+        }
+
+        private void printTSMIBtn_Click(object sender, EventArgs e)
+        {
+            printDialog1.ShowDialog();
+        }
+
+        private void keszletAlkatreszKeresTxb_TextChanged(object sender, EventArgs e)
+        {
+            toolStripStatusLabel1.Text = keszletAlkatreszKeresTxb.Text;
         }
     }
 
