@@ -149,6 +149,7 @@ namespace EKNyilvantarto
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            
             ParameterDef ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
             {
@@ -172,8 +173,8 @@ namespace EKNyilvantarto
                 {
                     if (kivalasztottParameter != null && ujParameter.ParameterSorszam == kivalasztottParameter.ParameterSorszam)
                     {
-                        int index = lista.IndexOf(kivalasztottParameter);
-                        lista[index] = ujParameter;
+                        int index2 = lista.IndexOf(kivalasztottParameter);
+                        lista[index2] = ujParameter;
                     }
                     else
                     {

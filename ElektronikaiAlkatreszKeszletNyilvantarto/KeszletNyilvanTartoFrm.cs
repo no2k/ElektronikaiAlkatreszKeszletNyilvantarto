@@ -490,7 +490,11 @@ namespace EKNyilvantarto
 
         private void keszletAlkatreszKeresTxb_TextChanged(object sender, EventArgs e)
         {
-            toolStripStatusLabel1.Text = keszletAlkatreszKeresTxb.Text;
+            if (keszletAlkatreszKeresTxb.Text.Length > 3)
+            {
+                keszletLista = ABKezelo.Kereses(keszletAlkatreszKeresTxb.Text);
+                ListaFrissit(keszletLV, keszletLista);
+            }
         }
     }
 

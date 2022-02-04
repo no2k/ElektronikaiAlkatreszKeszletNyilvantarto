@@ -55,7 +55,6 @@ namespace EKNyilvantarto
             lv1.Columns.Add("Megnevezés", 150);
             lv1.Columns.Add("Paraméterek", 300);
         }
-
         private void ListaFrissit()
         {
             try
@@ -75,11 +74,6 @@ namespace EKNyilvantarto
         }
         private ListViewItem LVSorFeltolt(int sorszam, Keszlet keszletElem)
         {
-            /*  string parameterekString = "";
-              foreach (AlkatreszParameter parameter in keszletElem.Alkatresz.Parameterek)
-              {
-                  parameterekString += parameter + "; ";
-              }*/
             string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, keszletElem.Alkatresz.ToString() /*parameterekString*/ };
             return new ListViewItem(ujSor);
         }
@@ -284,7 +278,7 @@ namespace EKNyilvantarto
                     Top = top + 10,
                     Left = left,
                     AutoSize = true,
-                    Text = parameterek.Parameterek[i].ParameterMegnevezes
+                    Text = parameterek.Parameterek[i].ParameterMegnevezes+":"
                 };
 
                 top = lbl.Bottom + left;
@@ -366,6 +360,8 @@ namespace EKNyilvantarto
                                 Text = "-",
                                 Visible = false
                             };
+                            gbUjPozicio = txb.Top;
+                            top = txb.Bottom;
                         }
                         break;
                 }

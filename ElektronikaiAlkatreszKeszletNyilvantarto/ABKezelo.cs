@@ -275,6 +275,30 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen parméter(darabszám) kiolvasás az adatbázisból! \r\n {ex.Message}");
             }
         }
+        private static List<int> ParametereIdLekerdezParameterekAlapjan(string adat)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText ="SELECT [PARAMETER_ID] FROM [Parameterek] AS P"+
+                    "WHERE P.[PARAMETER_ERTEK] LIKE '%@ertek%'";
+                parancs.Parameters.AddWithValue("@ertek", adat);
+                List<int> idk = new List<int>();
+                using (SqlDataReader reader= parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        idk.Add((int)reader["PARAMETER_ID"]);
+                    }
+                    reader.Close();
+                    return idk;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba a paraméterek lekérdezése közben!",ex) ;
+            }
+        }
 
         #endregion
 
@@ -343,7 +367,6 @@ namespace EKNyilvantarto
                 throw new ABKivetel($"Sikertelen alkatrész felvitel az adatbázisba! \r\n\t {ex.Message}");
             }
         } //OK!
-
         public static Alkatresz AlkatreszKeresesParameterListaAlapjan(List<AlkatreszParameter> parameterek)
         {
             try
@@ -431,8 +454,6 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
             }
         }
-
-
         private static List<Alkatresz> AlkatreszListaLekerdezes(Kategoria kategoria)
         {
             List<Alkatresz> alkatreszLista = new List<Alkatresz>();
@@ -482,6 +503,95 @@ namespace EKNyilvantarto
             }
 
         }  //OK!
+        private static Alkatresz AlkatreszLekerdezIdAlapjan(int id)
+        {
+            try
+            { // HASZNÁLNI A KATEGÓRIA LEKÉRDEZÉST ID ALAPJÁN???
+                parancs.Parameters.Clear();
+                //parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText =
+                    "SELECT P.[PARAMETER_ID], P.[PARAMETER_SORSZAM], P.[PARAMETER_ERTEK], P.[PARAMETER_MERTEKEGYSEG],K.[KATEGORIA_ID], K.[KATEGORIA],  " +
+                    "FROM [Alkatresz] AS A " +
+                    "INNER JOIN [Parameterek] AS P ON P.[PARAMETER_ID]= A.[ALKATRESZ_ID]" +
+                    "INNER JOIN [Kategoria] AS K ON P.[KATEGORIA_ID]=K.[KATEGORIA_ID]" +
+                    "WHERE A.[ALKATRESZ_ID]=@id";
+                parancs.Parameters.AddWithValue("@id", id);
+                using (SqlDataReader reader = parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
+                }
+                throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
+            }
+        } 
+       /* internal static List<Keszlet> Kereses(string text)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+             
+                parancs.CommandText = "SELECT " +
+                         "P.[KATEGORIA_ID],P.[PARAMETER_ID],P.[PARAMETER_SORSZAM]," +
+                         "P.[PARAMETER_ERTEK],P.[PARAMETER_MERTEKEGYSEG],A.[MEGNEVEZES] " +
+                         "FROM [Alkatresz] AS A INNER JOIN [Parameterek] AS P ON A.[ALKATRESZ_ID]=P.[PARAMETER_ID] " +
+                         "INNER JOIN [Keszlet] AS K ON K.[ALKATRESZ_ID]=A.[ALKATRESZ_ID]" +
+                                      "WHERE P.[KATEGORIA_ID]=A.[KATEGORIA_ID] AND P.[PARAMETER_ERTEK] LIKE'%@ertek%'";
+                parancs.Parameters.AddWithValue("@ertek", text);
+                List<Keszlet> lista = new List<Keszlet>();
+                using (SqlDataReader reader = parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new Keszlet(
+                            ,
+                            ,
+                            ,
+                            ,new Alkatresz(
+                                ,
+                                new Kategoria(),
+                                ,
+                                new List<AlkatreszParameter>)));
+                    }
+                    reader.Close();
+                }
+                
+
+              return null;
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
+                }
+                throw new ABKivetel("Hiba az adatbázisban való keresés közben!", ex);
+            }
+        }
+        */
         internal static int UtolsoAlkatreszId()
         {
             try
