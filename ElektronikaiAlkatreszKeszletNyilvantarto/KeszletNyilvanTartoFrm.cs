@@ -493,7 +493,11 @@ namespace EKNyilvantarto
             if (keszletAlkatreszKeresTxb.Text.Length > 3)
             {
                 keszletLista = ABKezelo.Kereses(keszletAlkatreszKeresTxb.Text);
-                ListaFrissit(keszletLV, keszletLista);
+                if (keszletLista.Count>0)
+                {
+                    ListaFrissit(keszletLV, keszletLista);
+                }
+               
             }
         }
     }
