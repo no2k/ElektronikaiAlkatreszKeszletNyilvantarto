@@ -436,7 +436,7 @@ namespace EKNyilvantarto
             this.keszletAlkatreszKeresTxb.Name = "keszletAlkatreszKeresTxb";
             this.keszletAlkatreszKeresTxb.Size = new System.Drawing.Size(150, 25);
             this.keszletAlkatreszKeresTxb.ToolTipText = "Alkatrész keresése";
-            this.keszletAlkatreszKeresTxb.TextChanged += new System.EventHandler(this.keszletAlkatreszKeresTxb_TextChanged);
+            this.keszletAlkatreszKeresTxb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.keszletAlkatreszKeresTxb_KeyDown);
             // 
             // toolStripButton7
             // 

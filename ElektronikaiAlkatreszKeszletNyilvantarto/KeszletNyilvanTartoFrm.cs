@@ -492,12 +492,24 @@ namespace EKNyilvantarto
         {
             if (keszletAlkatreszKeresTxb.Text.Length > 3)
             {
-                keszletLista = ABKezelo.Kereses(keszletAlkatreszKeresTxb.Text);
+                keszletLista = ABKezelo.GlobalisKereses(keszletAlkatreszKeresTxb.Text);
                 if (keszletLista.Count>0)
                 {
                     ListaFrissit(keszletLV, keszletLista);
                 }
                
+            }
+        }
+
+        private void keszletAlkatreszKeresTxb_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(keszletAlkatreszKeresTxb.Text))
+            {
+                keszletLista = ABKezelo.GlobalisKereses(keszletAlkatreszKeresTxb.Text);
+                if (keszletLista.Count > 0)
+                {
+                    ListaFrissit(keszletLV, keszletLista);
+                }
             }
         }
     }

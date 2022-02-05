@@ -436,7 +436,7 @@ namespace EKNyilvantarto
                     }
                     if (!string.IsNullOrEmpty(str) && !string.IsNullOrEmpty(meStr))
                     {
-                        lista.Add(new AlkatreszParameter(ParameterSorszam, str, meStr));
+                        lista.Add(new AlkatreszParameter(ParameterSorszam, str, meStr.TrimEnd('\r')));
                         str = "-";
                         meStr = "";
                     }

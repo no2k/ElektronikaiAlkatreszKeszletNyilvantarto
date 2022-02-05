@@ -8,7 +8,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
     {
         #region Fieldek
 
-        private static int sorszam = 0;
+        private static int sorszam = 1;
         private int parameterSorszam;
         private string parameterMegnevezes;
         private string[] parameterMertekEgyseg;
@@ -77,7 +77,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         #region Konstruktorok
         public ParameterDef(string parameterMegnevezes, string[] parameterMertekegyseg, int parameterTipus)
         {
-            parameterSorszam = ++sorszam;
+            parameterSorszam = sorszam;
             ParameterMegnevezes = parameterMegnevezes;
             ParameterMertekEgyseg = parameterMertekegyseg;
             ParameterTipus = parameterTipus;

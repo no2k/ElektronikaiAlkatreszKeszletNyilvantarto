@@ -277,27 +277,62 @@ namespace EKNyilvantarto
         }
         private static List<int> ParameterIdkLekerdezParameterekAlapjan(string adat)
         {
+            List<string> adatok = SplitAlpha(adat);
+            Queue<string> parameterSor = new Queue<string>();
+            foreach (string item in adatok)
+            {
+                parameterSor.Enqueue(item);
+            }
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText ="SELECT [PARAMETER_ID] FROM [Parameterek]"+
-                    "WHERE [Parameterek].[PARAMETER_ERTEK] LIKE @ertek";
-                parancs.Parameters.AddWithValue("@ertek", adat);
+                parancs.Transaction = kapcsolat.BeginTransaction();
+                parancs.CommandText = "SELECT [PARAMETER_ID] FROM [Parameterek]" +
+                    "WHERE " +
+                    "([PARAMETER_ERTEK] LIKE @ertek AND [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg)" +
+                    " OR ([PARAMETER_ERTEK] LIKE @ertek OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg)";
+                   //+ " OR ([PARAMETER_ERTEK] LIKE @mertekEgyseg OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg) "; 
                 List<int> idk = new List<int>();
-                using (SqlDataReader reader = parancs.ExecuteReader())
+                while (parameterSor.Count > 0)
                 {
-                    while (reader.Read())
+                    idk.Clear();
+                    parancs.Parameters.Clear();
+                    float f; //nem használt csak a tipusellenörzés miat kell!!
+                    string s = (parameterSor.Count > 0 && 
+                        float.TryParse(parameterSor.Peek(), out f) 
+                        ) ? parameterSor.Dequeue() : string.Empty;
+                    parancs.Parameters.AddWithValue("@ertek",  s + "%");
+                    s = (parameterSor.Count > 0) ? parameterSor.Dequeue() : string.Empty;
+                    parancs.Parameters.AddWithValue("@mertekEgyseg",  s + "%");
+                    //parancs.Parameters.AddWithValue("@szuretlenAdat", adat);
+                    using (SqlDataReader reader = parancs.ExecuteReader())
                     {
-                       idk.Add((int)reader["PARAMETER_ID"]);
+                        while (reader.Read())
+                        {
+                            int i = (int)reader["PARAMETER_ID"];
+                            idk.Add(i);
+
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
+                parancs.Transaction.Commit();
                 return idk;
-               
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Hiba a paraméterek lekérdezése közben!",ex) ;
+                try
+                {
+                    if (parancs.Transaction != null)
+                    {
+                        parancs.Transaction.Rollback();
+                    }
+                }
+                catch (Exception ex2)
+                {
+                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
+                }
+                throw new ABKivetel("Hiba a paraméterek lekérdezése közben!", ex);
             }
         }
 
@@ -529,7 +564,7 @@ namespace EKNyilvantarto
                         if (keresettAlkatresz.AlkatreszId == 0)
                         {
                             keresettAlkatresz = null;
-                            keresettAlkatresz = new Alkatresz((int)reader["PARAMETER_ID"],new Kategoria((int)reader["KATEGORIA_ID"],reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), new List<AlkatreszParameter>());
+                            keresettAlkatresz = new Alkatresz((int)reader["PARAMETER_ID"], new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), new List<AlkatreszParameter>());
                         }
                         AlkatreszParameter parameter = new AlkatreszParameter((int)reader["PARAMETER_ID"], reader["PARAMETER_ERTEK"].ToString(), reader["PARAMETER_MERTEKEGYSEG"].ToString());
                         if (keresettAlkatresz.AlkatreszId == (int)reader["PARAMETER_ID"])
@@ -538,12 +573,12 @@ namespace EKNyilvantarto
                         }
                         else
                         {
-                           // alkatreszLista.Add(keresettAlkatresz);
+                            // alkatreszLista.Add(keresettAlkatresz);
                             keresettAlkatresz = new Alkatresz((int)reader["PARAMETER_ID"], new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), new List<AlkatreszParameter>());
                             keresettAlkatresz.Parameterek.Add(parameter);
                         }
                     }
-                   // alkatreszLista.Add(keresettAlkatresz);
+                    // alkatreszLista.Add(keresettAlkatresz);
                     reader.Close();
                     return keresettAlkatresz;
                 }
@@ -563,12 +598,12 @@ namespace EKNyilvantarto
                 }
                 throw new ABKivetel("Hiba az alkatrész keresésekor az adatbázisban!" + ex.Message);
             }
-        } 
-       internal static List<Keszlet> Kereses(string parameter)
+        }
+        internal static List<Keszlet> GlobalisKereses(string parameter)
         {
             try
             {
-                if (UtolsoAlkatreszId() < 1) return null;
+                if (UtolsoAlkatreszId() < 1 ) return null;
                 List<int> keresettIdk = ParameterIdkLekerdezParameterekAlapjan(parameter);
                 List<Alkatresz> keresettAlkatreszek = new List<Alkatresz>();
                 foreach (int id in keresettIdk)
@@ -580,25 +615,14 @@ namespace EKNyilvantarto
                 {
                     keresettKeszlet.Add(KeszletKeres(alkatresz));
                 }
-              return keresettKeszlet;
+                return keresettKeszlet;
             }
             catch (Exception ex)
             {
-                try
-                {
-                    if (parancs.Transaction != null)
-                    {
-                        parancs.Transaction.Rollback();
-                    }
-                }
-                catch (Exception ex2)
-                {
-                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
-                }
-                throw new ABKivetel("Hiba az adatbázisban való keresés közben!", ex);
+                throw new ABKivetel("Hiba az adatbázisban való teljes keresés közben!", ex);
             }
         }
-        
+
         internal static int UtolsoAlkatreszId()
         {
             try
@@ -629,7 +653,8 @@ namespace EKNyilvantarto
                           "[PARAMETER_ERTEK]=@ertek AND " +
                           "[PARAMETER_MERTEKEGYSEG]=@mertekEgyseg";
                 foreach (AlkatreszParameter item in alkatresz.Parameterek)
-                {
+                { //hibás lekérdezés
+
                     parancs.Parameters.Clear();
                     parancs.Parameters.AddWithValue("@sorSzam", item.ParameterSorszam);
                     parancs.Parameters.AddWithValue("@ertek", item.ParameterErtek);
@@ -1068,5 +1093,19 @@ namespace EKNyilvantarto
         }  //OK!
         #endregion
 
+        #region Felhasznált metódusok (Stackowerflow)
+        // https://stackoverflow-com.translate.goog/questions/1968049/how-to-separate-character-and-number-part-from-string/1968064?_x_tr_sl=en&_x_tr_tl=hu&_x_tr_hl=en#1968064
+        private static List<string> SplitAlpha(string input)
+        {
+            string[] adatTomb = input.Split(' ');
+            var words = new List<string>();// { string.Empty };
+            foreach (string item in adatTomb)
+            {
+                words.Add(item);
+            }
+            return words;
+        }
+
+        #endregion
     }
 }

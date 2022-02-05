@@ -58,7 +58,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
 
         public Alkatresz(int azonosito, Kategoria kategoria, string megnevezes, List<AlkatreszParameter> parameterek)
         {
-
             this.kategoria = kategoria;
             this.megnevezes = megnevezes;
             this.parameterek = parameterek;
@@ -74,7 +73,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
                 parameterString += item.ToString() + " ";
             }
             return parameterString;
-            //   return $"{parameterek.Select(x => x.ParameterErtek + x.ParameterMertekegyseg)}";
         }
 
         bool IEquatable<Alkatresz>.Equals(Alkatresz other)
@@ -85,9 +83,5 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             }
             return false;
         }
-
-
-
-
     }
 }

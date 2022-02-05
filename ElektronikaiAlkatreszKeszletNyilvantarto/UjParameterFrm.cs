@@ -109,7 +109,6 @@ namespace EKNyilvantarto
                             if (felsorolChbx.Checked == false)
                             {
                                 MertekEgysegTxb.Clear();
-                                MertekEgysegTxb.Enabled = false;
                                 MertekEgysegTxb.Text = "-";
                                 tipus = 0;
                             }
@@ -123,7 +122,6 @@ namespace EKNyilvantarto
                         {
                             felsorolChbx.Enabled = false;
                             MertekEgysegTxb.Enabled = true;
-                            // MertekEgysegTxb.Clear();
                             tipus = 1;
                         }
                         break;
@@ -131,7 +129,6 @@ namespace EKNyilvantarto
                         {
                             felsorolChbx.Enabled = false;
                             MertekEgysegTxb.Enabled = true;
-                            // MertekEgysegTxb.Clear();
                             tipus = 2;
                         }
                         break;
@@ -149,7 +146,7 @@ namespace EKNyilvantarto
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             ParameterDef ujParameter;
             if (!string.IsNullOrWhiteSpace(MegnevezesTbx.Text))
             {
@@ -274,14 +271,11 @@ namespace EKNyilvantarto
         {
             if (felsorolChbx.Checked)
             {
-                MertekEgysegTxb.Enabled = true;
                 MertekEgysegTxb.Clear();
                 tipus = 4;
             }
             else
             {
-                MertekEgysegTxb.Enabled = false;
-                MertekEgysegTxb.Text = "-";
                 tipus = 0;
             }
         }
