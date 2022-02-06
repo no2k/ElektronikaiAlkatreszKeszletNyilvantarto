@@ -43,7 +43,6 @@ namespace EKNyilvantarto
             }
         } //OK!
 
-
         #region Kategoria kapcsolatok
 
         public static void UjKategoria(Kategoria kategoria)
@@ -291,19 +290,19 @@ namespace EKNyilvantarto
                     "WHERE " +
                     "([PARAMETER_ERTEK] LIKE @ertek AND [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg)" +
                     " OR ([PARAMETER_ERTEK] LIKE @ertek OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg)";
-                   //+ " OR ([PARAMETER_ERTEK] LIKE @mertekEgyseg OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg) "; 
+                //+ " OR ([PARAMETER_ERTEK] LIKE @mertekEgyseg OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg) "; 
                 List<int> idk = new List<int>();
                 while (parameterSor.Count > 0)
                 {
                     idk.Clear();
                     parancs.Parameters.Clear();
                     float f; //nem használt csak a tipusellenörzés miat kell!!
-                    string s = (parameterSor.Count > 0 && 
-                        float.TryParse(parameterSor.Peek(), out f) 
+                    string s = (parameterSor.Count > 0 &&
+                        float.TryParse(parameterSor.Peek(), out f)
                         ) ? parameterSor.Dequeue() : string.Empty;
-                    parancs.Parameters.AddWithValue("@ertek",  s + "%");
+                    parancs.Parameters.AddWithValue("@ertek", s + "%");
                     s = (parameterSor.Count > 0) ? parameterSor.Dequeue() : string.Empty;
-                    parancs.Parameters.AddWithValue("@mertekEgyseg",  s + "%");
+                    parancs.Parameters.AddWithValue("@mertekEgyseg", s + "%");
                     //parancs.Parameters.AddWithValue("@szuretlenAdat", adat);
                     using (SqlDataReader reader = parancs.ExecuteReader())
                     {
@@ -427,52 +426,27 @@ namespace EKNyilvantarto
                     {
                         while (reader.Read())
                         {
-                            keresettIdk.Add((int)reader["ALKATRESZ_ID"]);
+                            int id = (int)reader["ALKATRESZ_ID"];
+                            if (!keresettIdk.Contains(id))
+                            {
+                                keresettIdk.Add(id);
+                            }
                         }
                         reader.Close();
                     }
                 }
                 parancs.Transaction.Commit();
-                keresettIdk.Sort();
-                Dictionary<int, int> alkatreszIdk = new Dictionary<int, int>();
-                int elozoId = 0;
-                int keresettId = 0;
-                int szamol = 0;
-                int elozoErtek = 0; ;
+                List<Alkatresz> talalatok = new List<Alkatresz>();
+                Alkatresz keresettAlkatresz = new Alkatresz();
                 foreach (int id in keresettIdk)
                 {
-                    if (elozoId == id)
+                    keresettAlkatresz = AlkatreszLekerdezIdAlapjan(id);
+                    if (keresettAlkatresz.Equals(parameterek))
                     {
-                        szamol++;
-                    }
-                    else
-                    {
-                        szamol = 1;
-                        elozoId = id;
-                    }
-                    if (elozoErtek < szamol)
-                    {
-                        elozoErtek = szamol;
-                        keresettId = elozoId;
+                        return keresettAlkatresz;
                     }
                 }
-                Alkatresz keresettAlkatresz = new Alkatresz();
-                parancs.Parameters.Clear();
-                parancs.Transaction = kapcsolat.BeginTransaction();
-                parancs.CommandText =
-                    "SELECT A.[MEGNEVEZES],K.[KATEGORIA_ID],K.[KATEGORIA] FROM [Alkatresz] AS A INNER JOIN [Kategoria] AS K ON A.[KATEGORIA_ID]=K.[KATEGORIA_ID] " +
-                    "WHERE A.[ALKATRESZ_ID]=@id";
-                parancs.Parameters.AddWithValue("@id", keresettId);
-                using (SqlDataReader reader = parancs.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        keresettAlkatresz = new Alkatresz(keresettId, new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), parameterek);
-                    }
-                    reader.Close();
-                    parancs.Transaction.Commit();
-                    return keresettAlkatresz;
-                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -544,9 +518,7 @@ namespace EKNyilvantarto
             try
             {
                 if (UtolsoAlkatreszId() < 1) return null;
-                // List<Alkatresz> alkatreszLista = new List<Alkatresz>();
                 parancs.Parameters.Clear();
-                //parancs.Transaction = kapcsolat.BeginTransaction();
                 parancs.CommandText =
                     "SELECT P.[PARAMETER_ID], P.[PARAMETER_SORSZAM], P.[PARAMETER_ERTEK], P.[PARAMETER_MERTEKEGYSEG],K.[KATEGORIA_ID], K.[KATEGORIA], A.[MEGNEVEZES]  " +
                     "FROM [Alkatresz] AS A " +
@@ -573,12 +545,10 @@ namespace EKNyilvantarto
                         }
                         else
                         {
-                            // alkatreszLista.Add(keresettAlkatresz);
                             keresettAlkatresz = new Alkatresz((int)reader["PARAMETER_ID"], new Kategoria((int)reader["KATEGORIA_ID"], reader["KATEGORIA"].ToString()), reader["MEGNEVEZES"].ToString(), new List<AlkatreszParameter>());
                             keresettAlkatresz.Parameterek.Add(parameter);
                         }
                     }
-                    // alkatreszLista.Add(keresettAlkatresz);
                     reader.Close();
                     return keresettAlkatresz;
                 }
@@ -603,7 +573,7 @@ namespace EKNyilvantarto
         {
             try
             {
-                if (UtolsoAlkatreszId() < 1 ) return null;
+                if (UtolsoAlkatreszId() < 1) return null;
                 List<int> keresettIdk = ParameterIdkLekerdezParameterekAlapjan(parameter);
                 List<Alkatresz> keresettAlkatreszek = new List<Alkatresz>();
                 foreach (int id in keresettIdk)
@@ -629,7 +599,6 @@ namespace EKNyilvantarto
             {
                 parancs.Parameters.Clear();
                 parancs.CommandText = "SELECT [ALKATRESZ_ID] FROM [Alkatresz] WHERE [ALKATRESZ_ID]=(SELECT MAX([ALKATRESZ_ID]) FROM [Alkatresz])";
-
                 int? i = (int?)parancs.ExecuteScalar();
                 return (i != null) ? (int)i : 0;
             }
@@ -643,27 +612,13 @@ namespace EKNyilvantarto
             if (UtolsoAlkatreszId() < 1) return false;
             try
             {
-                int i = 0;
-                parancs.Parameters.Clear();
-                parancs.Transaction = kapcsolat.BeginTransaction();
-                parancs.CommandText =
-                    "SELECT COUNT([ALKATRESZ_ID]) FROM [Alkatresz] AS A " +
-                    "INNER JOIN [Parameterek] AS P ON A.[ALKATRESZ_ID]=P.[PARAMETER_ID] " +
-                    "WHERE [PARAMETER_SORSZAM]=@sorSzam AND " +
-                          "[PARAMETER_ERTEK]=@ertek AND " +
-                          "[PARAMETER_MERTEKEGYSEG]=@mertekEgyseg";
-                foreach (AlkatreszParameter item in alkatresz.Parameterek)
-                { //hibás lekérdezés
-
-                    parancs.Parameters.Clear();
-                    parancs.Parameters.AddWithValue("@sorSzam", item.ParameterSorszam);
-                    parancs.Parameters.AddWithValue("@ertek", item.ParameterErtek);
-                    parancs.Parameters.AddWithValue("@mertekEgyseg", item.ParameterMertekegyseg);
-                    i += ((int)parancs.ExecuteScalar() > 0) ? 1 : 0;
+                Alkatresz keresett = AlkatreszKeresesParameterListaAlapjan(alkatresz.Parameterek);
+                if (keresett != null)
+                {
+                    alkatresz = keresett;
+                    return true;
                 }
-                parancs.Transaction.Commit();
-
-                return (i == alkatresz.Parameterek.Count) ? true : false;
+                return false;
             }
             catch (Exception ex)
             {

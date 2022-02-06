@@ -195,6 +195,7 @@ namespace EKNyilvantarto
                     if (!ujKeszletLista.Contains(keszlet))
                     {
                         ujKeszletLista.Add(keszlet);
+                        megnevezTxB.Clear();
                     }
                     else
                     {

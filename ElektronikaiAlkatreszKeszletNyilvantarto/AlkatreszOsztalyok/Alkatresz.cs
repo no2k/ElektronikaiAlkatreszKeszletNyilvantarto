@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EKNyilvantarto.AlkatreszOsztalyok
 {
-    class Alkatresz : IEquatable<Alkatresz>
+    class Alkatresz : IEquatable<Alkatresz>, IEquatable<List<AlkatreszParameter>>
     {
         int alkatreszId;
         Kategoria kategoria;
@@ -83,5 +83,26 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             }
             return false;
         }
+
+        bool IEquatable<List<AlkatreszParameter>>.Equals(List<AlkatreszParameter> other)
+        {
+            throw new NotImplementedException();
+        }
+
+          public bool Equals(List<AlkatreszParameter> other)
+          {
+              if (parameterek.Count==other.Count)
+              {
+                  for (int i = 0; i < parameterek.Count; i++)
+                  {
+                      if (!parameterek[i].Equals(other[i]))
+                      {
+                          return false;
+                      }
+                  }
+                  return true;
+              }
+              return false;
+          }
     }
 }
