@@ -82,7 +82,6 @@
     <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
     <Compile Include="AlkatreszOsztalyok\AlkatreszParameter.cs" />
     <Compile Include="AlkatreszOsztalyok\Projekt.cs" />
-    <Compile Include="Interfacek\IListViewTomb.cs" />
     <Compile Include="UjAlkatreszFrm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -276,7 +276,7 @@ namespace EKNyilvantarto
         }
         private static List<int> ParameterIdkLekerdezParameterekAlapjan(string adat)
         {
-            List<string> adatok = SplitAlpha(adat);
+            List<string> adatok = Szeparator(adat);
             Queue<string> parameterSor = new Queue<string>();
             foreach (string item in adatok)
             {
@@ -364,10 +364,10 @@ namespace EKNyilvantarto
             try
             {
                 (bool, int) ujId = UjAlkatreszIdHozzaAdas(ujAlkatresz.Megnevezes, (int)ujAlkatresz.Kategoria.KategoriaId);
-                if (ujId.Item1 == true)
+                if (ujId.Item1 == true) // id 7
                 {
-                    int alkatreszId;
-                    alkatreszId = ujId.Item2;
+                    int alkatreszId = ujId.Item2;
+                    ujAlkatresz.AlkatreszId = alkatreszId;
                     parancs.Parameters.Clear();
                     parancs.Transaction = kapcsolat.BeginTransaction();
                     parancs.CommandText = "INSERT INTO [Parameterek] ([PARAMETER_ID],[KATEGORIA_ID],[PARAMETER_SORSZAM],[PARAMETER_ERTEK],[PARAMETER_MERTEKEGYSEG]) VALUES (@paramId,@katId,@paramSorszam,@paramErtek,@paramMertekEgyseg)";
@@ -622,17 +622,6 @@ namespace EKNyilvantarto
             }
             catch (Exception ex)
             {
-                try
-                {
-                    if (parancs.Transaction != null)
-                    {
-                        parancs.Transaction.Rollback();
-                    }
-                }
-                catch (Exception ex2)
-                {
-                    throw new ABKivetel("Végzetes hiba az adatbázisban. Adatbázis beavatkozásra van szükség!", ex2);
-                }
                 throw new ABKivetel("Hiba az alkatrész meglétének ellenőrzésekor az adatbázisban!" + ex.Message);
             }
         }
@@ -1050,7 +1039,7 @@ namespace EKNyilvantarto
 
         #region Felhasznált metódusok (Stackowerflow)
         // https://stackoverflow-com.translate.goog/questions/1968049/how-to-separate-character-and-number-part-from-string/1968064?_x_tr_sl=en&_x_tr_tl=hu&_x_tr_hl=en#1968064
-        private static List<string> SplitAlpha(string input)
+        private static List<string> Szeparator(string input)
         {
             string[] adatTomb = input.Split(' ');
             var words = new List<string>();// { string.Empty };

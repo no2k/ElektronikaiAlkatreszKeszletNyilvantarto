@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EKNyilvantarto.AlkatreszOsztalyok
 {
@@ -94,7 +95,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         {
             if (alkatresz.Kategoria.KategoriaMegnevezes.ToLower() == other.alkatresz.Kategoria.KategoriaMegnevezes.ToLower() &&
                 alkatresz.Megnevezes.ToLower() == other.Alkatresz.Megnevezes.ToLower() &&
-                alkatresz.Parameterek.Count==other.Alkatresz.Parameterek.Count)
+                alkatresz.Parameterek.Count == other.Alkatresz.Parameterek.Count)
             {
                 int eggyezik = 0;
                 int parameterekSzama = alkatresz.Parameterek.Count;
@@ -114,6 +115,21 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return false;
         }
 
-      
+        private string[] NyomtathatoTombFormatum()
+        {
+            string kimenetiString = $"{alkatresz.Megnevezes} |{darabSzam} Db |{darabAr} Ft |{AlkatreszOsszAR()} Ft |{alkatresz.Parameterek}";
+
+            return kimenetiString.Split('|'); 
+        }
+
+       public Queue<string> NyomtathatoFormatum()
+        {
+            Queue<string> kimenetiSor = new Queue<string>();
+            foreach (string adat in NyomtathatoTombFormatum())
+            {
+                kimenetiSor.Enqueue(adat);
+            }
+            return kimenetiSor;
+        }
     }
 }

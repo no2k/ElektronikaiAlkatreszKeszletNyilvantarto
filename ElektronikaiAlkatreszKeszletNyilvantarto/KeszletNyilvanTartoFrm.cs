@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -485,7 +486,7 @@ namespace EKNyilvantarto
 
         private void printTSMIBtn_Click(object sender, EventArgs e)
         {
-            printDialog1.ShowDialog();
+           // printDialog1.ShowDialog();
         }
 
         private void keszletAlkatreszKeresTxb_TextChanged(object sender, EventArgs e)
@@ -497,7 +498,6 @@ namespace EKNyilvantarto
                 {
                     ListaFrissit(keszletLV, keszletLista);
                 }
-               
             }
         }
 
@@ -511,6 +511,53 @@ namespace EKNyilvantarto
                     ListaFrissit(keszletLV, keszletLista);
                 }
             }
+        }
+
+
+        private void aktualisProjektTSMI_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void projektNyomtatTSBtn_Click(object sender, EventArgs e)
+        {
+            if (printPreviewDialog1.ShowDialog()==DialogResult.OK)
+            {
+                printDocument1.Print();
+            }
+        }
+        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            // levédeni: projekt nincs kijelölve, alkatrészek nincsennek a projektbe
+
+           Font printFont = new Font("Arial", 10);
+            float linesPerPage = 0;
+            float yPos = 0;
+            int count = 0;
+            float leftMargin = e.MarginBounds.Left;
+            float topMargin = e.MarginBounds.Top;
+            string line = null;
+            int index = 0;
+            linesPerPage = e.MarginBounds.Height / printFont.GetHeight(e.Graphics);
+            foreach (Keszlet keszlet in projekt.AlkatreszLista)
+            { line = null;
+                foreach (string item in keszlet.NyomtathatoFormatum())
+                {
+                    line += item+" ";
+                }
+               
+                yPos = topMargin + (count *
+              printFont.GetHeight(e.Graphics));
+                e.Graphics.DrawString(line, printFont, Brushes.Black,
+                   leftMargin, yPos, new StringFormat());
+                count++;
+                line = null;
+            }
+            if (line != null)
+                e.HasMorePages = true;
+            else
+                e.HasMorePages = false;
+            // e.Graphics.DrawString(projekt.ToString(),new Font("Arial",16,FontStyle.Regular),Brushes.Black,0,25);
         }
     }
 

@@ -199,7 +199,18 @@ namespace EKNyilvantarto
                     }
                     else
                     {
-                        MessageBox.Show("Már van ilyen alkatrszész a listában!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        if (MessageBox.Show("Már van ilyen alkatrszész a listában!\n\rSzeretnéd frissíteni az alkatrész darabszámát és az árát?", "Figyelem", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            foreach (Keszlet alkatresz in ujKeszletLista)
+                            {
+                                if (alkatresz.Equals(keszlet))
+                                {
+                                    alkatresz.DarabAr = keszlet.DarabAr;
+                                    alkatresz.DarabSzam += keszlet.DarabSzam;
+                                    //ListaFrissit();
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -240,10 +251,10 @@ namespace EKNyilvantarto
                 foreach (Keszlet ujKeszlet in ujKeszletLista)
                 {
                     if (ABKezelo.VanIlyenAlkatresz(ujKeszlet.Alkatresz))
-                    {  
+                    {
                         keszlet = ABKezelo.KeszletKeresParameterekAlapjan(ujKeszlet.Alkatresz.Parameterek);
-                        keszlet.DarabSzam+=ujKeszlet.DarabSzam;
-                        keszlet.DarabAr =ujKeszlet.DarabAr;
+                        keszlet.DarabSzam += ujKeszlet.DarabSzam;
+                        keszlet.DarabAr = ujKeszlet.DarabAr;
                         ABKezelo.KeszletModositas(keszlet);
                     }
                     else
@@ -279,7 +290,7 @@ namespace EKNyilvantarto
                     Top = top + 10,
                     Left = left,
                     AutoSize = true,
-                    Text = parameterek.Parameterek[i].ParameterMegnevezes+":"
+                    Text = parameterek.Parameterek[i].ParameterMegnevezes + ":"
                 };
 
                 top = lbl.Bottom + left;

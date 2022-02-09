@@ -39,7 +39,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         }
         public int AlkatreszId
         {
-            get => alkatreszId; private set
+            get => alkatreszId;
+            set
             {
                 if (value > 0)
                 {
@@ -84,25 +85,20 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return false;
         }
 
-        bool IEquatable<List<AlkatreszParameter>>.Equals(List<AlkatreszParameter> other)
+        public bool Equals(List<AlkatreszParameter> other)
         {
-            throw new NotImplementedException();
+            if (parameterek.Count == other.Count)
+            {
+                for (int i = 0; i < parameterek.Count; i++)
+                {
+                    if (!parameterek[i].Equals(other[i]))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return false;
         }
-
-          public bool Equals(List<AlkatreszParameter> other)
-          {
-              if (parameterek.Count==other.Count)
-              {
-                  for (int i = 0; i < parameterek.Count; i++)
-                  {
-                      if (!parameterek[i].Equals(other[i]))
-                      {
-                          return false;
-                      }
-                  }
-                  return true;
-              }
-              return false;
-          }
     }
 }
