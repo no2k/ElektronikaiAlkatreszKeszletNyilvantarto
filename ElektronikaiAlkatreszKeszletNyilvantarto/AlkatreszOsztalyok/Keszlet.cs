@@ -117,7 +117,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
 
         private string[] NyomtathatoTombFormatum()
         {
-            string kimenetiString = $"{alkatresz.Megnevezes} |{darabSzam} Db |{darabAr} Ft |{AlkatreszOsszAR()} Ft |{alkatresz.Parameterek}";
+           // string parameterString = alkatresz.Parameterek;
+            string kimenetiString = $"{alkatresz.Megnevezes} |{darabSzam} Db |{darabAr} Ft |{AlkatreszOsszAR()} Ft |{alkatresz}";
 
             return kimenetiString.Split('|'); 
         }

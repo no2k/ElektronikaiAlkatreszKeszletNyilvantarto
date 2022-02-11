@@ -81,8 +81,6 @@ namespace EKNyilvantarto
             this.infoTSMI = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -128,32 +126,32 @@ namespace EKNyilvantarto
             this.alkatreszTSMI,
             this.projektTSMI});
             this.ujTSMI.Name = "ujTSMI";
-            this.ujTSMI.Size = new System.Drawing.Size(180, 22);
+            this.ujTSMI.Size = new System.Drawing.Size(111, 22);
             this.ujTSMI.Text = "Új...";
             // 
             // alkatreszTSMI
             // 
             this.alkatreszTSMI.Name = "alkatreszTSMI";
-            this.alkatreszTSMI.Size = new System.Drawing.Size(180, 22);
+            this.alkatreszTSMI.Size = new System.Drawing.Size(121, 22);
             this.alkatreszTSMI.Text = "Alkatrész";
             this.alkatreszTSMI.Click += new System.EventHandler(this.AlkatreszTSMI_Click);
             // 
             // projektTSMI
             // 
             this.projektTSMI.Name = "projektTSMI";
-            this.projektTSMI.Size = new System.Drawing.Size(180, 22);
+            this.projektTSMI.Size = new System.Drawing.Size(121, 22);
             this.projektTSMI.Text = "Projekt";
             this.projektTSMI.Click += new System.EventHandler(this.UjProjektTSMI_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 6);
             // 
             // kilépésToolStripMenuItem
             // 
             this.kilépésToolStripMenuItem.Name = "kilépésToolStripMenuItem";
-            this.kilépésToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kilépésToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.kilépésToolStripMenuItem.Text = "Kilépés";
             this.kilépésToolStripMenuItem.Click += new System.EventHandler(this.KilepesTSMI_Click);
             // 
@@ -172,19 +170,19 @@ namespace EKNyilvantarto
             this.printKategoriaTSMI,
             this.printLeltarTSMI});
             this.printKeszletTSMI.Name = "printKeszletTSMI";
-            this.printKeszletTSMI.Size = new System.Drawing.Size(180, 22);
+            this.printKeszletTSMI.Size = new System.Drawing.Size(120, 22);
             this.printKeszletTSMI.Text = "Készlet..";
             // 
             // printKategoriaTSMI
             // 
             this.printKategoriaTSMI.Name = "printKategoriaTSMI";
-            this.printKategoriaTSMI.Size = new System.Drawing.Size(180, 22);
+            this.printKategoriaTSMI.Size = new System.Drawing.Size(124, 22);
             this.printKategoriaTSMI.Text = "Kategória";
             // 
             // printLeltarTSMI
             // 
             this.printLeltarTSMI.Name = "printLeltarTSMI";
-            this.printLeltarTSMI.Size = new System.Drawing.Size(180, 22);
+            this.printLeltarTSMI.Size = new System.Drawing.Size(124, 22);
             this.printLeltarTSMI.Text = "Leltár";
             // 
             // printProjektTSMI
@@ -193,20 +191,20 @@ namespace EKNyilvantarto
             this.aktualisProjektTSMI,
             this.mindenProjektTSMI});
             this.printProjektTSMI.Name = "printProjektTSMI";
-            this.printProjektTSMI.Size = new System.Drawing.Size(180, 22);
+            this.printProjektTSMI.Size = new System.Drawing.Size(120, 22);
             this.printProjektTSMI.Text = "Projekt...";
             // 
             // aktualisProjektTSMI
             // 
             this.aktualisProjektTSMI.Name = "aktualisProjektTSMI";
-            this.aktualisProjektTSMI.Size = new System.Drawing.Size(180, 22);
+            this.aktualisProjektTSMI.Size = new System.Drawing.Size(156, 22);
             this.aktualisProjektTSMI.Text = "Aktuális projekt";
             this.aktualisProjektTSMI.Click += new System.EventHandler(this.aktualisProjektTSMI_Click);
             // 
             // mindenProjektTSMI
             // 
             this.mindenProjektTSMI.Name = "mindenProjektTSMI";
-            this.mindenProjektTSMI.Size = new System.Drawing.Size(180, 22);
+            this.mindenProjektTSMI.Size = new System.Drawing.Size(156, 22);
             this.mindenProjektTSMI.Text = "Minden projekt";
             // 
             // toolStrip1
@@ -581,21 +579,6 @@ namespace EKNyilvantarto
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(500, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // printPreviewDialog1
-            // 
-            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
-            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
-            this.printPreviewDialog1.Document = this.printDocument1;
-            this.printPreviewDialog1.Enabled = true;
-            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
-            this.printPreviewDialog1.Name = "printPreviewDialog1";
-            this.printPreviewDialog1.Visible = false;
-            // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
-            // 
             // AlkatreszKeszletFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -690,8 +673,6 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripMenuItem aktualisProjektTSMI;
         private System.Windows.Forms.ToolStripMenuItem mindenProjektTSMI;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
-        private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripButton projektNyomtatTSBtn;
     }

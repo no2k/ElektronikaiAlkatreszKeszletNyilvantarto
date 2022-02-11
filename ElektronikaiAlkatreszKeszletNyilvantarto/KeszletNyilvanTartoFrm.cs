@@ -15,7 +15,7 @@ namespace EKNyilvantarto
         List<Keszlet> keszletLista = new List<Keszlet>();
         List<Projekt> projektek = new List<Projekt>();
         Projekt projekt;
-
+        
         public AlkatreszKeszletFrm()
         {
             AdatBazisCsatlakozas();
@@ -244,7 +244,7 @@ namespace EKNyilvantarto
             {
                 ProjektAlkatreszDarabszamBeallit(beallitani);
                 kategoriaTSCBX1.SelectedIndex = kategoriaIndex;
-                kategoriaTSCBX1_SelectedIndexChange(this,EventArgs.Empty);
+                kategoriaTSCBX1_SelectedIndexChange(this, EventArgs.Empty);
                 //KategoriaFrissit();
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
                 ListaFrissit(keszletLV, keszletLista);
@@ -271,7 +271,7 @@ namespace EKNyilvantarto
                             }
                             else
                             {
-                                keresett.DarabSzam += projektAlkatresz.DarabSzam - beallitando.DarabSzam;;
+                                keresett.DarabSzam += projektAlkatresz.DarabSzam - beallitando.DarabSzam; ;
                                 projektAlkatresz.DarabSzam = beallitando.DarabSzam;
                                 ABKezelo.KeszletModositas(keresett);
                                 ABKezelo.ProjektAlkatreszModositas((int)projekt.ProjektAzonosito, projektAlkatresz);
@@ -372,7 +372,7 @@ namespace EKNyilvantarto
                 }
             }
         }
-       
+
         private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
@@ -384,7 +384,6 @@ namespace EKNyilvantarto
                 MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void KilepesTSMI_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -407,7 +406,7 @@ namespace EKNyilvantarto
             foreach (Keszlet modositott in modositandoAlkatreszek)
             {
                 keresett = ABKezelo.KeszletKeres(modositott.Alkatresz);
-                foreach(Keszlet projektAlkatresz in projekt.AlkatreszLista)
+                foreach (Keszlet projektAlkatresz in projekt.AlkatreszLista)
                 {
                     if (projektAlkatresz.Equals(modositott))
                     {
@@ -450,10 +449,10 @@ namespace EKNyilvantarto
                     projekt.AlkatreszLista.Remove(alkatresz);
 
                 }
-               
-                    kategoriaTSCBX1.SelectedIndex = kategoriaIndex;
-                    kategoriaTSCBX1_SelectedIndexChange(this, EventArgs.Empty);
-                
+
+                kategoriaTSCBX1.SelectedIndex = kategoriaIndex;
+                kategoriaTSCBX1_SelectedIndexChange(this, EventArgs.Empty);
+
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
                 ListaFrissit(keszletLV, keszletLista);
 
@@ -461,7 +460,7 @@ namespace EKNyilvantarto
         }
         private void keszletAlkatreszModositBtn_Click(object sender, EventArgs e)
         {
-            if (keszletLV.SelectedItems.Count==0) { return; }
+            if (keszletLV.SelectedItems.Count == 0) { return; }
             List<Keszlet> modositandoAlkatreszek = ListViewElemekbolAlkatreszLista(keszletLV.SelectedItems, keszletLista);
             DarabSzamBeallit(modositandoAlkatreszek, 2000);
             foreach (Keszlet eredeti in keszletLista)
@@ -478,29 +477,25 @@ namespace EKNyilvantarto
             }
             ListaFrissit(keszletLV, keszletLista);
         }
-
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             AlkatreszTSMI_Click(this, EventArgs.Empty);
         }
-
         private void printTSMIBtn_Click(object sender, EventArgs e)
         {
-           // printDialog1.ShowDialog();
+            // printDialog1.ShowDialog();
         }
-
         private void keszletAlkatreszKeresTxb_TextChanged(object sender, EventArgs e)
         {
             if (keszletAlkatreszKeresTxb.Text.Length > 3)
             {
                 keszletLista = ABKezelo.GlobalisKereses(keszletAlkatreszKeresTxb.Text);
-                if (keszletLista.Count>0)
+                if (keszletLista.Count > 0)
                 {
                     ListaFrissit(keszletLV, keszletLista);
                 }
             }
         }
-
         private void keszletAlkatreszKeresTxb_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(keszletAlkatreszKeresTxb.Text))
@@ -512,53 +507,18 @@ namespace EKNyilvantarto
                 }
             }
         }
-
-
         private void aktualisProjektTSMI_Click(object sender, EventArgs e)
         {
 
         }
-
         private void projektNyomtatTSBtn_Click(object sender, EventArgs e)
         {
-            if (printPreviewDialog1.ShowDialog()==DialogResult.OK)
-            {
-                printDocument1.Print();
-            }
+            ReporterFrm frm = new ReporterFrm(projekt);
+            
+            frm.Show();
+          
         }
-        private void printDocument1_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            // levédeni: projekt nincs kijelölve, alkatrészek nincsennek a projektbe
-
-           Font printFont = new Font("Arial", 10);
-            float linesPerPage = 0;
-            float yPos = 0;
-            int count = 0;
-            float leftMargin = e.MarginBounds.Left;
-            float topMargin = e.MarginBounds.Top;
-            string line = null;
-            int index = 0;
-            linesPerPage = e.MarginBounds.Height / printFont.GetHeight(e.Graphics);
-            foreach (Keszlet keszlet in projekt.AlkatreszLista)
-            { line = null;
-                foreach (string item in keszlet.NyomtathatoFormatum())
-                {
-                    line += item+" ";
-                }
-               
-                yPos = topMargin + (count *
-              printFont.GetHeight(e.Graphics));
-                e.Graphics.DrawString(line, printFont, Brushes.Black,
-                   leftMargin, yPos, new StringFormat());
-                count++;
-                line = null;
-            }
-            if (line != null)
-                e.HasMorePages = true;
-            else
-                e.HasMorePages = false;
-            // e.Graphics.DrawString(projekt.ToString(),new Font("Arial",16,FontStyle.Regular),Brushes.Black,0,25);
-        }
+     
     }
 
 }
