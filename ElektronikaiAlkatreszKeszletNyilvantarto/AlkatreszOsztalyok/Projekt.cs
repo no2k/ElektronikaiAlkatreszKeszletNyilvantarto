@@ -1,8 +1,8 @@
-﻿using EKNyilvantarto.AlkatreszOsztalyok;
+﻿
 using System;
 using System.Collections.Generic;
 
-namespace EKNyilvantarto
+namespace EKNyilvantarto.AlkatreszOsztalyok
 {
     internal class Projekt
     {
