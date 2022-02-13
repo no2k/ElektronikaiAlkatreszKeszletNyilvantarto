@@ -64,19 +64,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.86417cm</Width>
+                  <Width>3.16431cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.63235cm</Width>
+                  <Width>1.47801cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.85913cm</Width>
+                  <Width>1.70479cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.03552cm</Width>
+                  <Width>1.88118cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.62785cm</Width>
+                  <Width>10.04652cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -126,7 +126,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Darabszám</Value>
+                                  <Value>Darab</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -269,7 +269,9 @@
                                 <TextRun>
                                   <Value>=IIf(Not String.IsNullOrWhiteSpace(Fields!Megjegyzes.Value),
 Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -299,7 +301,15 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Darab.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value> Db</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -329,7 +339,15 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DarabAr.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value> Ft</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -359,7 +377,15 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!OsszAr.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value> Ft</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -389,7 +415,9 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Parameterek.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -426,7 +454,7 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>2.43056cm</Size>
+                    <Size>1.82643cm</Size>
                     <CellContents>
                       <Textbox Name="Textbox140">
                         <CanGrow>true</CanGrow>
@@ -476,7 +504,7 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
-                    <Size>2.43056cm</Size>
+                    <Size>1.82643cm</Size>
                     <CellContents>
                       <Textbox Name="Kategoria">
                         <CanGrow>true</CanGrow>
@@ -486,7 +514,10 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                             <TextRuns>
                               <TextRun>
                                 <Value>=Fields!Kategoria.Value</Value>
-                                <Style />
+                                <Style>
+                                  <FontSize>9pt</FontSize>
+                                  <FontWeight>Bold</FontWeight>
+                                </Style>
                               </TextRun>
                             </TextRuns>
                             <Style />
@@ -516,9 +547,9 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
             </TablixRowHierarchy>
             <DataSetName>DataSet</DataSetName>
             <Top>0.37634cm</Top>
-            <Left>0.5424cm</Left>
+            <Left>0.44334cm</Left>
             <Height>1.25292cm</Height>
-            <Width>22.44958cm</Width>
+            <Width>20.10124cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -536,10 +567,10 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.14505cm</Width>
+                  <Width>3.23765cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.30453cm</Width>
+                  <Width>16.86359cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -555,9 +586,12 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf(Not String.IsNullOrWhiteSpace(Fields!Megjegyzes.Value),
-Fields!Megnevezes.Value,Nothing)</Value>
-                                  <Style />
+                                  <Value>=IIf(String.IsNullOrWhiteSpace(Fields!Megjegyzes.Value),Nothing,
+Fields!Megnevezes.Value)</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -579,22 +613,24 @@ Fields!Megnevezes.Value,Nothing)</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Megjegyzes">
+                        <Textbox Name="Textbox1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIf(Not String.IsNullOrWhiteSpace(Fields!Megjegyzes.Value),
-Fields!Megjegyzes.Value,Nothing)</Value>
-                                  <Style />
+                                  <Value>=Fields!Megjegyzes.Value</Value>
+                                  <Style>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Megjegyzes</rd:DefaultName>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -622,14 +658,17 @@ Fields!Megjegyzes.Value,Nothing)</Value>
               <TablixMembers>
                 <TablixMember>
                   <Group Name="Details1" />
+                  <Visibility>
+                    <Hidden>=IIf(String.IsNullOrWhiteSpace(Fields!Megjegyzes.Value),true,false)</Hidden>
+                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet</DataSetName>
-            <Top>6.08867cm</Top>
-            <Left>0.5424cm</Left>
+            <Top>2.62263cm</Top>
+            <Left>0.44334cm</Left>
             <Height>0.6cm</Height>
-            <Width>22.44958cm</Width>
+            <Width>20.10124cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -638,10 +677,15 @@ Fields!Megjegyzes.Value,Nothing)</Value>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>2.77581in</Height>
-        <Style />
+        <Height>38.14167mm</Height>
+        <Style>
+          <Border>
+            <Style>None</Style>
+            <Width>5mm</Width>
+          </Border>
+        </Style>
       </Body>
-      <Width>9.34871in</Width>
+      <Width>228.19997mm</Width>
       <Page>
         <PageHeader>
           <Height>2.54cm</Height>
@@ -669,7 +713,7 @@ Fields!Megjegyzes.Value,Nothing)</Value>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
               <Top>0.36449cm</Top>
-              <Left>0.5424cm</Left>
+              <Left>0.44334cm</Left>
               <Height>0.9175cm</Height>
               <Width>6.46875cm</Width>
               <Style>
@@ -696,7 +740,7 @@ Fields!Megjegyzes.Value,Nothing)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Leírás:</Value>
+                      <Value>Leírás: </Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                         <TextDecoration>Underline</TextDecoration>
@@ -712,9 +756,9 @@ Fields!Megjegyzes.Value,Nothing)</Value>
               </Paragraphs>
               <rd:DefaultName>ProjektLeiras</rd:DefaultName>
               <Top>0.36449cm</Top>
-              <Left>8.3117cm</Left>
+              <Left>7.4589cm</Left>
               <Height>1.81708cm</Height>
-              <Width>7.63292cm</Width>
+              <Width>6.33646cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -733,7 +777,7 @@ Fields!Megjegyzes.Value,Nothing)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Megjegyzés:</Value>
+                      <Value>Megjegyzés: </Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontWeight>Bold</FontWeight>
@@ -752,7 +796,7 @@ Fields!Megjegyzes.Value,Nothing)</Value>
               </Paragraphs>
               <rd:DefaultName>ProjektMegjegyzes</rd:DefaultName>
               <Top>0.36449cm</Top>
-              <Left>16.99948cm</Left>
+              <Left>14.55208cm</Left>
               <Height>1.81708cm</Height>
               <Width>5.9925cm</Width>
               <ZIndex>2</ZIndex>
@@ -768,9 +812,9 @@ Fields!Megjegyzes.Value,Nothing)</Value>
             </Textbox>
             <Line Name="Line1">
               <Top>2.46944cm</Top>
-              <Left>0.5424cm</Left>
+              <Left>0.44334cm</Left>
               <Height>0cm</Height>
-              <Width>22.44958cm</Width>
+              <Width>20.10124cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -786,7 +830,7 @@ Fields!Megjegyzes.Value,Nothing)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Dátum: </Value>
+                      <Value>Dátum:  </Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -798,12 +842,14 @@ Fields!Megjegyzes.Value,Nothing)</Value>
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox160</rd:DefaultName>
               <Top>1.58157cm</Top>
-              <Left>0.5424cm</Left>
+              <Left>0.44334cm</Left>
               <Height>0.6cm</Height>
               <Width>6.04542cm</Width>
               <ZIndex>4</ZIndex>
@@ -825,7 +871,7 @@ Fields!Megjegyzes.Value,Nothing)</Value>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.13982cm</Height>
+          <Height>1.00753cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -840,12 +886,14 @@ Fields!Megjegyzes.Value,Nothing)</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox161</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>20.49198cm</Left>
+              <Left>18.04458cm</Left>
               <Height>0.6cm</Height>
               <Width>2.5cm</Width>
               <Style>
@@ -867,10 +915,10 @@ Fields!Megjegyzes.Value,Nothing)</Value>
         </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
-        <LeftMargin>2cm</LeftMargin>
-        <RightMargin>2cm</RightMargin>
-        <TopMargin>2cm</TopMargin>
-        <BottomMargin>2cm</BottomMargin>
+        <LeftMargin>0cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>0cm</TopMargin>
+        <BottomMargin>0cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>

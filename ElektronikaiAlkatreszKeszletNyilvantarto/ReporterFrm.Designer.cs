@@ -35,6 +35,7 @@ namespace EKNyilvantarto
             // 
             // reportViewer1
             // 
+            this.reportViewer1.IsDocumentMapWidthFixed = true;
             this.reportViewer1.Location = new System.Drawing.Point(12, 12);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;

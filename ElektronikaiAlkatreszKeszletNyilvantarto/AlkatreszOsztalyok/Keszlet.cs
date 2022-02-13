@@ -91,6 +91,11 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return darabAr * darabSzam;
         }
 
+        public override string ToString()
+        {
+            return $"{darabSzam} {darabAr} , {Alkatresz}";
+
+        }
         public bool Equals(Keszlet other)
         {
             if (alkatresz.Kategoria.KategoriaMegnevezes.ToLower() == other.alkatresz.Kategoria.KategoriaMegnevezes.ToLower() &&

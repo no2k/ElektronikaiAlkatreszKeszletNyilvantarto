@@ -60,7 +60,8 @@ namespace EKNyilvantarto
             
 
             reportViewer1.LocalReport.ReportPath = @"Report/TesztReport2.rdlc";
-             //ReportParameter rp = new ReportParameter();
+           
+            //ReportParameter rp = new ReportParameter();
              List<ReportParameter> parameterek = new List<ReportParameter>();
             parameterek.Add(new ReportParameter("ProjektNev",projekt.ProjektNev,true));
             parameterek.Add(new ReportParameter("ProjektLeiras", projekt.Leiras, true));
