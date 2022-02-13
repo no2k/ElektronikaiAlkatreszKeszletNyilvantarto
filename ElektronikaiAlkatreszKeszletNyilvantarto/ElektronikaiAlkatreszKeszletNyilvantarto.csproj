@@ -101,6 +101,7 @@
     <Compile Include="AlkatreszOsztalyok\Alkatresz.cs" />
     <Compile Include="AlkatreszOsztalyok\AlkatreszParameter.cs" />
     <Compile Include="AlkatreszOsztalyok\Projekt.cs" />
+    <Compile Include="LVRendez.cs" />
     <Compile Include="ReporterFrm.cs">
       <SubType>Form</SubType>
     </Compile>

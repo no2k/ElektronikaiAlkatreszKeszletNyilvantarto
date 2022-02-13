@@ -288,9 +288,9 @@ namespace EKNyilvantarto
                 parancs.Transaction = kapcsolat.BeginTransaction();
                 parancs.CommandText = "SELECT [PARAMETER_ID] FROM [Parameterek]" +
                     "WHERE " +
-                    "([PARAMETER_ERTEK] LIKE @ertek AND [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg)" +
-                    " OR ([PARAMETER_ERTEK] LIKE @ertek OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg)";
-                //+ " OR ([PARAMETER_ERTEK] LIKE @mertekEgyseg OR [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg) "; 
+                    "[PARAMETER_ERTEK] LIKE @ertek AND [PARAMETER_MERTEKEGYSEG] LIKE @mertekEgyseg" +
+                    " AND [PARAMETER_SORSZAM]=[PARAMETER_SORSZAM]" +
+                    " AND [PARAMETER_ID]=[PARAMETER_ID] ";
                 List<int> idk = new List<int>();
                 while (parameterSor.Count > 0)
                 {

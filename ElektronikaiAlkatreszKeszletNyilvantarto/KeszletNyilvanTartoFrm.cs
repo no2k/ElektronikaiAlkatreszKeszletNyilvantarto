@@ -15,6 +15,7 @@ namespace EKNyilvantarto
         List<Keszlet> keszletLista = new List<Keszlet>();
         List<Projekt> projektek = new List<Projekt>();
         Projekt projekt;
+        LVRendez lvRendez;
 
         public AlkatreszKeszletFrm()
         {
@@ -23,6 +24,8 @@ namespace EKNyilvantarto
             LVBeallitas();
             KategoriaFrissit();
             ProjektekBetoltes();
+            lvRendez = new LVRendez();
+            keszletLV.ListViewItemSorter = lvRendez;
         }
 
         private void AdatBazisCsatlakozas()
@@ -155,27 +158,12 @@ namespace EKNyilvantarto
                 MessageBox.Show($"{ex.Message}", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-        private void toolStripButton7_Click(object sender, EventArgs e)
+        private void ujAlkatreszTSBtn_Click(object sender, EventArgs e)
         {
-            hianyzik = !hianyzik;
-            ListaFrissit(keszletLV, keszletLista);
-        }
-        private void toolStripButton7_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (hianyzik)
-            {
-                toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button2;
-            }
-            else
-            {
-                toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button1;
-            }
-        }
-        private void toolStripButton7_MouseDown(object sender, MouseEventArgs e)
-        {
-            toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button3;
+            AlkatreszTSMI_Click(this, EventArgs.Empty);
         }
         #endregion
+
         #region "Projekt" metódusok
         private void ProjektekBetoltes()
         {
@@ -227,7 +215,7 @@ namespace EKNyilvantarto
                 }
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
-        }
+        } //OK
         private void projekthezAdBtn_Click(object sender, EventArgs e)
         {
             int kategoriaIndex = kategoriaTSCBX1.SelectedIndex;
@@ -251,7 +239,7 @@ namespace EKNyilvantarto
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
                 ListaFrissit(keszletLV, keszletLista);
             }
-        }
+        }  //OK
         private void ProjektAlkatreszDarabszamBeallit(List<Keszlet> melyikAlkatreszeket)
         {
             if (melyikAlkatreszeket.Count == 0) return;
@@ -291,97 +279,7 @@ namespace EKNyilvantarto
                     projekt.AlkatreszLista.Add(alkatresz);
                 }
             }
-        }
-
-        private List<Keszlet> DuplaAlkatreszSzeparator(List<Keszlet> forrasLista, List<Keszlet> referenciaLista)
-        {
-            List<Keszlet> duplikalt = new List<Keszlet>();
-            foreach (Keszlet item in forrasLista)
-            {
-                if (referenciaLista.Contains(item))
-                {
-                    duplikalt.Add(item);
-                }
-            }
-            if (duplikalt.Count > 0 && MessageBox.Show("A kiválasztott alkatrészek közzül már van a listában!\n\rSzeretné azokat az alkatrészeket módosítani?\n\rAmennyiben a Nem-re kattint a \"duplikált\" alkatrészeket kiveszem a listából!", "Figyelem duplikáció!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                foreach (Keszlet alkatresz in duplikalt)
-                {
-                    forrasLista.Remove(alkatresz);
-                }
-                duplikalt.Clear();
-            }
-            return duplikalt;
-        }  //OK!
-
-        private void DarabSzamBeallit(List<Keszlet> melyikAlkatreszListan, int maxDarabszam = 0)
-        {
-            if (melyikAlkatreszListan.Count == 0) return;
-            AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(melyikAlkatreszListan, maxDarabszam);
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                return;
-            }
-            melyikAlkatreszListan.Clear();
-
-        } //OK!
-        private List<Keszlet> ListViewElemekbolAlkatreszLista(ListView.SelectedListViewItemCollection kivalasztottElemek, List<Keszlet> melyikListabol)
-        {
-            List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
-            foreach (ListViewItem item in kivalasztottElemek)
-            {
-                string parameterek = item.SubItems[6].Text;
-                float darabSzam = float.Parse(item.SubItems[2].Text.Remove((item.SubItems[2].Text.Length - 3)));
-                foreach (Keszlet alkatreszelem in melyikListabol)
-                {
-                    string str = alkatreszelem.Alkatresz.ToString();
-                    if (str == parameterek /*&& alkatreszelem.DarabSzam > 0*/)
-                    {
-                        Keszlet ujKeszlet = new Keszlet(alkatreszelem.KeszletId, darabSzam, alkatreszelem.DarabAr, alkatreszelem.Megjegyzes, alkatreszelem.Alkatresz);
-                        //    if (!projekt.AlkatreszLista.Contains(ujKeszlet))
-                        {
-                            kivalasztottAlkatreszek.Add(ujKeszlet);
-                        }
-                    }
-                }
-            }
-            return kivalasztottAlkatreszek;
-        }
-        #endregion
-
-        private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
-        {
-            Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
-            if (kat != null)
-            {
-                try
-                {
-                    if (keszletLista != null) keszletLista.Clear();
-                    keszletLista = ABKezelo.KeszletLeker(kat);
-                    ListaFrissit(keszletLV, keszletLista);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Hiba a kategória betötése közben!\n\r" + ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
-
-        private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                ABKezelo.KapcsolatBontas();
-            }
-            catch (ABKivetel ex)
-            {
-                MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void KilepesTSMI_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        } //OK
         private void projektLV_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (projektLV.SelectedItems != null)
@@ -389,7 +287,7 @@ namespace EKNyilvantarto
                 ;
                 AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista));
             }
-        }
+        } //OK
         private void prjAlkatreszModosit_Click(object sender, EventArgs e)
         {
             int kategoriaIndex = kategoriaTSCBX1.SelectedIndex;
@@ -426,7 +324,7 @@ namespace EKNyilvantarto
             }
             ListaFrissit(keszletLV, keszletLista);
             ListaFrissit(projektLV, projekt.AlkatreszLista);
-        }
+        } //OK
         private void prjAlkatreszTorolBtn_Click(object sender, EventArgs e)
         {
             if (projektLV.SelectedItems.Count > 0 && MessageBox.Show("Biztos törölni akarod a kiválasztott alkatrészeket, a projekt alkatrész listájáról?", "Biztos törlöd?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -451,7 +349,63 @@ namespace EKNyilvantarto
                 ListaFrissit(keszletLV, keszletLista);
 
             }
-        }
+        } //OK
+        private List<Keszlet> DuplaAlkatreszSzeparator(List<Keszlet> forrasLista, List<Keszlet> referenciaLista)
+        {
+            List<Keszlet> duplikalt = new List<Keszlet>();
+            foreach (Keszlet item in forrasLista)
+            {
+                if (referenciaLista.Contains(item))
+                {
+                    duplikalt.Add(item);
+                }
+            }
+            if (duplikalt.Count > 0 && MessageBox.Show("A kiválasztott alkatrészek közzül már van a listában!\n\rSzeretné azokat az alkatrészeket módosítani?\n\rAmennyiben a Nem-re kattint a \"duplikált\" alkatrészeket kiveszem a listából!", "Figyelem duplikáció!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                foreach (Keszlet alkatresz in duplikalt)
+                {
+                    forrasLista.Remove(alkatresz);
+                }
+                duplikalt.Clear();
+            }
+            return duplikalt;
+        }  //OK!
+        private void DarabSzamBeallit(List<Keszlet> melyikAlkatreszListan, int maxDarabszam = 0)
+        {
+            if (melyikAlkatreszListan.Count == 0) return;
+            AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(melyikAlkatreszListan, maxDarabszam);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                return;
+            }
+            melyikAlkatreszListan.Clear();
+
+        } //OK!
+        private List<Keszlet> ListViewElemekbolAlkatreszLista(ListView.SelectedListViewItemCollection kivalasztottElemek, List<Keszlet> melyikListabol)
+        {
+            List<Keszlet> kivalasztottAlkatreszek = new List<Keszlet>();
+            foreach (ListViewItem item in kivalasztottElemek)
+            {
+                string parameterek = item.SubItems[6].Text;
+                float darabSzam = float.Parse(item.SubItems[2].Text.Remove((item.SubItems[2].Text.Length - 3)));
+                foreach (Keszlet alkatreszelem in melyikListabol)
+                {
+                    string str = alkatreszelem.Alkatresz.ToString();
+                    if (str == parameterek /*&& alkatreszelem.DarabSzam > 0*/)
+                    {
+                        Keszlet ujKeszlet = new Keszlet(alkatreszelem.KeszletId, darabSzam, alkatreszelem.DarabAr, alkatreszelem.Megjegyzes, alkatreszelem.Alkatresz);
+                        //    if (!projekt.AlkatreszLista.Contains(ujKeszlet))
+                        {
+                            kivalasztottAlkatreszek.Add(ujKeszlet);
+                        }
+                    }
+                }
+            }
+            return kivalasztottAlkatreszek;
+        } //OK
+        #endregion
+
+        #region Keszlet Metódusok
         private void keszletAlkatreszModositBtn_Click(object sender, EventArgs e)
         {
             if (keszletLV.SelectedItems.Count == 0) { return; }
@@ -471,17 +425,9 @@ namespace EKNyilvantarto
             }
             ListaFrissit(keszletLV, keszletLista);
         }
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            AlkatreszTSMI_Click(this, EventArgs.Empty);
-        }
-        private void printTSMIBtn_Click(object sender, EventArgs e)
-        {
-            // printDialog1.ShowDialog();
-        }
         private void keszletAlkatreszKeresTxb_TextChanged(object sender, EventArgs e)
         {
-            if (keszletAlkatreszKeresTxb.Text.Length > 3)
+            if (keszletAlkatreszKeresTxb.Text.Length > 0)
             {
                 keszletLista = ABKezelo.GlobalisKereses(keszletAlkatreszKeresTxb.Text);
                 if (keszletLista.Count > 0)
@@ -489,6 +435,11 @@ namespace EKNyilvantarto
                     ListaFrissit(keszletLV, keszletLista);
                 }
             }
+            else //if (keszletAlkatreszKeresTxb.Text.Length==0)
+            {
+                kategoriaTSCBX1_SelectedIndexChange(this, EventArgs.Empty);
+            }
+
         }
         private void keszletAlkatreszKeresTxb_KeyDown(object sender, KeyEventArgs e)
         {
@@ -501,11 +452,35 @@ namespace EKNyilvantarto
                 }
             }
         }
-        private void aktualisProjektTSMI_Click(object sender, EventArgs e)
+        private void toolStripButton7_Click(object sender, EventArgs e)
         {
-
+            hianyzik = !hianyzik;
+            ListaFrissit(keszletLV, keszletLista);
         }
-        private void projektNyomtatTSBtn_Click(object sender, EventArgs e)
+        private void toolStripButton7_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (hianyzik)
+            {
+                toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button2;
+            }
+            else
+            {
+                toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button1;
+            }
+        }
+        private void toolStripButton7_MouseDown(object sender, MouseEventArgs e)
+        {
+            toolStripButton7.Image = global::EKNyilvantarto.Properties.Resources.power_button3;
+        }
+
+        #endregion
+
+        #region Report metódusok
+        private void ReportTSMIBtn_Click(object sender, EventArgs e)
+        {
+            // printDialog1.ShowDialog();
+        }
+        private void projektReportTSBtn_Click(object sender, EventArgs e)
         {
             ReporterFrm frm = new ReporterFrm(projekt);
 
@@ -513,6 +488,82 @@ namespace EKNyilvantarto
 
         }
 
+        #endregion
+
+
+        private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
+        {
+            Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
+            if (kat != null)
+            {
+                try
+                {
+                    if (keszletLista != null) keszletLista.Clear();
+                    keszletLista = ABKezelo.KeszletLeker(kat);
+                    ListaFrissit(keszletLV, keszletLista);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a kategória betötése közben!\n\r" + ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                ABKezelo.KapcsolatBontas();
+            }
+            catch (ABKivetel ex)
+            {
+                MessageBox.Show(ex.Message, "Kapcsolat bontási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void KilepesTSMI_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void keszletLV_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+
+            if (e.Column==lvRendez.FejlecIndex)
+            {
+                if (lvRendez.Rendezes==SortOrder.Ascending)
+                {
+                    lvRendez.Rendezes = SortOrder.Descending;
+                }
+                else
+                {
+                    lvRendez.Rendezes = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                lvRendez.FejlecIndex = e.Column;
+                lvRendez.Rendezes = SortOrder.Ascending;
+            }
+            keszletLV.Sort();
+          /*   //MessageBox.Show(e.Column.ToString());
+            switch (e.Column)
+            {
+                case 0:
+
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+
+                default:
+                    break;
+            }*/
+        }
     }
 
 }
