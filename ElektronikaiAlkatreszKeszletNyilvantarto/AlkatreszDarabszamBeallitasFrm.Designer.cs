@@ -29,6 +29,7 @@ namespace EKNyilvantarto
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlkatreszDarabszamBeallitasFrm));
             this.darabSzamGbx = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.alkatreszekGbx = new System.Windows.Forms.GroupBox();
@@ -117,6 +118,7 @@ namespace EKNyilvantarto
             this.Controls.Add(this.button1);
             this.Controls.Add(this.alkatreszekGbx);
             this.Controls.Add(this.darabSzamGbx);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AlkatreszDarabszamBeallitasFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Darabszám beállítás";

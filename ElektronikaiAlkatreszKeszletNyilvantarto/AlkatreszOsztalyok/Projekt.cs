@@ -56,7 +56,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             set => alkatreszLista = value;
         }
         public string Megjegyzes { get => megjegyzes; set => megjegyzes = value; }
-        public bool LezartStatusz { get => lezartStatusz; private set => lezartStatusz = value; }
+        public bool LezartStatusz { get => lezartStatusz; set => lezartStatusz = value; }
         #endregion
 
         #region Konstruktor

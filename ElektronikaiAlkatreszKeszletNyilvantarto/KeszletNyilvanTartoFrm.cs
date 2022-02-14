@@ -22,10 +22,10 @@ namespace EKNyilvantarto
             AdatBazisCsatlakozas();
             InitializeComponent();
             LVBeallitas();
-            KategoriaFrissit();
-            ProjektekBetoltes();
             lvRendez = new LVRendez();
             keszletLV.ListViewItemSorter = lvRendez;
+            KategoriaFrissit();
+            ProjektekBetoltes();
         }
 
         private void AdatBazisCsatlakozas()
@@ -174,6 +174,7 @@ namespace EKNyilvantarto
             {
                 ProjektFul prj = new ProjektFul()
                 {
+                    Width = 220,
                     Megnevezes = item.ProjektNev,
                     Leiras = item.Leiras,
                     HatterSzinEgerAlatt = Color.LightSlateGray,
@@ -207,7 +208,24 @@ namespace EKNyilvantarto
                         prj.AlapHatterSzin = Color.LightSkyBlue;
                         projekt = item;
                         ABKezelo.ProjektAlkatreszLekerdez(projekt);
+                        if (!projekt.LezartStatusz)
+                        {
+                            prjAlkatreszTorolBtn.Enabled = true;
+                            prjAlkatreszModosit.Enabled = true;
+                            projekthezAdBtn.Enabled = true;
+                            projektLezarPrjPanelTSBtn.Image = global::EKNyilvantarto.Properties.Resources.Drop_Box_Folder_black_icon;
+                            prjLezarPrjLVTSBtn.Image = projektLezarPrjPanelTSBtn.Image;
+                        }
+                        else
+                        {
+                            prjAlkatreszTorolBtn.Enabled = false;
+                            prjAlkatreszModosit.Enabled = false;
+                            projekthezAdBtn.Enabled = false;
+                            projektLezarPrjPanelTSBtn.Image = global::EKNyilvantarto.Properties.Resources.Private_Folder_black_icon;
+                            prjLezarPrjLVTSBtn.Image = projektLezarPrjPanelTSBtn.Image;
+                        }
                     }
+                    
                     else
                     {
                         prj.AlapHatterSzin = Color.DeepSkyBlue;
@@ -216,7 +234,7 @@ namespace EKNyilvantarto
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
         } //OK
-        private void projekthezAdBtn_Click(object sender, EventArgs e)
+        private void ProjekthezAdBtn_Click(object sender, EventArgs e)
         {
             int kategoriaIndex = kategoriaTSCBX1.SelectedIndex;
             if (keszletLV.SelectedItems.Count == 0) return;
@@ -280,7 +298,7 @@ namespace EKNyilvantarto
                 }
             }
         } //OK
-        private void projektLV_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void ProjektLV_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (projektLV.SelectedItems != null)
             {
@@ -288,7 +306,7 @@ namespace EKNyilvantarto
                 AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista));
             }
         } //OK
-        private void prjAlkatreszModosit_Click(object sender, EventArgs e)
+        private void PrjAlkatreszModosit_Click(object sender, EventArgs e)
         {
             int kategoriaIndex = kategoriaTSCBX1.SelectedIndex;
             if (projektLV.SelectedItems.Count == 0) { return; }
@@ -325,7 +343,7 @@ namespace EKNyilvantarto
             ListaFrissit(keszletLV, keszletLista);
             ListaFrissit(projektLV, projekt.AlkatreszLista);
         } //OK
-        private void prjAlkatreszTorolBtn_Click(object sender, EventArgs e)
+        private void PrjAlkatreszTorolBtn_Click(object sender, EventArgs e)
         {
             if (projektLV.SelectedItems.Count > 0 && MessageBox.Show("Biztos törölni akarod a kiválasztott alkatrészeket, a projekt alkatrész listájáról?", "Biztos törlöd?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -403,6 +421,33 @@ namespace EKNyilvantarto
             }
             return kivalasztottAlkatreszek;
         } //OK
+        private void ProjektLezarTSBtn_Click(object sender, EventArgs e)
+        {
+            if (projekt == null) return;
+            string msgSzoveg=projekt.LezartStatusz?
+                "Biztosan feloldod a lezárt projektet?\n\rA feloldás után lehetséges a módosítás.\n\rFigyelem!\n\rAz eddig elkészített valós projekt alkatrészei, a projekt módosításakor  eltérhetnek!!!"
+                :"Biztosan be akarod zárni a pojektet?\n\rA lezárás után a projekt befejezettnek minősül.A további módosításra nincs lehetőség, csak a feloldáskor!!!";
+            string msgFejlec = projekt.LezartStatusz ? "Projekt feloldása..." : "Projekt lezárása...";
+            if ( MessageBox.Show(msgSzoveg,msgFejlec,MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            {
+                if (projekt.LezartStatusz)
+                {
+                    projekt.LezartStatusz = false;
+                }
+                else
+                {
+                    projekt.LezartStatusz = true; ;
+                }
+                ABKezelo.ProjektStatuszBeallit(projekt, projekt.LezartStatusz);
+                ProjektekBetoltes();
+            }
+           
+           
+        }
+        private void projektTorolTSBtn_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         #region Keszlet Metódusok
@@ -482,6 +527,10 @@ namespace EKNyilvantarto
         }
         private void projektReportTSBtn_Click(object sender, EventArgs e)
         {
+            if (projekt == null) return;
+            {
+
+            }
             ReporterFrm frm = new ReporterFrm(projekt);
 
             frm.Show();
@@ -528,9 +577,9 @@ namespace EKNyilvantarto
         private void keszletLV_ColumnClick(object sender, ColumnClickEventArgs e)
         {
 
-            if (e.Column==lvRendez.FejlecIndex)
+            if (e.Column == lvRendez.FejlecIndex)
             {
-                if (lvRendez.Rendezes==SortOrder.Ascending)
+                if (lvRendez.Rendezes == SortOrder.Ascending)
                 {
                     lvRendez.Rendezes = SortOrder.Descending;
                 }
@@ -545,25 +594,26 @@ namespace EKNyilvantarto
                 lvRendez.Rendezes = SortOrder.Ascending;
             }
             keszletLV.Sort();
-          /*   //MessageBox.Show(e.Column.ToString());
-            switch (e.Column)
-            {
-                case 0:
+            /*   //MessageBox.Show(e.Column.ToString());
+              switch (e.Column)
+              {
+                  case 0:
 
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+                      break;
+                  case 1:
+                      break;
+                  case 2:
+                      break;
+                  case 3:
+                      break;
+                  case 4:
+                      break;
 
-                default:
-                    break;
-            }*/
+                  default:
+                      break;
+              }*/
         }
+
     }
 
 }

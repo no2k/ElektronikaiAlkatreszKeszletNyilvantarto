@@ -232,6 +232,13 @@
     <Content Include="KeszletAB_log.ldf">
       <DependentUpon>KeszletAB.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\Trash-can-icon.png" />
+    <None Include="Resources\Generic-Folder-black-icon.png" />
+    <None Include="Resources\New-Folder-black-icon.png" />
+    <None Include="Resources\grey-trash-empty-icon.png" />
+    <None Include="Resources\Drop-Box-Folder-black-icon.png" />
+    <None Include="Resources\PCB-icon.png" />
+    <None Include="Resources\Icon1.ico" />
     <Content Include="Resources\print-btn.png" />
     <None Include="Report\DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
@@ -246,6 +253,7 @@
     </None>
     <None Include="Resources\save-btn1.png" />
     <None Include="Resources\print-btn1.png" />
+    <None Include="Resources\Private-Folder-black-icon.png" />
     <Content Include="Resources\save-btn.png" />
     <None Include="Resources\power-button3.png" />
     <None Include="Resources\power-button2.png" />

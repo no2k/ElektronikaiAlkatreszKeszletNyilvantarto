@@ -28,6 +28,7 @@ namespace EKNyilvantarto
 
         public AlkatreszDarabszamBeallitasFrm()
         {
+            
             InitializeComponent();
             this.panel1.MouseWheel += Panel_MouseWheel;
             this.panel2.MouseWheel += Panel_MouseWheel;

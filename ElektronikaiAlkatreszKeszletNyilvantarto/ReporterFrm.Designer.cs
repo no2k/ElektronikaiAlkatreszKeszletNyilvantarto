@@ -29,6 +29,7 @@ namespace EKNyilvantarto
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporterFrm));
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -59,6 +60,7 @@ namespace EKNyilvantarto
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.reportViewer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ReporterFrm";
             this.Text = "ReporterFrm";
             this.Load += new System.EventHandler(this.ReporterFrm_Load);

@@ -955,6 +955,7 @@ namespace EKNyilvantarto
                         }
                         else
                         {
+                            alkatreszId = id_;
                             projekt.AlkatreszLista.Add(
                                new Keszlet(alkatreszId, darabszam, darabar, "",
                                new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
@@ -1037,8 +1038,6 @@ namespace EKNyilvantarto
             }
         }  //OK!
         #endregion
-
-
 
         #region Felhasznált metódusok (Stackowerflow)
         //nem releváns
