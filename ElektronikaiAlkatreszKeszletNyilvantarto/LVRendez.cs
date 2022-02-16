@@ -8,22 +8,22 @@ using System.Windows.Forms;
 
 namespace EKNyilvantarto
 {
-   
-    class LVRendez:IComparer
+
+    class LVRendez : IComparer
     {
         private int fejlecIndex;
         private SortOrder rendezes;
         private CaseInsensitiveComparer adatHasonlit;
 
-        public int FejlecIndex 
-        { 
-            get => fejlecIndex; 
-            set => fejlecIndex = value; 
+        public int FejlecIndex
+        {
+            get => fejlecIndex;
+            set => fejlecIndex = value;
         }
-        public SortOrder Rendezes 
-        { 
-            get => rendezes; 
-            set => rendezes = value; 
+        public SortOrder Rendezes
+        {
+            get => rendezes;
+            set => rendezes = value;
         }
 
         public LVRendez()
@@ -40,12 +40,15 @@ namespace EKNyilvantarto
 
             listviewX = (ListViewItem)x;
             listviewY = (ListViewItem)y;
+            int numX, numY;
+           
             compareResult = adatHasonlit.Compare(listviewX.SubItems[fejlecIndex].Text, listviewY.SubItems[fejlecIndex].Text);
-            if (rendezes==SortOrder.Ascending)
+            //compareResult = adatHasonlit.Compare(listviewX.SubItems[fejlecIndex].Text, listviewY.SubItems[fejlecIndex].Text);
+            if (rendezes == SortOrder.Ascending)
             {
                 return compareResult;
             }
-            else if (rendezes==SortOrder.Descending)
+            else if (rendezes == SortOrder.Descending)
             {
                 return (-compareResult);
             }
@@ -53,6 +56,16 @@ namespace EKNyilvantarto
             {
                 return 0;
             }
+        }
+        private bool IsNumber(object data, out int numeric)
+        {
+            if ((data is string str))
+            {
+                return int.TryParse(str, out numeric);
+
+            }
+            numeric = 0;
+            return false;
         }
 
     }

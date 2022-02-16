@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace EKNyilvantarto.AlkatreszOsztalyok
 {
@@ -64,8 +65,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
 
         public bool Equals(AlkatreszParameter other)
         {
-            if (/*parameterSorszam == other.parameterSorszam &&*/
-                parameterErtek == other.parameterErtek &&
+            if (parameterErtek == other.parameterErtek &&
                 parameterMertekegyseg == other.parameterMertekegyseg)
             {
                 return true;
@@ -77,8 +77,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         {
             return parameterSorszam.ToString().GetEnumerator();
         }
-
-
+             
     }
 
 }

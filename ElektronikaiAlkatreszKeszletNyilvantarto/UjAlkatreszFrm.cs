@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 
@@ -14,7 +15,8 @@ namespace EKNyilvantarto
         // ParameterLista lista;
         List<Keszlet> meglevoKeszletLista = new List<Keszlet>();
         List<Keszlet> ujKeszletLista = new List<Keszlet>();
-        Keszlet keszlet;
+        Keszlet keszlet, keresett;
+        int keresettIndex;
         // List<AlkatreszParameter> alkatreszParameterLista = new List<AlkatreszParameter>();
         int valasztottKaterogiaIndex = 0;
         int AlkatreszId;
@@ -77,6 +79,32 @@ namespace EKNyilvantarto
             string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, keszletElem.Alkatresz.ToString() /*parameterekString*/ };
             return new ListViewItem(ujSor);
         }
+        private void lv1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (lv1.SelectedItems.Count == 0) return;
+            kategoriaCbx.Enabled = false;
+            string keresendo = string.Empty;
+
+            foreach (ListViewItem item in lv1.SelectedItems)
+            {
+                keresendo = item.SubItems[5].Text;
+            }
+
+            keresett = KeszletLista.FirstOrDefault(elem => elem.Alkatresz.ToString() == keresendo);
+            keresettIndex = KeszletLista.IndexOf(keresett);
+
+            kategoriaCbx.SelectedIndex = kategoriaCbx.FindStringExact(keresett.Alkatresz.Kategoria.ToString());
+            megnevezTxB.Text = keresett.Alkatresz.Megnevezes;
+            darabArNud.Value = (decimal)keresett.DarabAr;
+            keszletNud.Value = (decimal)keresett.DarabSzam;
+            megjegyzesTbx.Text = keresett.Megjegyzes;
+            DinamikusListaAdatFeltolt(keresett.Alkatresz.Parameterek);
+            lv1.SelectedIndices.Clear();
+            button1.Text = "Módosítás";
+        }
+
+
         #endregion
 
         #region Menüsor metódusok
@@ -186,28 +214,43 @@ namespace EKNyilvantarto
                     {
                         megnevezTxB.Text = (kategoriaCbx.SelectedItem as Kategoria).KategoriaMegnevezes;
                     }
-                    AlkatreszId++;
-                    keszlet = new Keszlet(null, (float)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(AlkatreszId,
+                    if (keresett != null)
+                    {
+                        int id = KeszletLista[keresettIndex].Alkatresz.AlkatreszId;
+                        KeszletLista[keresettIndex] = new Keszlet(null, (float)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(id,
                          (Kategoria)kategoriaCbx.SelectedItem,
                          megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
-                        ));
-
-                    if (!ujKeszletLista.Contains(keszlet))
-                    {
-                        ujKeszletLista.Add(keszlet);
-                        megnevezTxB.Clear();
+                        )); ;
+                        button1.Text = "Listához ad";
+                        keresett = null;
+                        ListaFrissit();
+                        kategoriaCbx.Enabled = true;
                     }
                     else
                     {
-                        if (MessageBox.Show("Már van ilyen alkatrszész a listában!\n\rSzeretnéd frissíteni az alkatrész darabszámát és az árát?", "Figyelem", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        AlkatreszId++;
+                        keszlet = new Keszlet(null, (float)keszletNud.Value, (float)darabArNud.Value, megjegyzesTbx.Text, new Alkatresz(AlkatreszId,
+                             (Kategoria)kategoriaCbx.SelectedItem,
+                             megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
+                            ));
+
+                        if (!ujKeszletLista.Contains(keszlet))
                         {
-                            foreach (Keszlet alkatresz in ujKeszletLista)
+                            ujKeszletLista.Add(keszlet);
+                            megnevezTxB.Clear();
+                        }
+                        else
+                        {
+                            if (MessageBox.Show("Már van ilyen alkatrszész a listában!\n\rSzeretnéd frissíteni az alkatrész darabszámát és az árát?", "Figyelem", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
-                                if (alkatresz.Equals(keszlet))
+                                foreach (Keszlet alkatresz in ujKeszletLista)
                                 {
-                                    alkatresz.DarabAr = keszlet.DarabAr;
-                                    alkatresz.DarabSzam += keszlet.DarabSzam;
-                                    //ListaFrissit();
+                                    if (alkatresz.Equals(keszlet))
+                                    {
+                                        alkatresz.DarabAr = keszlet.DarabAr;
+                                        alkatresz.DarabSzam += keszlet.DarabSzam;
+                                        //ListaFrissit();
+                                    }
                                 }
                             }
                         }
@@ -292,15 +335,14 @@ namespace EKNyilvantarto
                     AutoSize = true,
                     Text = parameterek.Parameterek[i].ParameterMegnevezes + ":"
                 };
-
                 top = lbl.Bottom + left;
-
                 switch (parameterek.Parameterek[i].ParameterTipus)
                 {
                     case 0: //string
                         {
                             TextBox txb = new TextBox
                             {
+                                Name = "txb",
                                 Parent = panel2,
                                 Margin = szelek,
                                 Top = top,
@@ -315,6 +357,7 @@ namespace EKNyilvantarto
                         {
                             NumericUpDown nud = new NumericUpDown
                             {
+                                Name = "intNud",
                                 Parent = panel2,
                                 Margin = szelek,
                                 Size = new Size(elemHossza, 23),
@@ -332,6 +375,7 @@ namespace EKNyilvantarto
                         {
                             NumericUpDown nud = new NumericUpDown
                             {
+                                Name = "floatNud",
                                 Parent = panel2,
                                 Margin = szelek,
                                 Top = top,
@@ -350,6 +394,7 @@ namespace EKNyilvantarto
                         {
                             CheckBox chbx = new CheckBox
                             {
+                                Name = "CheckBox",
                                 Parent = panel2,
                                 Margin = szelek,
                                 Top = top,
@@ -364,6 +409,7 @@ namespace EKNyilvantarto
                         {
                             TextBox txb = new TextBox
                             {
+                                Name = "txbLista",
                                 Parent = panel2,
                                 Margin = szelek,
                                 Top = top,
@@ -457,6 +503,62 @@ namespace EKNyilvantarto
             }
             return false;
         }
+        private void DinamikusListaAdatFeltolt(List<AlkatreszParameter> parameterek)
+        {
+            if (parameterek.Count == 0 || panel2.Controls.Count == 0) return;
+            int parameterSorszam = 0;
+
+            foreach (Control item in panel2.Controls)
+            {
+
+                if (item is TextBox txb)
+                {
+                    if (txb.Name == "txb")
+                    {
+                        txb.Text = parameterek[parameterSorszam].ParameterErtek;
+                    }
+                    if (txb.Name == "txbLista")
+                    {
+                        txb.Text = parameterek[parameterSorszam].ParameterErtek;
+                    }
+                }
+                if (item is NumericUpDown nud)
+                {
+                    if (nud.Name == "floatNud")
+                    {
+                        nud.Value = decimal.Parse(parameterek[parameterSorszam].ParameterErtek);
+                    }
+                    if (nud.Name == "intNud")
+                    {
+                        nud.Value = decimal.Parse(parameterek[parameterSorszam].ParameterErtek);
+                    }
+                }
+                if (item is CheckBox checkbox)
+                {
+                    if (checkbox.Name == "CheckBox")
+                    {
+                        checkbox.Checked = bool.Parse(parameterek[parameterSorszam].ParameterErtek);
+                    }
+                }
+                if (item is ComboBox cbx)
+                {
+                    if (cbx.Name == "meCbx")
+                    {
+                        cbx.SelectedIndex = cbx.FindString(parameterek[parameterSorszam].ParameterMertekegyseg);
+                        parameterSorszam++;
+                    }
+                }
+                if (item is Label lbl)
+                {
+                    if (lbl.Name == "meLbl")
+                    {
+                        lbl.Text = parameterek[parameterSorszam].ParameterMertekegyseg;
+                        parameterSorszam++;
+                    }
+                }
+            }
+        }
         #endregion
+
     }
 }

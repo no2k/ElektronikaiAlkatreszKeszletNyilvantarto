@@ -1047,13 +1047,12 @@ namespace EKNyilvantarto
         }  //OK!
         #endregion
 
-        #region Felhasznált metódusok (Stackowerflow)
-        //nem releváns
-        //https://stackoverflow-com.translate.goog/questions/1968049/how-to-separate-character-and-number-part-from-string/1968064?_x_tr_sl=en&_x_tr_tl=hu&_x_tr_hl=en#1968064
+        #region Egyéb metódusok 
+        
         private static List<string> Szeparator(string input)
         {
             string[] adatTomb = input.Split(' ');
-            var words = new List<string>();// { string.Empty };
+            var words = new List<string>();
             foreach (string item in adatTomb)
             {
                 words.Add(item);

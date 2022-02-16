@@ -225,7 +225,7 @@ namespace EKNyilvantarto
                             prjLezarPrjLVTSBtn.Image = projektLezarPrjPanelTSBtn.Image;
                         }
                     }
-                    
+
                     else
                     {
                         prj.AlapHatterSzin = Color.DeepSkyBlue;
@@ -424,11 +424,11 @@ namespace EKNyilvantarto
         private void ProjektLezarTSBtn_Click(object sender, EventArgs e)
         {
             if (projekt == null) return;
-            string msgSzoveg=projekt.LezartStatusz?
+            string msgSzoveg = projekt.LezartStatusz ?
                 "Biztosan feloldod a lezárt projektet?\n\rA feloldás után lehetséges a módosítás.\n\rFigyelem!\n\rAz eddig elkészített valós projekt alkatrészei, a projekt módosításakor  eltérhetnek!!!"
-                :"Biztosan be akarod zárni a pojektet?\n\rA lezárás után a projekt befejezettnek minősül.A további módosításra nincs lehetőség, csak a feloldáskor!!!";
+                : "Biztosan be akarod zárni a pojektet?\n\rA lezárás után a projekt befejezettnek minősül.A további módosításra nincs lehetőség, csak a feloldáskor!!!";
             string msgFejlec = projekt.LezartStatusz ? "Projekt feloldása..." : "Projekt lezárása...";
-            if ( MessageBox.Show(msgSzoveg,msgFejlec,MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            if (MessageBox.Show(msgSzoveg, msgFejlec, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 if (projekt.LezartStatusz)
                 {
@@ -441,8 +441,8 @@ namespace EKNyilvantarto
                 ABKezelo.ProjektStatuszBeallit(projekt, projekt.LezartStatusz);
                 ProjektekBetoltes();
             }
-           
-           
+
+
         }
         private void projektTorolTSBtn_Click(object sender, EventArgs e)
         {
@@ -576,42 +576,40 @@ namespace EKNyilvantarto
 
         private void keszletLV_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-
-            if (e.Column == lvRendez.FejlecIndex)
+            List<Keszlet> rendezettKezlet = new List<Keszlet>();
+            rendezettKezlet.Clear();
+            switch (e.Column)
             {
-                if (lvRendez.Rendezes == SortOrder.Ascending)
-                {
-                    lvRendez.Rendezes = SortOrder.Descending;
-                }
-                else
-                {
-                    lvRendez.Rendezes = SortOrder.Ascending;
-                }
+                case 0:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.KeszletId).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 1:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.Kategoria).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 2:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.DarabSzam).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 3:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.DarabAr).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 4:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.AlkatreszOsszAR()).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 5:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.Megnevezes).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 6:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.ToString()).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
             }
-            else
-            {
-                lvRendez.FejlecIndex = e.Column;
-                lvRendez.Rendezes = SortOrder.Ascending;
-            }
-            keszletLV.Sort();
-            /*   //MessageBox.Show(e.Column.ToString());
-              switch (e.Column)
-              {
-                  case 0:
-
-                      break;
-                  case 1:
-                      break;
-                  case 2:
-                      break;
-                  case 3:
-                      break;
-                  case 4:
-                      break;
-
-                  default:
-                      break;
-              }*/
+            ListaFrissit(keszletLV, keszletLista);
         }
 
     }

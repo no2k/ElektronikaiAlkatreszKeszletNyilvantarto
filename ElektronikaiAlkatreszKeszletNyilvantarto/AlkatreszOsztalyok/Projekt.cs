@@ -71,25 +71,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         }
         #endregion
 
-        public Queue<string> NyomtathatoFormatum()
-        {
-            Queue<string> kimenetiSorTarolo = new Queue<string>();
-            string kimenetiString = $"Azonositó:{projektAzonosito} |Megnevezés:{projektNev} |Leírás:{leiras} |Alkatrész lista:\n\r";
-            string[] kimenetiTomb = kimenetiString.Split('|');
-            foreach (string item in kimenetiTomb)
-            {
-                kimenetiSorTarolo.Enqueue(item);
-            }
-            foreach (Keszlet alkatresz in alkatreszLista)
-            { //a sort előről vagy hátulról járja be????
-                foreach (string adatok in alkatresz.NyomtathatoFormatum())
-                {
-                    kimenetiSorTarolo.Enqueue(adatok);
-                }
-            }
-            // A többit a projektben lévő készlet állítja elő alkatrészenként
-            return kimenetiSorTarolo;
-        }
-
+      
     }
 }

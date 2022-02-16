@@ -327,15 +327,18 @@ namespace EKNyilvantarto
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv1.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.lv1.FullRowSelect = true;
             this.lv1.GridLines = true;
             this.lv1.HideSelection = false;
             this.lv1.Location = new System.Drawing.Point(5, 333);
+            this.lv1.MultiSelect = false;
             this.lv1.Name = "lv1";
             this.lv1.Size = new System.Drawing.Size(677, 181);
             this.lv1.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lv1.TabIndex = 17;
             this.lv1.UseCompatibleStateImageBehavior = false;
             this.lv1.View = System.Windows.Forms.View.Details;
+            this.lv1.SelectedIndexChanged += new System.EventHandler(this.lv1_SelectedIndexChanged);
             // 
             // UjAlkatreszFrm
             // 

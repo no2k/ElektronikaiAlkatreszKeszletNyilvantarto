@@ -33,14 +33,17 @@ namespace EKNyilvantarto
         }
 
         public ReporterFrm(Projekt projekt): this()
-        {
+        {   
             Projekt = projekt;
+            Text ="Nyomtatási riport: "+ projekt.ProjektNev;
             ProjektReport();
         }
 
         public ReporterFrm(Keszlet keszlet) : this()
         {
             Keszlet = keszlet;
+            Projekt = projekt;
+            Text = "Nyomtatási riport ";
             KeszletReport();
         }
         #endregion

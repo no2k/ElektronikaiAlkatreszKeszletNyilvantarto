@@ -120,22 +120,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             return false;
         }
 
-        private string[] NyomtathatoTombFormatum()
-        {
-           // string parameterString = alkatresz.Parameterek;
-            string kimenetiString = $"{alkatresz.Megnevezes} |{darabSzam} Db |{darabAr} Ft |{AlkatreszOsszAR()} Ft |{alkatresz}";
-
-            return kimenetiString.Split('|'); 
-        }
-
-       public Queue<string> NyomtathatoFormatum()
-        {
-            Queue<string> kimenetiSor = new Queue<string>();
-            foreach (string adat in NyomtathatoTombFormatum())
-            {
-                kimenetiSor.Enqueue(adat);
-            }
-            return kimenetiSor;
-        }
+        
     }
 }
