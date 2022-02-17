@@ -239,6 +239,7 @@
     <None Include="Resources\Drop-Box-Folder-black-icon.png" />
     <None Include="Resources\PCB-icon.png" />
     <None Include="Resources\Icon1.ico" />
+    <None Include="Resources\Folders-Black-Folder-icon.png" />
     <Content Include="Resources\print-btn.png" />
     <None Include="Report\DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>

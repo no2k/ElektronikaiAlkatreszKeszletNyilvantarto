@@ -8,30 +8,12 @@ namespace EKNyilvantarto
     public partial class UjProjektFrm : Form
     {
         Projekt projekt;
-        string projektNev;
-        string projektLeiras;
-        public string ProjektNev
-        {
-            get => projektNev;
-            private set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    projektNev = value;
-                }
-                else
-                {
-                    MessageBox.Show("A Projekt neve nem lehet üres!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
-        public string ProjektLeiras { get => projektLeiras; private set => projektLeiras = value; }
+      
         internal Projekt Projekt
         {
             get => projekt;
             set => projekt = value;
         }
-
 
         public UjProjektFrm()
         {
@@ -54,8 +36,18 @@ namespace EKNyilvantarto
         {
             if (projekt != null)
             {
-                projekt.Leiras = leirasTxb.Text;
-                DialogResult = DialogResult.OK;
+                if (projekt.ProjektAzonosito == null)
+                {
+                    projekt.ProjektNev = megnevezTxb.Text;
+                    projekt.Leiras = leirasTxb.Text;
+                    projekt.Megjegyzes = megjegyzesTxb.Text;
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    projekt.Leiras = leirasTxb.Text;
+                    DialogResult = DialogResult.OK;
+                }
             }
             else
             {

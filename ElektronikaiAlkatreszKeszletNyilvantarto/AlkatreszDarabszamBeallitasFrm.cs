@@ -48,14 +48,6 @@ namespace EKNyilvantarto
             Listazas();
         }
 
-        public AlkatreszDarabszamBeallitasFrm(List<Keszlet> alkatreszek,int maxDarabszam) : this()
-        {
-            this.alkatreszek = alkatreszek;
-            this.maxDarabszam = maxDarabszam;
-            Listazas();
-        }
-
-
         private void Listazas()
         {
             NumericUpDown nud;
@@ -77,13 +69,15 @@ namespace EKNyilvantarto
                     DecimalPlaces = 2,
                     
                 };
-                if (maxDarabszam >0)
-                {
-                    nud.Maximum = (decimal)maxDarabszam;
-                }
+                    if (keresett.DarabSzam>alkatresz.DarabSzam)
+                    {
+                        nud.Maximum = (decimal)keresett.DarabSzam;
+                    nud.Enabled = true;
+                    }
                 else
                 {
-                    nud.Maximum = ((decimal)keresett.DarabSzam == 0) ? 2000 : (decimal)keresett.DarabSzam;
+                    nud.Maximum = 0;
+                    nud.Enabled = false;
                 }
                 nud.Value = (decimal)(float)alkatresz.DarabSzam;
                 lbl = new Label()

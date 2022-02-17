@@ -143,6 +143,16 @@ namespace EKNyilvantarto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Folders_Black_Folder_icon {
+            get {
+                object obj = ResourceManager.GetObject("Folders_Black_Folder_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Generic_Folder_black_icon {
             get {
                 object obj = ResourceManager.GetObject("Generic-Folder-black-icon", resourceCulture);

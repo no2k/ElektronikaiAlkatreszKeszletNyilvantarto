@@ -574,7 +574,12 @@ namespace EKNyilvantarto
             try
             {
                 if (UtolsoAlkatreszId() < 1) return null;
-                List<int> keresettIdk = ParameterIdkLekerdezParameterekAlapjan(parameter);
+                List<int> keresettIdk = new List<int>();
+                keresettIdk = AlkatreszIdkLekerdezMegnevezesAlapjan(parameter);
+                if (keresettIdk.Count == 0)
+                {
+                    keresettIdk = ParameterIdkLekerdezParameterekAlapjan(parameter);
+                }
                 List<Alkatresz> keresettAlkatreszek = new List<Alkatresz>();
                 foreach (int id in keresettIdk)
                 {
@@ -592,6 +597,35 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba az adatbázisban való teljes keresés közben!", ex);
             }
         }
+        private static List<int> AlkatreszIdkLekerdezMegnevezesAlapjan(string parameter)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT [ALKATRESZ_ID] FROM [Alkatresz]" +
+                    "WHERE " +
+                    "[MEGNEVEZES] LIKE @ertek ";
+                List<int> idk = new List<int>();
+                parancs.Parameters.AddWithValue("@ertek", parameter+"%");
+                using (SqlDataReader reader = parancs.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int i = (int)reader["ALKATRESZ_ID"];
+                        idk.Add(i);
+                    }
+                    reader.Close();
+                }
+                
+                return idk;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba a paraméterek lekérdezése közben!", ex);
+            }
+        }
+
+
 
         internal static int UtolsoAlkatreszId()
         {
@@ -926,7 +960,7 @@ namespace EKNyilvantarto
                         "FROM [Prj_Alkatresz] AS PA " +
                         "INNER JOIN [Parameterek] AS P ON PA.[ALKATRESZ_ID]= P.[PARAMETER_ID] " +
                         "INNER JOIN [Alkatresz] AS A ON A.[ALKATRESZ_ID]=PA.[ALKATRESZ_ID]" +
-                        "INNER JOIN [Keszlet] AS KE ON A.[ALKATRESZ_ID]= KE.[ALKATRESZ_ID]"+
+                        "INNER JOIN [Keszlet] AS KE ON A.[ALKATRESZ_ID]= KE.[ALKATRESZ_ID]" +
                         "LEFT JOIN [Kategoria] AS K ON K.[KATEGORIA_ID]= P.[KATEGORIA_ID] " +
                            "WHERE PA.[PROJEKT_ID]= @projektId";
                 parancs.Parameters.AddWithValue("@projektId", projekt.ProjektAzonosito);
@@ -935,14 +969,14 @@ namespace EKNyilvantarto
                 {
                     Keszlet keszlet;
                     int alkatreszId = 0;
-                   // List<AlkatreszParameter> parameterek = new List<AlkatreszParameter>();
+                    // List<AlkatreszParameter> parameterek = new List<AlkatreszParameter>();
                     float darabszam = 0;
                     float darabar = 0;
                     int kategoriaId = 0;
                     string kategoria = string.Empty;
                     string megnevezes = string.Empty;
                     string megjegyzes = string.Empty;
-                    int index = -1; 
+                    int index = -1;
                     while (reader.Read())
                     {
                         darabszam = float.Parse(reader["DARABSZAM"].ToString());
@@ -966,23 +1000,23 @@ namespace EKNyilvantarto
                             keszlet = new Keszlet(alkatreszId, darabszam, darabar, megjegyzes,
                             new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
                             new List<AlkatreszParameter>()));
-                           // parameterek.Clear();
-                           keszlet.Alkatresz.Parameterek.Add(new AlkatreszParameter(
-                               (int)reader["PARAMETER_SORSZAM"],
-                               reader["PARAMETER_ERTEK"].ToString(),
-                               reader["PARAMETER_MERTEKEGYSEG"].ToString()));
+                            // parameterek.Clear();
+                            keszlet.Alkatresz.Parameterek.Add(new AlkatreszParameter(
+                                (int)reader["PARAMETER_SORSZAM"],
+                                reader["PARAMETER_ERTEK"].ToString(),
+                                reader["PARAMETER_MERTEKEGYSEG"].ToString()));
                             projekt.AlkatreszLista.Add(keszlet);
                             index++;
                         }
                         //alkatreszId = (int)reader["ALKATRESZ_ID"];
                     }
-                   /* if (parameterek.Count > 0)
-                    {
-                        projekt.AlkatreszLista.Add(
-                                    new Keszlet(alkatreszId, darabszam, darabar, "",
-                                    new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
-                                    new List<AlkatreszParameter>(parameterek))));
-                    }*/
+                    /* if (parameterek.Count > 0)
+                     {
+                         projekt.AlkatreszLista.Add(
+                                     new Keszlet(alkatreszId, darabszam, darabar, "",
+                                     new Alkatresz(alkatreszId, new Kategoria(kategoriaId, kategoria), megnevezes,
+                                     new List<AlkatreszParameter>(parameterek))));
+                     }*/
                     reader.Close();
                 }
             }
@@ -1048,7 +1082,7 @@ namespace EKNyilvantarto
         #endregion
 
         #region Egyéb metódusok 
-        
+
         private static List<string> Szeparator(string input)
         {
             string[] adatTomb = input.Split(' ');

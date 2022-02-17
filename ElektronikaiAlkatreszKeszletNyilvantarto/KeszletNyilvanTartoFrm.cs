@@ -272,7 +272,7 @@ namespace EKNyilvantarto
                     {
                         if (alkatresz.Equals(prjAlkatresz))
                         {
-                            if (alkatresz.DarabSzam > prjAlkatresz.DarabSzam)
+                            if (alkatresz.DarabSzam >= prjAlkatresz.DarabSzam)
                             {
                                 keresett.DarabSzam -= alkatresz.DarabSzam - prjAlkatresz.DarabSzam;
                                 prjAlkatresz.DarabSzam = alkatresz.DarabSzam;
@@ -388,10 +388,10 @@ namespace EKNyilvantarto
             }
             return duplikalt;
         }  //OK!
-        private void DarabSzamBeallit(List<Keszlet> melyikAlkatreszListan, int maxDarabszam = 0)
+        private void DarabSzamBeallit(List<Keszlet> melyikAlkatreszListan)
         {
             if (melyikAlkatreszListan.Count == 0) return;
-            AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(melyikAlkatreszListan, maxDarabszam);
+            AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(melyikAlkatreszListan);
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 return;
@@ -443,10 +443,34 @@ namespace EKNyilvantarto
             }
 
 
-        }
+        } //OK
         private void projektTorolTSBtn_Click(object sender, EventArgs e)
         {
-
+            if (projekt == null) return;
+            if (MessageBox.Show($"Biztosan szeretnéd törölni a(z) \"{projekt}\" projektet?","Biztosan törlöd?",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            {
+                ABKezelo.ProjektTorles(projekt);
+                ProjektekBetoltes();
+            }
+        }  //OK
+        private void ProjektMasolBtn_Click(object sender, EventArgs e)
+        {
+            if (projekt!=null)
+            {
+                Projekt masolat = projekt.MasolatKeszites();
+                UjProjektFrm frm = new UjProjektFrm(masolat);
+                if (frm.ShowDialog()==DialogResult.OK)
+                {
+                                      
+                    ABKezelo.UjProjekt(masolat);
+                    projekt = null;
+                    projekt = new Projekt(masolat.ProjektNev, masolat.Leiras, (int)masolat.ProjektAzonosito, new List<Keszlet>(), masolat.Megjegyzes, masolat.LezartStatusz);
+                  
+                    DarabSzamBeallit(masolat.AlkatreszLista);
+                    ProjektAlkatreszDarabszamBeallit(masolat.AlkatreszLista);
+                    ProjektekBetoltes();
+                }
+            }
         }
         #endregion
 
@@ -455,7 +479,7 @@ namespace EKNyilvantarto
         {
             if (keszletLV.SelectedItems.Count == 0) { return; }
             List<Keszlet> modositandoAlkatreszek = ListViewElemekbolAlkatreszLista(keszletLV.SelectedItems, keszletLista);
-            DarabSzamBeallit(modositandoAlkatreszek, 2000);
+            DarabSzamBeallit(modositandoAlkatreszek);
             foreach (Keszlet eredeti in keszletLista)
             {
                 foreach (Keszlet modositott in modositandoAlkatreszek)

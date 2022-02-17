@@ -46,7 +46,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
                 }
                 else
                 {
-                    throw new ArgumentNullException("Az azonositót csak egyszer lehet beeállítani!");
+                    throw new ArgumentNullException("Az azonositót csak egyszer lehet beállítani!");
                 }
             }
         }
@@ -71,6 +71,21 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         }
         #endregion
 
-      
+        #region Metódusok
+
+        public Projekt MasolatKeszites()
+        {
+            Projekt masolat = (Projekt)this.MemberwiseClone();
+            masolat.lezartStatusz = false;
+            masolat.projektAzonosito = null;
+            masolat.ProjektNev = this.ProjektNev + " Másolat";
+            masolat.alkatreszLista =new List<Keszlet>(alkatreszLista);
+            return masolat;
+        }
+        public override string ToString()
+        {
+            return projektNev.ToString();
+        }
+        #endregion
     }
 }
