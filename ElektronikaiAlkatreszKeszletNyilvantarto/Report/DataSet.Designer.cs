@@ -26,7 +26,7 @@ namespace EKNyilvantarto.Report {
         
         private AlkatreszDataTable tableAlkatresz;
         
-        private KategoriaAdatokDataTable tableKategoriaAdatok;
+        private StatisztikaDSDataTable tableStatisztikaDS;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -59,8 +59,8 @@ namespace EKNyilvantarto.Report {
                 if ((ds.Tables["Alkatresz"] != null)) {
                     base.Tables.Add(new AlkatreszDataTable(ds.Tables["Alkatresz"]));
                 }
-                if ((ds.Tables["KategoriaAdatok"] != null)) {
-                    base.Tables.Add(new KategoriaAdatokDataTable(ds.Tables["KategoriaAdatok"]));
+                if ((ds.Tables["StatisztikaDS"] != null)) {
+                    base.Tables.Add(new StatisztikaDSDataTable(ds.Tables["StatisztikaDS"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -94,9 +94,9 @@ namespace EKNyilvantarto.Report {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public KategoriaAdatokDataTable KategoriaAdatok {
+        public StatisztikaDSDataTable StatisztikaDS {
             get {
-                return this.tableKategoriaAdatok;
+                return this.tableStatisztikaDS;
             }
         }
         
@@ -170,8 +170,8 @@ namespace EKNyilvantarto.Report {
                 if ((ds.Tables["Alkatresz"] != null)) {
                     base.Tables.Add(new AlkatreszDataTable(ds.Tables["Alkatresz"]));
                 }
-                if ((ds.Tables["KategoriaAdatok"] != null)) {
-                    base.Tables.Add(new KategoriaAdatokDataTable(ds.Tables["KategoriaAdatok"]));
+                if ((ds.Tables["StatisztikaDS"] != null)) {
+                    base.Tables.Add(new StatisztikaDSDataTable(ds.Tables["StatisztikaDS"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -212,10 +212,10 @@ namespace EKNyilvantarto.Report {
                     this.tableAlkatresz.InitVars();
                 }
             }
-            this.tableKategoriaAdatok = ((KategoriaAdatokDataTable)(base.Tables["KategoriaAdatok"]));
+            this.tableStatisztikaDS = ((StatisztikaDSDataTable)(base.Tables["StatisztikaDS"]));
             if ((initTable == true)) {
-                if ((this.tableKategoriaAdatok != null)) {
-                    this.tableKategoriaAdatok.InitVars();
+                if ((this.tableStatisztikaDS != null)) {
+                    this.tableStatisztikaDS.InitVars();
                 }
             }
         }
@@ -230,8 +230,8 @@ namespace EKNyilvantarto.Report {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAlkatresz = new AlkatreszDataTable();
             base.Tables.Add(this.tableAlkatresz);
-            this.tableKategoriaAdatok = new KategoriaAdatokDataTable();
-            base.Tables.Add(this.tableKategoriaAdatok);
+            this.tableStatisztikaDS = new StatisztikaDSDataTable();
+            base.Tables.Add(this.tableStatisztikaDS);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -242,7 +242,7 @@ namespace EKNyilvantarto.Report {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeKategoriaAdatok() {
+        private bool ShouldSerializeStatisztikaDS() {
             return false;
         }
         
@@ -305,7 +305,7 @@ namespace EKNyilvantarto.Report {
         public delegate void AlkatreszRowChangeEventHandler(object sender, AlkatreszRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void KategoriaAdatokRowChangeEventHandler(object sender, KategoriaAdatokRowChangeEvent e);
+        public delegate void StatisztikaDSRowChangeEventHandler(object sender, StatisztikaDSRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -649,20 +649,20 @@ namespace EKNyilvantarto.Report {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class KategoriaAdatokDataTable : global::System.Data.TypedTableBase<KategoriaAdatokRow> {
+        public partial class StatisztikaDSDataTable : global::System.Data.TypedTableBase<StatisztikaDSRow> {
             
             private global::System.Data.DataColumn columnMegnevezes;
             
             private global::System.Data.DataColumn columnAlkatreszekSzama;
             
-            private global::System.Data.DataColumn columnOsszDarabSzam;
+            private global::System.Data.DataColumn columnAlkatreszOsszDarabSzam;
             
             private global::System.Data.DataColumn columnOsszErtek;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public KategoriaAdatokDataTable() {
-                this.TableName = "KategoriaAdatok";
+            public StatisztikaDSDataTable() {
+                this.TableName = "StatisztikaDS";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -670,7 +670,7 @@ namespace EKNyilvantarto.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal KategoriaAdatokDataTable(global::System.Data.DataTable table) {
+            internal StatisztikaDSDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -687,7 +687,7 @@ namespace EKNyilvantarto.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected KategoriaAdatokDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected StatisztikaDSDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -710,9 +710,9 @@ namespace EKNyilvantarto.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn OsszDarabSzamColumn {
+            public global::System.Data.DataColumn AlkatreszOsszDarabSzamColumn {
                 get {
-                    return this.columnOsszDarabSzam;
+                    return this.columnAlkatreszOsszDarabSzam;
                 }
             }
             
@@ -735,48 +735,48 @@ namespace EKNyilvantarto.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public KategoriaAdatokRow this[int index] {
+            public StatisztikaDSRow this[int index] {
                 get {
-                    return ((KategoriaAdatokRow)(this.Rows[index]));
+                    return ((StatisztikaDSRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event KategoriaAdatokRowChangeEventHandler KategoriaAdatokRowChanging;
+            public event StatisztikaDSRowChangeEventHandler StatisztikaDSRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event KategoriaAdatokRowChangeEventHandler KategoriaAdatokRowChanged;
+            public event StatisztikaDSRowChangeEventHandler StatisztikaDSRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event KategoriaAdatokRowChangeEventHandler KategoriaAdatokRowDeleting;
+            public event StatisztikaDSRowChangeEventHandler StatisztikaDSRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event KategoriaAdatokRowChangeEventHandler KategoriaAdatokRowDeleted;
+            public event StatisztikaDSRowChangeEventHandler StatisztikaDSRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddKategoriaAdatokRow(KategoriaAdatokRow row) {
+            public void AddStatisztikaDSRow(StatisztikaDSRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public KategoriaAdatokRow AddKategoriaAdatokRow(string Megnevezes, string AlkatreszekSzama, string OsszDarabSzam, string OsszErtek) {
-                KategoriaAdatokRow rowKategoriaAdatokRow = ((KategoriaAdatokRow)(this.NewRow()));
+            public StatisztikaDSRow AddStatisztikaDSRow(string Megnevezes, string AlkatreszekSzama, string AlkatreszOsszDarabSzam, string OsszErtek) {
+                StatisztikaDSRow rowStatisztikaDSRow = ((StatisztikaDSRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Megnevezes,
                         AlkatreszekSzama,
-                        OsszDarabSzam,
+                        AlkatreszOsszDarabSzam,
                         OsszErtek};
-                rowKategoriaAdatokRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowKategoriaAdatokRow);
-                return rowKategoriaAdatokRow;
+                rowStatisztikaDSRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowStatisztikaDSRow);
+                return rowStatisztikaDSRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                KategoriaAdatokDataTable cln = ((KategoriaAdatokDataTable)(base.Clone()));
+                StatisztikaDSDataTable cln = ((StatisztikaDSDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -784,7 +784,7 @@ namespace EKNyilvantarto.Report {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new KategoriaAdatokDataTable();
+                return new StatisztikaDSDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -792,7 +792,7 @@ namespace EKNyilvantarto.Report {
             internal void InitVars() {
                 this.columnMegnevezes = base.Columns["Megnevezes"];
                 this.columnAlkatreszekSzama = base.Columns["AlkatreszekSzama"];
-                this.columnOsszDarabSzam = base.Columns["OsszDarabSzam"];
+                this.columnAlkatreszOsszDarabSzam = base.Columns["AlkatreszOsszDarabSzam"];
                 this.columnOsszErtek = base.Columns["OsszErtek"];
             }
             
@@ -803,36 +803,36 @@ namespace EKNyilvantarto.Report {
                 base.Columns.Add(this.columnMegnevezes);
                 this.columnAlkatreszekSzama = new global::System.Data.DataColumn("AlkatreszekSzama", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAlkatreszekSzama);
-                this.columnOsszDarabSzam = new global::System.Data.DataColumn("OsszDarabSzam", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOsszDarabSzam);
+                this.columnAlkatreszOsszDarabSzam = new global::System.Data.DataColumn("AlkatreszOsszDarabSzam", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlkatreszOsszDarabSzam);
                 this.columnOsszErtek = new global::System.Data.DataColumn("OsszErtek", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOsszErtek);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public KategoriaAdatokRow NewKategoriaAdatokRow() {
-                return ((KategoriaAdatokRow)(this.NewRow()));
+            public StatisztikaDSRow NewStatisztikaDSRow() {
+                return ((StatisztikaDSRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new KategoriaAdatokRow(builder);
+                return new StatisztikaDSRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(KategoriaAdatokRow);
+                return typeof(StatisztikaDSRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.KategoriaAdatokRowChanged != null)) {
-                    this.KategoriaAdatokRowChanged(this, new KategoriaAdatokRowChangeEvent(((KategoriaAdatokRow)(e.Row)), e.Action));
+                if ((this.StatisztikaDSRowChanged != null)) {
+                    this.StatisztikaDSRowChanged(this, new StatisztikaDSRowChangeEvent(((StatisztikaDSRow)(e.Row)), e.Action));
                 }
             }
             
@@ -840,8 +840,8 @@ namespace EKNyilvantarto.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.KategoriaAdatokRowChanging != null)) {
-                    this.KategoriaAdatokRowChanging(this, new KategoriaAdatokRowChangeEvent(((KategoriaAdatokRow)(e.Row)), e.Action));
+                if ((this.StatisztikaDSRowChanging != null)) {
+                    this.StatisztikaDSRowChanging(this, new StatisztikaDSRowChangeEvent(((StatisztikaDSRow)(e.Row)), e.Action));
                 }
             }
             
@@ -849,8 +849,8 @@ namespace EKNyilvantarto.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.KategoriaAdatokRowDeleted != null)) {
-                    this.KategoriaAdatokRowDeleted(this, new KategoriaAdatokRowChangeEvent(((KategoriaAdatokRow)(e.Row)), e.Action));
+                if ((this.StatisztikaDSRowDeleted != null)) {
+                    this.StatisztikaDSRowDeleted(this, new StatisztikaDSRowChangeEvent(((StatisztikaDSRow)(e.Row)), e.Action));
                 }
             }
             
@@ -858,14 +858,14 @@ namespace EKNyilvantarto.Report {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.KategoriaAdatokRowDeleting != null)) {
-                    this.KategoriaAdatokRowDeleting(this, new KategoriaAdatokRowChangeEvent(((KategoriaAdatokRow)(e.Row)), e.Action));
+                if ((this.StatisztikaDSRowDeleting != null)) {
+                    this.StatisztikaDSRowDeleting(this, new StatisztikaDSRowChangeEvent(((StatisztikaDSRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveKategoriaAdatokRow(KategoriaAdatokRow row) {
+            public void RemoveStatisztikaDSRow(StatisztikaDSRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -892,7 +892,7 @@ namespace EKNyilvantarto.Report {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "KategoriaAdatokDataTable";
+                attribute2.FixedValue = "StatisztikaDSDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1147,15 +1147,15 @@ namespace EKNyilvantarto.Report {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class KategoriaAdatokRow : global::System.Data.DataRow {
+        public partial class StatisztikaDSRow : global::System.Data.DataRow {
             
-            private KategoriaAdatokDataTable tableKategoriaAdatok;
+            private StatisztikaDSDataTable tableStatisztikaDS;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal KategoriaAdatokRow(global::System.Data.DataRowBuilder rb) : 
+            internal StatisztikaDSRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableKategoriaAdatok = ((KategoriaAdatokDataTable)(this.Table));
+                this.tableStatisztikaDS = ((StatisztikaDSDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1163,14 +1163,14 @@ namespace EKNyilvantarto.Report {
             public string Megnevezes {
                 get {
                     try {
-                        return ((string)(this[this.tableKategoriaAdatok.MegnevezesColumn]));
+                        return ((string)(this[this.tableStatisztikaDS.MegnevezesColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Megnevezes\' in table \'KategoriaAdatok\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Megnevezes\' in table \'StatisztikaDS\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableKategoriaAdatok.MegnevezesColumn] = value;
+                    this[this.tableStatisztikaDS.MegnevezesColumn] = value;
                 }
             }
             
@@ -1179,30 +1179,31 @@ namespace EKNyilvantarto.Report {
             public string AlkatreszekSzama {
                 get {
                     try {
-                        return ((string)(this[this.tableKategoriaAdatok.AlkatreszekSzamaColumn]));
+                        return ((string)(this[this.tableStatisztikaDS.AlkatreszekSzamaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AlkatreszekSzama\' in table \'KategoriaAdatok\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'AlkatreszekSzama\' in table \'StatisztikaDS\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableKategoriaAdatok.AlkatreszekSzamaColumn] = value;
+                    this[this.tableStatisztikaDS.AlkatreszekSzamaColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string OsszDarabSzam {
+            public string AlkatreszOsszDarabSzam {
                 get {
                     try {
-                        return ((string)(this[this.tableKategoriaAdatok.OsszDarabSzamColumn]));
+                        return ((string)(this[this.tableStatisztikaDS.AlkatreszOsszDarabSzamColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OsszDarabSzam\' in table \'KategoriaAdatok\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'AlkatreszOsszDarabSzam\' in table \'StatisztikaDS\' is DBNull." +
+                                "", e);
                     }
                 }
                 set {
-                    this[this.tableKategoriaAdatok.OsszDarabSzamColumn] = value;
+                    this[this.tableStatisztikaDS.AlkatreszOsszDarabSzamColumn] = value;
                 }
             }
             
@@ -1211,63 +1212,63 @@ namespace EKNyilvantarto.Report {
             public string OsszErtek {
                 get {
                     try {
-                        return ((string)(this[this.tableKategoriaAdatok.OsszErtekColumn]));
+                        return ((string)(this[this.tableStatisztikaDS.OsszErtekColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OsszErtek\' in table \'KategoriaAdatok\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OsszErtek\' in table \'StatisztikaDS\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableKategoriaAdatok.OsszErtekColumn] = value;
+                    this[this.tableStatisztikaDS.OsszErtekColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsMegnevezesNull() {
-                return this.IsNull(this.tableKategoriaAdatok.MegnevezesColumn);
+                return this.IsNull(this.tableStatisztikaDS.MegnevezesColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetMegnevezesNull() {
-                this[this.tableKategoriaAdatok.MegnevezesColumn] = global::System.Convert.DBNull;
+                this[this.tableStatisztikaDS.MegnevezesColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsAlkatreszekSzamaNull() {
-                return this.IsNull(this.tableKategoriaAdatok.AlkatreszekSzamaColumn);
+                return this.IsNull(this.tableStatisztikaDS.AlkatreszekSzamaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetAlkatreszekSzamaNull() {
-                this[this.tableKategoriaAdatok.AlkatreszekSzamaColumn] = global::System.Convert.DBNull;
+                this[this.tableStatisztikaDS.AlkatreszekSzamaColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsOsszDarabSzamNull() {
-                return this.IsNull(this.tableKategoriaAdatok.OsszDarabSzamColumn);
+            public bool IsAlkatreszOsszDarabSzamNull() {
+                return this.IsNull(this.tableStatisztikaDS.AlkatreszOsszDarabSzamColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetOsszDarabSzamNull() {
-                this[this.tableKategoriaAdatok.OsszDarabSzamColumn] = global::System.Convert.DBNull;
+            public void SetAlkatreszOsszDarabSzamNull() {
+                this[this.tableStatisztikaDS.AlkatreszOsszDarabSzamColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsOsszErtekNull() {
-                return this.IsNull(this.tableKategoriaAdatok.OsszErtekColumn);
+                return this.IsNull(this.tableStatisztikaDS.OsszErtekColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetOsszErtekNull() {
-                this[this.tableKategoriaAdatok.OsszErtekColumn] = global::System.Convert.DBNull;
+                this[this.tableStatisztikaDS.OsszErtekColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1309,22 +1310,22 @@ namespace EKNyilvantarto.Report {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class KategoriaAdatokRowChangeEvent : global::System.EventArgs {
+        public class StatisztikaDSRowChangeEvent : global::System.EventArgs {
             
-            private KategoriaAdatokRow eventRow;
+            private StatisztikaDSRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public KategoriaAdatokRowChangeEvent(KategoriaAdatokRow row, global::System.Data.DataRowAction action) {
+            public StatisztikaDSRowChangeEvent(StatisztikaDSRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public KategoriaAdatokRow Row {
+            public StatisztikaDSRow Row {
                 get {
                     return this.eventRow;
                 }

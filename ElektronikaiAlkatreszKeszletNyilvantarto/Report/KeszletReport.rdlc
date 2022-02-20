@@ -64,19 +64,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.16431cm</Width>
+                  <Width>3.90514cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.47801cm</Width>
+                  <Width>2.14028cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.70479cm</Width>
+                  <Width>2.25961cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.88118cm</Width>
+                  <Width>2.33097cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.04652cm</Width>
+                  <Width>9.46524cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -452,96 +452,9 @@ Fields!Megnevezes.Value+"*",Fields!Megnevezes.Value)</Value>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
+                <TablixMember />
                 <TablixMember>
-                  <TablixHeader>
-                    <Size>1.82643cm</Size>
-                    <CellContents>
-                      <Textbox Name="Textbox140">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>Kategoria</Value>
-                                <Style>
-                                  <FontWeight>Bold</FontWeight>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style>
-                              <TextAlign>Center</TextAlign>
-                            </Style>
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Textbox140</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Color>LightGrey</Color>
-                            <Style>Solid</Style>
-                          </Border>
-                          <PaddingLeft>2pt</PaddingLeft>
-                          <PaddingRight>2pt</PaddingRight>
-                          <PaddingTop>2pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                  <TablixMembers>
-                    <TablixMember />
-                  </TablixMembers>
-                </TablixMember>
-                <TablixMember>
-                  <Group Name="Kategoria">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!Kategoria.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!Kategoria.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
-                  <TablixHeader>
-                    <Size>1.82643cm</Size>
-                    <CellContents>
-                      <Textbox Name="Kategoria">
-                        <CanGrow>true</CanGrow>
-                        <KeepTogether>true</KeepTogether>
-                        <Paragraphs>
-                          <Paragraph>
-                            <TextRuns>
-                              <TextRun>
-                                <Value>=Fields!Kategoria.Value</Value>
-                                <Style>
-                                  <FontSize>9pt</FontSize>
-                                  <FontWeight>Bold</FontWeight>
-                                </Style>
-                              </TextRun>
-                            </TextRuns>
-                            <Style />
-                          </Paragraph>
-                        </Paragraphs>
-                        <rd:DefaultName>Kategoria</rd:DefaultName>
-                        <Style>
-                          <Border>
-                            <Color>LightGrey</Color>
-                            <Style>Solid</Style>
-                          </Border>
-                          <PaddingLeft>2pt</PaddingLeft>
-                          <PaddingRight>2pt</PaddingRight>
-                          <PaddingTop>2pt</PaddingTop>
-                          <PaddingBottom>2pt</PaddingBottom>
-                        </Style>
-                      </Textbox>
-                    </CellContents>
-                  </TablixHeader>
-                  <TablixMembers>
-                    <TablixMember>
-                      <Group Name="Details" />
-                    </TablixMember>
-                  </TablixMembers>
+                  <Group Name="Details" />
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
@@ -665,7 +578,7 @@ Fields!Megnevezes.Value)</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet</DataSetName>
-            <Top>2.62263cm</Top>
+            <Top>5.86cm</Top>
             <Left>0.44334cm</Left>
             <Height>0.6cm</Height>
             <Width>20.10124cm</Width>
@@ -676,8 +589,255 @@ Fields!Megnevezes.Value)</Value>
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Megnevezes2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Alkatrészek száma:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Megnevezes</rd:DefaultName>
+            <Top>2.44052cm</Top>
+            <Left>0.44334cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.51788cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="AlkatreszekSzama">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!AlkatreszekSzama.Value</Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value> db.</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>AlkatreszekSzama</rd:DefaultName>
+            <Top>2.44052cm</Top>
+            <Left>5.13761cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.47927cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="AlkatreszekSzama2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!AlkatreszOsszDarabSzam.Value</Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value> db.</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>AlkatreszekSzama</rd:DefaultName>
+            <Top>3.21691cm</Top>
+            <Left>5.13761cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.47927cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Megnevezes3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Alkatrészek darabszáma:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Megnevezes</rd:DefaultName>
+            <Top>3.21691cm</Top>
+            <Left>0.44334cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.51788cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="AlkatreszekSzama4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!OsszErtek.Value</Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value> Ft.</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>AlkatreszekSzama</rd:DefaultName>
+            <Top>3.9933cm</Top>
+            <Left>5.13761cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.47927cm</Width>
+            <ZIndex>6</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Megnevezes5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Alkatrészek összértéke:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Megnevezes</rd:DefaultName>
+            <Top>3.9933cm</Top>
+            <Left>0.44334cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.51788cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Line Name="Line2">
+            <Top>6.63639cm</Top>
+            <Left>0.44334cm</Left>
+            <Height>0cm</Height>
+            <Width>20.10124cm</Width>
+            <ZIndex>8</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1.5pt</Width>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="Line3">
+            <Top>1.98646cm</Top>
+            <Left>0.44334cm</Left>
+            <Height>0cm</Height>
+            <Width>20.10124cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dashed</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="Line4">
+            <Top>4.94979cm</Top>
+            <Left>0.44334cm</Left>
+            <Height>0cm</Height>
+            <Width>20.10124cm</Width>
+            <ZIndex>10</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dashed</Style>
+              </Border>
+            </Style>
+          </Line>
         </ReportItems>
-        <Height>38.14167mm</Height>
+        <Height>67.775mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -685,10 +845,10 @@ Fields!Megnevezes.Value)</Value>
           </Border>
         </Style>
       </Body>
-      <Width>228.19997mm</Width>
+      <Width>209.94372mm</Width>
       <Page>
         <PageHeader>
-          <Height>2.54cm</Height>
+          <Height>2.24896cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -699,111 +859,38 @@ Fields!Megnevezes.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Parameters!ProjektNev.Value</Value>
+                      <Value>Készletlap</Value>
                       <Style>
-                        <FontSize>16pt</FontSize>
+                        <FontSize>14pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox4</rd:DefaultName>
               <Top>0.36449cm</Top>
               <Left>0.44334cm</Left>
-              <Height>0.9175cm</Height>
-              <Width>6.46875cm</Width>
+              <Height>0.75875cm</Height>
+              <Width>2.76458cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
                   <Width>3pt</Width>
                 </Border>
                 <BottomBorder>
+                  <Color>Black</Color>
                   <Style>Solid</Style>
+                  <Width>1.5pt</Width>
                 </BottomBorder>
-                <LeftBorder>
+                <RightBorder>
+                  <Color>Black</Color>
                   <Style>Solid</Style>
-                </LeftBorder>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="ProjektLeiras">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Leírás: </Value>
-                      <Style>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>Underline</TextDecoration>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=Parameters!ProjektLeiras.Value</Value>
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>ProjektLeiras</rd:DefaultName>
-              <Top>0.36449cm</Top>
-              <Left>7.4589cm</Left>
-              <Height>1.81708cm</Height>
-              <Width>6.33646cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="ProjektMegjegyzes">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Megjegyzés: </Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>Underline</TextDecoration>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=Parameters!ProjektMegjegyzes.Value</Value>
-                      <Style>
-                        <FontStyle>Italic</FontStyle>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>ProjektMegjegyzes</rd:DefaultName>
-              <Top>0.36449cm</Top>
-              <Left>14.55208cm</Left>
-              <Height>1.81708cm</Height>
-              <Width>5.9925cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>Solid</Style>
-                </Border>
+                  <Width>1.5pt</Width>
+                </RightBorder>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -811,11 +898,11 @@ Fields!Megnevezes.Value)</Value>
               </Style>
             </Textbox>
             <Line Name="Line1">
-              <Top>2.46944cm</Top>
+              <Top>2.07602cm</Top>
               <Left>0.44334cm</Left>
               <Height>0cm</Height>
               <Width>20.10124cm</Width>
-              <ZIndex>3</ZIndex>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>Solid</Style>
@@ -838,7 +925,7 @@ Fields!Megnevezes.Value)</Value>
                     <TextRun>
                       <Value>=CDate(Today).ToString("yyyy, MMM dd")</Value>
                       <Style>
-                        <FontWeight>Bold</FontWeight>
+                        <FontWeight>Normal</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -848,15 +935,87 @@ Fields!Megnevezes.Value)</Value>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox160</rd:DefaultName>
-              <Top>1.58157cm</Top>
+              <Top>1.29963cm</Top>
               <Left>0.44334cm</Left>
               <Height>0.6cm</Height>
               <Width>6.04542cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox18">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Parameters!Kategoria.Value</Value>
+                      <Style>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox18</rd:DefaultName>
+              <Top>1.29963cm</Top>
+              <Left>15.39875cm</Left>
+              <Height>0.6cm</Height>
+              <Width>5.14583cm</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox19">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Készlet típus:</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox19</rd:DefaultName>
+              <Top>0.52324cm</Top>
+              <Left>15.39875cm</Left>
+              <Height>0.6cm</Height>
+              <Width>2.5cm</Width>
               <ZIndex>4</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
+                <BottomBorder>
+                  <Style>Solid</Style>
+                  <Width>1.25pt</Width>
+                </BottomBorder>
+                <RightBorder>
+                  <Style>Solid</Style>
+                  <Width>1.25pt</Width>
+                </RightBorder>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -871,7 +1030,7 @@ Fields!Megnevezes.Value)</Value>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.00753cm</Height>
+          <Height>1.03399cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -882,7 +1041,7 @@ Fields!Megnevezes.Value)</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=Globals.PageNumber &amp; "/" &amp; Globals.TotalPages</Value>
+                      <Value>=Globals.PageNumber &amp; "\" &amp; Globals.TotalPages</Value>
                       <Style />
                     </TextRun>
                   </TextRuns>
@@ -925,39 +1084,19 @@ Fields!Megnevezes.Value)</Value>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="ProjektNev">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ProjektLeiras">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="ProjektMegjegyzes">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
     <ReportParameter Name="Kategoria">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="AlkatreszMegnevezes">
+    <ReportParameter Name="AlkatreszekSzama">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="AlkatreszDarabszam">
+    <ReportParameter Name="AlkatreszOsszDarabSzam">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
-    <ReportParameter Name="AlkatreszDarabar">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="AlkatreszOsszar">
-      <DataType>String</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="AlkatreszParameterek">
+    <ReportParameter Name="OsszErtek">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -968,21 +1107,6 @@ Fields!Megnevezes.Value)</Value>
       <NumberOfRows>3</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>ProjektNev</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>1</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>ProjektLeiras</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>ProjektMegjegyzes</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Kategoria</ParameterName>
@@ -990,27 +1114,17 @@ Fields!Megnevezes.Value)</Value>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>1</RowIndex>
-          <ParameterName>AlkatreszMegnevezes</ParameterName>
+          <ParameterName>AlkatreszekSzama</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
-          <ParameterName>AlkatreszDarabszam</ParameterName>
+          <ParameterName>AlkatreszOsszDarabSzam</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>1</RowIndex>
-          <ParameterName>AlkatreszDarabar</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
-          <RowIndex>1</RowIndex>
-          <ParameterName>AlkatreszOsszar</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>2</RowIndex>
-          <ParameterName>AlkatreszParameterek</ParameterName>
+          <ParameterName>OsszErtek</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

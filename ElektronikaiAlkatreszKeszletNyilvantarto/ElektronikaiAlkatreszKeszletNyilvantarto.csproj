@@ -165,8 +165,10 @@
     <EmbeddedResource Include="ReporterFrm.resx">
       <DependentUpon>ReporterFrm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\KeszletReport.rdlc" />
+    <EmbeddedResource Include="Report\LeltarReport.rdlc" />
     <EmbeddedResource Include="Report\Statisztika.rdlc" />
-    <EmbeddedResource Include="Report\TesztReport2.rdlc" />
+    <EmbeddedResource Include="Report\ProjektReport.rdlc" />
     <EmbeddedResource Include="UjAlkatreszFrm.resx">
       <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,6 +201,7 @@
     <None Include="AlkatreszOsztalyok1.cd" />
     <None Include="ClassDiagram1.cd" />
     <None Include="EKNyilvantarto.Report.DataSet+KategoriaAdatokDataTable.datasource" />
+    <None Include="EKNyilvantarto.Report.DataSet+StatisztikaDSDataTable.datasource" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

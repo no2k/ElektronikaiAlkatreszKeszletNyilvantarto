@@ -138,7 +138,7 @@ namespace EKNyilvantarto
             this.alkatreszTSMI,
             this.projektTSMI});
             this.ujTSMI.Name = "ujTSMI";
-            this.ujTSMI.Size = new System.Drawing.Size(111, 22);
+            this.ujTSMI.Size = new System.Drawing.Size(180, 22);
             this.ujTSMI.Text = "&Új...";
             // 
             // alkatreszTSMI
@@ -158,12 +158,12 @@ namespace EKNyilvantarto
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(108, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // kilepesTSMI
             // 
             this.kilepesTSMI.Name = "kilepesTSMI";
-            this.kilepesTSMI.Size = new System.Drawing.Size(111, 22);
+            this.kilepesTSMI.Size = new System.Drawing.Size(180, 22);
             this.kilepesTSMI.Text = "&Kilépés";
             this.kilepesTSMI.Click += new System.EventHandler(this.KilepesTSMI_Click);
             // 
@@ -182,21 +182,22 @@ namespace EKNyilvantarto
             this.KategoriaReportTSMI,
             this.LeltarReportTSMI});
             this.KeszletReportTSMI.Name = "KeszletReportTSMI";
-            this.KeszletReportTSMI.Size = new System.Drawing.Size(120, 22);
+            this.KeszletReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.KeszletReportTSMI.Text = "&Készlet..";
             // 
             // KategoriaReportTSMI
             // 
             this.KategoriaReportTSMI.Name = "KategoriaReportTSMI";
-            this.KategoriaReportTSMI.Size = new System.Drawing.Size(124, 22);
+            this.KategoriaReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.KategoriaReportTSMI.Text = "&Kategória";
             this.KategoriaReportTSMI.Click += new System.EventHandler(this.KategoriaReportTSMI_Click);
             // 
             // LeltarReportTSMI
             // 
             this.LeltarReportTSMI.Name = "LeltarReportTSMI";
-            this.LeltarReportTSMI.Size = new System.Drawing.Size(124, 22);
+            this.LeltarReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.LeltarReportTSMI.Text = "&Leltár";
+            this.LeltarReportTSMI.Click += new System.EventHandler(this.LeltarReportTSMI_Click);
             // 
             // ProjektReportTSMI
             // 
@@ -204,20 +205,20 @@ namespace EKNyilvantarto
             this.AktualisProjektReportTSMI,
             this.MindenProjektReportTSMI});
             this.ProjektReportTSMI.Name = "ProjektReportTSMI";
-            this.ProjektReportTSMI.Size = new System.Drawing.Size(120, 22);
+            this.ProjektReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.ProjektReportTSMI.Text = "&Projekt...";
             // 
             // AktualisProjektReportTSMI
             // 
             this.AktualisProjektReportTSMI.Name = "AktualisProjektReportTSMI";
-            this.AktualisProjektReportTSMI.Size = new System.Drawing.Size(156, 22);
+            this.AktualisProjektReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.AktualisProjektReportTSMI.Text = "&Aktuális projekt";
             this.AktualisProjektReportTSMI.Click += new System.EventHandler(this.projektReportTSBtn_Click);
             // 
             // MindenProjektReportTSMI
             // 
             this.MindenProjektReportTSMI.Name = "MindenProjektReportTSMI";
-            this.MindenProjektReportTSMI.Size = new System.Drawing.Size(156, 22);
+            this.MindenProjektReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.MindenProjektReportTSMI.Text = "&Minden projekt";
             // 
             // statisztikaTSMI
@@ -528,6 +529,7 @@ namespace EKNyilvantarto
             this.toolStripButton1.Size = new System.Drawing.Size(24, 27);
             this.toolStripButton1.Text = "Riport készítése...";
             this.toolStripButton1.ToolTipText = "A kategória riportjának előkészítése nyomtatáshoz";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripSeparator20
             // 

@@ -7,7 +7,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>e44e380c-c884-4338-b902-10112c5c39cc</rd:DataSourceID>
+      <rd:DataSourceID>30a6a78b-0fa4-410b-b222-0f8d5be2f84e</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -25,8 +25,8 @@
           <DataField>AlkatreszekSzama</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OsszDarabSszam">
-          <DataField>OsszDarabSszam</DataField>
+        <Field Name="AlkatreszOsszDarabSzam">
+          <DataField>AlkatreszOsszDarabSzam</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="OsszErtek">
@@ -36,8 +36,8 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>EKNyilvantarto.Report</rd:DataSetName>
-        <rd:TableName>KategoriaAdatokDataTable</rd:TableName>
-        <rd:ObjectDataSourceType>EKNyilvantarto.Report.DataSet+KategoriaAdatokDataTable, Report.DataSet.Designer.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
+        <rd:TableName>StatisztikaDSDataTable</rd:TableName>
+        <rd:ObjectDataSourceType>EKNyilvantarto.Report.DataSet+StatisztikaDSDataTable, Report.DataSet.Designer.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -63,7 +63,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
             <Top>0.39371cm</Top>
-            <Left>0.34078cm</Left>
+            <Left>0.47835cm</Left>
             <Height>0.6cm</Height>
             <Width>2.10312cm</Width>
             <Style>
@@ -315,14 +315,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OsszDarabSszam">
+                        <Textbox Name="AlkatreszOsszDarabSzam">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!OsszDarabSszam.Value</Value>
+                                  <Value>=Fields!AlkatreszOsszDarabSzam.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -335,7 +335,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>OsszDarabSszam</rd:DefaultName>
+                          <rd:DefaultName>AlkatreszOsszDarabSzam</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -408,10 +408,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>StatisztikaDS</DataSetName>
-            <Top>5.57954cm</Top>
-            <Left>0.34078cm</Left>
+            <Top>5.9658cm</Top>
+            <Left>0.47835cm</Left>
             <Height>1.2cm</Height>
-            <Width>18.99614cm</Width>
+            <Width>18.99615cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -436,8 +436,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox30</rd:DefaultName>
-            <Top>4.80315cm</Top>
-            <Left>0.34078cm</Left>
+            <Top>5.18941cm</Top>
+            <Left>0.47835cm</Left>
             <Height>0.6cm</Height>
             <Width>4.77541cm</Width>
             <ZIndex>2</ZIndex>
@@ -478,7 +478,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox4</rd:DefaultName>
-                <Top>0.38269cm</Top>
+                <Top>0.15841cm</Top>
                 <Left>0.00001cm</Left>
                 <Height>0.6cm</Height>
                 <Width>6.12479cm</Width>
@@ -509,7 +509,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox14</rd:DefaultName>
-                <Top>1.15908cm</Top>
+                <Top>0.9348cm</Top>
                 <Left>0.00001cm</Left>
                 <Height>0.6cm</Height>
                 <Width>6.12479cm</Width>
@@ -541,7 +541,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox18</rd:DefaultName>
-                <Top>1.93547cm</Top>
+                <Top>1.71119cm</Top>
                 <Left>0.00001cm</Left>
                 <Height>0.6cm</Height>
                 <Width>6.12479cm</Width>
@@ -573,7 +573,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox22</rd:DefaultName>
-                <Top>2.71186cm</Top>
+                <Top>2.48758cm</Top>
                 <Left>0.00001cm</Left>
                 <Height>0.6cm</Height>
                 <Width>6.12479cm</Width>
@@ -609,7 +609,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>OsszAlkatreszSzam</rd:DefaultName>
-                <Top>0.40915cm</Top>
+                <Top>0.18487cm</Top>
                 <Left>6.30119cm</Left>
                 <Height>0.6cm</Height>
                 <Width>2.60583cm</Width>
@@ -645,7 +645,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>ProjektekSzama</rd:DefaultName>
-                <Top>1.18554cm</Top>
+                <Top>0.96126cm</Top>
                 <Left>6.30119cm</Left>
                 <Height>0.6cm</Height>
                 <Width>2.60583cm</Width>
@@ -681,7 +681,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>NyitottProjektekSzama</rd:DefaultName>
-                <Top>1.96193cm</Top>
+                <Top>1.73765cm</Top>
                 <Left>6.30119cm</Left>
                 <Height>0.6cm</Height>
                 <Width>2.60583cm</Width>
@@ -717,7 +717,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>KategoriakSzama</rd:DefaultName>
-                <Top>2.71186cm</Top>
+                <Top>2.48758cm</Top>
                 <Left>6.30119cm</Left>
                 <Height>0.6cm</Height>
                 <Width>2.60583cm</Width>
@@ -749,7 +749,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox5</rd:DefaultName>
-                <Top>0.38269cm</Top>
+                <Top>0.15841cm</Top>
                 <Left>9.82107cm</Left>
                 <Height>0.6cm</Height>
                 <Width>5.55152cm</Width>
@@ -781,7 +781,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox15</rd:DefaultName>
-                <Top>1.15908cm</Top>
+                <Top>0.9348cm</Top>
                 <Left>9.82107cm</Left>
                 <Height>0.6cm</Height>
                 <Width>3.4084cm</Width>
@@ -813,7 +813,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox20</rd:DefaultName>
-                <Top>1.93547cm</Top>
+                <Top>1.71119cm</Top>
                 <Left>9.82107cm</Left>
                 <Height>0.6cm</Height>
                 <Width>4.33444cm</Width>
@@ -849,7 +849,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>OsszAlkatreszDarabSzam</rd:DefaultName>
-                <Top>0.38269cm</Top>
+                <Top>0.15841cm</Top>
                 <Left>15.54898cm</Left>
                 <Height>0.6cm</Height>
                 <Width>3.44717cm</Width>
@@ -885,7 +885,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>TeljesKeszletAr</rd:DefaultName>
-                <Top>1.15908cm</Top>
+                <Top>0.9348cm</Top>
                 <Left>13.44113cm</Left>
                 <Height>0.6cm</Height>
                 <Width>5.55502cm</Width>
@@ -921,7 +921,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>LezartProjektekSzama</rd:DefaultName>
-                <Top>1.93547cm</Top>
+                <Top>1.71119cm</Top>
                 <Left>14.3319cm</Left>
                 <Height>0.6cm</Height>
                 <Width>4.66425cm</Width>
@@ -938,9 +938,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>0.87526cm</Top>
-            <Left>0.34078cm</Left>
-            <Height>3.66174cm</Height>
+            <Top>1.09954cm</Top>
+            <Left>0.47835cm</Left>
+            <Height>3.33162cm</Height>
             <Width>18.99616cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -949,11 +949,36 @@
               </Border>
             </Style>
           </Rectangle>
+          <Line Name="Line3">
+            <Top>7.34219cm</Top>
+            <Left>0.47835cm</Left>
+            <Height>0cm</Height>
+            <Width>18.99616cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+                <Width>1.5pt</Width>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="Line4">
+            <Top>4.74928cm</Top>
+            <Left>0.23918cm</Left>
+            <Height>0cm</Height>
+            <Width>19.23534cm</Width>
+            <ZIndex>5</ZIndex>
+            <Style>
+              <Border>
+                <Style>Dashed</Style>
+              </Border>
+            </Style>
+          </Line>
         </ReportItems>
-        <Height>3.01042in</Height>
+        <Height>2.94792in</Height>
         <Style />
       </Body>
-      <Width>7.75in</Width>
+      <Width>8.1022in</Width>
       <Page>
         <PageHeader>
           <Height>2.46062cm</Height>
@@ -979,7 +1004,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.3937cm</Top>
-              <Left>0.34078cm</Left>
+              <Left>0.47835cm</Left>
               <Height>0.83812cm</Height>
               <Width>5.27812cm</Width>
               <Style>
@@ -1033,7 +1058,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>1.43729cm</Top>
-              <Left>0.34078cm</Left>
+              <Left>0.47835cm</Left>
               <Height>0.6cm</Height>
               <Width>6.12479cm</Width>
               <ZIndex>1</ZIndex>
@@ -1047,6 +1072,19 @@
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Line Name="Line1">
+              <Top>2.35479cm</Top>
+              <Left>0.47836cm</Left>
+              <Height>0cm</Height>
+              <Width>18.99615cm</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>Solid</Style>
+                  <Width>2pt</Width>
+                </Border>
+              </Style>
+            </Line>
           </ReportItems>
           <Style>
             <Border>
@@ -1055,7 +1093,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.45521cm</Height>
+          <Height>1.03188cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1078,8 +1116,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox35</rd:DefaultName>
-              <Top>0.3937cm</Top>
-              <Left>8.6487cm</Left>
+              <Top>0.17639cm</Top>
+              <Left>15.99554cm</Left>
               <Height>0.6cm</Height>
               <Width>3.47896cm</Width>
               <Style>

@@ -89,7 +89,19 @@ namespace EKNyilvantarto
             }
 
         } //OK!
-
+        public static int KategoriakSzamanakLekerdezese()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([KATEGORIA_ID]) FROM [Kategoria]";
+                 return (int)parancs.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel($"Sikertelen a kategóriák számának alekérdezése az adatbázisból! \r\n\t {ex.Message}");
+            }
+        }
         #endregion
 
         #region Parameter definíciós kapcsolatok 

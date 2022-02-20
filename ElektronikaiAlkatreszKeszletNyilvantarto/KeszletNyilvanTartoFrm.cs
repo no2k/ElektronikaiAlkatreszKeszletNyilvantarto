@@ -640,6 +640,24 @@ namespace EKNyilvantarto
             ReporterFrm frm = new ReporterFrm(stat);
             frm.ShowDialog();
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            KategoriaReportTSMI_Click(sender, EventArgs.Empty);
+        }
+
+        private void LeltarReportTSMI_Click(object sender, EventArgs e)
+        {
+            List<Keszlet> teljesKeszlet = new List<Keszlet>();
+            List<Kategoria> kategoriaLista= ABKezelo.KategoriaLekerdezes();
+              
+            foreach (Kategoria kategoria in kategoriaLista)
+            {
+                teljesKeszlet.AddRange(ABKezelo.KeszletLeker(kategoria));
+            }
+            ReporterFrm frm = new ReporterFrm(teljesKeszlet,true);
+            frm.ShowDialog();
+        }
     }
 
 }
