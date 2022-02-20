@@ -12,7 +12,7 @@
   <xs:element name="DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet" msprop:Generator_UserDSName="DataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Alkatresz" msprop:Generator_TableClassName="AlkatreszDataTable" msprop:Generator_TableVarName="tableAlkatresz" msprop:Generator_TablePropName="Alkatresz" msprop:Generator_RowDeletingName="AlkatreszRowDeleting" msprop:Generator_RowChangingName="AlkatreszRowChanging" msprop:Generator_RowEvHandlerName="AlkatreszRowChangeEventHandler" msprop:Generator_RowDeletedName="AlkatreszRowDeleted" msprop:Generator_UserTableName="Alkatresz" msprop:Generator_RowChangedName="AlkatreszRowChanged" msprop:Generator_RowEvArgName="AlkatreszRowChangeEvent" msprop:Generator_RowClassName="AlkatreszRow">
+        <xs:element name="Alkatresz" msprop:Generator_TableClassName="AlkatreszDataTable" msprop:Generator_TableVarName="tableAlkatresz" msprop:Generator_RowChangedName="AlkatreszRowChanged" msprop:Generator_TablePropName="Alkatresz" msprop:Generator_RowDeletingName="AlkatreszRowDeleting" msprop:Generator_RowChangingName="AlkatreszRowChanging" msprop:Generator_RowEvHandlerName="AlkatreszRowChangeEventHandler" msprop:Generator_RowDeletedName="AlkatreszRowDeleted" msprop:Generator_RowClassName="AlkatreszRow" msprop:Generator_UserTableName="Alkatresz" msprop:Generator_RowEvArgName="AlkatreszRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Megnevezes" msdata:Caption="Megnevezés" msprop:Generator_ColumnVarNameInTable="columnMegnevezes" msprop:Generator_ColumnPropNameInRow="Megnevezes" msprop:Generator_ColumnPropNameInTable="MegnevezesColumn" msprop:Generator_UserColumnName="Megnevezes" type="xs:string" minOccurs="0" />
@@ -22,6 +22,16 @@
               <xs:element name="Parameterek" msdata:Caption="Paraméterek" msprop:Generator_ColumnVarNameInTable="columnParameterek" msprop:Generator_ColumnPropNameInRow="Parameterek" msprop:Generator_ColumnPropNameInTable="ParameterekColumn" msprop:Generator_UserColumnName="Parameterek" type="xs:string" minOccurs="0" />
               <xs:element name="Kategoria" msdata:Caption="Kategória" msprop:Generator_ColumnVarNameInTable="columnKategoria" msprop:Generator_ColumnPropNameInRow="Kategoria" msprop:Generator_ColumnPropNameInTable="KategoriaColumn" msprop:Generator_UserColumnName="Kategoria" type="xs:string" minOccurs="0" />
               <xs:element name="Megjegyzes" msdata:Caption="Megjegyzés" msprop:Generator_ColumnVarNameInTable="columnMegjegyzes" msprop:Generator_ColumnPropNameInRow="Megjegyzes" msprop:Generator_ColumnPropNameInTable="MegjegyzesColumn" msprop:Generator_UserColumnName="Megjegyzes" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KategoriaAdatok" msprop:Generator_TableClassName="KategoriaAdatokDataTable" msprop:Generator_TableVarName="tableKategoriaAdatok" msprop:Generator_TablePropName="KategoriaAdatok" msprop:Generator_RowDeletingName="KategoriaAdatokRowDeleting" msprop:Generator_RowChangingName="KategoriaAdatokRowChanging" msprop:Generator_RowEvHandlerName="KategoriaAdatokRowChangeEventHandler" msprop:Generator_RowDeletedName="KategoriaAdatokRowDeleted" msprop:Generator_UserTableName="KategoriaAdatok" msprop:Generator_RowChangedName="KategoriaAdatokRowChanged" msprop:Generator_RowEvArgName="KategoriaAdatokRowChangeEvent" msprop:Generator_RowClassName="KategoriaAdatokRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Megnevezes" msprop:Generator_ColumnVarNameInTable="columnMegnevezes" msprop:Generator_ColumnPropNameInRow="Megnevezes" msprop:Generator_ColumnPropNameInTable="MegnevezesColumn" msprop:Generator_UserColumnName="Megnevezes" type="xs:string" minOccurs="0" />
+              <xs:element name="AlkatreszekSzama" msprop:Generator_ColumnVarNameInTable="columnAlkatreszekSzama" msprop:Generator_ColumnPropNameInRow="AlkatreszekSzama" msprop:Generator_ColumnPropNameInTable="AlkatreszekSzamaColumn" msprop:Generator_UserColumnName="AlkatreszekSzama" type="xs:string" minOccurs="0" />
+              <xs:element name="OsszDarabSzam" msprop:Generator_ColumnVarNameInTable="columnOsszDarabSzam" msprop:Generator_ColumnPropNameInRow="OsszDarabSzam" msprop:Generator_ColumnPropNameInTable="OsszDarabSzamColumn" msprop:Generator_UserColumnName="OsszDarabSzam" type="xs:string" minOccurs="0" />
+              <xs:element name="OsszErtek" msprop:Generator_ColumnVarNameInTable="columnOsszErtek" msprop:Generator_ColumnPropNameInRow="OsszErtek" msprop:Generator_ColumnPropNameInTable="OsszErtekColumn" msprop:Generator_UserColumnName="OsszErtek" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

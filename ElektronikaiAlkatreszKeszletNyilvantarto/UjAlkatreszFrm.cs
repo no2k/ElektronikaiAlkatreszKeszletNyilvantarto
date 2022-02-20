@@ -166,7 +166,7 @@ namespace EKNyilvantarto
         {
             kategoriaCbx.SelectedIndexChanged -= KategoriaCbx_SelectedIndexChanged;
             kategoriaCbx.DataSource = null;
-            kategoriaCbx.DataSource = ABKezelo.AktivKategoriaLekerdezes();
+            kategoriaCbx.DataSource = ABKezelo.KategoriaLekerdezes();
             kategoriaCbx.SelectedIndexChanged += KategoriaCbx_SelectedIndexChanged;
             if (kategoriaCbx.Items.Count > 0)
             {

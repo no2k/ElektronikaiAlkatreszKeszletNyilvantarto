@@ -46,7 +46,7 @@ namespace EKNyilvantarto
             this.ProjektReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.AktualisProjektReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.MindenProjektReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.statisztikaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisztikaTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -84,7 +84,7 @@ namespace EKNyilvantarto
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.prjAlkatreszModosit = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.projektNyomtatTSBtn = new System.Windows.Forms.ToolStripButton();
+            this.projektReportTSBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.prjLezarPrjLVTSBtn = new System.Windows.Forms.ToolStripButton();
@@ -115,7 +115,7 @@ namespace EKNyilvantarto
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fajlTSMI,
             this.nyomtatasTSMI,
-            this.statisztikaToolStripMenuItem});
+            this.statisztikaTSMI});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1010, 24);
@@ -190,6 +190,7 @@ namespace EKNyilvantarto
             this.KategoriaReportTSMI.Name = "KategoriaReportTSMI";
             this.KategoriaReportTSMI.Size = new System.Drawing.Size(124, 22);
             this.KategoriaReportTSMI.Text = "&Kategória";
+            this.KategoriaReportTSMI.Click += new System.EventHandler(this.KategoriaReportTSMI_Click);
             // 
             // LeltarReportTSMI
             // 
@@ -219,11 +220,12 @@ namespace EKNyilvantarto
             this.MindenProjektReportTSMI.Size = new System.Drawing.Size(156, 22);
             this.MindenProjektReportTSMI.Text = "&Minden projekt";
             // 
-            // statisztikaToolStripMenuItem
+            // statisztikaTSMI
             // 
-            this.statisztikaToolStripMenuItem.Name = "statisztikaToolStripMenuItem";
-            this.statisztikaToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
-            this.statisztikaToolStripMenuItem.Text = "&Statisztika";
+            this.statisztikaTSMI.Name = "statisztikaTSMI";
+            this.statisztikaTSMI.Size = new System.Drawing.Size(71, 20);
+            this.statisztikaTSMI.Text = "&Statisztika";
+            this.statisztikaTSMI.Click += new System.EventHandler(this.statisztikaTSMI_Click);
             // 
             // splitContainer2
             // 
@@ -562,7 +564,7 @@ namespace EKNyilvantarto
             this.toolStripSeparator18,
             this.prjAlkatreszModosit,
             this.toolStripSeparator7,
-            this.projektNyomtatTSBtn,
+            this.projektReportTSBtn,
             this.toolStripSeparator9,
             this.toolStripSeparator13,
             this.prjLezarPrjLVTSBtn,
@@ -612,17 +614,17 @@ namespace EKNyilvantarto
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 30);
             // 
-            // projektNyomtatTSBtn
+            // projektReportTSBtn
             // 
-            this.projektNyomtatTSBtn.AutoSize = false;
-            this.projektNyomtatTSBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.projektNyomtatTSBtn.Image = global::EKNyilvantarto.Properties.Resources.print_btn;
-            this.projektNyomtatTSBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.projektNyomtatTSBtn.Name = "projektNyomtatTSBtn";
-            this.projektNyomtatTSBtn.Size = new System.Drawing.Size(24, 27);
-            this.projektNyomtatTSBtn.Text = "Projekt riport készítése";
-            this.projektNyomtatTSBtn.ToolTipText = "A projekt riportjának előkészítése a nyomtatáshoz";
-            this.projektNyomtatTSBtn.Click += new System.EventHandler(this.projektReportTSBtn_Click);
+            this.projektReportTSBtn.AutoSize = false;
+            this.projektReportTSBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.projektReportTSBtn.Image = global::EKNyilvantarto.Properties.Resources.print_btn;
+            this.projektReportTSBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.projektReportTSBtn.Name = "projektReportTSBtn";
+            this.projektReportTSBtn.Size = new System.Drawing.Size(24, 27);
+            this.projektReportTSBtn.Text = "Projekt riport készítése";
+            this.projektReportTSBtn.ToolTipText = "A projekt riportjának előkészítése a nyomtatáshoz";
+            this.projektReportTSBtn.Click += new System.EventHandler(this.projektReportTSBtn_Click);
             // 
             // toolStripSeparator9
             // 
@@ -777,7 +779,7 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripMenuItem AktualisProjektReportTSMI;
         private System.Windows.Forms.ToolStripMenuItem MindenProjektReportTSMI;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripButton projektNyomtatTSBtn;
+        private System.Windows.Forms.ToolStripButton projektReportTSBtn;
         private System.Windows.Forms.ToolStripButton prjLezarPrjLVTSBtn;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
@@ -797,7 +799,7 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
-        private System.Windows.Forms.ToolStripMenuItem statisztikaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisztikaTSMI;
         private System.Windows.Forms.ToolStripButton projektMasolBtn;
     }
 }

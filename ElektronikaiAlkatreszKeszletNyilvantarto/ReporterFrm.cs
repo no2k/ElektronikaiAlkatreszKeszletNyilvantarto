@@ -12,19 +12,26 @@ using Microsoft.Reporting.WinForms;
 
 namespace EKNyilvantarto
 {
+
     internal partial class ReporterFrm : Form
     {
         #region Fieldek
         Projekt projekt;
         Keszlet keszlet;
+        List<Keszlet> keszletLista;
+        private Statisztika stat;
+
+        DataTable dt;
 
         #endregion
+
         #region Propertyk
 
         internal Keszlet Keszlet { get => keszlet; set => keszlet = value; }
         internal Projekt Projekt {/* get => projekt;*/ set => projekt = value; }
+        public List<Keszlet> KeszletLista { get => keszletLista; set => keszletLista = value; }
         #endregion
-        
+
         #region konstruktorok
 
         public ReporterFrm()
@@ -32,59 +39,109 @@ namespace EKNyilvantarto
             InitializeComponent();
         }
 
-        public ReporterFrm(Projekt projekt): this()
-        {   
+        public ReporterFrm(Projekt projekt) : this()
+        {
             Projekt = projekt;
-            Text ="Nyomtatási riport: "+ projekt.ProjektNev;
+            Text = "Nyomtatási riport: " + projekt.ProjektNev;
             ProjektReport();
         }
 
-        public ReporterFrm(Keszlet keszlet) : this()
+        public ReporterFrm(Kategoria kategoria) : this()
         {
             Keszlet = keszlet;
-            Projekt = projekt;
             Text = "Nyomtatási riport ";
             KeszletReport();
         }
+
+        public ReporterFrm(List<Keszlet> keszletLista) : this()
+        {
+            KeszletLista = keszletLista;
+        }
+
+        public ReporterFrm(Statisztika stat) :this()
+        {
+            Text = "Statisztikai adatok";
+            this.stat = stat;
+            StatReport();
+        }
+
+        private void StatReport()
+        {
+            reportViewer1.Clear();
+            reportViewer1.LocalReport.ReportPath = @"Report/Statisztika.rdlc";
+            DataSet dataSet = new DataSet("KategoriaAdatok");
+            dt= new DataTable("KategoriaAdatok");
+            dt.Clear();
+            dt.Columns.Add("Megnevezes", typeof(string));
+            dt.Columns.Add("AlkatreszekSzama", typeof(int));
+            dt.Columns.Add("OsszDarabSzam", typeof(float));
+            dt.Columns.Add("OsszErtek", typeof(float));
+            DataRow sor;
+            foreach (KategoriaAdatTarolo adatok in stat.KategoriaAdatok)
+            {
+                sor = dt.NewRow();
+                sor["Megnevezes"] = adatok.Megnevez;
+                sor["AlkatreszekSzama"] = adatok.AlkatreszekSzama;
+                sor["OsszDarabSzam"] = adatok.DarabSzam;
+                sor["OsszErtek"] = adatok.Osszertek;
+                dt.Rows.Add(sor);
+            }
+            dataSet.Tables.Add(dt);
+            ReportParameterCollection rpc = new ReportParameterCollection();
+            rpc.Add(new ReportParameter("OsszAlkatreszSzam", stat.OsszAlkatreszSzam.ToString(), true));
+            rpc.Add(new ReportParameter("OsszAlkatreszDarabSzam", stat.OsszAlkatreszDarabSzam.ToString(), true));
+            rpc.Add(new ReportParameter("TeljesKeszletAr", stat.TeljesKeszletAr.ToString(), true));
+            rpc.Add(new ReportParameter("KategoriakSzama", stat.KategoriakSzama.ToString(), true));
+            rpc.Add(new ReportParameter("ProjektekSzama", stat.ProjektekSzama.ToString(), true));
+            rpc.Add(new ReportParameter("LezartProjektekSzama", stat.LezartProjektekSzama.ToString(), true));
+            rpc.Add(new ReportParameter("NyitottProjektekSzama", stat.NyitottProjektekSzama.ToString(), true));
+
+            reportViewer1.LocalReport.SetParameters(rpc);
+            reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("StatisztikaDS", dataSet.Tables["KategoriaAdatok"]));
+            reportViewer1.RefreshReport();
+        }
         #endregion
-        DataTable dt = new DataTable("Alkatresz");
+
+
         private void ProjektReport()
         {
+            reportViewer1.LocalReport.ReportPath = @"Report/TesztReport2.rdlc";
+            dt= new DataTable("Alkatresz");
             DataSet dataSet = new DataSet("Alkatresz");
-            //dataSet.Tables.Add("Alkatresz", "Alkatresz");
-            dt.Columns.Add("Megnevezes",typeof(string));
-            dt.Columns.Add("Darab", typeof(string) );
+
+            dt.Columns.Add("Megnevezes", typeof(string));
+            dt.Columns.Add("Darab", typeof(string));
             dt.Columns.Add("DarabAr", typeof(string));
             dt.Columns.Add("OsszAr", typeof(string));
             dt.Columns.Add("Parameterek", typeof(string));
             dt.Columns.Add("Kategoria", typeof(string));
             dt.Columns.Add("Megjegyzes", typeof(string));
-            
-            reportViewer1.LocalReport.ReportPath = @"Report/TesztReport2.rdlc";
 
+
+
+            DataRow sor;
+            List<Keszlet> rendezettKezlet = projekt.AlkatreszLista.OrderBy(o => o.Alkatresz.Kategoria.KategoriaId).ToList();
+            projekt.AlkatreszLista = rendezettKezlet;
+            foreach (Keszlet alkatresz in projekt.AlkatreszLista)
+            {
+                sor = dt.NewRow();
+                sor["Megnevezes"] = alkatresz.Alkatresz.Megnevezes;
+                sor["Darab"] = alkatresz.DarabSzam.ToString();
+                sor["DarabAr"] = alkatresz.DarabAr.ToString();
+                sor["OsszAr"] = alkatresz.AlkatreszOsszAR().ToString();
+                sor["Parameterek"] = alkatresz.Alkatresz.ToString();
+                sor["Kategoria"] = alkatresz.Alkatresz.Kategoria.ToString();
+                sor["Megjegyzes"] = alkatresz.Megjegyzes;
+                dt.Rows.Add(sor);
+            }
+            dataSet.Tables.Add(dt);
+            
             List<ReportParameter> parameterek = new List<ReportParameter>
             {
                 new ReportParameter("ProjektNev", projekt.ProjektNev, true),
                 new ReportParameter("ProjektLeiras", projekt.Leiras, true),
                 new ReportParameter("ProjektMegjegyzes", projekt.Megjegyzes, true)
             };
-       
-            DataRow sor;
-            List<Keszlet> rendezettKezlet = projekt.AlkatreszLista.OrderBy(o => o.Alkatresz.Kategoria.KategoriaId).ToList();
-            projekt.AlkatreszLista = rendezettKezlet;
-              foreach (Keszlet alkatresz in projekt.AlkatreszLista)
-              {
-                  sor = dt.NewRow();
-                  sor["Megnevezes"] = alkatresz.Alkatresz.Megnevezes;
-                  sor["Darab"] = alkatresz.DarabSzam.ToString();
-                  sor["DarabAr"] = alkatresz.DarabAr.ToString();
-                  sor["OsszAr"] = alkatresz.AlkatreszOsszAR().ToString();
-                  sor["Parameterek"] = alkatresz.Alkatresz.ToString();
-                  sor["Kategoria"] =alkatresz.Alkatresz.Kategoria.ToString() ;
-                  sor["Megjegyzes"] = alkatresz.Megjegyzes;
-                dt.Rows.Add(sor);
-            }
-            dataSet.Tables.Add(dt);
             foreach (Keszlet alkatresz in projekt.AlkatreszLista)
             {
                 parameterek.Add(new ReportParameter("AlkatreszMegnevezes", alkatresz.Alkatresz.Megnevezes, true));
@@ -92,8 +149,6 @@ namespace EKNyilvantarto
                 parameterek.Add(new ReportParameter("AlkatreszDarabar", alkatresz.DarabAr.ToString(), true)); parameterek.Add(new ReportParameter("AlkatreszOsszar", alkatresz.AlkatreszOsszAR().ToString(), true));
                 parameterek.Add(new ReportParameter("AlkatreszParameterek", alkatresz.Alkatresz.ToString(), true));
                 parameterek.Add(new ReportParameter("Kategoria", alkatresz.Alkatresz.Kategoria.ToString(), true));
-              //  parameterek.Add(new ReportParameter("AlkatreszMegjegyzes", alkatresz.Megjegyzes, true));
-             
             }
             reportViewer1.LocalReport.SetParameters(parameterek);
             reportViewer1.LocalReport.DataSources.Add(new ReportDataSource("DataSet", dataSet.Tables[0]));
@@ -107,7 +162,7 @@ namespace EKNyilvantarto
 
         private void ReporterFrm_Load(object sender, EventArgs e)
         {
-         //   reportViewer1.RefreshReport();
+            //   reportViewer1.RefreshReport();
         }
     }
 }

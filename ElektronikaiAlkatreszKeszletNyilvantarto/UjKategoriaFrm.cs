@@ -18,7 +18,7 @@ namespace EKNyilvantarto
             InitializeComponent();
             try
             {
-                lista = ABKezelo.AktivKategoriaLekerdezes();
+                lista = ABKezelo.KategoriaLekerdezes();
             }
             catch (ABKivetel ex)
             {

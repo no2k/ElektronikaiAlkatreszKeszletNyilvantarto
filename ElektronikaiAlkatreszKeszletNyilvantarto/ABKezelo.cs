@@ -61,7 +61,7 @@ namespace EKNyilvantarto
             }
 
         } //OK!
-        public static List<Kategoria> AktivKategoriaLekerdezes()
+        public static List<Kategoria> KategoriaLekerdezes()
         {
             try
             {
@@ -89,70 +89,12 @@ namespace EKNyilvantarto
             }
 
         } //OK!
-        public static List<Kategoria> InaktivKategoriaLekerdezes()
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT * FROM [Kategoria] WHERE [STATUSZ]=0";
-                List<Kategoria> kategoriaLista = new List<Kategoria>();
-                using (SqlDataReader reader = parancs.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        kategoriaLista.Add(
-                            new Kategoria(
-                                (int)reader["KATEGORIA_ID"],
-                                reader["KATEGORIA"].ToString()
-                                )
-                            );
-                    }
-                    reader.Close();
-                    return kategoriaLista;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Adatbázis (Kategória) lekérdezési hiba! " + ex.Message);
-            }
 
-        } //OK!
-        public static void KategoriaInaktival(Kategoria melyiket)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "UPDATE [Kategoria] SET [STATUSZ] = 0 WHERE [KATEGORIA_ID]=@kategoriaId";
-                parancs.Parameters.AddWithValue("@kategoriaId", melyiket.KategoriaId);
-                parancs.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel($"Sikertelen kategória muvelet az adatbázisba! \r\n\t {ex.Message}");
-            }
-        } //OK!
-        private static Kategoria KategoriaLekerdezIdAlapjan(int kategoriaId)
-        {
-            try
-            {
-                parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT [MEGNEVEZES] FROM [Kategoria] WHERE [KATEGORIA_ID]=@id";
-                parancs.Parameters.AddWithValue("@id", kategoriaId);
-                string megnevezes = parancs.ExecuteScalar().ToString();
-
-                return new Kategoria(kategoriaId, megnevezes);
-            }
-            catch (Exception ex)
-            {
-                throw new ABKivetel("Hiba történt a kategória lekérdezése közben! ", ex);
-            }
-
-        } //OK!
         #endregion
 
         #region Parameter definíciós kapcsolatok 
 
-        //OK 
+
         public static void UjParameterDef(Kategoria hova, ParameterDef mit)
         {
             try
@@ -606,7 +548,7 @@ namespace EKNyilvantarto
                     "WHERE " +
                     "[MEGNEVEZES] LIKE @ertek ";
                 List<int> idk = new List<int>();
-                parancs.Parameters.AddWithValue("@ertek", parameter+"%");
+                parancs.Parameters.AddWithValue("@ertek", parameter + "%");
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {
                     while (reader.Read())
@@ -616,7 +558,7 @@ namespace EKNyilvantarto
                     }
                     reader.Close();
                 }
-                
+
                 return idk;
             }
             catch (Exception ex)
@@ -624,9 +566,6 @@ namespace EKNyilvantarto
                 throw new ABKivetel("Hiba a paraméterek lekérdezése közben!", ex);
             }
         }
-
-
-
         internal static int UtolsoAlkatreszId()
         {
             try
@@ -1081,8 +1020,193 @@ namespace EKNyilvantarto
         }  //OK!
         #endregion
 
-        #region Egyéb metódusok 
+        #region Statisztika kapcsolatok
 
+        /// <summary>
+        /// Az adatbázisban lévő alkatrészek számát adja vissza.
+        /// </summary>
+        /// <returns> int (Alkatrészek száma) </returns>
+        public static int AlkatreszekSzama()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([ALKATRESZ_ID]) FROM [Alkatresz]";
+                return (int)parancs.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt az alkatrészek számának lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// Az adatbázisban található összes, a készleten lévő alkatrészek darabszámát adja vissza.
+        /// </summary>
+        /// <returns> float (Készlet darabszám) </returns>
+        public static float OsszesAlkatreszKeszletenLevoDarabszama()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT SUM([MENNYISEG]) FROM [Keszlet]";
+                float? darabSzam = float.Parse(parancs.ExecuteScalar().ToString());
+                return (darabSzam == null) ? 0 : (float)darabSzam;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt a készleten lévő alkatrészek darabszámának lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// Az adatbázisban található alkatrészek, még készleten lévő összesítet árát adja vissza.
+        /// </summary>
+        /// <returns> float (teljes készlet ár)</returns>
+        internal static float OsszesKeszletenLevoAlkatreszAr()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT SUM([MENNYISEG]*[EGYSEGAR]) FROM [Keszlet]";
+                float? keszletAr = float.Parse(parancs.ExecuteScalar().ToString());
+                return (keszletAr == null) ? 0 : (float)keszletAr;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt, a készleten lévő összes alkatrész, összesített árának a lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// A kiválasztott kategória ID-je alapján,az ebbe a kategóriába tartozó, alkatrészek számát adja vissza.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> int (alkatrészek száma)</returns>
+        public static int KategoriankentiAkatreszekSzamanakLekerdezese(int id)
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([ALKATRESZ_ID]) FROM [Alkatresz] WHERE [KATEGORIA_ID]=@id";
+                parancs.Parameters.AddWithValue("@id", id);
+                int? alkatreszSzam = (int)parancs.ExecuteScalar();
+                return (alkatreszSzam == null) ? 0 : (int)alkatreszSzam;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt, a kategóriánkénti, alkatrészek számának lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// A kiválasztott kategória ID-je alapján,az ebbe a kategóriába tartozó, készleten lévő, alkatrészek darabszámát adja vissza.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> float (alkatrészek darabszáma)</returns>
+        public static float KategoriankentiAkatreszekDarabSzamanakLekerdezese(int id)
+        {
+            float darabszam;
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText =
+                    "SELECT SUM(K.[MENNYISEG]) " +
+                    "FROM [Keszlet] AS K INNER JOIN [Alkatresz] AS A ON A.[ALKATRESZ_ID] = K.[ALKATRESZ_ID] WHERE A.[KATEGORIA_ID] = @id";
+                parancs.Parameters.AddWithValue("@id", id);
+                bool siker = float.TryParse(parancs.ExecuteScalar().ToString(),out darabszam);
+                return (siker) ? (float)darabszam:0;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt, a kategóriánkénti, alkatrészek számának lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// A kiválasztott kategória ID-je alapján,az ebbe a kategóriába tartozó alkatrészek, összesített árát adja vissza.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static float KategoriankentiOsszArLekerdezes(int id)
+        {
+            try
+            {
+                float osszAr;
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT SUM(K.[EGYSEGAR] * K.[MENNYISEG]) " +
+                    "FROM [Keszlet] AS K INNER JOIN [Alkatresz] AS A ON A.[ALKATRESZ_ID] = K.[ALKATRESZ_ID] WHERE A.[KATEGORIA_ID] = @id";
+                parancs.Parameters.AddWithValue("@id", id);
+                bool siker = float.TryParse(parancs.ExecuteScalar().ToString(), out osszAr);
+                return (siker) ? (float)osszAr : 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt, a kategóriánkénti, alkatrész összár lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// A projektek számát adja vissza.
+        /// </summary>
+        /// <returns> int </returns>
+        public static int OsszesProjektSzama()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([PROJEKT_ID]) FROM [Projekt]";
+                return (int)parancs.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt,a projektek számának lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// A lezárt projektek számát adja vissza.
+        /// </summary>
+        /// <returns> int </returns>
+        public static int LezartProjektSzama()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([PROJEKT_ID]) FROM [Projekt] WHERE [STATUSZ]='True'";
+                return (int)parancs.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt, a lezárt projektek számának lekérdezése közben!", ex);
+            }
+        } //OK!
+
+        /// <summary>
+        /// A nyitott projektek számát adja vissza.
+        /// </summary>
+        /// <returns> int </returns>
+        public static int NyitottProjektSzama()
+        {
+            try
+            {
+                parancs.Parameters.Clear();
+                parancs.CommandText = "SELECT COUNT([PROJEKT_ID]) FROM [Projekt] WHERE [STATUSZ]='False'";
+                return (int)parancs.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+                throw new ABKivetel("Hiba történt, a nyitott projektek számának lekérdezése közben!", ex);
+            }
+        } //OK!
+        #endregion
+
+        #region Egyéb metódusok 
+        /// <summary>
+        /// A bemeneti string szöveget feldarabolja a szóközök mentén, majd egy string típusú listába rakva, visszaadja azt. 
+        /// </summary>
+        /// <param name="input"> string </param>
+        /// <returns> List<string> </returns>
         private static List<string> Szeparator(string input)
         {
             string[] adatTomb = input.Split(' ');
@@ -1092,7 +1216,7 @@ namespace EKNyilvantarto
                 words.Add(item);
             }
             return words;
-        }
+        } //OK!
 
         #endregion
     }

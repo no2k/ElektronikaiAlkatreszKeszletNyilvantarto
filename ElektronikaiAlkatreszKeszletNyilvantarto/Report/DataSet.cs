@@ -4,6 +4,10 @@
 
     partial class DataSet
     {
+        partial class KategoriaAdatokDataTable
+        {
+        }
+
         partial class AlkatreszDataTable
         {
         }

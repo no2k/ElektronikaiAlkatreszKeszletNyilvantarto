@@ -43,7 +43,7 @@ namespace EKNyilvantarto
         private void KategoriaFrissit()
         {
             kategoriaTSCBX1.ComboBox.DataSource = null;
-            kategoriaTSCBX1.ComboBox.DataSource = ABKezelo.AktivKategoriaLekerdezes();
+            kategoriaTSCBX1.ComboBox.DataSource = ABKezelo.KategoriaLekerdezes();
         }   //OK!
 
         #region ListView metódusok
@@ -130,10 +130,7 @@ namespace EKNyilvantarto
             {
                 MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            /*  finally
-              {
-                  ABKezelo.KapcsolatBontas();
-              }*/
+            
         }
         private void AlkatreszTSMI_Click(object sender, EventArgs e)
         {
@@ -549,16 +546,17 @@ namespace EKNyilvantarto
         {
             // printDialog1.ShowDialog();
         }
+        private void KategoriaReportTSMI_Click(object sender, EventArgs e)
+        {
+            if (kategoriaTSCBX1.SelectedItem == null) return;
+            ReporterFrm frm = new ReporterFrm(keszletLista);
+            frm.Show();
+        }
         private void projektReportTSBtn_Click(object sender, EventArgs e)
         {
             if (projekt == null) return;
-            {
-
-            }
             ReporterFrm frm = new ReporterFrm(projekt);
-
             frm.Show();
-
         }
 
         #endregion
@@ -566,7 +564,7 @@ namespace EKNyilvantarto
 
         private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
         {
-            Kategoria kat = kategoriaTSCBX1.SelectedItem as Kategoria;
+            Kategoria kat =(Kategoria) kategoriaTSCBX1.SelectedItem;
             if (kat != null)
             {
                 try
@@ -636,6 +634,12 @@ namespace EKNyilvantarto
             ListaFrissit(keszletLV, keszletLista);
         }
 
+        private void statisztikaTSMI_Click(object sender, EventArgs e)
+        {
+            Statisztika stat = new Statisztika();
+            ReporterFrm frm = new ReporterFrm(stat);
+            frm.ShowDialog();
+        }
     }
 
 }
