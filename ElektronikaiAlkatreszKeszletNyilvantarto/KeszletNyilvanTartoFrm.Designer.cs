@@ -45,8 +45,6 @@ namespace EKNyilvantarto
             this.LeltarReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjektReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.AktualisProjektReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.MindenProjektReportTSMI = new System.Windows.Forms.ToolStripMenuItem();
-            this.statisztikaTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.toolStrip4 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -90,9 +88,8 @@ namespace EKNyilvantarto
             this.prjLezarPrjLVTSBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.projektLV = new System.Windows.Forms.ListView();
-            this.infoTSMI = new System.Windows.Forms.ToolStripStatusLabel();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.TSSLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
+            this.statisztikaTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -105,17 +102,15 @@ namespace EKNyilvantarto
             this.splitContainer1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.toolStrip3.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
-            this.menuStrip1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.menuStrip1.BackColor = System.Drawing.Color.SkyBlue;
             this.menuStrip1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fajlTSMI,
-            this.nyomtatasTSMI,
-            this.statisztikaTSMI});
+            this.nyomtatasTSMI});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1010, 24);
@@ -171,10 +166,11 @@ namespace EKNyilvantarto
             // 
             this.nyomtatasTSMI.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.KeszletReportTSMI,
-            this.ProjektReportTSMI});
+            this.ProjektReportTSMI,
+            this.statisztikaTSMI});
             this.nyomtatasTSMI.Name = "nyomtatasTSMI";
-            this.nyomtatasTSMI.Size = new System.Drawing.Size(60, 20);
-            this.nyomtatasTSMI.Text = "&Riport...";
+            this.nyomtatasTSMI.Size = new System.Drawing.Size(51, 20);
+            this.nyomtatasTSMI.Text = "&Riport";
             // 
             // KeszletReportTSMI
             // 
@@ -202,8 +198,7 @@ namespace EKNyilvantarto
             // ProjektReportTSMI
             // 
             this.ProjektReportTSMI.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AktualisProjektReportTSMI,
-            this.MindenProjektReportTSMI});
+            this.AktualisProjektReportTSMI});
             this.ProjektReportTSMI.Name = "ProjektReportTSMI";
             this.ProjektReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.ProjektReportTSMI.Text = "&Projekt...";
@@ -214,19 +209,6 @@ namespace EKNyilvantarto
             this.AktualisProjektReportTSMI.Size = new System.Drawing.Size(180, 22);
             this.AktualisProjektReportTSMI.Text = "&Aktuális projekt";
             this.AktualisProjektReportTSMI.Click += new System.EventHandler(this.projektReportTSBtn_Click);
-            // 
-            // MindenProjektReportTSMI
-            // 
-            this.MindenProjektReportTSMI.Name = "MindenProjektReportTSMI";
-            this.MindenProjektReportTSMI.Size = new System.Drawing.Size(180, 22);
-            this.MindenProjektReportTSMI.Text = "&Minden projekt";
-            // 
-            // statisztikaTSMI
-            // 
-            this.statisztikaTSMI.Name = "statisztikaTSMI";
-            this.statisztikaTSMI.Size = new System.Drawing.Size(71, 20);
-            this.statisztikaTSMI.Text = "&Statisztika";
-            this.statisztikaTSMI.Click += new System.EventHandler(this.statisztikaTSMI_Click);
             // 
             // splitContainer2
             // 
@@ -248,13 +230,14 @@ namespace EKNyilvantarto
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer1);
             this.splitContainer2.Panel2MinSize = 220;
-            this.splitContainer2.Size = new System.Drawing.Size(1010, 497);
+            this.splitContainer2.Size = new System.Drawing.Size(1010, 737);
             this.splitContainer2.SplitterDistance = 230;
             this.splitContainer2.TabIndex = 5;
             // 
             // toolStrip4
             // 
             this.toolStrip4.AutoSize = false;
+            this.toolStrip4.BackColor = System.Drawing.Color.LightSteelBlue;
             this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip4.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -263,10 +246,11 @@ namespace EKNyilvantarto
             this.toolStripSeparator4,
             this.toolStripSeparator6,
             this.projektLezarPrjPanelTSBtn,
-            this.toolStripButton5,
-            this.toolStripSeparator2,
             this.toolStripSeparator3,
-            this.projektMasolBtn});
+            this.toolStripButton5,
+            this.projektMasolBtn,
+            this.toolStripSeparator2,
+            this.toolStripSeparator21});
             this.toolStrip4.Location = new System.Drawing.Point(0, 0);
             this.toolStrip4.Name = "toolStrip4";
             this.toolStrip4.Size = new System.Drawing.Size(230, 30);
@@ -275,6 +259,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator5
             // 
+            this.toolStripSeparator5.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator5.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 30);
             // 
@@ -291,12 +277,16 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator4
             // 
+            this.toolStripSeparator4.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator4.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 30);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator6.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator6.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator6.Name = "toolStripSeparator6";
             this.toolStripSeparator6.Size = new System.Drawing.Size(6, 30);
             // 
@@ -327,12 +317,16 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator2
             // 
+            this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 30);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator3.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator3.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 30);
             // 
@@ -349,9 +343,13 @@ namespace EKNyilvantarto
             // 
             // projektPanel
             // 
+            this.projektPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.projektPanel.BackColor = System.Drawing.Color.Gray;
             this.projektPanel.Location = new System.Drawing.Point(3, 33);
             this.projektPanel.Name = "projektPanel";
-            this.projektPanel.Size = new System.Drawing.Size(228, 464);
+            this.projektPanel.Size = new System.Drawing.Size(225, 702);
             this.projektPanel.TabIndex = 0;
             // 
             // splitContainer1
@@ -375,8 +373,8 @@ namespace EKNyilvantarto
             this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.splitContainer1.Panel2.Controls.Add(this.toolStrip3);
             this.splitContainer1.Panel2.Controls.Add(this.projektLV);
-            this.splitContainer1.Size = new System.Drawing.Size(776, 497);
-            this.splitContainer1.SplitterDistance = 209;
+            this.splitContainer1.Size = new System.Drawing.Size(776, 737);
+            this.splitContainer1.SplitterDistance = 309;
             this.splitContainer1.TabIndex = 0;
             // 
             // toolStrip2
@@ -409,6 +407,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator8
             // 
+            this.toolStripSeparator8.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator8.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(6, 30);
             // 
@@ -426,6 +426,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator11
             // 
+            this.toolStripSeparator11.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator11.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             this.toolStripSeparator11.Size = new System.Drawing.Size(6, 30);
             // 
@@ -443,6 +445,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator1
             // 
+            this.toolStripSeparator1.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 30);
             // 
@@ -457,6 +461,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator10
             // 
+            this.toolStripSeparator10.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator10.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(6, 30);
             // 
@@ -472,6 +478,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator12
             // 
+            this.toolStripSeparator12.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator12.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator12.Name = "toolStripSeparator12";
             this.toolStripSeparator12.Size = new System.Drawing.Size(6, 30);
             // 
@@ -492,6 +500,8 @@ namespace EKNyilvantarto
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator15.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator15.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator15.Name = "toolStripSeparator15";
             this.toolStripSeparator15.Size = new System.Drawing.Size(6, 30);
             // 
@@ -504,17 +514,22 @@ namespace EKNyilvantarto
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
             this.toolStripButton4.Size = new System.Drawing.Size(24, 27);
-            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Text = "Új alkatrész";
+            this.toolStripButton4.ToolTipText = "Új alkatrész hozzáadása";
             this.toolStripButton4.Click += new System.EventHandler(this.ujAlkatreszTSBtn_Click);
             // 
             // toolStripSeparator14
             // 
+            this.toolStripSeparator14.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator14.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator14.Name = "toolStripSeparator14";
             this.toolStripSeparator14.Size = new System.Drawing.Size(6, 30);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator16.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator16.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator16.Name = "toolStripSeparator16";
             this.toolStripSeparator16.Size = new System.Drawing.Size(6, 30);
             // 
@@ -534,6 +549,8 @@ namespace EKNyilvantarto
             // toolStripSeparator20
             // 
             this.toolStripSeparator20.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator20.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator20.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator20.Name = "toolStripSeparator20";
             this.toolStripSeparator20.Size = new System.Drawing.Size(6, 30);
             // 
@@ -549,7 +566,7 @@ namespace EKNyilvantarto
             this.keszletLV.Location = new System.Drawing.Point(1, 26);
             this.keszletLV.Margin = new System.Windows.Forms.Padding(1);
             this.keszletLV.Name = "keszletLV";
-            this.keszletLV.Size = new System.Drawing.Size(774, 182);
+            this.keszletLV.Size = new System.Drawing.Size(774, 282);
             this.keszletLV.TabIndex = 0;
             this.keszletLV.UseCompatibleStateImageBehavior = false;
             this.keszletLV.View = System.Windows.Forms.View.Details;
@@ -579,6 +596,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator17
             // 
+            this.toolStripSeparator17.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator17.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator17.Name = "toolStripSeparator17";
             this.toolStripSeparator17.Size = new System.Drawing.Size(6, 30);
             // 
@@ -596,6 +615,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator18
             // 
+            this.toolStripSeparator18.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator18.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator18.Name = "toolStripSeparator18";
             this.toolStripSeparator18.Size = new System.Drawing.Size(6, 30);
             // 
@@ -613,6 +634,8 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator7
             // 
+            this.toolStripSeparator7.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator7.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(6, 30);
             // 
@@ -630,12 +653,16 @@ namespace EKNyilvantarto
             // 
             // toolStripSeparator9
             // 
+            this.toolStripSeparator9.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator9.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator9.Name = "toolStripSeparator9";
             this.toolStripSeparator9.Size = new System.Drawing.Size(6, 30);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator13.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator13.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             this.toolStripSeparator13.Size = new System.Drawing.Size(6, 30);
             // 
@@ -655,6 +682,8 @@ namespace EKNyilvantarto
             // toolStripSeparator19
             // 
             this.toolStripSeparator19.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator19.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator19.ForeColor = System.Drawing.SystemColors.Highlight;
             this.toolStripSeparator19.Name = "toolStripSeparator19";
             this.toolStripSeparator19.Size = new System.Drawing.Size(6, 30);
             // 
@@ -670,47 +699,38 @@ namespace EKNyilvantarto
             this.projektLV.Location = new System.Drawing.Point(1, 26);
             this.projektLV.Margin = new System.Windows.Forms.Padding(1);
             this.projektLV.Name = "projektLV";
-            this.projektLV.Size = new System.Drawing.Size(774, 256);
+            this.projektLV.Size = new System.Drawing.Size(774, 396);
             this.projektLV.TabIndex = 1;
             this.projektLV.UseCompatibleStateImageBehavior = false;
             this.projektLV.View = System.Windows.Forms.View.Details;
             this.projektLV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProjektLV_MouseDoubleClick);
             // 
-            // infoTSMI
+            // toolStripSeparator21
             // 
-            this.infoTSMI.Name = "infoTSMI";
-            this.infoTSMI.Size = new System.Drawing.Size(0, 17);
+            this.toolStripSeparator21.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripSeparator21.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.toolStripSeparator21.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.toolStripSeparator21.Name = "toolStripSeparator21";
+            this.toolStripSeparator21.Size = new System.Drawing.Size(6, 30);
             // 
-            // statusStrip1
+            // statisztikaTSMI
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.infoTSMI,
-            this.TSSLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 521);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1010, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // TSSLabel1
-            // 
-            this.TSSLabel1.AutoSize = false;
-            this.TSSLabel1.Name = "TSSLabel1";
-            this.TSSLabel1.Size = new System.Drawing.Size(995, 17);
-            this.TSSLabel1.Spring = true;
-            this.TSSLabel1.Text = "toolStripStatusLabel1";
+            this.statisztikaTSMI.Name = "statisztikaTSMI";
+            this.statisztikaTSMI.Size = new System.Drawing.Size(180, 22);
+            this.statisztikaTSMI.Text = "&Statisztika";
+            this.statisztikaTSMI.Click += new System.EventHandler(this.statisztikaTSMI_Click_1);
             // 
             // AlkatreszKeszletFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1010, 543);
+            this.ClientSize = new System.Drawing.Size(1010, 761);
             this.Controls.Add(this.splitContainer2);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "AlkatreszKeszletFrm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -733,8 +753,6 @@ namespace EKNyilvantarto
             this.toolStrip2.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -761,9 +779,6 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton prjAlkatreszTorolBtn;
         private System.Windows.Forms.ToolStripButton prjAlkatreszModosit;
-        private System.Windows.Forms.ToolStripStatusLabel infoTSMI;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel TSSLabel1;
         private System.Windows.Forms.ToolStripButton toolStripButton7;
         private System.Windows.Forms.ToolStrip toolStrip4;
         private System.Windows.Forms.ToolStripButton ujProjektTSMIBtn;
@@ -779,7 +794,6 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripMenuItem LeltarReportTSMI;
         private System.Windows.Forms.ToolStripMenuItem ProjektReportTSMI;
         private System.Windows.Forms.ToolStripMenuItem AktualisProjektReportTSMI;
-        private System.Windows.Forms.ToolStripMenuItem MindenProjektReportTSMI;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripButton projektReportTSBtn;
         private System.Windows.Forms.ToolStripButton prjLezarPrjLVTSBtn;
@@ -801,8 +815,9 @@ namespace EKNyilvantarto
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
-        private System.Windows.Forms.ToolStripMenuItem statisztikaTSMI;
         private System.Windows.Forms.ToolStripButton projektMasolBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
+        private System.Windows.Forms.ToolStripMenuItem statisztikaTSMI;
     }
 }
 

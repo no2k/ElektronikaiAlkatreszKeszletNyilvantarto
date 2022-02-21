@@ -45,6 +45,23 @@ namespace EKNyilvantarto
             kategoriaTSCBX1.ComboBox.DataSource = null;
             kategoriaTSCBX1.ComboBox.DataSource = ABKezelo.KategoriaLekerdezes();
         }   //OK!
+        private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
+        {
+            Kategoria kat =(Kategoria) kategoriaTSCBX1.SelectedItem;
+            if (kat != null)
+            {
+                try
+                {
+                    if (keszletLista != null) keszletLista.Clear();
+                    keszletLista = ABKezelo.KeszletLeker(kat);
+                    ListaFrissit(keszletLV, keszletLista);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Hiba a kategória betötése közben!\n\r" + ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
 
         #region ListView metódusok
         private void LVBeallitas()
@@ -117,6 +134,44 @@ namespace EKNyilvantarto
             item.Alkatresz.ToString(),
             item.Megjegyzes};
         }
+        private void keszletLV_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            List<Keszlet> rendezettKezlet = new List<Keszlet>();
+            rendezettKezlet.Clear();
+            switch (e.Column)
+            {
+                case 0:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.KeszletId).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 1:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.Kategoria).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 2:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.DarabSzam).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 3:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.DarabAr).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 4:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.AlkatreszOsszAR()).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 5:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.Megnevezes).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+                case 6:
+                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.ToString()).ToList();
+                    keszletLista = new List<Keszlet>(rendezettKezlet);
+                    break;
+            }
+            ListaFrissit(keszletLV, keszletLista);
+        }
+
         #endregion
 
         #region "Alkatrész" metódusok
@@ -542,10 +597,7 @@ namespace EKNyilvantarto
         #endregion
 
         #region Report metódusok
-        private void ReportTSMIBtn_Click(object sender, EventArgs e)
-        {
-            // printDialog1.ShowDialog();
-        }
+      
         private void KategoriaReportTSMI_Click(object sender, EventArgs e)
         {
             if (kategoriaTSCBX1.SelectedItem == null) return;
@@ -558,27 +610,30 @@ namespace EKNyilvantarto
             ReporterFrm frm = new ReporterFrm(projekt);
             frm.Show();
         }
+        private void LeltarReportTSMI_Click(object sender, EventArgs e)
+        {
+            List<Keszlet> teljesKeszlet = new List<Keszlet>();
+            List<Kategoria> kategoriaLista= ABKezelo.KategoriaLekerdezes();
+              
+            foreach (Kategoria kategoria in kategoriaLista)
+            {
+                teljesKeszlet.AddRange(ABKezelo.KeszletLeker(kategoria));
+            }
+            ReporterFrm frm = new ReporterFrm(teljesKeszlet,true);
+            frm.ShowDialog();
+        }
+        private void statisztikaTSMI_Click_1(object sender, EventArgs e)
+        {
+            Statisztika stat = new Statisztika();
+            ReporterFrm frm = new ReporterFrm(stat);
+            frm.ShowDialog();
+        }
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            KategoriaReportTSMI_Click(sender, EventArgs.Empty);
+        }
 
         #endregion
-
-
-        private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
-        {
-            Kategoria kat =(Kategoria) kategoriaTSCBX1.SelectedItem;
-            if (kat != null)
-            {
-                try
-                {
-                    if (keszletLista != null) keszletLista.Clear();
-                    keszletLista = ABKezelo.KeszletLeker(kat);
-                    ListaFrissit(keszletLV, keszletLista);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Hiba a kategória betötése közben!\n\r" + ex.Message, "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-        }
 
         private void AlkatreszKeszletFrm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -596,68 +651,8 @@ namespace EKNyilvantarto
             this.Close();
         }
 
-        private void keszletLV_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            List<Keszlet> rendezettKezlet = new List<Keszlet>();
-            rendezettKezlet.Clear();
-            switch (e.Column)
-            {
-                case 0:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.KeszletId).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-                case 1:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.Kategoria).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-                case 2:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.DarabSzam).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-                case 3:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.DarabAr).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-                case 4:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.AlkatreszOsszAR()).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-                case 5:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.Megnevezes).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-                case 6:
-                    rendezettKezlet = keszletLista.OrderBy(o => o.Alkatresz.ToString()).ToList();
-                    keszletLista = new List<Keszlet>(rendezettKezlet);
-                    break;
-            }
-            ListaFrissit(keszletLV, keszletLista);
-        }
 
-        private void statisztikaTSMI_Click(object sender, EventArgs e)
-        {
-            Statisztika stat = new Statisztika();
-            ReporterFrm frm = new ReporterFrm(stat);
-            frm.ShowDialog();
-        }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            KategoriaReportTSMI_Click(sender, EventArgs.Empty);
-        }
-
-        private void LeltarReportTSMI_Click(object sender, EventArgs e)
-        {
-            List<Keszlet> teljesKeszlet = new List<Keszlet>();
-            List<Kategoria> kategoriaLista= ABKezelo.KategoriaLekerdezes();
-              
-            foreach (Kategoria kategoria in kategoriaLista)
-            {
-                teljesKeszlet.AddRange(ABKezelo.KeszletLeker(kategoria));
-            }
-            ReporterFrm frm = new ReporterFrm(teljesKeszlet,true);
-            frm.ShowDialog();
-        }
     }
 
 }
