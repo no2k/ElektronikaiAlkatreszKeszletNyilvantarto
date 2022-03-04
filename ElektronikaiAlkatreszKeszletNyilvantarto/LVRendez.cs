@@ -43,7 +43,7 @@ namespace EKNyilvantarto
             int numX, numY;
            
             compareResult = adatHasonlit.Compare(listviewX.SubItems[fejlecIndex].Text, listviewY.SubItems[fejlecIndex].Text);
-            //compareResult = adatHasonlit.Compare(listviewX.SubItems[fejlecIndex].Text, listviewY.SubItems[fejlecIndex].Text);
+           
             if (rendezes == SortOrder.Ascending)
             {
                 return compareResult;

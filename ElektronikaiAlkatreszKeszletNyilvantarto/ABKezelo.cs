@@ -230,7 +230,12 @@ namespace EKNyilvantarto
         }
         private static List<int> ParameterIdkLekerdezParameterekAlapjan(string adat)
         {
-            List<string> adatok = Szeparator(adat);
+            string[] adatTomb = adat.Split(' ');
+            var adatok = new List<string>();
+            foreach (string item in adatTomb)
+            {
+                adatok.Add(item);
+            }
             Queue<string> parameterSor = new Queue<string>();
             foreach (string item in adatok)
             {
@@ -264,7 +269,6 @@ namespace EKNyilvantarto
                         {
                             int i = (int)reader["PARAMETER_ID"];
                             idk.Add(i);
-
                         }
                         reader.Close();
                     }
@@ -1213,23 +1217,5 @@ namespace EKNyilvantarto
         } //OK!
         #endregion
 
-        #region Egyéb metódusok 
-        /// <summary>
-        /// A bemeneti string szöveget feldarabolja a szóközök mentén, majd egy string típusú listába rakva, visszaadja azt. 
-        /// </summary>
-        /// <param name="input"> string </param>
-        /// <returns> List<string> </returns>
-        private static List<string> Szeparator(string input)
-        {
-            string[] adatTomb = input.Split(' ');
-            var words = new List<string>();
-            foreach (string item in adatTomb)
-            {
-                words.Add(item);
-            }
-            return words;
-        } //OK!
-
-        #endregion
     }
 }

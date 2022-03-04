@@ -8,26 +8,27 @@ namespace EKNyilvantarto
     public partial class ProjektFul : UserControl
     {
         public event EventHandler Clicked;
-        public ProjektFul()
-        {
-            InitializeComponent();
-           
-        }
+        public event EventHandler BtnClick;
 
         private string projektNeve;
         private string projektLeiras;
-        private Image prjIkon;
-       // private Color hatterSzinKijelolt;
-        private Color hatterSzinEgerAlatt;
-        private Color alapHatterSzin;
+        private string projektMegjegyzes;
+        private bool aktivProjektFul = false;
 
-        [Category("Projekt név")]
+        private Color hatterSzinEgerAlatt;
+        private Color alapHatterSzin, aktivHatterSzin;
+        #region Propertyk
+
+        public bool AktivProjektFul { get => aktivProjektFul; set => aktivProjektFul = value; }
+
+        [Category("Text")]
         public string Megnevezes
         {
             get { return projektNeve; }
             set { projektNeve = value; prjNev.Text = value; }
         }
-        [Category("Projekt leirás")]
+
+        [Category("Text")]
         public string Leiras
         {
             get { return projektLeiras; }
@@ -37,49 +38,69 @@ namespace EKNyilvantarto
                 prjLeiras.Text = value;
             }
         }
-        [Category("Projekt ikon")]
-        public Image Ikon
+
+        [Category("Text")]
+        public string Megjegyzes
         {
-            get { return prjIkon; }
-            set
-            {
-                prjIkon = value;
-                ikonBox.Image = value;
-            }
+            get => projektMegjegyzes;
+            set => projektMegjegyzes = value;
         }
 
-        [Category("Háttérszín(egér alatt)")]
+        [Category("Szin")]
         public Color HatterSzinEgerAlatt
         {
             get { return hatterSzinEgerAlatt; }
             set { hatterSzinEgerAlatt = value; }
         }
 
-        [Category("Alap háttérszín")]
+        [Category("Szin")]
         public Color AlapHatterSzin
         {
             get { return alapHatterSzin; }
             set { alapHatterSzin = value; }
         }
 
-       
+        public Color AktivHatterSzin { get => aktivHatterSzin; set => aktivHatterSzin = value; }
+        #endregion
+        public ProjektFul()
+        {
+            BackColor = alapHatterSzin;
+            InitializeComponent();
+
+        }
+
         private void ProjektFul_MouseClick(object sender, MouseEventArgs e)
         {
             Clicked?.Invoke(this, EventArgs.Empty);
             BackColor = alapHatterSzin;
         }
 
-        private void ProjektFul_MouseHover(object sender, EventArgs e)
+        private void ProjektFul_MouseEnter(object sender, EventArgs e)
         {
             BackColor = hatterSzinEgerAlatt;
-            
+            if (!aktivProjektFul)
+            {
+                toolTip1.SetToolTip(this, projektLeiras + "\n\r" + projektMegjegyzes);
+            }
+
         }
 
         private void ProjektFul_MouseLeave(object sender, EventArgs e)
         {
-            BackColor = alapHatterSzin;
+            if (aktivProjektFul)
+            {
+                BackColor = aktivHatterSzin;
+            }
+            else
+            {
+                BackColor = alapHatterSzin;
+            }
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BtnClick?.Invoke(this, EventArgs.Empty);
+        }
+
     }
 }

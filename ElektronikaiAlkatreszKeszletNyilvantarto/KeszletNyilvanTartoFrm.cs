@@ -47,7 +47,7 @@ namespace EKNyilvantarto
         }   //OK!
         private void kategoriaTSCBX1_SelectedIndexChange(object sender, EventArgs e)
         {
-            Kategoria kat =(Kategoria) kategoriaTSCBX1.SelectedItem;
+            Kategoria kat = (Kategoria)kategoriaTSCBX1.SelectedItem;
             if (kat != null)
             {
                 try
@@ -185,7 +185,7 @@ namespace EKNyilvantarto
             {
                 MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
         private void AlkatreszTSMI_Click(object sender, EventArgs e)
         {
@@ -229,13 +229,16 @@ namespace EKNyilvantarto
                     Width = 220,
                     Megnevezes = item.ProjektNev,
                     Leiras = item.Leiras,
-                    HatterSzinEgerAlatt = Color.LightSlateGray,
-                    AlapHatterSzin = Color.FromArgb(50, 100, 100, 250),
-                    //HatterSzinMH = prjKivalaszt,
-                    Anchor = AnchorStyles.Left
+                    Megjegyzes = item.Megjegyzes,
+                    Anchor = AnchorStyles.Left,
+                    BackColor=Color.LightSkyBlue
                 };
+                // prj.AlapHatterSzin = (prj.AktivProjektFul) ? Color.LightSkyBlue : Color.DeepSkyBlue;
+                prj.AlapHatterSzin = Color.LightSkyBlue;
+                prj.HatterSzinEgerAlatt = Color.DeepSkyBlue;
+                prj.AktivHatterSzin = Color.DodgerBlue;
                 prj.Clicked += Prj_Clicked;
-                //prj.Click += Prj_Click;
+                prj.BtnClick += Prj_Button1_Click;
                 projektPanel.Controls.Add(prj);
             }
             projektPanel.Refresh();
@@ -253,11 +256,20 @@ namespace EKNyilvantarto
         {
             if ((sender is ProjektFul prj))
             {
+                foreach (ProjektFul prjFul in projektPanel.Controls)
+                {
+                    if (prjFul!=prj)
+                    {
+                        prjFul.AktivProjektFul = false;
+                        prjFul.AktivHatterSzin = prjFul.AlapHatterSzin;
+                    }
+                }
                 foreach (Projekt item in projektek)
                 {
                     if (item.ProjektNev == prj.Megnevezes)
                     {
-                        prj.AlapHatterSzin = Color.LightSkyBlue;
+                        prj.AktivProjektFul = true;
+                        prj.AktivHatterSzin = Color.DodgerBlue;
                         projekt = item;
                         ABKezelo.ProjektAlkatreszLekerdez(projekt);
                         if (!projekt.LezartStatusz)
@@ -280,12 +292,29 @@ namespace EKNyilvantarto
 
                     else
                     {
-                        prj.AlapHatterSzin = Color.DeepSkyBlue;
+                       // prj.AktivProjektFul = false;
+                        prj.AlapHatterSzin = Color.LightSkyBlue;
                     }
                 }
+                
+                projektPanel.Refresh();
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
         } //OK
+        private void Prj_Button1_Click(object sender, EventArgs e)
+        {
+            if (projekt == null) return;
+            if (!projekt.LezartStatusz)
+            {
+                UjProjektFrm frm = new UjProjektFrm(projekt);
+                frm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("A projekt lezárt státuszban nem mdosítható!\n\rA módosításhoz fel kell oldani a projektet!", "Figyelem!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+        }
         private void ProjekthezAdBtn_Click(object sender, EventArgs e)
         {
             int kategoriaIndex = kategoriaTSCBX1.SelectedIndex;
@@ -499,7 +528,7 @@ namespace EKNyilvantarto
         private void projektTorolTSBtn_Click(object sender, EventArgs e)
         {
             if (projekt == null) return;
-            if (MessageBox.Show($"Biztosan szeretnéd törölni a(z) \"{projekt}\" projektet?","Biztosan törlöd?",MessageBoxButtons.YesNo,MessageBoxIcon.Question)==DialogResult.Yes)
+            if (MessageBox.Show($"Biztosan szeretnéd törölni a(z) \"{projekt}\" projektet?", "Biztosan törlöd?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ABKezelo.ProjektTorles(projekt);
                 ProjektekBetoltes();
@@ -507,17 +536,17 @@ namespace EKNyilvantarto
         }  //OK
         private void ProjektMasolBtn_Click(object sender, EventArgs e)
         {
-            if (projekt!=null)
+            if (projekt != null)
             {
                 Projekt masolat = projekt.MasolatKeszites();
                 UjProjektFrm frm = new UjProjektFrm(masolat);
-                if (frm.ShowDialog()==DialogResult.OK)
+                if (frm.ShowDialog() == DialogResult.OK)
                 {
-                                      
+
                     ABKezelo.UjProjekt(masolat);
                     projekt = null;
                     projekt = new Projekt(masolat.ProjektNev, masolat.Leiras, (int)masolat.ProjektAzonosito, new List<Keszlet>(), masolat.Megjegyzes, masolat.LezartStatusz);
-                  
+
                     DarabSzamBeallit(masolat.AlkatreszLista);
                     ProjektAlkatreszDarabszamBeallit(masolat.AlkatreszLista);
                     ProjektekBetoltes();
@@ -597,7 +626,7 @@ namespace EKNyilvantarto
         #endregion
 
         #region Report metódusok
-      
+
         private void KategoriaReportTSMI_Click(object sender, EventArgs e)
         {
             if (kategoriaTSCBX1.SelectedItem == null) return;
@@ -613,13 +642,13 @@ namespace EKNyilvantarto
         private void LeltarReportTSMI_Click(object sender, EventArgs e)
         {
             List<Keszlet> teljesKeszlet = new List<Keszlet>();
-            List<Kategoria> kategoriaLista= ABKezelo.KategoriaLekerdezes();
-              
+            List<Kategoria> kategoriaLista = ABKezelo.KategoriaLekerdezes();
+
             foreach (Kategoria kategoria in kategoriaLista)
             {
                 teljesKeszlet.AddRange(ABKezelo.KeszletLeker(kategoria));
             }
-            ReporterFrm frm = new ReporterFrm(teljesKeszlet,true);
+            ReporterFrm frm = new ReporterFrm(teljesKeszlet, true);
             frm.ShowDialog();
         }
         private void statisztikaTSMI_Click_1(object sender, EventArgs e)

@@ -223,6 +223,16 @@ namespace EKNyilvantarto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap preferences_icon_16px {
+            get {
+                object obj = ResourceManager.GetObject("preferences_icon_16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap print_btn {
             get {
                 object obj = ResourceManager.GetObject("print-btn", resourceCulture);

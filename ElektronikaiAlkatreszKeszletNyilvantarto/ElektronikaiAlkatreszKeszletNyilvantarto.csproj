@@ -246,6 +246,8 @@
     <None Include="Resources\PCB-icon.png" />
     <None Include="Resources\Icon1.ico" />
     <None Include="Resources\Folders-Black-Folder-icon.png" />
+    <None Include="Resources\preferences-icon.png" />
+    <None Include="Resources\preferences-icon_16px.png" />
     <Content Include="Resources\print-btn.png" />
     <None Include="Report\DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
@@ -272,9 +274,6 @@
     <None Include="Resources\Button Next.png" />
     <None Include="Resources\Button Delete.png" />
     <None Include="Resources\Button Add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
