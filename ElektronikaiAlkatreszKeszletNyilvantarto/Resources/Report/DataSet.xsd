@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet" targetNamespace="http://tempuri.org/DataSet.xsd" xmlns:mstns="http://tempuri.org/DataSet.xsd" xmlns="http://tempuri.org/DataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet" msprop:Generator_UserDSName="DataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Alkatresz" msprop:Generator_TableClassName="AlkatreszDataTable" msprop:Generator_TableVarName="tableAlkatresz" msprop:Generator_RowChangedName="AlkatreszRowChanged" msprop:Generator_TablePropName="Alkatresz" msprop:Generator_RowDeletingName="AlkatreszRowDeleting" msprop:Generator_RowChangingName="AlkatreszRowChanging" msprop:Generator_RowEvHandlerName="AlkatreszRowChangeEventHandler" msprop:Generator_RowDeletedName="AlkatreszRowDeleted" msprop:Generator_RowClassName="AlkatreszRow" msprop:Generator_UserTableName="Alkatresz" msprop:Generator_RowEvArgName="AlkatreszRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Megnevezes" msdata:Caption="Megnevezés" msprop:Generator_ColumnVarNameInTable="columnMegnevezes" msprop:Generator_ColumnPropNameInRow="Megnevezes" msprop:Generator_ColumnPropNameInTable="MegnevezesColumn" msprop:Generator_UserColumnName="Megnevezes" type="xs:string" minOccurs="0" />
+              <xs:element name="Darab" msprop:Generator_ColumnVarNameInTable="columnDarab" msprop:Generator_ColumnPropNameInRow="Darab" msprop:Generator_ColumnPropNameInTable="DarabColumn" msprop:Generator_UserColumnName="Darab" type="xs:string" minOccurs="0" />
+              <xs:element name="DarabAr" msdata:Caption="Darab ár" msprop:Generator_ColumnVarNameInTable="columnDarabAr" msprop:Generator_ColumnPropNameInRow="DarabAr" msprop:Generator_ColumnPropNameInTable="DarabArColumn" msprop:Generator_UserColumnName="DarabAr" type="xs:string" minOccurs="0" />
+              <xs:element name="OsszAr" msdata:Caption="Összár" msprop:Generator_ColumnVarNameInTable="columnOsszAr" msprop:Generator_ColumnPropNameInRow="OsszAr" msprop:Generator_ColumnPropNameInTable="OsszArColumn" msprop:Generator_UserColumnName="OsszAr" type="xs:string" minOccurs="0" />
+              <xs:element name="Parameterek" msdata:Caption="Paraméterek" msprop:Generator_ColumnVarNameInTable="columnParameterek" msprop:Generator_ColumnPropNameInRow="Parameterek" msprop:Generator_ColumnPropNameInTable="ParameterekColumn" msprop:Generator_UserColumnName="Parameterek" type="xs:string" minOccurs="0" />
+              <xs:element name="Kategoria" msdata:Caption="Kategória" msprop:Generator_ColumnVarNameInTable="columnKategoria" msprop:Generator_ColumnPropNameInRow="Kategoria" msprop:Generator_ColumnPropNameInTable="KategoriaColumn" msprop:Generator_UserColumnName="Kategoria" type="xs:string" minOccurs="0" />
+              <xs:element name="Megjegyzes" msdata:Caption="Megjegyzés" msprop:Generator_ColumnVarNameInTable="columnMegjegyzes" msprop:Generator_ColumnPropNameInRow="Megjegyzes" msprop:Generator_ColumnPropNameInTable="MegjegyzesColumn" msprop:Generator_UserColumnName="Megjegyzes" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="StatisztikaDS" msprop:Generator_TableClassName="StatisztikaDSDataTable" msprop:Generator_TableVarName="tableStatisztikaDS" msprop:Generator_TablePropName="StatisztikaDS" msprop:Generator_RowDeletingName="StatisztikaDSRowDeleting" msprop:Generator_RowChangingName="StatisztikaDSRowChanging" msprop:Generator_RowEvHandlerName="StatisztikaDSRowChangeEventHandler" msprop:Generator_RowDeletedName="StatisztikaDSRowDeleted" msprop:Generator_UserTableName="StatisztikaDS" msprop:Generator_RowChangedName="StatisztikaDSRowChanged" msprop:Generator_RowEvArgName="StatisztikaDSRowChangeEvent" msprop:Generator_RowClassName="StatisztikaDSRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Megnevezes" msprop:Generator_ColumnVarNameInTable="columnMegnevezes" msprop:Generator_ColumnPropNameInRow="Megnevezes" msprop:Generator_ColumnPropNameInTable="MegnevezesColumn" msprop:Generator_UserColumnName="Megnevezes" type="xs:string" minOccurs="0" />
+              <xs:element name="AlkatreszekSzama" msprop:Generator_ColumnVarNameInTable="columnAlkatreszekSzama" msprop:Generator_ColumnPropNameInRow="AlkatreszekSzama" msprop:Generator_ColumnPropNameInTable="AlkatreszekSzamaColumn" msprop:Generator_UserColumnName="AlkatreszekSzama" type="xs:string" minOccurs="0" />
+              <xs:element name="AlkatreszOsszDarabSzam" msprop:Generator_ColumnVarNameInTable="columnAlkatreszOsszDarabSzam" msprop:Generator_ColumnPropNameInRow="AlkatreszOsszDarabSzam" msprop:Generator_ColumnPropNameInTable="AlkatreszOsszDarabSzamColumn" msprop:Generator_UserColumnName="AlkatreszOsszDarabSzam" type="xs:string" minOccurs="0" />
+              <xs:element name="OsszErtek" msprop:Generator_ColumnVarNameInTable="columnOsszErtek" msprop:Generator_ColumnPropNameInRow="OsszErtek" msprop:Generator_ColumnPropNameInTable="OsszErtekColumn" msprop:Generator_UserColumnName="OsszErtek" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

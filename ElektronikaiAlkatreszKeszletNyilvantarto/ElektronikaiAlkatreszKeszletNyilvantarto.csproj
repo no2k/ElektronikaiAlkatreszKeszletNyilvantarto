@@ -102,7 +102,6 @@
     <Compile Include="AlkatreszOsztalyok\AlkatreszParameter.cs" />
     <Compile Include="AlkatreszOsztalyok\Projekt.cs" />
     <Compile Include="LVRendez.cs" />
-    <Compile Include="projektPa.cs" />
     <Compile Include="ReporterFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,11 +110,13 @@
     </Compile>
     <Compile Include="Report\DataSet.cs">
       <DependentUpon>DataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Report\DataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Statisztika.cs" />
     <Compile Include="UjAlkatreszFrm.cs">
@@ -166,10 +167,18 @@
     <EmbeddedResource Include="ReporterFrm.resx">
       <DependentUpon>ReporterFrm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\KeszletReport.rdlc" />
-    <EmbeddedResource Include="Report\LeltarReport.rdlc" />
-    <EmbeddedResource Include="Report\Statisztika.rdlc" />
-    <EmbeddedResource Include="Report\ProjektReport.rdlc" />
+    <EmbeddedResource Include="Report\KeszletReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\LeltarReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\Statisztika.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ProjektReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="UjAlkatreszFrm.resx">
       <DependentUpon>UjAlkatreszFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -252,14 +261,17 @@
     <Content Include="Resources\print-btn.png" />
     <None Include="Report\DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Report\DataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Report\DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\save-btn1.png" />
     <None Include="Resources\print-btn1.png" />

@@ -388,7 +388,6 @@ namespace EKNyilvantarto
         {
             if (projektLV.SelectedItems != null)
             {
-                ;
                 AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista));
             }
         } //OK

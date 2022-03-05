@@ -28,10 +28,15 @@ namespace EKNyilvantarto
 
         public AlkatreszDarabszamBeallitasFrm()
         {
-            
+
             InitializeComponent();
             this.panel1.MouseWheel += Panel_MouseWheel;
             this.panel2.MouseWheel += Panel_MouseWheel;
+        }
+        public AlkatreszDarabszamBeallitasFrm(List<Keszlet> alkatreszek) : this()
+        {
+            this.alkatreszek = alkatreszek;
+            Listazas();
         }
 
         private void Panel_MouseWheel(object sender, MouseEventArgs e)
@@ -40,12 +45,6 @@ namespace EKNyilvantarto
             panel1.AutoScrollPosition = nullPont;
             panel2.AutoScrollPosition = nullPont;
             //az egérgörgő scrollozás miatt, ne csináljon semmit
-        }
-
-        public AlkatreszDarabszamBeallitasFrm(List<Keszlet> alkatreszek) : this()
-        {
-            this.alkatreszek = alkatreszek;
-            Listazas();
         }
 
         private void Listazas()
@@ -67,13 +66,12 @@ namespace EKNyilvantarto
                     Width = nudWidth,
                     Name = alkatresz.KeszletId.ToString(),
                     DecimalPlaces = 2,
-                    
                 };
-                    if (keresett.DarabSzam>alkatresz.DarabSzam)
-                    {
-                        nud.Maximum = (decimal)keresett.DarabSzam;
+                if (keresett.DarabSzam >= alkatresz.DarabSzam)
+                {
+                    nud.Maximum = (decimal)keresett.DarabSzam;
                     nud.Enabled = true;
-                    }
+                }
                 else
                 {
                     nud.Maximum = 0;
@@ -108,6 +106,7 @@ namespace EKNyilvantarto
                     }
                 }
             }
+            alkatreszek.Remove(alkatreszek.FirstOrDefault(x => x.DarabSzam == 0));
         }
 
         private void panel1_Scroll(object sender, ScrollEventArgs e)
