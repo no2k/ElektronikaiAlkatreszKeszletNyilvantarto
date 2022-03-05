@@ -16,7 +16,7 @@ namespace EKNyilvantarto
         private string projektLeiras;
         private string projektMegjegyzes;
         private bool aktivProjektFul = false;
-
+        int index;
         private Color hatterSzinEgerAlatt;
         private Color alapHatterSzin, aktivHatterSzin;
       
@@ -81,7 +81,8 @@ namespace EKNyilvantarto
         }
 
         public Color AktivHatterSzin { get => aktivHatterSzin; set => aktivHatterSzin = value; }
-      
+        public int Index { get => index; set => index = value; }
+
         #endregion
 
         public ProjektFul()

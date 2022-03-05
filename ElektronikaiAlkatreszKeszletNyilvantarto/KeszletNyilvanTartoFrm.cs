@@ -1,16 +1,19 @@
 ﻿using EKNyilvantarto.AlkatreszOsztalyok;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Tracing;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace EKNyilvantarto
 {
     public partial class AlkatreszKeszletFrm : Form
     {
+        
         bool hianyzik;
         List<Keszlet> keszletLista = new List<Keszlet>();
         List<Projekt> projektek = new List<Projekt>();
@@ -69,27 +72,44 @@ namespace EKNyilvantarto
         {
             keszletLV.MultiSelect = true;
             keszletLV.FullRowSelect = true;
-            keszletLV.Columns.Add("*", 30).Name = "Sorszam";
-            keszletLV.Columns.Add("Kategória", 150).Name = "Kategoria";
-            keszletLV.Columns.Add("Készlet", 75).Name = "Keszlet";
-            keszletLV.Columns.Add("Darabár", 75).Name = "DarabAr";
-            keszletLV.Columns.Add("Készlet ár", 75).Name = "KeszletAr";
-            keszletLV.Columns.Add("Megnevezés", 150).Name = "Megnevezes";
-            keszletLV.Columns.Add("Paraméterek", 300).Name = "Parameterek";
-            keszletLV.Columns.Add("Megjegyzés", 300).Name = "Megjegyzes";
-
-
-            projektLV.Columns.Add("*", 30).Name = "Sorszam";
-            projektLV.Columns.Add("Kategória", 150).Name = "Kategoria";
-            projektLV.Columns.Add("Készlet", 75).Name = "Keszlet";
-            projektLV.Columns.Add("Darabár", 75).Name = "DarabAr";
-            projektLV.Columns.Add("Készlet ár", 75).Name = "KeszletAr";
-            projektLV.Columns.Add("Megnevezés", 150).Name = "Megnevezes";
-            projektLV.Columns.Add("Paraméterek", 300).Name = "Parameterek";
-            projektLV.Columns.Add("Megjegyzés", 300).Name = "Megjegyzes";
+            keszletLV.Columns.Add("*").Name = "Sorszam";
+            keszletLV.Columns.Add("Kategória").Name = "Kategoria";
+            keszletLV.Columns.Add("Készlet").Name = "Keszlet";
+            keszletLV.Columns.Add("Darabár").Name = "DarabAr";
+            keszletLV.Columns.Add("Készlet ár").Name = "KeszletAr";
+            keszletLV.Columns.Add("Megnevezés").Name = "Megnevezes";
+            keszletLV.Columns.Add("Paraméterek").Name = "Parameterek";
+            keszletLV.Columns.Add("Megjegyzés").Name = "Megjegyzes";
+           
+            projektLV.Columns.Add("*").Name = "Sorszam";
+            projektLV.Columns.Add("Kategória").Name = "Kategoria";
+            projektLV.Columns.Add("Készlet").Name = "Keszlet";
+            projektLV.Columns.Add("Darabár").Name = "DarabAr";
+            projektLV.Columns.Add("Készlet ár").Name = "KeszletAr";
+            projektLV.Columns.Add("Megnevezés").Name = "Megnevezes";
+            projektLV.Columns.Add("Paraméterek").Name = "Parameterek";
+            projektLV.Columns.Add("Megjegyzés").Name = "Megjegyzes";
+           
             projektLV.MultiSelect = true;
             projektLV.FullRowSelect = true;
 
+            LVFejlecMeretezes(keszletLV);
+            LVFejlecMeretezes(projektLV);
+            
+        }
+        private void LVFejlecMeretezes(ListView lv)
+        {
+     
+            int x = lv.Width / 8 == 0 ? 1 : lv.Width / 8;
+            lv.Columns[0].Width = x / 4;
+            lv.Columns[1].Width = x;
+            lv.Columns[2].Width = x / 2 + (x / 4);
+            lv.Columns[3].Width = x / 2 + (x / 4);
+            lv.Columns[4].Width = x / 2 + (x / 4);
+            lv.Columns[5].Width = x;
+            lv.Columns[6].Width = x * 2;
+            lv.Columns[7].Width = x * 2;
+            
         }
         void ListaFrissit(ListView lv, List<Keszlet> alkatreszLista)
         {
@@ -186,7 +206,8 @@ namespace EKNyilvantarto
             {
                 MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            LVFejlecMeretezes(keszletLV);
+            LVFejlecMeretezes(projektLV);
         }
         private void AlkatreszTSMI_Click(object sender, EventArgs e)
         {
@@ -228,10 +249,12 @@ namespace EKNyilvantarto
         private void ProjektFulFeltoltes(List<Projekt> projektlista)
         {
             projektFulLista.Clear();
+
             foreach (Projekt item in projektlista)
             {
                 ProjektFul prj = new ProjektFul()
                 {
+                    Index = (int)item.ProjektAzonosito,
                     Width = 220,
                     Megnevezes = item.ProjektNev,
                     Leiras = item.Leiras,
@@ -246,6 +269,9 @@ namespace EKNyilvantarto
                 prj.BtnClick += Prj_Button1_Click;
                 projektFulLista.Add(prj);
             }
+            List<ProjektFul> rendezett = new List<ProjektFul>(projektFulLista.OrderByDescending(x => x.Index));
+            projektFulLista.Clear();
+            projektFulLista = new List<ProjektFul>(rendezett);
             ProjektPanelFrissit();
         }
 
@@ -320,7 +346,7 @@ namespace EKNyilvantarto
                 int projektIndex = projektek.IndexOf(projekt);
                 int prjFulIndex = projektFulLista.IndexOf(
                     projektFulLista.First(
-                        x=>x.Megnevezes==projekt.ProjektNev
+                        x => x.Megnevezes == projekt.ProjektNev
                         ));
                 UjProjektFrm frm = new UjProjektFrm(projekt);
                 frm.ShowDialog();
@@ -698,6 +724,12 @@ namespace EKNyilvantarto
             this.Close();
         }
 
+        private void AlkatreszKeszletFrm_Resize(object sender, EventArgs e)
+        {
+            LVFejlecMeretezes(keszletLV);
+            LVFejlecMeretezes(projektLV);
+        }
     }
 
+   
 }
