@@ -7,6 +7,8 @@ namespace EKNyilvantarto
 {
     public partial class ProjektFul : UserControl
     {
+        #region Fieldek
+
         public event EventHandler Clicked;
         public event EventHandler BtnClick;
 
@@ -17,9 +19,27 @@ namespace EKNyilvantarto
 
         private Color hatterSzinEgerAlatt;
         private Color alapHatterSzin, aktivHatterSzin;
+      
+        #endregion
+
         #region Propertyk
 
-        public bool AktivProjektFul { get => aktivProjektFul; set => aktivProjektFul = value; }
+        public bool AktivProjektFul
+        {
+            get => aktivProjektFul;
+            set
+            {
+                aktivProjektFul = value;
+                if (aktivProjektFul)
+                {
+                    BackColor = aktivHatterSzin;
+                }
+                else
+                {
+                    BackColor = alapHatterSzin;
+                }
+            }
+        }
 
         [Category("Text")]
         public string Megnevezes
@@ -61,13 +81,17 @@ namespace EKNyilvantarto
         }
 
         public Color AktivHatterSzin { get => aktivHatterSzin; set => aktivHatterSzin = value; }
+      
         #endregion
+
         public ProjektFul()
         {
             BackColor = alapHatterSzin;
             InitializeComponent();
 
         }
+       
+        #region Eseménykezelők
 
         private void ProjektFul_MouseClick(object sender, MouseEventArgs e)
         {
@@ -102,5 +126,6 @@ namespace EKNyilvantarto
             BtnClick?.Invoke(this, EventArgs.Empty);
         }
 
+        #endregion
     }
 }

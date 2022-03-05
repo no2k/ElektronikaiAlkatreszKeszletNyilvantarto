@@ -69,10 +69,10 @@ namespace EKNyilvantarto
             // 
             // toolTip1
             // 
-            this.toolTip1.AutomaticDelay = 1000;
-            this.toolTip1.AutoPopDelay = 1000;
-            this.toolTip1.InitialDelay = 1000;
-            this.toolTip1.ReshowDelay = 500;
+            this.toolTip1.AutomaticDelay = 2000;
+            this.toolTip1.AutoPopDelay = 2000;
+            this.toolTip1.InitialDelay = 2000;
+            this.toolTip1.ReshowDelay = 1000;
             // 
             // button1
             // 

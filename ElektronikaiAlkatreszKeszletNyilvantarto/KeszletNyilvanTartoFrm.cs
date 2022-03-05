@@ -14,6 +14,7 @@ namespace EKNyilvantarto
         bool hianyzik;
         List<Keszlet> keszletLista = new List<Keszlet>();
         List<Projekt> projektek = new List<Projekt>();
+        List<ProjektFul> projektFulLista = new List<ProjektFul>();
         Projekt projekt;
         LVRendez lvRendez;
 
@@ -219,7 +220,6 @@ namespace EKNyilvantarto
         #region "Projekt" metódusok
         private void ProjektekBetoltes()
         {
-
             projektek = ABKezelo.ProjektekLekerdez();
             projektPanel.Controls.Clear();
             foreach (Projekt item in projektek)
@@ -231,18 +231,25 @@ namespace EKNyilvantarto
                     Leiras = item.Leiras,
                     Megjegyzes = item.Megjegyzes,
                     Anchor = AnchorStyles.Left,
-                    BackColor=Color.LightSkyBlue
+                    BackColor = Color.LightSkyBlue,
+                    AlapHatterSzin = Color.LightSkyBlue,
+                    HatterSzinEgerAlatt = Color.DeepSkyBlue,
+                    AktivHatterSzin = Color.DodgerBlue,
                 };
-                // prj.AlapHatterSzin = (prj.AktivProjektFul) ? Color.LightSkyBlue : Color.DeepSkyBlue;
-                prj.AlapHatterSzin = Color.LightSkyBlue;
-                prj.HatterSzinEgerAlatt = Color.DeepSkyBlue;
-                prj.AktivHatterSzin = Color.DodgerBlue;
                 prj.Clicked += Prj_Clicked;
                 prj.BtnClick += Prj_Button1_Click;
-                projektPanel.Controls.Add(prj);
+                projektFulLista.Add(prj);
             }
+            ProjektPanelFrissit();
+        }
+
+        void ProjektPanelFrissit()
+        {
+            projektPanel.Controls.Clear();
+            projektPanel.Controls.AddRange(projektFulLista.ToArray());
             projektPanel.Refresh();
         }
+
         private void UjProjektTSMI_Click(object sender, EventArgs e)
         {
             UjProjektFrm frm = new UjProjektFrm();
@@ -256,20 +263,26 @@ namespace EKNyilvantarto
         {
             if ((sender is ProjektFul prj))
             {
-                foreach (ProjektFul prjFul in projektPanel.Controls)
-                {
-                    if (prjFul!=prj)
+                projektFulLista.ForEach(
+                    elem =>
                     {
-                        prjFul.AktivProjektFul = false;
-                        prjFul.AktivHatterSzin = prjFul.AlapHatterSzin;
-                    }
-                }
+                        if (elem.Megnevezes == prj.Megnevezes)
+                        {
+                            elem.AktivProjektFul = true;
+                            elem.HatterSzinEgerAlatt = Color.CornflowerBlue;
+                        }
+                        else
+                        {
+                            elem.AktivProjektFul = false;
+                            elem.HatterSzinEgerAlatt = Color.DeepSkyBlue;
+                        }
+                    });
+                ProjektPanelFrissit();
+
                 foreach (Projekt item in projektek)
                 {
                     if (item.ProjektNev == prj.Megnevezes)
                     {
-                        prj.AktivProjektFul = true;
-                        prj.AktivHatterSzin = Color.DodgerBlue;
                         projekt = item;
                         ABKezelo.ProjektAlkatreszLekerdez(projekt);
                         if (!projekt.LezartStatusz)
@@ -289,15 +302,7 @@ namespace EKNyilvantarto
                             prjLezarPrjLVTSBtn.Image = projektLezarPrjPanelTSBtn.Image;
                         }
                     }
-
-                    else
-                    {
-                       // prj.AktivProjektFul = false;
-                        prj.AlapHatterSzin = Color.LightSkyBlue;
-                    }
                 }
-                
-                projektPanel.Refresh();
                 ListaFrissit(projektLV, projekt.AlkatreszLista);
             }
         } //OK
@@ -679,8 +684,6 @@ namespace EKNyilvantarto
         {
             this.Close();
         }
-
-
 
     }
 
