@@ -220,8 +220,9 @@ namespace EKNyilvantarto
         #region "Projekt" metódusok
         private void ProjektekBetoltes()
         {
+            projektek.Clear();
             projektek = ABKezelo.ProjektekLekerdez();
-            projektPanel.Controls.Clear();
+            projektFulLista.Clear();
             foreach (Projekt item in projektek)
             {
                 ProjektFul prj = new ProjektFul()
@@ -535,6 +536,7 @@ namespace EKNyilvantarto
             if (MessageBox.Show($"Biztosan szeretnéd törölni a(z) \"{projekt}\" projektet?", "Biztosan törlöd?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ABKezelo.ProjektTorles(projekt);
+                projektek.Remove(projekt);
                 ProjektekBetoltes();
             }
         }  //OK
