@@ -222,8 +222,13 @@ namespace EKNyilvantarto
         {
             projektek.Clear();
             projektek = ABKezelo.ProjektekLekerdez();
+            ProjektFulFeltoltes(projektek);
+        }
+
+        private void ProjektFulFeltoltes(List<Projekt> projektlista)
+        {
             projektFulLista.Clear();
-            foreach (Projekt item in projektek)
+            foreach (Projekt item in projektlista)
             {
                 ProjektFul prj = new ProjektFul()
                 {
@@ -312,8 +317,15 @@ namespace EKNyilvantarto
             if (projekt == null) return;
             if (!projekt.LezartStatusz)
             {
+                int projektIndex = projektek.IndexOf(projekt);
+                int prjFulIndex = projektFulLista.IndexOf(
+                    projektFulLista.First(
+                        x=>x.Megnevezes==projekt.ProjektNev
+                        ));
                 UjProjektFrm frm = new UjProjektFrm(projekt);
                 frm.ShowDialog();
+                ABKezelo.ProjektModositas(projekt);
+                ProjektFulFeltoltes(projektek);
             }
             else
             {

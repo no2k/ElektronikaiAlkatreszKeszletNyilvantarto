@@ -28,6 +28,7 @@ namespace EKNyilvantarto
             megnevezTxb.Enabled = true;
             megnevezTxb.Text = projekt.ProjektNev;
             leirasTxb.Text = projekt.Leiras;
+            megjegyzesTxb.Text = projekt.Megjegyzes;
             button1.Text = "Módosítás";
             label1.Text = projekt.ProjektNev + " módosítása";
         }
@@ -36,25 +37,15 @@ namespace EKNyilvantarto
         {
             if (projekt != null)
             {
-                if (projekt.ProjektAzonosito == null)
-                {
                     projekt.ProjektNev = megnevezTxb.Text;
                     projekt.Leiras = leirasTxb.Text;
                     projekt.Megjegyzes = megjegyzesTxb.Text;
                     DialogResult = DialogResult.OK;
-                }
-                else
-                {
-                    projekt.Leiras = leirasTxb.Text;
-                    DialogResult = DialogResult.OK;
-                }
             }
             else
             {
                 AdatokTeszteleseEsLetrehozas();
-
             }
-
         }
 
         private void AdatokTeszteleseEsLetrehozas()

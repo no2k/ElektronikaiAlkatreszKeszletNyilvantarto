@@ -784,7 +784,8 @@ namespace EKNyilvantarto
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText = " UPDATE [Projekt] SET [LEIRAS]=@leiras,[MEGJEGYZES]=@megjegyzes WHERE [PROJEKT_ID]=@id";
+                parancs.CommandText = " UPDATE [Projekt] SET [LEIRAS]=@leiras, [MEGNEVEZES]=@megnevezes, [MEGJEGYZES]=@megjegyzes WHERE [PROJEKT_ID]=@id";
+                parancs.Parameters.AddWithValue("@megnevezes", prjModosit.ProjektNev);
                 parancs.Parameters.AddWithValue("@leiras", prjModosit.Leiras);
                 parancs.Parameters.AddWithValue("@megjegyzes", prjModosit.Megjegyzes);
                 parancs.Parameters.AddWithValue("@id", prjModosit.ProjektAzonosito);

@@ -7,7 +7,7 @@
     <ProjectGuid>{27817464-DB2A-425B-A3AB-60E247114160}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>EKNyilvantarto</RootNamespace>
-    <AssemblyName>ElektronikaiAlkatreszKeszletNyilvantarto</AssemblyName>
+    <AssemblyName>ElektroKeszlet</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -124,6 +124,7 @@ namespace EKNyilvantarto
         private void button1_Click(object sender, EventArgs e)
         {
             BtnClick?.Invoke(this, EventArgs.Empty);
+
         }
 
         #endregion
