@@ -338,7 +338,7 @@ namespace EKNyilvantarto
             this.lv1.TabIndex = 17;
             this.lv1.UseCompatibleStateImageBehavior = false;
             this.lv1.View = System.Windows.Forms.View.Details;
-            this.lv1.SelectedIndexChanged += new System.EventHandler(this.lv1_SelectedIndexChanged);
+            this.lv1.SelectedIndexChanged += new System.EventHandler(this.Lv1_SelectedIndexChanged);
             // 
             // UjAlkatreszFrm
             // 

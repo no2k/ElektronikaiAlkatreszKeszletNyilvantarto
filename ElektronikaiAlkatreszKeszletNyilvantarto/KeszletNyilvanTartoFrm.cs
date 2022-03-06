@@ -232,6 +232,7 @@ namespace EKNyilvantarto
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DialogResult = DialogResult.None;
             }
         }
         private void ujAlkatreszTSBtn_Click(object sender, EventArgs e)
