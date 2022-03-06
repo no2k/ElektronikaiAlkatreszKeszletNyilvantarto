@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
-
+using static System.Windows.Forms.ListView;
 
 namespace EKNyilvantarto
 {
@@ -56,6 +55,7 @@ namespace EKNyilvantarto
             lv1.Columns.Add("Kategória", 150);
             lv1.Columns.Add("Megnevezés", 150);
             lv1.Columns.Add("Paraméterek", 300);
+            lv1.Columns.Add("Megjegyzés");
         }
         private void ListaFrissit()
         {
@@ -76,32 +76,32 @@ namespace EKNyilvantarto
         }
         private ListViewItem LVSorFeltolt(int sorszam, Keszlet keszletElem)
         {
-            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, keszletElem.Alkatresz.ToString() /*parameterekString*/ };
+            string[] ujSor = new string[] { sorszam.ToString(), keszletElem.DarabSzam.ToString() + " Db", keszletElem.DarabAr.ToString() + " Ft", keszletElem.Alkatresz.Kategoria.KategoriaMegnevezes, keszletElem.Alkatresz.Megnevezes, keszletElem.Alkatresz.ToString(),keszletElem.Megjegyzes};
             return new ListViewItem(ujSor);
         }
         private void lv1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (lv1.SelectedItems.Count == 0) return;
             kategoriaCbx.Enabled = false;
-            string keresendo = string.Empty;
-
-            foreach (ListViewItem item in lv1.SelectedItems)
-            {
-                keresendo = item.SubItems[5].Text;
-            }
-
-            keresett = KeszletLista.FirstOrDefault(elem => elem.Alkatresz.ToString() == keresendo);
+            keresett =LVItembolKeszlet(lv1.SelectedItems);
             keresettIndex = KeszletLista.IndexOf(keresett);
-
             kategoriaCbx.SelectedIndex = kategoriaCbx.FindStringExact(keresett.Alkatresz.Kategoria.ToString());
             megnevezTxB.Text = keresett.Alkatresz.Megnevezes;
             darabArNud.Value = (decimal)keresett.DarabAr;
             keszletNud.Value = (decimal)keresett.DarabSzam;
             megjegyzesTbx.Text = keresett.Megjegyzes;
             DinamikusListaAdatFeltolt(keresett.Alkatresz.Parameterek);
-            lv1.SelectedIndices.Clear();
             button1.Text = "Módosítás";
+        }
+
+        private Keszlet LVItembolKeszlet(SelectedListViewItemCollection lvItems)
+        {
+            string keresendo = string.Empty;
+            foreach (ListViewItem item in lv1.SelectedItems)
+            {
+                keresendo = item.SubItems[5].Text;
+            }
+            return KeszletLista.FirstOrDefault(elem => elem.Alkatresz.ToString() == keresendo); 
         }
 
 
@@ -279,12 +279,10 @@ namespace EKNyilvantarto
         }
         private void button5_Click_1(object sender, EventArgs e)  //torles
         {
-            if (lv1.SelectedItems != null)
+            if (lv1.SelectedItems.Count !=0)
             {
-                foreach (Keszlet item in lv1.SelectedItems)
-                {
-                    ujKeszletLista.Remove(item);
-                }
+                ujKeszletLista.Remove(LVItembolKeszlet(lv1.SelectedItems));
+                lv1.SelectedIndices.Clear();
                 ListaFrissit();
             }
         }
