@@ -93,39 +93,9 @@ namespace EKNyilvantarto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Button_Play {
-            get {
-                object obj = ResourceManager.GetObject("Button Play", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Button_Previous {
-            get {
-                object obj = ResourceManager.GetObject("Button Previous", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Button_Refresh {
             get {
                 object obj = ResourceManager.GetObject("Button Refresh", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Button_Reload {
-            get {
-                object obj = ResourceManager.GetObject("Button Reload", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,39 +123,9 @@ namespace EKNyilvantarto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Generic_Folder_black_icon {
-            get {
-                object obj = ResourceManager.GetObject("Generic-Folder-black-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap grey_trash_empty_icon {
-            get {
-                object obj = ResourceManager.GetObject("grey-trash-empty-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap New_Folder_black_icon {
             get {
                 object obj = ResourceManager.GetObject("New-Folder-black-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PCB_icon {
-            get {
-                object obj = ResourceManager.GetObject("PCB_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,16 +186,6 @@ namespace EKNyilvantarto.Properties {
         internal static System.Drawing.Bitmap Private_Folder_black_icon {
             get {
                 object obj = ResourceManager.GetObject("Private-Folder-black-icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap save_btn {
-            get {
-                object obj = ResourceManager.GetObject("save-btn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

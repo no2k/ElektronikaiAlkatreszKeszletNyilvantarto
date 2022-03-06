@@ -243,21 +243,22 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="KeszletAB.mdf" />
+    <Content Include="KeszletAB.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="KeszletAb.sql" />
     <Content Include="KeszletAB_log.ldf">
       <DependentUpon>KeszletAB.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Resources\Trash-can-icon.png" />
-    <None Include="Resources\Generic-Folder-black-icon.png" />
     <None Include="Resources\New-Folder-black-icon.png" />
-    <None Include="Resources\grey-trash-empty-icon.png" />
     <None Include="Resources\Drop-Box-Folder-black-icon.png" />
-    <None Include="Resources\PCB-icon.png" />
     <None Include="Resources\Icon1.ico" />
     <None Include="Resources\Folders-Black-Folder-icon.png" />
     <None Include="Resources\preferences-icon.png" />
     <None Include="Resources\preferences-icon_16px.png" />
+    <None Include="Resources\Double-J-Design-Electronics-DIP-16-pin.ico" />
     <Content Include="Resources\print-btn.png" />
     <None Include="Report\DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
@@ -273,17 +274,12 @@
       <DependentUpon>DataSet.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\save-btn1.png" />
     <None Include="Resources\print-btn1.png" />
     <None Include="Resources\Private-Folder-black-icon.png" />
-    <Content Include="Resources\save-btn.png" />
     <None Include="Resources\power-button3.png" />
     <None Include="Resources\power-button2.png" />
     <None Include="Resources\power-button1.png" />
-    <None Include="Resources\Button Play.png" />
-    <None Include="Resources\Button Reload.png" />
     <None Include="Resources\Button Refresh.png" />
-    <None Include="Resources\Button Previous.png" />
     <None Include="Resources\Button Next.png" />
     <None Include="Resources\Button Delete.png" />
     <None Include="Resources\Button Add.png" />

@@ -27,7 +27,7 @@ namespace EKNyilvantarto
             }
             catch (Exception ex)
             {
-                throw new ABKivetel("Sikertelen csatlakozás az adatbázishoz", ex);
+                throw new ABKivetel("Sikertelen csatlakozás az adatbázishoz!\n\rAz adatbázis sérült vagy nem található!", ex);
             }
         } //OK
         public static void KapcsolatBontas()
@@ -745,8 +745,9 @@ namespace EKNyilvantarto
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText = "UPDATE [Keszlet] SET [MENNYISEG]=@darabSzam ,[EGYSEGAR]=@darabAr WHERE [ALKATRESZ_ID]=@alkatreszId";
+                parancs.CommandText = "UPDATE [Keszlet] SET [MENNYISEG]=@darabSzam, [EGYSEGAR]=@darabAr, [MEGJEGYZES]=@megjegyzes WHERE [ALKATRESZ_ID]=@alkatreszId";
                 parancs.Parameters.AddWithValue("@darabSzam", mit.DarabSzam);
+                parancs.Parameters.AddWithValue("@megjegyzes", mit.Megjegyzes);
                 parancs.Parameters.AddWithValue("@darabAr", mit.DarabAr);
                 parancs.Parameters.AddWithValue("@alkatreszId", mit.Alkatresz.AlkatreszId);
                 parancs.ExecuteNonQuery();

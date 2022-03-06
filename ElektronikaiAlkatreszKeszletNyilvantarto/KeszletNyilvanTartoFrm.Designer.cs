@@ -431,7 +431,7 @@ namespace EKNyilvantarto
             // 
             this.projekthezAdBtn.AutoSize = false;
             this.projekthezAdBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.projekthezAdBtn.Image = global::EKNyilvantarto.Properties.Resources.Button_Add;
+            this.projekthezAdBtn.Image = global::EKNyilvantarto.Properties.Resources.Button_Next;
             this.projekthezAdBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.projekthezAdBtn.Name = "projekthezAdBtn";
             this.projekthezAdBtn.Size = new System.Drawing.Size(24, 27);

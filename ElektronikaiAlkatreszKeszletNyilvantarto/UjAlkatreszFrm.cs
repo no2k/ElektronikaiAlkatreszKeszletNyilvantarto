@@ -249,6 +249,7 @@ namespace EKNyilvantarto
                                     {
                                         alkatresz.DarabAr = keszlet.DarabAr;
                                         alkatresz.DarabSzam += keszlet.DarabSzam;
+                                        
                                         //ListaFrissit();
                                     }
                                 }
@@ -298,6 +299,11 @@ namespace EKNyilvantarto
                         keszlet = ABKezelo.KeszletKeresParameterekAlapjan(ujKeszlet.Alkatresz.Parameterek);
                         keszlet.DarabSzam += ujKeszlet.DarabSzam;
                         keszlet.DarabAr = ujKeszlet.DarabAr;
+                        if (!string.IsNullOrEmpty(ujKeszlet.Megjegyzes))
+                        {
+                            keszlet.Megjegyzes = ujKeszlet.Megjegyzes;
+                        }
+
                         ABKezelo.KeszletModositas(keszlet);
                     }
                     else

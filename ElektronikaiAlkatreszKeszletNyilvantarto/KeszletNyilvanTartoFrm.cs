@@ -42,6 +42,7 @@ namespace EKNyilvantarto
             catch (ABKivetel ex)
             {
                 MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         } //OK!
         private void KategoriaFrissit()
@@ -205,6 +206,7 @@ namespace EKNyilvantarto
             catch (ABKivetel ex)
             {
                 MessageBox.Show(ex.Message, "Csatlakozási hiba!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
             LVFejlecMeretezes(keszletLV);
             LVFejlecMeretezes(projektLV);
