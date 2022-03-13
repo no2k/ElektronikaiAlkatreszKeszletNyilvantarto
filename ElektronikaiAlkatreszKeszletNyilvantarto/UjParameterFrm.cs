@@ -103,7 +103,7 @@ namespace EKNyilvantarto
             {
                 switch (radio.TabIndex)
                 {
-                    case 9:
+                    case 9:     //Szöveg
                         {
                             felsorolChbx.Enabled = true;
                             if (felsorolChbx.Checked == false)
@@ -118,21 +118,21 @@ namespace EKNyilvantarto
                             }
                         }
                         break;
-                    case 10:
+                    case 10:        //Egész szám
                         {
                             felsorolChbx.Enabled = false;
                             MertekEgysegTxb.Enabled = true;
                             tipus = 1;
                         }
                         break;
-                    case 11:
+                    case 11:        //Tört Szám
                         {
                             felsorolChbx.Enabled = false;
                             MertekEgysegTxb.Enabled = true;
                             tipus = 2;
                         }
                         break;
-                    case 12:
+                    case 12:        //Logikai
                         {
                             felsorolChbx.Enabled = false;
                             MertekEgysegTxb.Clear();

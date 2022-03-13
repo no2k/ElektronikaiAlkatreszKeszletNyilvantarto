@@ -237,8 +237,12 @@ namespace EKNyilvantarto
                              megnevezTxB.Text, new List<AlkatreszParameter>(alkatreszParameterLista)
                             ));
                         ListahozAd(keszlet);
+                        darabArNud.Value = 0;
+                        keszletNud.Value = 0;
+                        megnevezTxB.Clear();
+                        //megjegyzesTbx.Clear();
                     }
-                  ListaFrissit();
+                    ListaFrissit();
                 }
                 else
                 {
@@ -483,6 +487,7 @@ namespace EKNyilvantarto
         {
             if (panel2.Controls != null)
             {
+                bool elozoVezerloCheckBoxVolt = false;
                 string labelText = string.Empty;
                 string ertekStr = "-";
                 string meStr = "";
@@ -491,7 +496,14 @@ namespace EKNyilvantarto
                 {
                     if (item is Label lbl)
                     {
-                        labelText = lbl.Text;
+                        if (elozoVezerloCheckBoxVolt)
+                        {
+                            meStr = labelText;
+                        }
+                        else
+                        {
+                            labelText = lbl.Text;
+                        }
                     }
                     if ((item is TextBox txb))
                     {
@@ -513,7 +525,9 @@ namespace EKNyilvantarto
                     }
                     else if (item is CheckBox chbx)
                     {
-                        ertekStr = (chbx.Checked) ? "1" : "0";
+                        //meStr = labelText.TrimEnd(':');
+                        ertekStr = (chbx.Checked) ? "Igen" : "Nem";
+                        elozoVezerloCheckBoxVolt = true;
                         ParameterSorszam++;
                     }
                     if (item is ComboBox cbx && cbx.Name == "meCbx")
@@ -522,7 +536,17 @@ namespace EKNyilvantarto
                     }
                     else if (item is Label meLbl && meLbl.Name == "meLbl")
                     {
-                        meStr = meLbl.Text;
+
+                        if (elozoVezerloCheckBoxVolt)
+                        {
+                            meStr = labelText.TrimEnd(':');
+                            elozoVezerloCheckBoxVolt = false;
+                        }
+                        else
+                        {
+                            meStr = meLbl.Text;
+                        }
+                        //meStr = meLbl.Text;
                     }
                     if (!string.IsNullOrEmpty(ertekStr) && !string.IsNullOrEmpty(meStr))
                     {
@@ -569,7 +593,7 @@ namespace EKNyilvantarto
                 {
                     if (checkbox.Name == "CheckBox")
                     {
-                        checkbox.Checked = bool.Parse(parameterek[parameterSorszam].ParameterErtek);
+                        checkbox.Checked = (parameterek[parameterSorszam].ParameterErtek == "Igen") ? true : false;
                     }
                 }
                 if (item is ComboBox cbx)

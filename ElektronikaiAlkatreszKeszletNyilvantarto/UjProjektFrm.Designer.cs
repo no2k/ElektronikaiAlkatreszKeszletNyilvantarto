@@ -42,7 +42,7 @@ namespace EKNyilvantarto
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(8, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(203, 20);
             this.label1.TabIndex = 0;
@@ -51,7 +51,7 @@ namespace EKNyilvantarto
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 65);
+            this.label2.Location = new System.Drawing.Point(8, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(163, 20);
             this.label2.TabIndex = 1;
@@ -59,25 +59,29 @@ namespace EKNyilvantarto
             // 
             // megnevezTxb
             // 
-            this.megnevezTxb.Location = new System.Drawing.Point(17, 36);
+            this.megnevezTxb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.megnevezTxb.Location = new System.Drawing.Point(12, 36);
             this.megnevezTxb.Name = "megnevezTxb";
-            this.megnevezTxb.Size = new System.Drawing.Size(217, 26);
+            this.megnevezTxb.Size = new System.Drawing.Size(250, 26);
             this.megnevezTxb.TabIndex = 1;
             // 
             // leirasTxb
             // 
-            this.leirasTxb.Location = new System.Drawing.Point(17, 89);
+            this.leirasTxb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.leirasTxb.Location = new System.Drawing.Point(12, 89);
             this.leirasTxb.Multiline = true;
             this.leirasTxb.Name = "leirasTxb";
-            this.leirasTxb.Size = new System.Drawing.Size(217, 46);
+            this.leirasTxb.Size = new System.Drawing.Size(250, 45);
             this.leirasTxb.TabIndex = 2;
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(17, 235);
+            this.button1.Location = new System.Drawing.Point(10, 222);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 27);
+            this.button1.Size = new System.Drawing.Size(104, 31);
             this.button1.TabIndex = 4;
             this.button1.Text = "Felvétel";
             this.button1.UseVisualStyleBackColor = true;
@@ -86,25 +90,27 @@ namespace EKNyilvantarto
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.No;
-            this.button2.Location = new System.Drawing.Point(142, 235);
+            this.button2.Location = new System.Drawing.Point(155, 222);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(92, 27);
+            this.button2.Size = new System.Drawing.Size(107, 31);
             this.button2.TabIndex = 5;
             this.button2.Text = "Mégsem";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // megjegyzesTxb
             // 
-            this.megjegyzesTxb.Location = new System.Drawing.Point(17, 161);
+            this.megjegyzesTxb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.megjegyzesTxb.Location = new System.Drawing.Point(12, 161);
             this.megjegyzesTxb.Multiline = true;
             this.megjegyzesTxb.Name = "megjegyzesTxb";
-            this.megjegyzesTxb.Size = new System.Drawing.Size(217, 46);
+            this.megjegyzesTxb.Size = new System.Drawing.Size(250, 55);
             this.megjegyzesTxb.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 138);
+            this.label3.Location = new System.Drawing.Point(8, 138);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 20);
             this.label3.TabIndex = 6;
@@ -114,7 +120,7 @@ namespace EKNyilvantarto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(247, 274);
+            this.ClientSize = new System.Drawing.Size(275, 265);
             this.Controls.Add(this.megjegyzesTxb);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
