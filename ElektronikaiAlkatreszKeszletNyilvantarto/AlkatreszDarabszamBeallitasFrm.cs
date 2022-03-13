@@ -26,6 +26,7 @@ namespace EKNyilvantarto
             }
         }
 
+
         public AlkatreszDarabszamBeallitasFrm()
         {
 
@@ -36,6 +37,12 @@ namespace EKNyilvantarto
         public AlkatreszDarabszamBeallitasFrm(List<Keszlet> alkatreszek) : this()
         {
             this.alkatreszek = alkatreszek;
+            Listazas();
+        }
+        public AlkatreszDarabszamBeallitasFrm(List<Keszlet> alkatreszek,int maxDarabszam) : this()
+        {
+            this.alkatreszek = alkatreszek;
+            this.maxDarabszam = maxDarabszam;
             Listazas();
         }
 
@@ -67,16 +74,35 @@ namespace EKNyilvantarto
                     Name = alkatresz.KeszletId.ToString(),
                     DecimalPlaces = 2,
                 };
-                if (keresett.DarabSzam >= alkatresz.DarabSzam)
+                /* if (keresett.DarabSzam >= alkatresz.DarabSzam)
+                 {
+                     nud.Maximum = (decimal)keresett.DarabSzam;
+                     nud.Enabled = true;
+                 }
+                 else
+                 {
+                     nud.Maximum = 0;
+                     nud.Enabled = false;
+                 }*/
+
+                if (maxDarabszam > 0)
                 {
-                    nud.Maximum = (decimal)keresett.DarabSzam;
-                    nud.Enabled = true;
+                    nud.Maximum = (decimal)maxDarabszam;
                 }
                 else
                 {
-                    nud.Maximum = 0;
-                    nud.Enabled = false;
+                    if (keresett.DarabSzam >= alkatresz.DarabSzam)
+                    {
+                        nud.Maximum = (decimal)keresett.DarabSzam;
+                        nud.Enabled = true;
+                    }
+                    else
+                    {
+                        nud.Maximum = 0;
+                        nud.Enabled = false;
+                    }
                 }
+               
                 nud.Value = (decimal)(float)alkatresz.DarabSzam;
                 lbl = new Label()
                 {

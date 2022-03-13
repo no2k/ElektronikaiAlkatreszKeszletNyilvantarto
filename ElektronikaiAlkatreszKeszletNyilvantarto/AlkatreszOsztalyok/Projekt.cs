@@ -78,7 +78,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             Projekt masolat = (Projekt)this.MemberwiseClone();
             masolat.lezartStatusz = false;
             masolat.projektAzonosito = null;
-            masolat.ProjektNev = this.ProjektNev + " Másolat";
+            masolat.ProjektNev = this.ProjektNev;
             masolat.alkatreszLista =new List<Keszlet>(alkatreszLista);
             return masolat;
         }

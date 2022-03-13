@@ -8,7 +8,7 @@ namespace EKNyilvantarto
     public partial class UjProjektFrm : Form
     {
         Projekt projekt;
-      
+
         internal Projekt Projekt
         {
             get => projekt;
@@ -35,16 +35,45 @@ namespace EKNyilvantarto
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (projekt != null)
+            try
             {
-                    projekt.ProjektNev = megnevezTxb.Text;
-                    projekt.Leiras = leirasTxb.Text;
-                    projekt.Megjegyzes = megjegyzesTxb.Text;
-                    DialogResult = DialogResult.OK;
+
+                if (projekt != null)
+                {
+                    if (projekt.ProjektNev != megnevezTxb.Text || !ABKezelo.VanIlyenProjekt(megnevezTxb.Text))
+                    {
+                        if (!string.IsNullOrWhiteSpace(megnevezTxb.Text))
+                        {
+                            projekt.ProjektNev = megnevezTxb.Text;
+                            projekt.Leiras = leirasTxb.Text;
+                            projekt.Megjegyzes = megjegyzesTxb.Text;
+                            DialogResult = DialogResult.OK;
+                        }
+                        else
+                        {
+                            throw new ArgumentNullException("Új projekt megnevezése", "A beviteli mező nem lehet üres!");
+                            DialogResult = DialogResult.None;
+                        }
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Már van egy ilyen elnevezésű projekt az adatbázisban!");
+                    }
+                }
+                else
+                {
+                    AdatokTeszteleseEsLetrehozas();
+                }
             }
-            else
+            catch (ArgumentNullException ex)
             {
-                AdatokTeszteleseEsLetrehozas();
+                MessageBox.Show(ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                DialogResult = DialogResult.None;
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                DialogResult = DialogResult.None;
             }
         }
 
@@ -56,8 +85,8 @@ namespace EKNyilvantarto
             }
             else
             {
-                MessageBox.Show("A projekt neve nem lehet üres!", "Figyelem", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                DialogResult = DialogResult.None;
+                throw new ArgumentNullException("Új projekt megnevezése", "A beviteli mező nem lehet üres!");
+                //DialogResult = DialogResult.None;
             }
         }
 
@@ -69,8 +98,8 @@ namespace EKNyilvantarto
             }
             else
             {
-                MessageBox.Show("Már van egy ilyen elnevezésű projekt az adatbázisban!","Figyelem",MessageBoxButtons.OK,MessageBoxIcon.Stop);
-                DialogResult = DialogResult.None;
+                throw new ArgumentException("Már van egy ilyen elnevezésű projekt az adatbázisban!");
+                //DialogResult = DialogResult.None;
             }
         }
     }
