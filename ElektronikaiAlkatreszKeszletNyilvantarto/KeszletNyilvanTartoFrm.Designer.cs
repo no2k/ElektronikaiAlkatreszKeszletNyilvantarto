@@ -718,7 +718,6 @@ namespace EKNyilvantarto
             this.projektLV.TabIndex = 1;
             this.projektLV.UseCompatibleStateImageBehavior = false;
             this.projektLV.View = System.Windows.Forms.View.Details;
-            this.projektLV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProjektLV_MouseDoubleClick);
             // 
             // AlkatreszKeszletFrm
             // 

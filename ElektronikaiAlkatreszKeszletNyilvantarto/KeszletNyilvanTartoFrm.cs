@@ -424,13 +424,7 @@ namespace EKNyilvantarto
                 }
             }
         } //OK
-        private void ProjektLV_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (projektLV.SelectedItems != null)
-            {
-                AlkatreszDarabszamBeallitasFrm frm = new AlkatreszDarabszamBeallitasFrm(ListViewElemekbolAlkatreszLista(projektLV.SelectedItems, projekt.AlkatreszLista));
-            }
-        } //OK
+       
         private void PrjAlkatreszModosit_Click(object sender, EventArgs e)
         {
             int kategoriaIndex = kategoriaTSCBX1.SelectedIndex;
