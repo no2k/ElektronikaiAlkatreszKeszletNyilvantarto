@@ -53,7 +53,6 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
             get => parameterMertekEgyseg;
             private set
             {
-                // parameterMertekEgyseg = value;
                 parameterMertekEgyseg = value.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             }
         }

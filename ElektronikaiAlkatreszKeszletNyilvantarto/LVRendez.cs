@@ -57,16 +57,6 @@ namespace EKNyilvantarto
                 return 0;
             }
         }
-        private bool IsNumber(object data, out int numeric)
-        {
-            if ((data is string str))
-            {
-                return int.TryParse(str, out numeric);
-
-            }
-            numeric = 0;
-            return false;
-        }
-
+       
     }
 }

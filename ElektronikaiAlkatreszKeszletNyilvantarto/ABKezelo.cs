@@ -66,7 +66,7 @@ namespace EKNyilvantarto
             try
             {
                 parancs.Parameters.Clear();
-                parancs.CommandText = "SELECT * FROM [Kategoria] WHERE [STATUSZ]=1";
+                parancs.CommandText = "SELECT * FROM [Kategoria] ";
                 List<Kategoria> kategoriaLista = new List<Kategoria>();
                 using (SqlDataReader reader = parancs.ExecuteReader())
                 {

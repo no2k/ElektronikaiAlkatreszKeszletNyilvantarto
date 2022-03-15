@@ -1,2 +1,111 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.Alkatresz" BaseTypeListCollapsed="true">
+    <Position X="7" Y="1" Width="2.25" />
+    <AssociationLine Name="kategoria" Type="EKNyilvantarto.AlkatreszOsztalyok.Kategoria">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.45" Y="0.072" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="parameterek" Type="EKNyilvantarto.AlkatreszOsztalyok.AlkatreszParameter" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.594" Y="4.353" />
+        <Point X="7.594" Y="4.728" />
+        <Point X="8.625" Y="4.728" />
+        <Point X="8.625" Y="5.5" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.195" Y="0.46" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAgACAEgABgAAAAAAAgAAAAAAgAAAAIAAE=</HashCode>
+      <FileName>AlkatreszOsztalyok\Alkatresz.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="kategoria" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="parameterek" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.AlkatreszParameter" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAOQAAAAACEgAAgAAAAAAAAAAAEAAIAAAAAAAA=</HashCode>
+      <FileName>AlkatreszOsztalyok\AlkatreszParameter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.Kategoria" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="4" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAABAAAAAAAAQEAgAAAAAAAAAAAAAAAABAAAAAQAA=</HashCode>
+      <FileName>AlkatreszOsztalyok\Kategoria.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.Keszlet" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAABAIAAACAIAAAkygAAAEAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>AlkatreszOsztalyok\Keszlet.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="alkatresz" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.ParameterDef" BaseTypeListCollapsed="true">
+    <Position X="14" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEQCAACBAECAAAAAAAIAAAAAIAAAACAAABQAA=</HashCode>
+      <FileName>AlkatreszOsztalyok\ParameterDef.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.ParameterDefLista" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAQAAAAAAADQEgAAgAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>AlkatreszOsztalyok\ParameterDefLista.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Kategoria" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Parameterek" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="EKNyilvantarto.AlkatreszOsztalyok.Projekt">
+    <Position X="1.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQDAAAAAgAAIAAAECABQAAAAAAABAAAAAAAQABEAAAA=</HashCode>
+      <FileName>AlkatreszOsztalyok\Projekt.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="alkatreszLista" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="EKNyilvantarto.KategoriaAdatTarolo">
+    <Position X="10.5" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAEAAQAACAAAAQgAAAEAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Statisztika.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EKNyilvantarto.Statisztika">
+    <Position X="14" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IgAAAAAAAACCoBAAAJAAAAASAIAAAiAAAAAIASKSAAA=</HashCode>
+      <FileName>Statisztika.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="kategoriaAdatok" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

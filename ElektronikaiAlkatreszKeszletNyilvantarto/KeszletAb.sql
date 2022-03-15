@@ -10,7 +10,7 @@ drop table dbo.Kategoria
 CREATE TABLE [Kategoria] (
     [KATEGORIA_ID] INT NOT NULL PRIMARY KEY IDENTITY (1, 1),
     [KATEGORIA] VARCHAR (50) NOT NULL,
-    [STATUSZ] BIT NOT NULL DEFAULT ((1)),
+    
   );
  --OK
 CREATE TABLE [Parameter_Def] (

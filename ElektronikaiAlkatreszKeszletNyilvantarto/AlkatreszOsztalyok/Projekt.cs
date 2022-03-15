@@ -8,7 +8,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
     {
         #region Fieldek
         string projektNev, leiras, megjegyzes;
-        int? projektAzonosito; //adatbázisból lekérdezi
+        int? projektAzonosito; 
         List<Keszlet> alkatreszLista;
         bool lezartStatusz;
 

@@ -208,7 +208,6 @@
       <DependentUpon>UjProjektFrm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="AlkatreszKeszletFrm.datasource" />
-    <None Include="AlkatreszOsztalyok1.cd" />
     <None Include="ClassDiagram1.cd" />
     <None Include="EKNyilvantarto.Report.DataSet+KategoriaAdatokDataTable.datasource" />
     <None Include="EKNyilvantarto.Report.DataSet+StatisztikaDSDataTable.datasource" />

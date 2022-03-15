@@ -9,8 +9,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         #region Fied-ek
         Alkatresz alkatresz;
         int? keszletId;
-        float darabSzam;// darabdb
-        float darabAr; //ar db
+        float darabSzam;
+        float darabAr; 
         string megjegyzes;
         #endregion
 
