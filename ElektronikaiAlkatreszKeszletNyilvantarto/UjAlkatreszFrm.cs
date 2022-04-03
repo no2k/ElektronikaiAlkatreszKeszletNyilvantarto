@@ -395,8 +395,8 @@ namespace EKNyilvantarto
                                 Top = top,
                                 Left = left,
                                 Increment = 1,
-                                Minimum = -1000,
-                                Maximum = 1000
+                                Minimum = -9000000,
+                                Maximum = 9000000
                             };
                             gbUjPozicio = nud.Top;
                             top = nud.Bottom;
@@ -414,8 +414,8 @@ namespace EKNyilvantarto
                                 Size = new Size(elemHossza, 23),
                                 Increment = 0.01m,
                                 DecimalPlaces = 2,
-                                Minimum = -1000,
-                                Maximum = 1000
+                                Minimum = -9000000,
+                                Maximum = 9000000
                             };
                             gbUjPozicio = nud.Top;
                             top = nud.Bottom;
