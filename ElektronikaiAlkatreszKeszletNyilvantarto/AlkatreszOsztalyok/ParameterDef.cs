@@ -94,6 +94,8 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
         #region Metódusok
         public static string TombbolStringbeKonvertal(string[] mertekEgyseg)
         {
+            if (mertekEgyseg.Length == 0) return " ";
+            
             string s = "";
             if (mertekEgyseg.Length > 1)
             {

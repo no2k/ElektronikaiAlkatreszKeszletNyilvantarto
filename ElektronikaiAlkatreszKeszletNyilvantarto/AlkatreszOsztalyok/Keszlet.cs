@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace EKNyilvantarto.AlkatreszOsztalyok
 {
 
-    class Keszlet : IEquatable<Keszlet>
+     class Keszlet : IEquatable<Keszlet>
     {
         #region Fied-ek
         Alkatresz alkatresz;

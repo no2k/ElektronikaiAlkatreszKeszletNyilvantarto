@@ -50,7 +50,7 @@ namespace EKNyilvantarto.AlkatreszOsztalyok
                 }
             }
         }
-        internal List<Keszlet> AlkatreszLista
+        public List<Keszlet> AlkatreszLista
         {
             get => alkatreszLista;
             set => alkatreszLista = value;
